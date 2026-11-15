@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <title>@yield('title', 'Admin') | {{ \App\Models\Setting::get('brand_name', config('app.name')) }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/admin.js'])
+    @vite(['resources/css/admin.css', 'resources/js/app.js', 'resources/js/admin.js'])
     <style>
         trix-editor { min-height: 12rem; background: #fff; border-radius: .75rem; border: 2px solid rgb(88 97 126 / .3); }
         trix-toolbar .trix-button-group--file-tools { display: none; }

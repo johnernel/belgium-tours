@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <title>Admin login</title>
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/admin.css'])
 </head>
 <body class="grid min-h-screen place-items-center bg-cream-deep/50 p-4">
 <main class="w-full max-w-sm rounded-[1.75rem] bg-paper p-8 shadow-lift">

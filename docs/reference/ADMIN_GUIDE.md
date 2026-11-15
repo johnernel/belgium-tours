@@ -1,0 +1,49 @@
+# Admin guide (plain English)
+
+Open `/admin` on your site and log in. Everything you can change is in the left menu. Changes show on the website straight away.
+
+## Dashboard
+Shows enquiries this week, new ones nobody has dealt with, the latest enquiries and quick links. A yellow note appears if the GoHighLevel link is off or some leads failed to send.
+
+## Enquiries
+Every form on the site ends up here.
+- Use the search box and the filters (status, source such as `google`, dates) to find people. **Export CSV** downloads what you filtered.
+- Open an enquiry to see their details, quiz answers, where they came from and the **consent evidence** (the exact wording they agreed to, date, IP address). Keep this for disputes.
+- Set a **status** (New, Contacted, Quoted, Won, Lost) and write **internal notes**. Only staff see notes.
+- **Retry sync** re-sends one lead to GoHighLevel. **Delete** removes it for good (including the consent record).
+
+## Packages
+Add, edit, duplicate, publish or hide, feature, and reorder trips.
+- **Published** trips show on the site. The home page shows up to six trips, featured ones first (tick **Featured**, and use the Order numbers).
+- Leave **From price** empty to show "Price on request". Never guess a price.
+- Description uses a simple editor. Highlights and Included/Not included are **one item per line**.
+- Itinerary and trip questions: use **Add a day / Add a question**.
+- Photos: the hero photo and every gallery photo need a short **description** (alt text) for accessibility and Google. Use photos you own or that are free for commercial use.
+- "Page title for Google" and "Description for Google" control what searchers see. Tick "Hide from search" for private pages.
+- **Duplicate** makes a draft copy to adapt.
+
+## Tour types and Destinations
+The lists that packages belong to. Tour types also appear as the cards on the home page and in the menu. "Order" decides the sequence; untick "Show on the site" to hide one.
+
+## Quiz
+The questions in the home page "Start Your Adventure" box. Edit the wording, switch steps on or off, reorder, and add, rename or remove answers (and choose an icon). A new step starts switched off until you add answers and tick **On**. The contact form is always the last step. Answers are saved with the enquiry and sent to GoHighLevel.
+
+## Pages
+Edit the text of the home page sections, About, Contact, Terms and Privacy. Text in [square brackets] is a placeholder to replace. Terms and Privacy are **starter templates**: have a professional review them. Type `[Company Name]` and it becomes your legal company name.
+
+## Testimonials and FAQs
+Only publish real reviews you have permission to use. Untick "placeholder" when a review is real. FAQs show on the home page and are sent to Google as FAQ data.
+
+## Media
+Upload photos once; they are resized and converted for fast loading. Describe every photo.
+
+## Settings
+Brand and **legal company name** (used in the consent wording), logo, favicon, phone (shown as tap-to-call), email, address, social links, footer text, notification emails, the quote-popup wording, Google Tag Manager ID, reCAPTCHA keys, default Google description and share image. Anything left blank is hidden on the site. GoHighLevel keys are **not** here: they live in the server's `.env` file for security.
+
+## Admin users
+Add people, reset passwords. You cannot delete yourself or the last admin. Passwords need 10+ characters.
+
+## Habits that keep the site healthy
+- Answer new enquiries quickly and set their status.
+- Check the dashboard for failed GoHighLevel syncs.
+- Change the first admin password when you launch.

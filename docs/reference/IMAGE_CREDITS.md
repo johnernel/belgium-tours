@@ -1,6 +1,6 @@
 # Image credits
 
-All photos come from Wikimedia Commons under Creative Commons licences that allow commercial use **with attribution** (CC BY). None are ShareAlike. They were downloaded, resized to WebP (640/1024/1600 px) and stored in `public/images/photos`. Credits also appear on the About page (#photo-credits).
+All photos come from Wikimedia Commons under Creative Commons licences that allow commercial use **with attribution** (CC BY). None are ShareAlike. They were downloaded, resized to WebP (480/800/1280/1600 px) and stored in `public/images/photos`. Credits also appear on the About page (#photo-credits).
 
 | File | Source | Author | Licence | Used on |
 |---|---|---|---|---|
@@ -18,5 +18,5 @@ All photos come from Wikimedia Commons under Creative Commons licences that allo
 
 - No photo shows a recognisable brand, logo or private property needing a release. One candidate (Dinant street scene with shop signage) was rejected for that reason.
 - Licence texts: CC BY 2.0 https://creativecommons.org/licenses/by/2.0/, CC BY 3.0 https://creativecommons.org/licenses/by/3.0/, CC BY 4.0 https://creativecommons.org/licenses/by/4.0/
-- To replace a photo, put new WebP sizes in `public/images/photos` with the same base name, or upload via Admin > Media, and update this file.
+- To replace a photo, put new WebP sizes (480, 800, 1280, 1600 wide) in `public/images/photos` with the same base name, or upload via Admin > Media, and update this file.
 - Placeholder: no Antwerp photo is included (no non-ShareAlike licence found). Add one when you supply an image.
