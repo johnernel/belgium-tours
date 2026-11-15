@@ -5,6 +5,8 @@
 @if($page->noindex)@section('noindex', '1')@endif
 
 @push('preload')
+    <link rel="preload" href="/fonts/playfair-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/playfair-display-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" as="image" href="{{ asset('images/photos/bruges-canal-800.webp') }}" imagesrcset="{{ asset('images/photos/bruges-canal-480.webp') }} 640w, {{ asset('images/photos/bruges-canal-800.webp') }} 1024w, {{ asset('images/photos/bruges-canal-1280.webp') }} 1600w" imagesizes="100vw" fetchpriority="high">
 @endpush
 
@@ -23,16 +25,35 @@
 @php $c = fn ($k) => $page->block($k); @endphp
 
 {{-- 3. HERO --}}
+@php
+    $headline = $c('hero_h1') ?: 'Belgium, planned around you';
+    [$h1a, $h1b] = str_contains($headline, ',') ? array_map('trim', explode(',', $headline, 2)) : [$headline, null];
+    $h1a .= $h1b ? ',' : '';
+@endphp
 <section class="relative isolate overflow-hidden bg-ink text-white">
     <x-photo base="images/photos/bruges-canal" alt="A canal lined with brick houses and the Belfry tower in Bruges, Belgium" sizes="100vw" :eager="true" class="absolute inset-0 z-0 size-full" />
-    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/90 via-ink/65 to-ink/25 lg:via-ink/55"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/45 to-ink/85"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/55 via-ink/20 to-transparent"></div>
 
     <div class="container-page relative z-10 grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
-        <div>
-            <h1 class="hero-rise text-4xl !text-white sm:text-5xl lg:text-[4rem]">{{ $c('hero_h1') ?: 'Belgium, planned around you' }}</h1>
-            <p class="hero-rise hero-rise-2 mt-5 max-w-xl text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
+        <div class="text-center">
+            <p class="hero-rise font-serif text-xl italic text-white/90 sm:text-2xl">{{ $c('hero_tagline') ?: 'Belgium tours, tailor-made' }}</p>
+            <h1 class="hero-rise hero-rise-2 mt-3 font-serif text-5xl font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
+                {{ $h1a }}@if($h1b)<span class="block italic text-amber">{{ $h1b }}</span>@endif
+            </h1>
+            <p class="hero-rise hero-rise-2 mx-auto mt-6 max-w-xl text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
 
-            <ul class="hero-rise hero-rise-3 mt-7 flex flex-wrap gap-3 text-sm font-semibold">
+            <div class="hero-rise hero-rise-3 mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+                <a href="#quiz" class="inline-flex min-h-12 items-center gap-3 rounded-full bg-paper py-1.5 pl-6 pr-1.5 font-display text-base font-semibold text-ink hover:bg-white">
+                    Plan my trip
+                    <span class="grid size-10 place-items-center rounded-full bg-ink text-amber">@icon('arrow-up-right', 'size-5')</span>
+                </a>
+                @if($site->phone)
+                    <a href="tel:{{ $site->phone_href }}" class="inline-flex min-h-11 items-center gap-2 font-semibold text-white hover:text-amber">@icon('phone', 'size-5') {{ $site->phone }}</a>
+                @endif
+            </div>
+
+            <ul class="hero-rise hero-rise-3 mt-7 flex flex-wrap justify-center gap-3 text-sm font-semibold">
                 @foreach([['shield', 'badge_1'], ['compass', 'badge_2'], ['star', 'badge_3']] as [$ic, $k])
                     <li class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 ring-1 ring-white/30 backdrop-blur-sm">
                         @icon($ic, 'size-5 text-amber') {{ $c($k) }}
@@ -40,11 +61,18 @@
                 @endforeach
             </ul>
 
-            <div class="hero-rise hero-rise-3 mt-8 flex flex-wrap items-center gap-3">
-                @if($site->phone)
-                    <x-button :href="'tel:'.$site->phone_href" variant="light" icon="phone">Call {{ $site->phone }}</x-button>
-                @endif
-            </div>
+            {{-- Tour type shortcuts, as in the reference's destination cards --}}
+            <ul class="hero-rise hero-rise-3 mx-auto mt-8 grid max-w-xl grid-cols-3 gap-2.5 text-left sm:gap-3" aria-label="Ways to travel">
+                @foreach($tourTypes as $t)
+                    <li class="group relative overflow-hidden rounded-2xl bg-paper text-ink shadow-lift">
+                        @if($t->image)<x-photo :base="$t->image" :alt="$t->image_alt ?: $t->name" sizes="(min-width:640px) 160px, 30vw" :ratio="[800, 533]" class="aspect-[4/3] w-full transition-transform duration-500 group-hover:scale-105" />@endif
+                        <div class="flex items-center justify-between gap-1 px-2.5 py-2 sm:px-3">
+                            <a href="{{ route('packages.index', ['type' => $t->slug]) }}" class="text-xs font-semibold leading-tight after:absolute after:inset-0 sm:text-sm">{{ $t->name }}</a>
+                            <span class="grid size-7 shrink-0 place-items-center rounded-full bg-cream" aria-hidden="true">@icon('arrow-up-right', 'size-3.5')</span>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
         </div>
 
         <div class="hero-rise hero-rise-2 lg:justify-self-end lg:w-full lg:max-w-[28rem]">

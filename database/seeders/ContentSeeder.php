@@ -49,6 +49,7 @@ class ContentSeeder extends Seeder
                 'seo_title' => 'Belgium Tours: Self Drive, Chauffeur Driven & Coach | Go Belgium Tours',
                 'meta' => 'Plan your Belgium holiday with local experts. Self drive, chauffeur driven and coach tours of Bruges, Ghent, Brussels and beyond. Free quote in minutes.',
                 'content' => [
+                    'hero_tagline' => 'Belgium tours, tailor-made',
                     'hero_h1' => 'Belgium, planned around you',
                     'hero_sub' => 'Self drive, chauffeur driven or small-group coach tours of Bruges, Ghent, Brussels, Antwerp and the Ardennes. Tell us what you like and get a free quote.',
                     'why_heading' => 'Why travellers choose us',
