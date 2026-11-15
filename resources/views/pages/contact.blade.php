@@ -11,9 +11,9 @@
             <x-section-heading tag="h1" :title="$page->title" />
             <div class="prose-page mt-6">{!! $page->body !!}</div>
             <ul class="mt-6 space-y-3 text-lg">
-                @if($site->phone)<li><a href="tel:{{ $site->phone_href }}" class="inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-amber decoration-2 underline-offset-4"><x-icon name="phone" class="size-5" /> {{ $site->phone }}</a></li>@endif
-                @if($site->email)<li><a href="mailto:{{ $site->email }}" class="inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-amber decoration-2 underline-offset-4"><x-icon name="mail" class="size-5" /> {{ $site->email }}</a></li>@endif
-                @if($site->address)<li class="flex gap-2"><x-icon name="map-pin" class="mt-1 size-5 shrink-0" /> {{ $site->address }}</li>@endif
+                @if($site->phone)<li><a href="tel:{{ $site->phone_href }}" class="inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-amber decoration-2 underline-offset-4">@icon('phone', 'size-5') {{ $site->phone }}</a></li>@endif
+                @if($site->email)<li><a href="mailto:{{ $site->email }}" class="inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-amber decoration-2 underline-offset-4">@icon('mail', 'size-5') {{ $site->email }}</a></li>@endif
+                @if($site->address)<li class="flex gap-2">@icon('map-pin', 'mt-1 size-5 shrink-0') {{ $site->address }}</li>@endif
                 @unless($site->phone || $site->email || $site->address)
                     <li class="rounded-xl bg-amber/30 p-4 text-base">[CONFIRM: phone, email and address. Add them in Admin &gt; Settings.]</li>
                 @endunless

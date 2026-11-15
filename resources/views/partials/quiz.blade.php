@@ -71,6 +71,6 @@
     </div>
 
     <p class="mt-5 flex items-center gap-2 text-sm text-slate">
-        <x-icon name="lock" class="size-4" /> Takes less than 30 seconds. Your details stay private.
+        @icon('lock', 'size-4') Takes less than 30 seconds. Your details stay private.
     </p>
 </div>

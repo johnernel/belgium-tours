@@ -43,7 +43,7 @@
             <p class="mt-10 rounded-2xl bg-paper p-6 shadow-card">No packages match those filters yet. <a href="{{ route('packages.index') }}" class="font-semibold underline">Show all packages</a> or <button type="button" class="font-semibold underline" @click="$store.modal.open()">ask us to plan one for you</button>.</p>
         @else
             <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                @foreach($packages as $package)@include('partials.package-card', ['package' => $package])@endforeach
+                @foreach($packages as $package)@include('partials.package-card', ['package' => $package, 'level' => 2])@endforeach
             </div>
         @endif
     </div>

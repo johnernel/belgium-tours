@@ -4,12 +4,12 @@
         <div class="flex flex-wrap items-center gap-x-5 gap-y-1">
             @if($site->phone)
                 <a href="tel:{{ $site->phone_href }}" class="inline-flex min-h-8 items-center gap-1.5 font-semibold hover:text-amber">
-                    <x-icon name="phone" class="size-4" /> {{ $site->phone }}
+                    @icon('phone', 'size-4') {{ $site->phone }}
                 </a>
             @endif
             @if($site->email)
                 <a href="mailto:{{ $site->email }}" class="hidden min-h-8 items-center gap-1.5 hover:text-amber sm:inline-flex">
-                    <x-icon name="mail" class="size-4" /> {{ $site->email }}
+                    @icon('mail', 'size-4') {{ $site->email }}
                 </a>
             @endif
             @unless($site->phone || $site->email)

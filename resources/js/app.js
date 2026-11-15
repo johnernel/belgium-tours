@@ -67,14 +67,20 @@ Alpine.data('enquiryForm', (config = {}) => ({
     consent: false,
 
     init() {
-        // Render the captcha lazily: when the form first becomes visible.
-        const io = new IntersectionObserver((entries) => {
-            if (entries.some((e) => e.isIntersecting)) {
-                this.mountCaptcha();
-                io.disconnect();
-            }
-        });
-        io.observe(this.$el);
+        if (config.captcha === 'now') {
+            // The quiz contact step only appears after the visitor has already engaged.
+            this.$nextTick(() => this.mountCaptcha());
+            return;
+        }
+        if (config.captcha === 'modal') {
+            // The modal form exists on every page but stays hidden: load reCAPTCHA when it opens.
+            this.$watch('$store.modal.show', (open) => open && this.$nextTick(() => this.mountCaptcha()));
+            return;
+        }
+        // Standalone forms load reCAPTCHA on first touch, keeping first load fast.
+        const mount = () => this.mountCaptcha();
+        this.$el.addEventListener('focusin', mount, { once: true });
+        this.$el.addEventListener('pointerdown', mount, { once: true });
     },
 
     mountCaptcha() {
@@ -89,6 +95,7 @@ Alpine.data('enquiryForm', (config = {}) => ({
         this.errors = {};
         this.generalError = '';
 
+        this.mountCaptcha();
         if (!this.consent) {
             this.errors = { consent: ['Please tick the box to agree before sending.'] };
             this.$refs.consent?.focus();

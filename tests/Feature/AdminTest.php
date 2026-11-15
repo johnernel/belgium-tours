@@ -132,7 +132,7 @@ class AdminTest extends TestCase
         $this->post('/admin/media', ['alt' => 'A test photo', 'files' => [UploadedFile::fake()->image('a.jpg', 2400, 1600)]])->assertSessionHasNoErrors();
 
         $m = \App\Models\Media::firstOrFail();
-        foreach ([640, 1024, 1600] as $w) {
+        foreach ([480, 800, 1280, 1600] as $w) {
             \Storage::disk('public')->assertExists('uploads/'.basename($m->path)."-$w.webp");
         }
     }

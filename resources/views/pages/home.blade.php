@@ -5,7 +5,7 @@
 @if($page->noindex)@section('noindex', '1')@endif
 
 @push('preload')
-    <link rel="preload" as="image" href="{{ asset('images/photos/bruges-canal-1024.webp') }}" imagesrcset="{{ asset('images/photos/bruges-canal-640.webp') }} 640w, {{ asset('images/photos/bruges-canal-1024.webp') }} 1024w, {{ asset('images/photos/bruges-canal-1600.webp') }} 1600w" imagesizes="100vw" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('images/photos/bruges-canal-800.webp') }}" imagesrcset="{{ asset('images/photos/bruges-canal-480.webp') }} 640w, {{ asset('images/photos/bruges-canal-800.webp') }} 1024w, {{ asset('images/photos/bruges-canal-1280.webp') }} 1600w" imagesizes="100vw" fetchpriority="high">
 @endpush
 
 @push('schema')
@@ -35,7 +35,7 @@
             <ul class="hero-rise hero-rise-3 mt-7 flex flex-wrap gap-3 text-sm font-semibold">
                 @foreach([['shield', 'badge_1'], ['compass', 'badge_2'], ['star', 'badge_3']] as [$ic, $k])
                     <li class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 ring-1 ring-white/30 backdrop-blur-sm">
-                        <x-icon :name="$ic" class="size-5 text-amber" /> {{ $c($k) }}
+                        @icon($ic, 'size-5 text-amber') {{ $c($k) }}
                     </li>
                 @endforeach
             </ul>
@@ -63,17 +63,17 @@
         </div>
         <div>
             <x-section-heading id="why-title" :title="$c('why_heading')" :sub="$c('why_sub')" />
-            <dl class="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+            <ul class="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2">
                 @foreach([['compass', 1], ['map-pin', 2], ['wallet', 3], ['phone', 4]] as [$ic, $n])
-                    <div class="flex gap-4">
-                        <span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-sky text-ink"><x-icon :name="$ic" /></span>
+                    <li class="flex gap-4">
+                        <span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-sky text-ink">@icon($ic)</span>
                         <div>
-                            <dt class="font-display text-lg font-semibold">{{ $c("why_{$n}_title") }}</dt>
-                            <dd class="mt-1 text-slate">{{ $c("why_{$n}_text") }}</dd>
+                            <h3 class="font-display text-lg font-semibold">{{ $c("why_{$n}_title") }}</h3>
+                            <p class="mt-1 text-slate">{{ $c("why_{$n}_text") }}</p>
                         </div>
-                    </div>
+                    </li>
                 @endforeach
-            </dl>
+            </ul>
         </div>
     </div>
 </section>
@@ -100,7 +100,7 @@
                             <x-button size="sm" variant="outline" @click="$store.modal.open({ mode: 'question', tourType: '{{ $t->name }}' })">Ask Us a Question</x-button>
                         </div>
                         <a href="{{ route('packages.index', ['type' => $t->slug]) }}" class="mt-4 inline-flex min-h-8 items-center gap-1.5 font-semibold underline decoration-amber decoration-2 underline-offset-4">
-                            See {{ $t->name }} trips <x-icon name="arrow-right" class="size-4" />
+                            See {{ $t->name }} trips @icon('arrow-right', 'size-4')
                         </a>
                     </div>
                 </article>
@@ -147,7 +147,7 @@
         <div class="mt-8 grid gap-5 md:grid-cols-3">
             @foreach($testimonials as $t)
                 <figure class="rounded-[1.5rem] bg-paper p-6 shadow-card">
-                    <div class="flex gap-0.5 text-amber-deep" aria-hidden="true">@for($i=0;$i<5;$i++)<x-icon name="star" class="size-5 fill-current" />@endfor</div>
+                    <div class="flex gap-0.5 text-amber-deep" aria-hidden="true">@for($i=0;$i<5;$i++)@icon('star', 'size-5 fill-current')@endfor</div>
                     <blockquote class="mt-3 text-ink">{{ $t->quote }}</blockquote>
                     <figcaption class="mt-4 text-sm font-semibold text-slate">{{ $t->name }}@if($t->location), {{ $t->location }}@endif</figcaption>
                 </figure>

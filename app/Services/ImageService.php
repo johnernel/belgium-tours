@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
- * Validates, resizes and converts uploads to WebP (640 / 1024 / 1600 px wide) using PHP's GD.
+ * Validates, resizes and converts uploads to WebP (480 / 800 / 1280 / 1600 px wide) using PHP's GD.
  * Files live in storage/app/public/uploads (public via the storage symlink).
  * Returns a Media row whose "path" is a base like storage/uploads/abc123 that <x-photo> turns into a responsive <img>.
  */
 class ImageService
 {
-    public const WIDTHS = [640, 1024, 1600];
+    public const WIDTHS = [480, 800, 1280, 1600];
 
     public const MAX_KB = 8192;
 

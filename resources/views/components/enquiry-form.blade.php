@@ -13,7 +13,7 @@
     $siteKey = $site->recaptcha_key ?? null;
 @endphp
 <form method="POST" action="{{ route('enquiry.store') }}" novalidate
-      x-data="enquiryForm({ formName: '{{ $formName }}' })" x-ref="form" @submit.prevent="submit()"
+      x-data="enquiryForm({ formName: '{{ $formName }}', captcha: '{{ $mode === 'quiz' ? 'now' : ($mode === 'modal' ? 'modal' : 'touch') }}' })" x-ref="form" @submit.prevent="submit()"
       class="space-y-4" aria-label="Enquiry form">
     @csrf
     <input type="hidden" name="form_name" @if($mode === 'modal') x-bind:value="$store.modal.mode === 'question' ? 'question' : '{{ $formName }}'" @endif value="{{ $formName }}">
@@ -122,7 +122,7 @@
 
     @if($siteKey)
         <div>
-            <div x-ref="captcha"></div>
+            <div x-ref="captcha" class="min-h-[78px]"></div>
             <noscript>
                 <iframe src="https://www.google.com/recaptcha/api/fallback?k={{ $siteKey }}" title="reCAPTCHA" class="h-[422px] w-full max-w-[302px] border-0"></iframe>
                 <textarea name="g-recaptcha-response" class="sr-only" aria-hidden="true"></textarea>

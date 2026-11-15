@@ -15,7 +15,7 @@
 @section('content')
 <section class="py-20 sm:py-28">
     <div class="container-page max-w-2xl text-center">
-        <span class="mx-auto grid size-16 place-items-center rounded-full bg-sky text-ink"><x-icon name="check" class="size-8" /></span>
+        <span class="mx-auto grid size-16 place-items-center rounded-full bg-sky text-ink">@icon('check', 'size-8')</span>
         <h1 class="mt-6 text-4xl sm:text-5xl">Thank you, we have your enquiry</h1>
         <p class="mt-4 text-lg text-slate">A travel specialist will reply with your free quote soon. Check your inbox, and your spam folder just in case.</p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">

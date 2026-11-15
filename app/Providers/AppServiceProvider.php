@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // @icon('phone', 'size-5 text-amber'): inline SVG without the cost of a component render.
+        \Illuminate\Support\Facades\Blade::directive('icon', fn ($expression) => "<?php echo \App\Support\Icons::svg($expression); ?>");
+
         // Per-IP limits: enquiries and admin login attempts.
         RateLimiter::for('enquiry', fn (Request $r) => Limit::perMinute(6)->by($r->ip()));
         RateLimiter::for('admin-login', fn (Request $r) => Limit::perMinute(5)->by($r->ip().'|'.strtolower((string) $r->input('email'))));

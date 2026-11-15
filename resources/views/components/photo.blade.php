@@ -4,7 +4,7 @@
     'sizes' => '100vw',
     'eager' => false,  // true for the hero image (no lazy loading, high fetch priority)
     'ratio' => [1600, 1067],
-    'widths' => [640, 1024, 1600],
+    'widths' => [480, 800, 1280, 1600],
 ])
 @php
     $srcset = collect($widths)->map(fn ($w) => asset($base.'-'.$w.'.webp').' '.$w.'w')->implode(', ');

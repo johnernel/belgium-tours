@@ -12,7 +12,7 @@
     $cls = "$base {$sizes[$size]} {$variants[$variant]}";
 @endphp
 @if($href)
-    <a href="{{ $href }}" {{ $attributes->merge(['class' => $cls]) }}>{{ $slot }}@if($icon)<x-icon :name="$icon" class="size-5" />@endif</a>
+    <a href="{{ $href }}" {{ $attributes->merge(['class' => $cls]) }}>{{ $slot }}@if($icon)@icon($icon, 'size-5')@endif</a>
 @else
-    <button type="{{ $attributes->get('type', 'button') }}" {{ $attributes->except('type')->merge(['class' => $cls]) }}>{{ $slot }}@if($icon)<x-icon :name="$icon" class="size-5" />@endif</button>
+    <button type="{{ $attributes->get('type', 'button') }}" {{ $attributes->except('type')->merge(['class' => $cls]) }}>{{ $slot }}@if($icon)@icon($icon, 'size-5')@endif</button>
 @endif

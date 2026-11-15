@@ -6,7 +6,7 @@
          x-show="$store.modal.show" x-transition:enter="transition duration-200" x-transition:enter-start="translate-y-6 opacity-0" x-transition:enter-end="translate-y-0 opacity-100"
          x-trap.noscroll.inert="$store.modal.show">
         <button type="button" class="absolute right-3 top-3 grid size-11 place-items-center rounded-full hover:bg-ink/10" @click="$store.modal.close()" aria-label="Close">
-            <x-icon name="x" />
+            @icon('x')
         </button>
         <h2 id="modal-title" class="pr-10 text-2xl sm:text-3xl"
             x-text="$store.modal.heading || ($store.modal.mode === 'question' ? 'Ask us a question' : 'Fill out this form and {{ $site->discount }}')">Fill out this form and {{ $site->discount }}</h2>

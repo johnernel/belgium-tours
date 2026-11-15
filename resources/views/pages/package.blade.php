@@ -56,7 +56,7 @@
             <section aria-labelledby="hl"><h2 id="hl" class="text-2xl sm:text-3xl">Highlights</h2>
                 <ul class="mt-4 grid gap-3 sm:grid-cols-2">
                     @foreach($package->highlights as $h)
-                        <li class="flex gap-3 rounded-2xl bg-paper p-4 shadow-card"><x-icon name="check" class="mt-0.5 size-5 shrink-0 text-amber-deep" /> <span>{{ $h }}</span></li>
+                        <li class="flex gap-3 rounded-2xl bg-paper p-4 shadow-card">@icon('check', 'mt-0.5 size-5 shrink-0 text-amber-deep') <span>{{ $h }}</span></li>
                     @endforeach
                 </ul>
             </section>
@@ -81,10 +81,10 @@
         @if($package->inclusions || $package->exclusions)
             <section class="grid gap-6 sm:grid-cols-2">
                 @if($package->inclusions)
-                    <div class="rounded-2xl bg-sky-soft p-6"><h2 class="text-xl">Included</h2><ul class="mt-3 space-y-2">@foreach($package->inclusions as $i)<li class="flex gap-2"><x-icon name="check" class="mt-1 size-4 shrink-0" />{{ $i }}</li>@endforeach</ul></div>
+                    <div class="rounded-2xl bg-sky-soft p-6"><h2 class="text-xl">Included</h2><ul class="mt-3 space-y-2">@foreach($package->inclusions as $i)<li class="flex gap-2">@icon('check', 'mt-1 size-4 shrink-0'){{ $i }}</li>@endforeach</ul></div>
                 @endif
                 @if($package->exclusions)
-                    <div class="rounded-2xl bg-cream-deep p-6"><h2 class="text-xl">Not included</h2><ul class="mt-3 space-y-2">@foreach($package->exclusions as $i)<li class="flex gap-2"><x-icon name="x" class="mt-1 size-4 shrink-0" />{{ $i }}</li>@endforeach</ul></div>
+                    <div class="rounded-2xl bg-cream-deep p-6"><h2 class="text-xl">Not included</h2><ul class="mt-3 space-y-2">@foreach($package->exclusions as $i)<li class="flex gap-2">@icon('x', 'mt-1 size-4 shrink-0'){{ $i }}</li>@endforeach</ul></div>
                 @endif
             </section>
         @endif

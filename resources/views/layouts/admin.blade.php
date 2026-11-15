@@ -34,7 +34,7 @@
         <nav aria-label="Admin" class="space-y-1">
             @foreach($links as [$route, $label, $icon])
                 <a href="{{ route($route) }}" class="flex min-h-11 items-center gap-3 rounded-xl px-3 font-semibold hover:bg-white/10 {{ request()->routeIs(Str::beforeLast($route, '.').'*') ? 'bg-white/15' : '' }}">
-                    <x-icon :name="$icon" class="size-5 text-amber" /> {{ $label }}
+                    @icon($icon, 'size-5 text-amber') {{ $label }}
                 </a>
             @endforeach
         </nav>
@@ -44,7 +44,7 @@
 
     <div class="min-w-0 flex-1">
         <header class="flex items-center justify-between gap-3 border-b border-ink/10 bg-cream px-4 py-3 sm:px-6">
-            <button type="button" class="grid size-11 place-items-center rounded-full hover:bg-ink/5 lg:hidden" @click="nav = true" aria-label="Open menu"><x-icon name="menu" /></button>
+            <button type="button" class="grid size-11 place-items-center rounded-full hover:bg-ink/5 lg:hidden" @click="nav = true" aria-label="Open menu">@icon('menu')</button>
             <h1 class="font-display text-xl font-semibold sm:text-2xl">@yield('heading')</h1>
             <div class="flex items-center gap-3 text-sm">
                 <span class="hidden sm:inline text-slate">{{ auth()->user()->email }}</span>

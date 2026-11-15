@@ -1,4 +1,4 @@
-@props(['package'])
+@props(['package', 'level' => 3])
 <article class="group relative overflow-hidden rounded-[1.5rem] bg-ink text-white shadow-card">
     <div class="aspect-[4/5] sm:aspect-[3/4]">
         @if($package->hero_image)
@@ -13,9 +13,9 @@
             <li class="rounded-full bg-amber px-3 py-1">{{ $package->nights }} nights</li>
             @if($package->tourType)<li class="rounded-full bg-sky px-3 py-1">{{ $package->tourType->name }}</li>@endif
         </ul>
-        <h3 class="text-xl !text-white sm:text-2xl">
+        <h{{ $level }} class="text-xl !text-white sm:text-2xl">
             <a href="{{ route('packages.show', $package->slug) }}" class="after:absolute after:inset-0">{{ $package->title }}</a>
-        </h3>
+        </h{{ $level }}>
         <p class="mt-2 line-clamp-2 text-sm text-white/85">{{ $package->summary }}</p>
         <p class="mt-3 font-display text-lg font-semibold text-amber">{{ $package->priceLabel() }}</p>
     </div>
