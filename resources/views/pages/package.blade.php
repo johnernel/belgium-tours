@@ -93,7 +93,7 @@
             <section aria-labelledby="gal"><h2 id="gal" class="text-2xl sm:text-3xl">Gallery</h2>
                 <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
                     @foreach($package->images as $img)
-                        <img src="{{ asset('storage/'.$img->path) }}" alt="{{ $img->alt }}" loading="lazy" width="800" height="600" class="aspect-[4/3] w-full rounded-2xl object-cover">
+                        <x-photo :base="$img->path" :alt="$img->alt" sizes="(min-width:640px) 30vw, 46vw" class="aspect-[4/3] w-full rounded-2xl" />
                     @endforeach
                 </div>
             </section>
