@@ -1,0 +1,154 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Destination;
+use App\Models\Faq;
+use App\Models\Page;
+use App\Models\Testimonial;
+use App\Models\TourType;
+use Illuminate\Database\Seeder;
+
+class ContentSeeder extends Seeder
+{
+    public function run(): void
+    {
+        foreach ([['Belgium', 'belgium'], ['Belgium and the Netherlands', 'belgium-and-netherlands'], ['Tailor-made Europe', 'tailor-made-europe']] as $i => [$name, $slug]) {
+            Destination::firstOrCreate(['slug' => $slug], ['name' => $name, 'sort' => $i + 1]);
+        }
+
+        $types = [
+            ['Self Drive', 'self-drive', 'Your own pace, your own route. We book the hotels, plan the roads and send you off with everything in hand.'],
+            ['Chauffeur Driven', 'chauffeur-driven', 'Sit back while a private driver-guide handles the roads, the parking and the stories behind each stop.'],
+            ['Coach Tours', 'coach-tours', 'Small-group touring with a guide, ready-made company and no driving. Simple to book, easy to enjoy.'],
+        ];
+        $images = [
+            'self-drive' => ['images/photos/countryside', 'A quiet tree-lined road through green Belgian farmland'],
+            'chauffeur-driven' => ['images/photos/la-roche', 'A river town in the wooded hills of the Belgian Ardennes'],
+            'coach-tours' => ['images/photos/ghent-graslei', 'Visitors relaxing beside the canal at Graslei in Ghent'],
+        ];
+        foreach ($types as $i => [$name, $slug, $summary]) {
+            TourType::firstOrCreate(['slug' => $slug], [
+                'name' => $name, 'summary' => $summary, 'sort' => $i + 1,
+                'image' => $images[$slug][0], 'image_alt' => $images[$slug][1],
+            ]);
+        }
+
+        $this->pages();
+        $this->testimonials();
+        $this->faqs();
+    }
+
+    private function pages(): void
+    {
+        $company = '[Company Name]'; // replaced at render time by the legal company name setting
+
+        $pages = [
+            'home' => [
+                'title' => 'Belgium Tours & Tailor-Made European Holidays',
+                'seo_title' => 'Belgium Tours: Self Drive, Chauffeur Driven & Coach | Go Belgium Tours',
+                'meta' => 'Plan your Belgium holiday with local experts. Self drive, chauffeur driven and coach tours of Bruges, Ghent, Brussels and beyond. Free quote in minutes.',
+                'content' => [
+                    'hero_h1' => 'Belgium, planned around you',
+                    'hero_sub' => 'Self drive, chauffeur driven or small-group coach tours of Bruges, Ghent, Brussels, Antwerp and the Ardennes. Tell us what you like and get a free quote.',
+                    'why_heading' => 'Why travellers choose us',
+                    'why_sub' => 'A Belgium trip is easy to book and hard to plan well. We handle the hard part.',
+                    'why_1_title' => 'Tailor-made, not off the shelf',
+                    'why_1_text' => 'Every itinerary starts with how you like to travel. Change the pace, the hotels or the stops and we rebuild it.',
+                    'why_2_title' => 'Local knowledge',
+                    'why_2_text' => 'Our routes and stays are chosen by people who know which canal-side cafe is worth the wait.',
+                    'why_3_title' => 'One clear price',
+                    'why_3_text' => 'Your quote lists what is included, so there are no surprises when you arrive.',
+                    'why_4_title' => 'Help along the way',
+                    'why_4_text' => 'Questions before you go or while you are there? A real person answers.',
+                    'tour_types_heading' => 'Pick how you want to travel',
+                    'tour_types_sub' => 'Three ways to see Belgium. Not sure which suits you? Ask and we will help you choose.',
+                    'packages_heading' => 'Popular Belgium trips',
+                    'packages_sub' => 'Sample trips to start from. Every one can be changed to fit you.',
+                    'steps_heading' => 'How it works',
+                    'step_1_title' => 'Tell us your plans',
+                    'step_1_text' => 'Answer a few quick questions or send us a message. It takes under a minute.',
+                    'step_2_title' => 'Get your quote',
+                    'step_2_text' => 'We build a trip around your dates, group and budget and send it to you, free.',
+                    'step_3_title' => 'Book and go',
+                    'step_3_text' => 'Happy with it? We confirm everything and you travel with your documents ready.',
+                    'testimonials_heading' => 'What travellers say',
+                    'faq_heading' => 'Questions, answered',
+                    'cta_heading' => 'Ready to see Belgium?',
+                    'cta_text' => 'Tell us when you want to go and who is coming. We will send a free quote.',
+                    'badge_1' => 'Best price promise [CONFIRM: wording]',
+                    'badge_2' => 'Belgium specialists',
+                    'badge_3' => 'Reviews [CONFIRM: review source]',
+                ],
+            ],
+            'about' => [
+                'title' => 'About Us',
+                'seo_title' => 'About Go Belgium Tours',
+                'meta' => 'Meet the team behind Go Belgium Tours and see how we plan self drive, chauffeur driven and coach tours of Belgium.',
+                'body' => '<p>Go Belgium Tours plans holidays in Belgium and tailor-made trips across Europe. We offer three ways to travel: self drive, chauffeur driven and small-group coach tours.</p><p>[CONFIRM: company story, team, years in business and any accreditations. Replace this paragraph with real details.]</p><h2>What we do</h2><p>We listen to how you like to travel, then build the trip: hotels, routes, transfers and the extras that make it feel local. You get one quote and one point of contact.</p>',
+            ],
+            'contact' => [
+                'title' => 'Contact Us',
+                'seo_title' => 'Contact Go Belgium Tours',
+                'meta' => 'Ask a question or request a free Belgium tour quote. Send your details and we will get back to you.',
+                'body' => '<p>Questions about a trip or ready for a quote? Send us a message and we will reply as soon as we can.</p>',
+            ],
+            'terms' => [
+                'title' => 'Terms and Conditions',
+                'seo_title' => 'Terms and Conditions',
+                'meta' => 'The terms and conditions that apply when you enquire or book with Go Belgium Tours.',
+                'body' => "<p><strong>Starter template only. Have it reviewed by a qualified professional before launch.</strong></p><h2>1. About these terms</h2><p>These terms apply to enquiries and bookings made with $company. By sending an enquiry you agree to them.</p><h2>2. Enquiries and quotes</h2><p>A quote is not a booking. Prices and availability are confirmed in writing and may change until you pay a deposit. [CONFIRM: quote validity period]</p><h2>3. Payments and cancellations</h2><p>[CONFIRM: deposit, final payment and cancellation terms]</p><h2>4. SMS and email messages</h2><p>If you give us your phone number and agree, we may send SMS messages about your enquiry, booking updates, itinerary updates, reminders and customer support. Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.</p><h2>5. Liability</h2><p>[CONFIRM: liability, force majeure and insurance wording]</p><h2>6. Contact</h2><p>Questions about these terms? Use the details on our contact page.</p>",
+            ],
+            'privacy' => [
+                'title' => 'Privacy Policy',
+                'seo_title' => 'Privacy Policy',
+                'meta' => 'How Go Belgium Tours collects, uses and protects your personal information.',
+                'body' => "<p><strong>Starter template only. Have it reviewed by a qualified professional before launch.</strong></p><h2>What we collect</h2><p>When you send an enquiry, $company collects your name, email address, phone number, travel preferences and anything you write to us. We also record technical information such as your IP address, browser, the page you used and the advertising or referral source that brought you here.</p><h2>Why we collect it</h2><p>To reply to your enquiry, prepare quotes, manage bookings, send the messages you agreed to, and measure our advertising.</p><h2>Who we share it with</h2><p>Service providers that help us run the business, such as our email, customer-relationship and analytics tools. [CONFIRM: full list of providers and countries]</p><h2>Your choices</h2><p>You can ask us to access, correct or delete your information, or to stop contacting you, at any time. Reply STOP to any SMS to unsubscribe.</p><h2>Cookies</h2><p>We use cookies to remember how you arrived on the site and, if enabled, for analytics and advertising measurement. [CONFIRM: cookie banner requirement for target markets]</p><h2>Contact</h2><p>[CONFIRM: privacy contact email and postal address]</p>",
+            ],
+        ];
+
+        foreach ($pages as $slug => $p) {
+            Page::firstOrCreate(['slug' => $slug], [
+                'title' => $p['title'],
+                'seo_title' => $p['seo_title'],
+                'meta_description' => $p['meta'],
+                'body' => $p['body'] ?? null,
+                'content' => $p['content'] ?? null,
+            ]);
+        }
+    }
+
+    private function testimonials(): void
+    {
+        if (Testimonial::exists()) {
+            return;
+        }
+        foreach ([1, 2, 3] as $i) {
+            Testimonial::create([
+                'name' => '[PLACEHOLDER: traveller name]',
+                'location' => '[PLACEHOLDER: home town]',
+                'quote' => '[PLACEHOLDER REVIEW '.$i.': replace with a real, permitted customer review before launch.]',
+                'is_placeholder' => true,
+                'sort' => $i,
+            ]);
+        }
+    }
+
+    private function faqs(): void
+    {
+        if (Faq::exists()) {
+            return;
+        }
+        $faqs = [
+            ['How does the free quote work?', 'Answer a few quick questions or fill in the short form. We build a trip around your answers and send you a quote with no obligation to book.'],
+            ['What is the difference between self drive, chauffeur driven and coach tours?', 'Self drive gives you a hire car and a planned route. Chauffeur driven adds a private driver-guide. Coach tours are small-group trips with a guide, where you do not drive.'],
+            ['Can you change an itinerary to suit us?', 'Yes. Every sample trip on this site is a starting point. Tell us your dates, pace and interests and we will adjust it.'],
+            ['When is the best time to visit Belgium?', 'Spring and early autumn are popular for mild weather and fewer crowds. Summer is lively and winter has Christmas markets. We can advise on your dates.'],
+            ['What is included in the price?', 'Each quote lists exactly what is included, such as hotels, transfers and tickets. [CONFIRM: standard inclusions and exclusions]'],
+            ['Do I need to book flights first?', 'No. You can request a quote before booking flights. We will help you time your arrival and departure around the itinerary.'],
+        ];
+        foreach ($faqs as $i => [$q, $a]) {
+            Faq::create(['question' => $q, 'answer' => $a, 'sort' => $i + 1]);
+        }
+    }
+}
