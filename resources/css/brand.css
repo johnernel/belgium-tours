@@ -15,6 +15,7 @@
     --color-amber-deep: #e89a1c;
     --color-ink: #2b2e37;
     --color-paper: #fffdf7;
+    --color-bar: #f3ecd8; /* sticky navigation bar */
 
     --font-display: 'Fredoka Variable', 'Fredoka', ui-rounded, 'Segoe UI', system-ui, sans-serif;
     --font-serif: 'Playfair Display Variable', 'Playfair Display', Georgia, 'Times New Roman', serif;

@@ -28,7 +28,7 @@ Other tokens: `--radius-card`, `--shadow-card`, `--shadow-lift`. Motion: one her
 - `<x-enquiry-form form-name mode="standalone|modal|quiz" :package :tour-type :extended id-prefix submit-label>` the one form
 - `<x-photo base alt sizes :eager :ratio>` responsive WebP image
 - `@icon('name', 'classes')` inline SVG (paths in `App\Support\Icons`)
-- Partials: `header`, `topbar`, `footer`, `quiz`, `enquiry-modal`, `package-card`
+- Partials: `header` (sticky `bar` colour #F3ECD8, plain black links, amber underline for the current page), `footer`, `quiz`, `enquiry-modal`, `package-card`
 - Admin: `<x-admin.input|textarea|rich|select|check>`
 
 ## Re-skinning for a new brand
