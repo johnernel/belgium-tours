@@ -26,34 +26,27 @@
 
 {{-- 3. HERO --}}
 @php
-    $headline = $c('hero_h1') ?: 'Belgium, planned around you';
-    [$h1a, $h1b] = str_contains($headline, ',') ? array_map('trim', explode(',', $headline, 2)) : [$headline, null];
-    $h1a .= $h1b ? ',' : '';
+    // The last word of the headline gets the italic amber treatment (as in the design reference).
+    $headline = trim($c('hero_h1') ?: 'Belgium, planned around you');
+    $lastSpace = strrpos($headline, ' ');
+    [$h1a, $h1b] = $lastSpace ? [substr($headline, 0, $lastSpace), substr($headline, $lastSpace + 1)] : [$headline, null];
 @endphp
-<section class="relative isolate overflow-hidden bg-ink text-white">
+<section class="relative isolate flex min-h-[40rem] items-center overflow-hidden bg-ink text-white lg:min-h-[44rem]">
     <x-photo base="images/photos/bruges-canal" alt="A canal lined with brick houses and the Belfry tower in Bruges, Belgium" sizes="100vw" :eager="true" class="absolute inset-0 z-0 size-full" />
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/45 to-ink/85"></div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/55 via-ink/20 to-transparent"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/30 via-ink/20 to-ink/60"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/75 via-ink/40 to-transparent lg:via-ink/30"></div>
 
-    <div class="container-page relative z-10 grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
-        <div class="text-center">
-            <p class="hero-rise font-serif text-xl italic text-white/90 sm:text-2xl">{{ $c('hero_tagline') ?: 'Belgium tours, tailor-made' }}</p>
-            <h1 class="hero-rise hero-rise-2 mt-3 font-serif text-5xl font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
-                {{ $h1a }}@if($h1b)<span class="block italic text-amber">{{ $h1b }}</span>@endif
+    <div class="container-page relative z-10 grid w-full items-center gap-10 py-14 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-20">
+        <div>
+            <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-paper/90 px-4 py-1.5 text-sm font-semibold text-ink shadow-card">
+                <span class="size-2 rounded-full bg-amber" aria-hidden="true"></span>{{ $c('hero_tagline') ?: 'Belgium tours, tailor-made' }}
+            </p>
+            <h1 class="hero-rise hero-rise-2 mt-5 max-w-[14ch] font-serif text-5xl font-medium leading-[1.05] !text-white sm:text-6xl lg:max-w-[16ch] lg:text-[4.5rem]">
+                {{ $h1a }}@if($h1b) <em class="text-amber">{{ $h1b }}</em>@endif
             </h1>
-            <p class="hero-rise hero-rise-2 mx-auto mt-6 max-w-xl text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
+            <p class="hero-rise hero-rise-2 mt-6 max-w-lg text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
 
-            <div class="hero-rise hero-rise-3 mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-                <a href="#quiz" class="inline-flex min-h-12 items-center gap-3 rounded-full bg-paper py-1.5 pl-6 pr-1.5 font-display text-base font-semibold text-ink hover:bg-white">
-                    Plan my trip
-                    <span class="grid size-10 place-items-center rounded-full bg-ink text-amber">@icon('arrow-up-right', 'size-5')</span>
-                </a>
-                @if($site->phone)
-                    <a href="tel:{{ $site->phone_href }}" class="inline-flex min-h-11 items-center gap-2 font-semibold text-white hover:text-amber">@icon('phone', 'size-5') {{ $site->phone }}</a>
-                @endif
-            </div>
-
-            <ul class="hero-rise hero-rise-3 mt-7 flex flex-wrap justify-center gap-3 text-sm font-semibold">
+            <ul class="hero-rise hero-rise-3 mt-7 flex flex-wrap gap-2.5 text-sm font-semibold">
                 @foreach([['shield', 'badge_1'], ['compass', 'badge_2'], ['star', 'badge_3']] as [$ic, $k])
                     <li class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 ring-1 ring-white/30 backdrop-blur-sm">
                         @icon($ic, 'size-5 text-amber') {{ $c($k) }}
@@ -61,18 +54,9 @@
                 @endforeach
             </ul>
 
-            {{-- Tour type shortcuts, as in the reference's destination cards --}}
-            <ul class="hero-rise hero-rise-3 mx-auto mt-8 grid max-w-xl grid-cols-3 gap-2.5 text-left sm:gap-3" aria-label="Ways to travel">
-                @foreach($tourTypes as $t)
-                    <li class="group relative overflow-hidden rounded-2xl bg-paper text-ink shadow-lift">
-                        @if($t->image)<x-photo :base="$t->image" :alt="$t->image_alt ?: $t->name" sizes="(min-width:640px) 160px, 30vw" :ratio="[800, 533]" class="aspect-[4/3] w-full transition-transform duration-500 group-hover:scale-105" />@endif
-                        <div class="flex items-center justify-between gap-1 px-2.5 py-2 sm:px-3">
-                            <a href="{{ route('packages.index', ['type' => $t->slug]) }}" class="text-xs font-semibold leading-tight after:absolute after:inset-0 sm:text-sm">{{ $t->name }}</a>
-                            <span class="grid size-7 shrink-0 place-items-center rounded-full bg-cream" aria-hidden="true">@icon('arrow-up-right', 'size-3.5')</span>
-                        </div>
-                    </li>
-                @endforeach
-            </ul>
+            @if($site->phone)
+                <a href="tel:{{ $site->phone_href }}" class="hero-rise hero-rise-3 mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-white hover:text-amber">@icon('phone', 'size-5') Call {{ $site->phone }}</a>
+            @endif
         </div>
 
         <div class="hero-rise hero-rise-2 lg:justify-self-end lg:w-full lg:max-w-[28rem]">
