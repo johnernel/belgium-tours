@@ -335,6 +335,31 @@ function initLazyVideos() {
 document.addEventListener('DOMContentLoaded', initLazyVideos);
 
 /* ------------------------------------------------------------------
+   Testimonials carousel: slides move sideways. Arrows, round selectors,
+   arrow keys and swipe. Auto-advances every 7 s unless the visitor is
+   hovering or focused inside it, the tab is hidden or motion is reduced.
+   ------------------------------------------------------------------ */
+Alpine.data('quoteCarousel', (count) => ({
+    i: 0,
+    hold: false,
+    startX: 0,
+    go(n) { this.i = (n + count) % count; this.restart(); },
+    next() { this.go(this.i + 1); },
+    prev() { this.go(this.i - 1); },
+    swipeStart(e) { this.startX = e.changedTouches[0].clientX; },
+    swipeEnd(e) {
+        const d = e.changedTouches[0].clientX - this.startX;
+        if (Math.abs(d) > 50) { d < 0 ? this.next() : this.prev(); }
+    },
+    restart() {
+        clearInterval(this.timer);
+        if (count < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        this.timer = setInterval(() => { if (!this.hold && !document.hidden) this.i = (this.i + 1) % count; }, 7000);
+    },
+    init() { this.restart(); },
+}));
+
+/* ------------------------------------------------------------------
    Gallery marquee: cards drift left forever; each card is bent toward the
    viewer by its distance from the centre (big and angled at the edges,
    small and flat in the middle). Pauses on hover and when off-screen; with
