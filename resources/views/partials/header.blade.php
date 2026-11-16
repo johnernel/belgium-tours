@@ -15,10 +15,12 @@
     <div class="container-page flex h-[4.5rem] items-center justify-between gap-3">
         <a href="{{ route('home') }}" class="flex items-center gap-2.5">
             @if($site->logo)
-                <img src="{{ asset($site->logo) }}" alt="{{ $site->brand }}" class="h-10 w-auto" width="160" height="40">
+                {{-- A logo uploaded in Admin > Settings wins; at the top of photo-hero pages it is turned white by CSS --}}
+                <img src="{{ asset($site->logo) }}" alt="{{ $site->brand }}" class="nav-logo-upload h-10 w-auto" width="160" height="40">
             @else
-                <span class="grid size-10 place-items-center rounded-xl bg-ink text-amber" aria-hidden="true">@icon('compass', 'size-6')</span>
-                <span class="nav-brand font-display text-xl font-semibold leading-none tracking-tight">Go Belgium<span class="nav-brand-sub block text-[0.7rem] font-medium tracking-[0.22em] text-slate">TOURS</span><span class="sr-only"> home</span></span>
+                {{-- Default logo. The white-text version replaces it while the header is transparent at the top of the page. --}}
+                <img src="{{ asset('images/logo.webp') }}" alt="{{ $site->brand }} home" class="logo-default h-11 w-auto sm:h-14" width="556" height="152">
+                <img src="{{ asset('images/logo-white.webp') }}" alt="" aria-hidden="true" class="logo-white h-11 w-auto sm:h-14" width="556" height="152">
             @endif
         </a>
 

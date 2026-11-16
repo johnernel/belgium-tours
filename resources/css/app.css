@@ -27,6 +27,20 @@
     background-color: rgb(255 255 255 / 0.12);
 }
 
+/* Logo: default colours normally; the white-text version while the header is transparent at the top of the page. */
+.logo-white {
+    display: none;
+}
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .logo-default {
+    display: none;
+}
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .logo-white {
+    display: block;
+}
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-logo-upload {
+    filter: brightness(0) invert(1);
+}
+
 /* Trust-indicator marquee in the hero bar. Pauses on hover/focus; static when motion is reduced. */
 .marquee {
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
