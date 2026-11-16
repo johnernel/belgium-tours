@@ -12,13 +12,14 @@
         @if($page->slug === 'terms' || $page->slug === 'privacy')<p class="rounded-lg bg-amber/30 p-3 text-sm">Type [Company Name] anywhere and it becomes your legal company name. If you change the legal wording, also bump the terms version in config/gotour.php so new enquiries record which version they agreed to.</p>@endif
     </section>
 
-    @if(in_array($page->slug, ['about', 'contact'], true))
+    @if(in_array($page->slug, ['about', 'contact', 'destinations'], true))
         <section class="space-y-4 rounded-2xl bg-paper p-6 shadow-card">
             <h2 class="text-xl">Banner at the top of the page</h2>
+            @if($page->slug === 'destinations')<x-admin.input name="content[hero_headline]" label="Headline (put *asterisks* round the accent words)" :value="$page->block('hero_headline')" />@endif
             <x-admin.textarea name="content[hero_sub]" label="Short description under the heading" :value="$page->block('hero_sub')" :rows="2" help="Blank uses the standard wording." />
             <div class="space-y-2 rounded-xl border-2 border-dashed border-slate/30 p-4">
                 <p class="text-sm font-semibold">Banner photo</p>
-                @php $heroBase = $page->block('hero_image', $page->slug === 'about' ? 'images/photos/gravensteen' : 'images/photos/brussels-grand-place'); @endphp
+                @php $heroBase = $page->block('hero_image', ['about' => 'images/photos/gravensteen', 'contact' => 'images/photos/brussels-grand-place'][$page->slug] ?? 'images/photos/bruges-market'); @endphp
                 <x-photo :base="$heroBase" :alt="$page->block('hero_image_alt')" sizes="240px" class="h-32 w-48 rounded-xl" />
                 <input type="file" name="hero_image" accept="image/jpeg,image/png,image/webp" class="block text-sm">
                 <x-admin.input name="content[hero_image_alt]" label="Describe the photo (alt text, required with a new photo)" :value="$page->block('hero_image_alt')" />

@@ -105,8 +105,9 @@ abstract class CrudController extends Controller
             }
         }
 
-        if (array_key_exists('slug', $data) && blank($data['slug']) && ! empty($data['name'])) {
-            $data['slug'] = Str::slug($data['name']);
+        // A blank (or missing) URL name is built from the name; an existing one is kept.
+        if (array_key_exists('slug', $this->rules($record->exists ? $record : null)) && blank($data['slug'] ?? null) && ! empty($data['name'])) {
+            $data['slug'] = ($record->exists && $record->slug) ? $record->slug : Str::slug($data['name']);
         }
 
         $record->fill($data)->save();

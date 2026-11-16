@@ -15,8 +15,8 @@ class DestinationController extends CrudController
     protected function config(): array
     {
         return [
-            'title' => 'Destinations', 'singular' => 'Destination',
-            'help' => 'Packages are grouped and filtered by destination.',
+            'title' => 'Regions', 'singular' => 'Region',
+            'help' => 'Packages are grouped and filtered by region (for example Belgium, or Belgium and the Netherlands). The themed Top destinations have their own screen.',
             'columns' => ['Name' => 'name', 'Packages' => fn ($r) => $r->packages()->count(), 'Active' => fn ($r) => $r->active ? 'Yes' : 'No'],
             'fields' => [
                 ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'required' => true],

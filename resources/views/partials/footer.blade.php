@@ -20,6 +20,7 @@
         <nav aria-label="Company">
             <p class="font-display text-lg font-semibold">Company</p>
             <ul class="mt-3 space-y-1">
+                <li><a class="inline-block py-1 hover:text-amber" href="{{ route('destinations.index') }}">Destinations</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('about') }}">About us</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('contact') }}">Contact</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('terms') }}">Terms and Conditions</a></li>

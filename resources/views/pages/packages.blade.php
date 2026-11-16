@@ -2,7 +2,7 @@
 
 @section('title', 'Belgium Tour Packages | '.$site->brand)
 @section('description', 'Browse self drive, chauffeur driven and coach tour packages in Belgium. Every trip can be tailored. Request a free quote.')
-@if($activeType || $activeDestination)@section('canonical', route('packages.index'))@endif
+@if($activeType || $activeDestination || $activeExperience)@section('canonical', route('packages.index'))@endif
 
 @push('schema')
     <script type="application/ld+json">{!! json_encode([
@@ -29,14 +29,21 @@
                 </select>
             </div>
             <div>
-                <label for="flt-dest" class="mb-1 block text-sm font-semibold">Destination</label>
+                <label for="flt-dest" class="mb-1 block text-sm font-semibold">Region</label>
                 <select id="flt-dest" name="destination" class="min-h-11 rounded-xl border-2 border-slate/30 bg-white px-3 focus:border-ink focus:outline-none">
-                    <option value="">All destinations</option>
+                    <option value="">All regions</option>
                     @foreach($destinations as $d)<option value="{{ $d->slug }}" @selected($activeDestination === $d->slug)>{{ $d->name }}</option>@endforeach
                 </select>
             </div>
+            <div>
+                <label for="flt-exp" class="mb-1 block text-sm font-semibold">Destination</label>
+                <select id="flt-exp" name="experience" class="min-h-11 rounded-xl border-2 border-slate/30 bg-white px-3 focus:border-ink focus:outline-none">
+                    <option value="">All destinations</option>
+                    @foreach($experiences as $e)<option value="{{ $e->slug }}" @selected($activeExperience === $e->slug)>{{ $e->name }}</option>@endforeach
+                </select>
+            </div>
             <x-button type="submit" variant="dark">Filter</x-button>
-            @if($activeType || $activeDestination)<a href="{{ route('packages.index') }}" class="min-h-11 py-3 font-semibold underline">Clear</a>@endif
+            @if($activeType || $activeDestination || $activeExperience)<a href="{{ route('packages.index') }}" class="min-h-11 py-3 font-semibold underline">Clear</a>@endif
         </form>
 
         @if($packages->isEmpty())

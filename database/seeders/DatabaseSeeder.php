@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             ContentSeeder::class,
             QuizSeeder::class,
             PackageSeeder::class,
+            ExperienceSeeder::class,
         ]);
     }
 }

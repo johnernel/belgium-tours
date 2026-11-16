@@ -80,6 +80,9 @@ class ContentSeeder extends Seeder
                     'why_3_title' => 'Local expert guides',
                     'why_3_text' => 'Historians, chocolatiers and cyclists who live the route.',
                     'why_cta' => 'Plan My Journey',
+                    'dest_eyebrow' => 'Top Destinations',
+                    'dest_heading' => 'Five things worth *slowing down* for.',
+                    'dest_cta' => 'View All Destinations',
                     'ways_eyebrow' => 'Signature Journeys',
                     'ways_heading' => 'Three Ways to *Travel* Belgium',
                     'ways_sub' => 'Choose how you move. We handle everything else.',
@@ -112,6 +115,15 @@ class ContentSeeder extends Seeder
                 'meta' => 'Ask a question or request a free Belgium tour quote. Send your details and we will get back to you.',
                 'content' => ['hero_sub' => 'Ask a question or request a free quote. We reply as soon as we can.'],
                 'body' => '<p>Questions about a trip or ready for a quote? Send us a message and we will reply as soon as we can.</p>',
+            ],
+            'destinations' => [
+                'title' => 'Destinations',
+                'seo_title' => 'Top Destinations and Experiences in Belgium | Go Belgium Tours',
+                'meta' => 'Chocolate and pralines, beer and abbeys, art and architecture, Flanders Fields history, canals and cycling. Pick a theme and see the Belgium tours that go there.',
+                'content' => [
+                    'hero_headline' => 'Destinations worth *slowing down* for',
+                    'hero_sub' => 'Five things to build a Belgium trip around. Pick one and we will show you the tours that go there.',
+                ],
             ],
             'terms' => [
                 'title' => 'Terms and Conditions',

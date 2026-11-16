@@ -40,6 +40,11 @@ class Package extends Model
         return $this->belongsTo(Destination::class);
     }
 
+    public function experiences(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Experience::class);
+    }
+
     public function images(): HasMany
     {
         return $this->hasMany(PackageImage::class)->orderBy('sort');

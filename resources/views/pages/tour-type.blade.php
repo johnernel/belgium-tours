@@ -23,25 +23,13 @@
 
 @section('content')
 {{-- HERO: headline and short description on the left, the quiz on the right --}}
-<section class="relative isolate -mt-[4.5rem] flex min-h-[40rem] items-center overflow-hidden bg-ink pt-[4.5rem] text-white lg:min-h-[44rem]">
-    @if($type->image)
-        <x-photo :base="$type->image" :alt="$type->image_alt ?: $type->name" sizes="100vw" :eager="true" class="absolute inset-0 z-0 size-full" />
-    @endif
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/35 to-ink/85"></div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/75 via-ink/35 to-transparent"></div>
-
-    <div class="container-page relative z-10 grid w-full items-center gap-10 py-14 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-20">
-        <div>
-            <p class="hero-rise mb-4 text-sm font-semibold text-white/85"><a href="{{ route('home') }}" class="underline decoration-amber decoration-2 underline-offset-4">Home</a> / {{ $type->name }}</p>
-            <h1 class="on-dark hero-rise hero-rise-2 max-w-[16ch] font-serif text-5xl font-medium leading-[1.02] !text-white sm:text-6xl lg:max-w-[14ch] lg:text-[4.5rem]">@heading($type->headline ?: $type->name)</h1>
-            <p class="hero-rise hero-rise-2 mt-8 max-w-lg text-lg text-white/90 sm:text-xl">{{ $type->intro ?: $type->summary }}</p>
-        </div>
-
-        <div class="hero-rise hero-rise-2 lg:w-full lg:max-w-[28rem] lg:justify-self-end">
-            @include('partials.quiz')
-        </div>
-    </div>
-</section>
+@include('partials.quiz-hero', [
+    'heroTitle' => $type->headline ?: $type->name,
+    'heroText' => $type->intro ?: $type->summary,
+    'heroImage' => $type->image,
+    'heroAlt' => $type->image_alt ?: $type->name,
+    'crumb' => $type->name,
+])
 
 {{-- TRIPS OF THIS TYPE --}}
 <section class="py-16 sm:py-20" aria-labelledby="trips-title">

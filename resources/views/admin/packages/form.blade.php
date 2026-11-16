@@ -20,11 +20,19 @@
             <x-admin.input name="slug" label="URL name" :value="$package->slug" help="Leave blank to create it from the title." />
             <x-admin.input name="sort" type="number" label="Order (smaller shows first)" :value="$package->sort" />
             <x-admin.select name="tour_type_id" label="Tour type" :options="$tourTypes" :value="$package->tour_type_id" blank="None" />
-            <x-admin.select name="destination_id" label="Destination" :options="$destinations" :value="$package->destination_id" blank="None" />
+            <x-admin.select name="destination_id" label="Region" :options="$destinations" :value="$package->destination_id" blank="None" />
             <x-admin.input name="nights" type="number" label="Nights" :value="$package->nights" :required="true" />
             <div class="grid grid-cols-[1fr_6rem] gap-3">
                 <x-admin.input name="price_from" type="number" step="0.01" label="From price (per person)" :value="$package->price_from" help="Leave blank to show Price on request." />
                 <x-admin.select name="currency" label="Currency" :options="['EUR' => 'EUR', 'USD' => 'USD', 'GBP' => 'GBP']" :value="$package->currency" />
+            </div>
+        </div>
+        <div>
+            <p class="mb-1 text-sm font-semibold">Top destinations this tour belongs to</p>
+            <div class="flex flex-wrap gap-x-6 gap-y-1">
+                @foreach($experiences as $id => $label)
+                    <label class="inline-flex min-h-11 items-center gap-2"><input type="checkbox" name="experience_ids[]" value="{{ $id }}" class="size-5 accent-ink" @checked(in_array($id, old('experience_ids', $package->exists ? $package->experiences->pluck('id')->all() : [])))> {{ $label }}</label>
+                @endforeach
             </div>
         </div>
         <x-admin.input name="route" label="Route (cities, shown on the journey card)" :value="$package->route" help="Separate places with a middle dot, e.g. Bruges · Ghent" />

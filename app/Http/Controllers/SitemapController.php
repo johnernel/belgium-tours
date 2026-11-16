@@ -12,6 +12,7 @@ class SitemapController extends Controller
         $urls = [
             [route('home'), now()],
             [route('packages.index'), now()],
+            [route('destinations.index'), now()],
         ];
 
         foreach (\App\Models\TourType::active()->get() as $t) {

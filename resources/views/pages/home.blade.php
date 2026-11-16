@@ -130,6 +130,14 @@
     'sub' => $c('ways_sub') ?: 'Choose how you move. We handle everything else.',
 ])
 
+{{-- 6. TOP DESTINATIONS: vertical tabs with a large image --}}
+@include('partials.top-destinations', [
+    'experiences' => $experiences,
+    'eyebrow' => $c('dest_eyebrow') ?: 'Top Destinations',
+    'heading' => $c('dest_heading') ?: 'Five things worth *slowing down* for.',
+    'cta' => $c('dest_cta') ?: 'View All Destinations',
+])
+
 {{-- 7. HOW IT WORKS (a real sequence, so numbered) --}}
 <section class="py-16 sm:py-24" aria-labelledby="how-title">
     <div class="container-page">
