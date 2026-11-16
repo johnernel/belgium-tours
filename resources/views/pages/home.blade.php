@@ -161,16 +161,7 @@
 @include('partials.gallery')
 
 {{-- 9. FAQ --}}
-<section class="py-16 sm:py-24" aria-labelledby="faq-title">
-    <div class="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-        <x-section-heading id="faq-title" :title="$c('faq_heading')" />
-        <div class="space-y-3">
-            @foreach($faqs as $f)
-                <x-faq-item :question="$f->question">{{ $f->answer }}</x-faq-item>
-            @endforeach
-        </div>
-    </div>
-</section>
+@include('partials.faq')
 
 {{-- 10. FINAL CTA --}}
 <section class="pb-4" aria-labelledby="cta-title">
