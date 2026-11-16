@@ -1,14 +1,14 @@
 {{-- How it works: intro + CTA on the left, three numbered steps along a curved line on the right (straight line on mobile). Uses $c. --}}
 @php
     // Points on the arc (percent of the box). y is the position down the arc, x how far it bulges right.
-    $points = [['19%', '14%'], ['43%', '50%'], ['19%', '86%']];
+    $points = [['25%', '14%'], ['43%', '50%'], ['25%', '86%']];
     // Where each step's text sits relative to its circle so the curve never runs through it: 1 above, 2 beside, 3 below.
     $place = [
         'lg:items-end lg:-translate-y-[calc(100%-1.75rem)]',
         'lg:items-start lg:-translate-y-7',
         'lg:items-start lg:-translate-y-7',
     ];
-    $textPad = ['lg:pl-12', '', 'lg:pt-8'];
+    $textPad = ['lg:pl-8', '', 'lg:pt-8'];
 @endphp
 <section class="py-16 sm:py-24" aria-labelledby="how-title">
     <div class="container-page grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-10">
