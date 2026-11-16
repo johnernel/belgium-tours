@@ -69,7 +69,7 @@
                 @foreach([false, true] as $copy)
                     <ul class="flex shrink-0 items-center gap-x-10 pr-10" @if($copy) aria-hidden="true" @endif>
                         @foreach($trust as [$ic, $text])
-                            <li class="inline-flex items-center gap-2 whitespace-nowrap text-sm font-semibold text-white/90">@icon($ic, 'size-4 shrink-0 text-amber') {{ $text }}</li>
+                            <li class="inline-flex items-center gap-2 whitespace-nowrap text-sm font-light text-white">@icon($ic, 'size-4 shrink-0 text-amber') {{ $text }}</li>
                         @endforeach
                     </ul>
                 @endforeach
