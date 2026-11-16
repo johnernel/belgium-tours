@@ -80,6 +80,8 @@ class ContentSeeder extends Seeder
                     'why_3_title' => 'Local expert guides',
                     'why_3_text' => 'Historians, chocolatiers and cyclists who live the route.',
                     'why_cta' => 'Plan My Journey',
+                    'way_eyebrow' => 'Pick your pace',
+                    'way_heading' => 'Travel *Your Way*',
                     'dest_eyebrow' => 'Where we go',
                     'dest_heading' => 'Six places worth *slowing down* for.',
                     'dest_cta' => 'View All Destinations',

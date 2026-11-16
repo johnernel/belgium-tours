@@ -138,6 +138,13 @@
     'cta' => $c('dest_cta') ?: 'View All Destinations',
 ])
 
+{{-- 6b. TRAVEL YOUR WAY: vertical tabs for the three tour types --}}
+@include('partials.travel-your-way', [
+    'tourTypes' => $tourTypes,
+    'eyebrow' => $c('way_eyebrow') ?: 'Pick your pace',
+    'heading' => $c('way_heading') ?: 'Travel *Your Way*',
+])
+
 {{-- 7. HOW IT WORKS (a real sequence, so numbered) --}}
 <section class="py-16 sm:py-24" aria-labelledby="how-title">
     <div class="container-page">

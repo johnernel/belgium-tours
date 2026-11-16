@@ -19,6 +19,21 @@ class DestinationsTest extends TestCase
         $this->seed();
     }
 
+    public function test_home_has_travel_your_way_tabs_linking_to_each_tour_type_page_after_destinations(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<em class="heading-accent">Your Way</em>', $html);
+        $section = substr($html, strpos($html, 'aria-labelledby="way-title"'), 20000);
+        $this->assertSame(3, substr_count($section, 'role="tab"'));
+        $this->assertSame(3, substr_count($section, 'role="tabpanel"'));
+        foreach (['self-drive', 'chauffeur-driven', 'coach-tours'] as $slug) {
+            $this->assertStringContainsString('href="'.route('tours.show', $slug).'"', $section);
+        }
+        $this->assertLessThan(strpos($html, 'aria-labelledby="way-title"'), strpos($html, 'aria-labelledby="dest-title"'));
+        $this->assertLessThan(strpos($html, 'aria-labelledby="how-title"'), strpos($html, 'aria-labelledby="way-title"'));
+    }
+
     public function test_the_six_destinations_are_seeded_with_real_tour_counts(): void
     {
         $this->assertSame(['Bruges', 'Ghent', 'Brussels', 'Antwerp', 'Leuven', 'Ardennes'], Experience::active()->pluck('name')->all());
