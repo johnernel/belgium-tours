@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Testimonial extends Model
 {
-    protected $fillable = ['name', 'location', 'quote', 'is_placeholder', 'sort', 'active'];
+    protected $fillable = ['name', 'location', 'quote', 'photo', 'photo_alt', 'is_placeholder', 'sort', 'active'];
 
     protected function casts(): array
     {
