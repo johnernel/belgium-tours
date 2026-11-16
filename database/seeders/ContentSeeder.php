@@ -129,6 +129,7 @@ class ContentSeeder extends Seeder
                     'step_2_text' => 'We build a trip around your dates, group and budget and send it to you, free.',
                     'step_3_title' => 'Book and go',
                     'step_3_text' => 'Happy with it? We confirm everything and you travel with your documents ready.',
+                    'testimonials_eyebrow' => 'Kind words',
                     'testimonials_heading' => 'What travellers say',
                     'faq_eyebrow' => 'FAQ',
                     'faq_heading' => 'Questions, answered',

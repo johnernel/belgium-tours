@@ -22,7 +22,7 @@
 
             <div>
                 <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-cream">
-                    <span class="h-px w-10 bg-sky" aria-hidden="true"></span>{{ $c('wcu_eyebrow') ?: 'Why travel with us' }}
+                    <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $c('wcu_eyebrow') ?: 'Why travel with us' }}
                 </p>
                 <h2 id="wcu-title" class="mt-5 font-serif text-heading text-cream">@heading($c('wcu_heading') ?: 'Quietly *exceptional* service.')</h2>
                 <p class="mt-6 max-w-lg text-lg leading-relaxed text-cream/90">{{ $c('wcu_sub') }}</p>

@@ -13,8 +13,10 @@
 <section class="py-16 sm:py-24" aria-labelledby="how-title">
     <div class="container-page grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-10">
         <div>
-            <span class="inline-block rounded-full bg-sky-soft px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-ink">{{ $c('steps_eyebrow') ?: '3 easy steps' }}</span>
-            <h2 id="how-title" class="mt-6 text-heading">@heading($c('steps_heading') ?: 'How it *works*')</h2>
+            <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
+                <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $c('steps_eyebrow') ?: '3 easy steps' }}
+            </p>
+            <h2 id="how-title" class="mt-5 text-heading">@heading($c('steps_heading') ?: 'How it *works*')</h2>
             <p class="mt-6 max-w-md text-lg leading-relaxed text-slate">{{ $c('steps_sub') }}</p>
             <div class="mt-8">
                 <x-button variant="cta" size="lg" icon="arrow-right" @click="$store.modal.open()">{{ $c('steps_cta') ?: 'Get my free quote' }}</x-button>

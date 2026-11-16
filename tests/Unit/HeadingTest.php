@@ -14,7 +14,17 @@ class HeadingTest extends TestCase
 
     public function test_without_stars_the_last_word_is_the_accent(): void
     {
-        $this->assertSame('Every journey, personally <em class="heading-accent">crafted.</em>', (string) Heading::html('Every journey, personally crafted.'));
+        $this->assertSame('Every Journey, Personally <em class="heading-accent">Crafted.</em>', (string) Heading::html('Every journey, personally crafted.'));
+    }
+
+    public function test_headlines_are_capitalized_but_small_joining_words_stay_lower_case(): void
+    {
+        $this->assertSame('Three Ways to Travel Belgium', Heading::titleCase('three ways to travel belgium'));
+        $this->assertSame('Belgium in Pictures', Heading::titleCase('Belgium in pictures'));
+        $this->assertSame('Stories from the *Lowlands.*', Heading::titleCase('Stories from the *lowlands.*'));
+        $this->assertSame('Questions, Answered', Heading::titleCase('Questions, answered'));
+        $this->assertSame('The Best of Belgium: A Guide for You', Heading::titleCase('the best of belgium: a guide for you'));
+        $this->assertSame('Self-Drive Tours of the USA', Heading::titleCase('self-drive tours of the USA'));
     }
 
     public function test_a_single_word_stays_plain(): void
@@ -28,6 +38,6 @@ class HeadingTest extends TestCase
 
         $this->assertStringNotContainsString('<script>', $html);
         $this->assertStringNotContainsString('<b>', $html);
-        $this->assertStringContainsString('&lt;script&gt;', $html);
+        $this->assertStringContainsString('&lt;script&gt;', strtolower($html)); // Capitalized Case may change the letter case, never the escaping
     }
 }

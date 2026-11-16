@@ -1,5 +1,5 @@
 @php $footTypes = \App\Models\TourType::active()->get(); @endphp
-<footer class="mt-24 bg-ink text-cream">
+<footer class="{{ $__env->hasSection('footer_flush') ? '' : 'mt-24' }} bg-ink text-cream">
     <div class="container-page grid gap-10 py-14 md:grid-cols-4">
         <div class="md:col-span-2">
             <p class="font-display text-2xl font-semibold">{{ $site->brand }}</p>

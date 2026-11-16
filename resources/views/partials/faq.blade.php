@@ -18,7 +18,9 @@
         </div>
 
         <div class="order-1 lg:order-2">
-            <span class="inline-block rounded-full bg-amber/25 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-amber-ink">{{ $c('faq_eyebrow') ?: 'FAQ' }}</span>
+            <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
+                <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $c('faq_eyebrow') ?: 'FAQ' }}
+            </p>
             <h2 id="faq-title" class="mt-5 text-heading">@heading($c('faq_heading') ?: 'Questions, *answered*')</h2>
 
             <div class="mt-8 border-t border-ink/10">

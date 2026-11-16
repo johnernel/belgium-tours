@@ -15,8 +15,10 @@
 @endphp
 <section class="overflow-hidden py-16 sm:py-24" aria-labelledby="gal-title" x-data="gallery()">
     <div class="container-page text-center">
-        <p class="text-sm font-semibold uppercase tracking-[0.22em] text-slate">{{ $c('gal_eyebrow') ?: 'From the road' }}</p>
-        <h2 id="gal-title" class="mx-auto mt-4 max-w-3xl text-heading">@heading($c('gal_heading') ?: 'Belgium in *pictures*')</h2>
+        <p class="flex items-center justify-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
+                <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $c('gal_eyebrow') ?: 'From the road' }}
+            </p>
+        <h2 id="gal-title" class="mx-auto mt-5 max-w-3xl text-heading">@heading($c('gal_heading') ?: 'Belgium in *pictures*')</h2>
         <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-slate">{{ $c('gal_text') }}</p>
         <div class="mt-8">
             <x-button variant="cta" size="lg" icon="arrow-right" @click="$store.modal.open()">{{ $c('gal_cta') ?: 'Start planning' }}</x-button>

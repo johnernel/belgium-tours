@@ -20,13 +20,14 @@
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}</script>
 @endpush
 
+@section('footer_flush', '1')
 @section('content')
 @php $c = fn ($k) => $page->block($k); @endphp
 
 {{-- 3. HERO --}}
 @php
     // Headline: break after the first comma; the last word gets the italic amber treatment (as in the design reference).
-    $headline = trim($c('hero_h1') ?: 'Belgium, planned around you');
+    $headline = \App\Support\Heading::titleCase(trim($c('hero_h1') ?: 'Belgium, planned around you'));
     [$line1, $line2] = str_contains($headline, ',') ? array_map('trim', explode(',', $headline, 2)) : [$headline, null];
     $line1 .= $line2 ? ',' : '';
     $tail = $line2 ?? $line1;
@@ -98,7 +99,7 @@
 
         <div class="flex flex-col justify-center lg:max-w-xl">
             <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-                <span class="h-px w-10 bg-slate/50" aria-hidden="true"></span>{{ $c('why_eyebrow') ?: 'Tailor-made in Belgium' }}
+                <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $c('why_eyebrow') ?: 'Tailor-made in Belgium' }}
             </p>
             <h2 id="why-title" class="mt-5 font-serif text-heading">@heading($why)</h2>
             <p class="mt-6 text-lg leading-relaxed text-slate">{{ $c('why_sub') }}</p>

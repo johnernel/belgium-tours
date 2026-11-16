@@ -3,7 +3,10 @@
 @if($testimonials->isNotEmpty())
     <section class="bg-ivory py-16 text-ink sm:py-24" aria-labelledby="t-title" x-data="quoteCarousel({{ $testimonials->count() }})">
         <div class="container-page text-center">
-            <h2 id="t-title" class="text-heading">@heading($c('testimonials_heading') ?: 'What travellers *say*')</h2>
+            <p class="flex items-center justify-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
+                <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $c('testimonials_eyebrow') ?: 'Kind words' }}
+            </p>
+            <h2 id="t-title" class="mt-5 text-heading">@heading($c('testimonials_heading') ?: 'What travellers *say*')</h2>
 
             <div class="mx-auto mt-10 max-w-5xl" role="region" aria-roledescription="carousel" aria-label="Traveller reviews"
                  @keydown.left.prevent="prev()" @keydown.right.prevent="next()"

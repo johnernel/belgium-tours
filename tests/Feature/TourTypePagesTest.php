@@ -22,7 +22,7 @@ class TourTypePagesTest extends TestCase
             $html = $this->get(route('tours.show', $type->slug))->assertOk()->getContent();
 
             $this->assertSame(1, substr_count($html, '<h1'), $type->slug.' needs exactly one h1');
-            $this->assertStringContainsString($type->headline, strip_tags($html), 'headline (its last word sits in an accent tag)');
+            $this->assertStringContainsString(\App\Support\Heading::titleCase($type->headline), strip_tags($html), 'headline (its last word sits in an accent tag)');
             $this->assertStringContainsString('class="heading-accent"', $html);
             $this->assertStringContainsString($type->intro, $html);
             $this->assertStringContainsString('id="quiz"', $html, 'the quiz sits beside the headline');
@@ -86,7 +86,7 @@ class TourTypePagesTest extends TestCase
         $this->actingAs($admin)->put("/admin/tour-types/{$type->id}", [
             'name' => 'Self Drive', 'headline' => 'A brand new headline', 'intro' => 'A brand new description.', 'sort' => 1, 'active' => '1',
         ])->assertRedirect();
-        $this->get('/tours/self-drive')->assertSeeText('A brand new headline')->assertSee('A brand new description.');
+        $this->get('/tours/self-drive')->assertSeeText('A Brand New Headline')->assertSee('A brand new description.');
 
         $about = \App\Models\Page::bySlug('about');
         $this->actingAs($admin)->put("/admin/pages/{$about->id}", [

@@ -38,7 +38,7 @@ class DestinationsTest extends TestCase
     {
         $html = $this->get('/')->assertOk()->getContent();
 
-        $this->assertStringContainsString('<em class="heading-accent">exceptional</em>', $html);
+        $this->assertStringContainsString('<em class="heading-accent">Exceptional</em>', $html);
         $start = strpos($html, 'aria-labelledby="wcu-title"');
         $section = substr($html, $start, strpos($html, '</section>', $start) - $start);
         $this->assertSame(4, substr_count($section, '<h3'));
@@ -51,7 +51,7 @@ class DestinationsTest extends TestCase
     {
         $html = $this->get('/')->assertOk()->getContent();
 
-        $this->assertStringContainsString('<em class="heading-accent">your way</em>', $html);
+        $this->assertStringContainsString('<em class="heading-accent">Your Way</em>', $html);
         $start = strpos($html, 'aria-labelledby="qb-title"');
         $section = substr($html, $start, strpos($html, '</section>', $start) - $start);
         $this->assertStringContainsString('Plan my trip', $section);
@@ -68,7 +68,7 @@ class DestinationsTest extends TestCase
     {
         $html = $this->get('/')->assertOk()->getContent();
 
-        $this->assertStringContainsString('<em class="heading-accent">pictures</em>', $html);
+        $this->assertStringContainsString('<em class="heading-accent">Pictures</em>', $html);
         $start = strpos($html, 'aria-labelledby="gal-title"');
         $section = substr($html, $start, strpos($html, '</section>', $start) - $start);
         $this->assertStringContainsString('x-data="gallery()"', substr($html, $start - 200, 400));
@@ -92,7 +92,7 @@ class DestinationsTest extends TestCase
         $html = $this->get('/')->assertOk()->getContent();
 
         $this->assertStringContainsString('Where we go', $html);
-        $this->assertStringContainsString('<em class="heading-accent">slowing down</em>', $html);
+        $this->assertStringContainsString('<em class="heading-accent">Slowing Down</em>', $html);
         $this->assertStringContainsString('View All Destinations', $html);
         $this->assertStringContainsString('href="'.route('destinations.index').'"', $html);
 
@@ -201,6 +201,6 @@ class DestinationsTest extends TestCase
         $this->actingAs($admin)->get("/admin/pages/{$page->id}/edit")->assertOk()->assertSee('Banner at the top of the page');
         $this->put("/admin/pages/{$page->id}", ['title' => 'Destinations', 'content' => ['hero_headline' => 'Go *somewhere* slow', 'hero_sub' => 'Banner words.']])->assertRedirect();
 
-        $this->get('/destinations')->assertSee('<em class="heading-accent">somewhere</em>', false)->assertSee('Banner words.');
+        $this->get('/destinations')->assertSee('<em class="heading-accent">Somewhere</em>', false)->assertSee('Banner words.');
     }
 }

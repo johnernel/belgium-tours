@@ -61,7 +61,7 @@ class PublicPagesTest extends TestCase
     {
         $html = $this->get('/')->assertOk()->getContent();
 
-        foreach (['Tailor-made in Belgium', 'Every journey, personally', 'Bespoke itineraries', 'Handpicked stays', 'Local expert guides', 'Plan My Journey'] as $text) {
+        foreach (['Tailor-made in Belgium', 'Every Journey, Personally', 'Bespoke itineraries', 'Handpicked stays', 'Local expert guides', 'Plan My Journey'] as $text) {
             $this->assertStringContainsString($text, $html);
         }
         $this->assertStringContainsString('bg-amber text-white hover:bg-sky-hover', $html, 'CTA button style');
@@ -112,7 +112,7 @@ class PublicPagesTest extends TestCase
 
     public function test_unknown_page_returns_custom_404(): void
     {
-        $this->get('/does-not-exist')->assertNotFound()->assertSee('We took a wrong', false)->assertSee('<em class="heading-accent">turn</em>', false);
+        $this->get('/does-not-exist')->assertNotFound()->assertSee('We Took a Wrong', false)->assertSee('<em class="heading-accent">Turn</em>', false);
     }
 
     public function test_gtm_snippet_only_appears_when_configured(): void
