@@ -2,7 +2,15 @@
 <footer class="{{ $__env->hasSection('footer_flush') ? '' : 'mt-24' }} bg-ink text-cream">
     <div class="container-page grid gap-10 py-14 md:grid-cols-4">
         <div class="md:col-span-2">
-            <p class="font-display text-2xl font-semibold">{{ $site->brand }}</p>
+            <a href="{{ route('home') }}" class="inline-block" aria-label="{{ $site->brand }} home">
+                @if($site->logo)
+                    {{-- An uploaded logo wins; it is turned white because the footer is dark --}}
+                    <img src="{{ asset($site->logo) }}" alt="{{ $site->brand }}" class="h-12 w-auto brightness-0 invert sm:h-14" width="160" height="40" loading="lazy">
+                @else
+                    {{-- White-text version of the default logo (same file the transparent header uses) --}}
+                    <img src="{{ asset('images/logo-white.webp') }}" alt="{{ $site->brand }}" class="h-12 w-auto sm:h-14" width="556" height="152" loading="lazy">
+                @endif
+            </a>
             @if($site->footer_text)<p class="mt-3 max-w-md text-cream/80">{{ $site->footer_text }}</p>@endif
             <ul class="mt-5 space-y-2 text-cream/90">
                 @if($site->phone)<li><a class="inline-flex min-h-8 items-center gap-2 hover:text-amber" href="tel:{{ $site->phone_href }}">@icon('phone', 'size-4') {{ $site->phone }}</a></li>@endif
