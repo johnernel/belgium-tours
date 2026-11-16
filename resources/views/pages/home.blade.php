@@ -155,20 +155,7 @@
 @include('partials.quote-band')
 
 {{-- 8. TESTIMONIALS --}}
-<section class="bg-amber py-16 sm:py-20" aria-labelledby="t-title">
-    <div class="container-page">
-        <x-section-heading id="t-title" :title="$c('testimonials_heading')" />
-        <div class="mt-8 grid gap-5 md:grid-cols-3">
-            @foreach($testimonials as $t)
-                <figure class="rounded-[1.5rem] bg-paper p-6 shadow-card">
-                    <div class="flex gap-0.5 text-amber-deep" aria-hidden="true">@for($i=0;$i<5;$i++)@icon('star', 'size-5 fill-current')@endfor</div>
-                    <blockquote class="mt-3 text-ink">{{ $t->quote }}</blockquote>
-                    <figcaption class="mt-4 text-sm font-semibold text-slate">{{ $t->name }}@if($t->location), {{ $t->location }}@endif</figcaption>
-                </figure>
-            @endforeach
-        </div>
-    </div>
-</section>
+@include('partials.testimonials')
 
 {{-- 9. FAQ --}}
 <section class="py-16 sm:py-24" aria-labelledby="faq-title">
