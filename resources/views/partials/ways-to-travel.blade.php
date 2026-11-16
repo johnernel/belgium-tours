@@ -9,8 +9,8 @@
 <section class="relative isolate overflow-hidden bg-ink py-20 text-cream sm:py-28" aria-labelledby="ways-title" x-data="{ tab: @js($first) }">
     <div class="absolute inset-0 -z-0" aria-hidden="true">
         <video class="absolute inset-0 size-full object-cover" muted loop playsinline preload="none" tabindex="-1"
-               data-poster="{{ asset('media/ways-poster.webp') }}" data-lazy-video
-               data-webm="{{ asset('media/ways-loop.webm') }}" data-mp4="{{ asset('media/ways-loop.mp4') }}"></video>
+               data-poster="{{ asset('media/ways-poster.webp').'?v='.filemtime(public_path('media/ways-poster.webp')) }}" data-lazy-video
+               data-webm="{{ asset('media/ways-loop.webm').'?v='.filemtime(public_path('media/ways-loop.webm')) }}" data-mp4="{{ asset('media/ways-loop.mp4').'?v='.filemtime(public_path('media/ways-loop.mp4')) }}"></video>
         <div class="absolute inset-0 bg-ink/75"></div>
         <div class="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-ink to-transparent"></div>
         <div class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink to-transparent"></div>
