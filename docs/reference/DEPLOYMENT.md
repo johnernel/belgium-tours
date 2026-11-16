@@ -84,3 +84,14 @@ This sends enquiry emails and GHL syncs within a minute. (On a VPS, use Supervis
 - Real reCAPTCHA keys; GTM ID set; notification emails set.
 - Legal pages reviewed by a professional; all `[CONFIRM: ...]` items resolved (CONTENT_TO_CONFIRM.md).
 - Back up the database regularly (hPanel Backups plus your own export).
+
+## 8. How the first deployment was set up (Hostinger staging domain)
+Live at `https://slategrey-chimpanzee-513787.hostingersite.com` (account shared with other sites: only touch this domain's folder).
+
+- **Layout** (under `~/domains/<domain>/`): the app is in `gobelgium/` (outside the web root, owns `.env`, `vendor/`, `storage/`); `public_html/` holds what used to be `public/` (`build/`, `images/`, `fonts/`, `media/`, `.htaccess`, `storage` symlink to `../gobelgium/storage/app/public`).
+- **`public_html/index.php`** points to `../gobelgium` and calls `$app->usePublicPath(__DIR__)` so Vite finds `build/manifest.json` in the web root. The `gobelgium/public` folder is deleted after copying.
+- **PHP version:** the installed packages need PHP 8.4 or newer. The first line of `public_html/.htaccess` is `AddHandler application/x-httpd-php84 .php`. (Setting the PHP version in hPanel does the same.) Over SSH use `/opt/alt/php85/usr/bin/php` (or `php84`) for `composer` and `artisan`; the default `php` there is 8.2.
+- **Database:** `DB_HOST=127.0.0.1` from the server (the `srv...hstgr.io` host only works from allowed remote IPs). Starter content was copied from the local database (content tables only: pages, packages, tour types, destinations, FAQs, testimonials, journal posts, quiz, settings). The admin user was created with `AdminSeeder` from `ADMIN_SEED_*` in `.env`.
+- **Updating the live site:** from the repo run `npm run build`; upload `git archive HEAD` plus `public/build`; on the server extract into `gobelgium/`, run `php artisan migrate --force`, copy the new `public/` files into `public_html/` (keep `index.php`, `.htaccess` first line and the `storage` symlink), run `composer install --no-dev --optimize-autoloader` when `composer.lock` changed, then `php artisan config:cache route:cache view:cache`.
+- **Cron (hPanel > Advanced > Cron Jobs, every minute):** `/opt/alt/php84/usr/bin/php /home/u514035692/domains/slategrey-chimpanzee-513787.hostingersite.com/gobelgium/artisan queue:work --stop-when-empty --max-time=55` (SSH has no `crontab` command on this plan).
+- **Still to do before real traffic:** real reCAPTCHA keys (the server `.env` has Google's always-pass TEST keys, which give no spam protection), SMTP details for enquiry emails (`MAIL_MAILER` is `log`, so no email is sent yet), GHL keys, a phone/email in Admin > Settings, and a decision on whether this temporary domain should be hidden from search engines until the real domain is attached.
