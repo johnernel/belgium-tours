@@ -6,8 +6,6 @@
 @if($page->noindex)@section('noindex', '1')@endif
 
 @push('preload')
-    <link rel="preload" href="/fonts/playfair-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/playfair-display-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" as="image" href="{{ asset('images/photos/bruges-canal-800.webp') }}" imagesrcset="{{ asset('images/photos/bruges-canal-480.webp') }} 640w, {{ asset('images/photos/bruges-canal-800.webp') }} 1024w, {{ asset('images/photos/bruges-canal-1280.webp') }} 1600w" imagesizes="100vw" fetchpriority="high">
 @endpush
 
@@ -69,7 +67,7 @@
                 @foreach([false, true] as $copy)
                     <ul class="flex shrink-0 items-center gap-x-10 pr-10" @if($copy) aria-hidden="true" @endif>
                         @foreach($trust as [$ic, $text])
-                            <li class="inline-flex items-center gap-2 whitespace-nowrap text-sm font-light text-white">@icon($ic, 'size-4 shrink-0 text-amber') {{ $text }}</li>
+                            <li class="inline-flex items-center gap-2 whitespace-nowrap text-sm font-normal text-white">@icon($ic, 'size-4 shrink-0 text-amber') {{ $text }}</li>
                         @endforeach
                     </ul>
                 @endforeach
@@ -87,16 +85,15 @@
     $whyPhotos = [
         ['images/photos/flower-carpet', 'Flower carpet laid out in front of the Brussels Grand Place', [1600, 1023]],
         ['images/photos/gravensteen', 'The medieval Gravensteen castle in Ghent at sunset', [1600, 1044]],
-        ['images/photos/la-roche', 'The Ourthe river and wooded hills at La Roche-en-Ardenne', [1600, 1067]],
     ];
 @endphp
 <section class="relative py-16 sm:py-24" aria-labelledby="why-title">
     <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
         {{-- Photos fill the full height of the text column, so both sides stay balanced --}}
-        <div class="grid h-80 grid-cols-3 gap-3 sm:h-96 sm:gap-4 lg:h-auto lg:min-h-[30rem]">
+        <div class="grid h-80 grid-cols-2 gap-3 sm:h-96 sm:gap-4 lg:h-auto lg:min-h-[30rem]">
             @foreach($whyPhotos as [$base, $alt, $ratio])
                 <div class="relative overflow-hidden rounded-3xl shadow-card">
-                    <x-photo :base="$base" :alt="$alt" sizes="(min-width:1024px) 16vw, 30vw" :ratio="$ratio" class="absolute inset-0 size-full" />
+                    <x-photo :base="$base" :alt="$alt" sizes="(min-width:1024px) 24vw, 46vw" :ratio="$ratio" class="absolute inset-0 size-full" />
                 </div>
             @endforeach
         </div>

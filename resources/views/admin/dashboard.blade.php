@@ -31,7 +31,7 @@
 
 <section class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Quick links">
     @foreach([['admin.packages.create', 'Add a package'], ['admin.quiz.index', 'Edit the quiz'], ['admin.pages.index', 'Edit page text'], ['admin.settings.edit', 'Site settings']] as [$r, $l])
-        <a href="{{ route($r) }}" class="rounded-2xl bg-amber p-4 text-center font-display text-lg font-semibold hover:bg-amber-deep">{{ $l }}</a>
+        <a href="{{ route($r) }}" class="rounded-2xl bg-amber p-4 text-center font-sans text-lg font-semibold hover:bg-amber-deep">{{ $l }}</a>
     @endforeach
 </section>
 @endsection

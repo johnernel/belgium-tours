@@ -16,7 +16,7 @@ Friendly and warm, inspired by the supplied travel-site mock-up (full-bleed hero
 
 Contrast: ink on cream/amber/sky and white on ink/slate pass WCAG AA. Do not set amber text on cream.
 
-Type: **Fredoka** (variable) for headings, **Nunito** (variable) for body, both self-hosted from `public/fonts` with `font-display: swap` and preloaded in the layout. The home hero headline and tagline use **Playfair Display** (`--font-serif`, normal + italic, preloaded on the home page only), with the second line of the headline in italic amber. Headings are sentence case, `text-wrap: balance`, no all-caps labels.
+Type: **Young Serif** for every heading and title (it has one weight, 400, so headings are never bolded; italic words are browser-synthesised obliques), and **Instrument Sans** (variable, 400 to 700) for descriptions, body text, navigation, prices and all buttons. Both are self-hosted from `public/fonts` with `font-display: swap` and preloaded in the layout. Tokens: `--font-display` / `--font-serif` (Young Serif), `--font-sans` (Instrument Sans). Headings are sentence case, `text-wrap: balance`, no all-caps labels except the small section label above the Tailor-made heading.
 
 Other tokens: `--radius-card`, `--shadow-card`, `--shadow-lift`. Motion: one hero entrance (`.hero-rise`), modal/quiz transitions only; reduced motion is honoured.
 

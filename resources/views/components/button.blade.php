@@ -1,6 +1,6 @@
 @props(['href' => null, 'variant' => 'primary', 'size' => 'md', 'icon' => null])
 @php
-    $base = 'inline-flex items-center justify-center gap-2 rounded-full font-display font-semibold leading-none transition-colors duration-150 min-h-11 cursor-pointer';
+    $base = 'inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold leading-none transition-colors duration-150 min-h-11 cursor-pointer';
     $sizes = ['sm' => 'px-4 py-2.5 text-sm', 'md' => 'px-6 py-3.5 text-base', 'lg' => 'px-8 py-4 text-lg'];
     $variants = [
         'primary' => 'bg-amber text-ink hover:bg-amber-deep',

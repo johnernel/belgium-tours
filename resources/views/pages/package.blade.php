@@ -108,14 +108,14 @@
 
     <aside class="lg:sticky lg:top-24 lg:self-start" aria-label="Request a quote">
         <div class="rounded-[1.75rem] border-4 border-amber bg-paper p-6 shadow-lift">
-            <p class="font-display text-2xl font-semibold">{{ $package->priceLabel() }}</p>
+            <p class="font-sans text-2xl font-bold">{{ $package->priceLabel() }}</p>
             <p class="text-sm text-slate">per person, based on the trip as described</p>
             <h2 class="mt-5 text-xl">Get a free quote</h2>
             <div class="mt-4">
                 <x-enquiry-form form-name="package-quote" :package="$package" id-prefix="p" submit-label="Get a quote for this trip" />
             </div>
         </div>
-        <button type="button" class="mt-4 w-full rounded-full border-2 border-ink px-6 py-3 font-display font-semibold hover:bg-ink hover:text-cream"
+        <button type="button" class="mt-4 w-full rounded-full border-2 border-ink px-6 py-3 font-sans font-semibold hover:bg-ink hover:text-cream"
                 @click="$store.modal.open({ mode: 'question', packageId: '{{ $package->id }}', packageName: @js($package->title) })">Ask us a question</button>
     </aside>
 </div>

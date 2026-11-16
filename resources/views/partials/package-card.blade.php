@@ -17,6 +17,6 @@
             <a href="{{ route('packages.show', $package->slug) }}" class="after:absolute after:inset-0">{{ $package->title }}</a>
         </h{{ $level }}>
         <p class="mt-2 line-clamp-2 text-sm text-white/85">{{ $package->summary }}</p>
-        <p class="mt-3 font-display text-lg font-semibold text-amber">{{ $package->priceLabel() }}</p>
+        <p class="mt-3 font-sans text-lg font-bold text-amber">{{ $package->priceLabel() }}</p>
     </div>
 </article>
