@@ -11,7 +11,7 @@
     // Home only: the photo sits behind the header, so it starts transparent with white text (see app.css).
     $overlay = request()->routeIs('home');
 @endphp
-<header class="sticky top-0 z-40 border-b border-ink/15 bg-bar transition-colors duration-200 {{ $overlay ? 'nav-overlay' : '' }}" :class="open && 'is-open'" x-data="{ open: false, tours: false }" @keydown.escape.window="open = false; tours = false">
+<header class="sticky top-0 z-40 bg-bar transition-colors duration-200 {{ $overlay ? 'nav-overlay' : '' }}" :class="open && 'is-open'" x-data="{ open: false, tours: false }" @keydown.escape.window="open = false; tours = false">
     <div class="container-page flex h-[4.5rem] items-center justify-between gap-3">
         <a href="{{ route('home') }}" class="flex items-center gap-2.5">
             @if($site->logo)
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <nav id="mobile-nav" x-cloak x-show="open" x-transition.opacity class="border-t border-ink/15 bg-bar lg:hidden" aria-label="Mobile">
+    <nav id="mobile-nav" x-cloak x-show="open" x-transition.opacity class="bg-bar lg:hidden" aria-label="Mobile">
         <ul class="container-page space-y-1 py-3">
             <li><a href="{{ route('home') }}" class="block px-1 py-3 text-lg font-semibold text-black">Home</a></li>
             @foreach($navTypes as $t)

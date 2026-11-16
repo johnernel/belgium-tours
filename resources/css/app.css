@@ -11,7 +11,6 @@
    Only applies with JavaScript on; without it the solid bar is used everywhere. */
 .js:not(.is-scrolled) .nav-overlay:not(.is-open) {
     background-color: transparent;
-    border-bottom-color: transparent;
 }
 .js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-link,
 .js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-brand,

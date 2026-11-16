@@ -55,7 +55,7 @@
             @if($line2)<span class="block">{{ $line1 }}</span>@endif
             <span class="block">{{ $tailPlain }}@if($tailPlain) @endif<em class="text-amber">{{ $tailEm }}</em></span>
         </h1>
-        <p class="hero-rise hero-rise-2 mt-5 max-w-xl text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
+        <p class="hero-rise hero-rise-2 mt-8 max-w-xl text-lg text-white/90 sm:text-xl lg:mt-10">{{ $c('hero_sub') }}</p>
 
         {{-- Way-to-travel picker + trust marquee. A plain GET form: works without JavaScript. --}}
         <form method="GET" action="{{ route('packages.index') }}" aria-label="Find trips by way of travelling"
@@ -63,11 +63,13 @@
             <div class="flex flex-wrap items-center gap-x-4 gap-y-2 lg:flex-nowrap">
                 <label for="hero-way" class="text-sm font-semibold text-white/85 lg:whitespace-nowrap">Way to see your destinations</label>
                 <div class="relative">
-                    <select id="hero-way" name="type" class="min-h-12 w-full cursor-pointer appearance-none rounded-full bg-amber py-2 pl-5 pr-11 font-display text-base font-semibold text-ink hover:bg-amber-deep">
-                        <option value="">Choose one</option>
+                    {{-- Choosing an option goes straight to that tour type's packages (the arrow button covers no-JS). --}}
+                    <select id="hero-way" name="type" @change="if ($el.value) $el.form.submit()"
+                            class="min-h-10 w-full cursor-pointer appearance-none rounded-full bg-white py-1.5 pl-4 pr-9 text-sm font-semibold text-ink hover:bg-cream">
+                        <option value="">Tour Types</option>
                         @foreach($tourTypes as $t)<option value="{{ $t->slug }}">{{ $t->name }}</option>@endforeach
                     </select>
-                    <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink">@icon('chevron-down', 'size-5')</span>
+                    <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink">@icon('chevron-down', 'size-4')</span>
                 </div>
             </div>
 
