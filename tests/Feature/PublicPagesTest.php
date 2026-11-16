@@ -47,6 +47,16 @@ class PublicPagesTest extends TestCase
         $this->get('/thank-you')->assertOk()->assertSee('noindex', false)->assertSee('enquiry_thank_you', false);
     }
 
+    public function test_home_hero_is_a_three_slide_slideshow_with_a_trust_marquee_and_no_dropdown(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertSame(3, substr_count($html, 'hero-slide hero-slide-'), 'three slideshow images');
+        $this->assertStringContainsString('marquee-track', $html);
+        $this->assertStringNotContainsString('Way to see your destinations', $html);
+        $this->assertStringNotContainsString('hero-way', $html);
+    }
+
     public function test_home_has_faq_structured_data(): void
     {
         $this->get('/')->assertOk()->assertSee('"@type":"FAQPage"', false);

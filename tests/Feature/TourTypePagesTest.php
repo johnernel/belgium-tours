@@ -47,21 +47,13 @@ class TourTypePagesTest extends TestCase
         $this->get('/tours/coach-tours')->assertNotFound();
     }
 
-    public function test_the_no_javascript_dropdown_fallback_redirects(): void
-    {
-        $this->get('/tours?type=self-drive')->assertRedirect(route('tours.show', 'self-drive'));
-        $this->get('/tours?type=nonsense')->assertRedirect(route('packages.index'));
-        $this->get('/tours')->assertRedirect(route('packages.index'));
-    }
-
-    public function test_the_nav_and_hero_dropdown_link_to_the_tour_type_pages(): void
+    public function test_the_nav_links_to_the_tour_type_pages(): void
     {
         $html = $this->get('/')->assertOk()->getContent();
 
         $this->assertStringContainsString('Tour Types', $html);
         foreach (['self-drive', 'chauffeur-driven', 'coach-tours'] as $slug) {
             $this->assertStringContainsString(route('tours.show', $slug), $html);
-            $this->assertStringContainsString('data-url="'.route('tours.show', $slug).'"', $html);
         }
     }
 

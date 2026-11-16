@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Package;
 use App\Models\QuizStep;
 use App\Models\TourType;
-use Illuminate\Http\Request;
 
 class TourTypeController extends Controller
 {
@@ -15,19 +14,6 @@ class TourTypeController extends Controller
         'chauffeur-driven' => 'chauffeur',
         'coach-tours' => 'coach',
     ];
-
-    /**
-     * /tours?type=slug: used by the hero dropdown when JavaScript is off.
-     * Goes to that tour type's page, or to all packages when nothing valid is chosen.
-     */
-    public function index(Request $request)
-    {
-        $slug = (string) $request->query('type');
-
-        return TourType::active()->where('slug', $slug)->exists()
-            ? redirect()->route('tours.show', $slug)
-            : redirect()->route('packages.index');
-    }
 
     public function show(string $slug)
     {

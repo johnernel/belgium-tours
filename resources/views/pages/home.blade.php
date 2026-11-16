@@ -47,7 +47,12 @@
     ], fn ($t) => filled($t[1])));
 @endphp
 <section class="relative isolate -mt-[4.5rem] flex min-h-[42rem] flex-col overflow-hidden bg-ink text-white lg:min-h-[48rem]">
-    <x-photo base="images/photos/bruges-canal" alt="A canal lined with brick houses and the Belfry tower in Bruges, Belgium" sizes="100vw" :eager="true" class="absolute inset-0 z-0 size-full" />
+    {{-- Background slideshow: three photos crossfade, each with a slow zoom and pan (Ken Burns). CSS only, see app.css. --}}
+    <div class="absolute inset-0 z-0 overflow-hidden bg-ink" aria-hidden="true">
+        <x-photo base="images/photos/bruges-canal" alt="" sizes="100vw" :eager="true" class="hero-slide hero-slide-1 absolute inset-0 size-full" />
+        <x-photo base="images/photos/brussels-grand-place" alt="" sizes="100vw" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
+        <x-photo base="images/photos/gravensteen" alt="" sizes="100vw" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
+    </div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/35 to-ink/85"></div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/70 via-ink/25 to-transparent"></div>
 
@@ -58,38 +63,18 @@
         </h1>
         <p class="hero-rise hero-rise-2 mt-8 max-w-xl text-lg text-white/90 sm:text-xl lg:mt-10">{{ $c('hero_sub') }}</p>
 
-        {{-- Way-to-travel picker + trust marquee. A plain GET form: works without JavaScript. --}}
-        <form method="GET" action="{{ route('tours.index') }}" aria-label="Find trips by way of travelling"
-              class="hero-rise hero-rise-3 mt-8 flex flex-col gap-3 rounded-[2rem] bg-ink/45 p-3 ring-1 ring-white/20 backdrop-blur-md lg:mt-10 lg:flex-row lg:items-center lg:rounded-full lg:p-2.5 lg:pl-6">
-            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 lg:flex-nowrap">
-                <label for="hero-way" class="text-sm font-semibold text-white/85 lg:whitespace-nowrap">Way to see your destinations</label>
-                <div class="relative">
-                    {{-- Choosing an option goes straight to that tour type's page (the arrow button covers no-JS). --}}
-                    <select id="hero-way" name="type" @change="if ($el.value) window.location.href = $el.selectedOptions[0].dataset.url"
-                            class="min-h-10 w-full cursor-pointer appearance-none rounded-full bg-white py-1.5 pl-4 pr-9 text-sm font-semibold text-ink hover:bg-cream">
-                        <option value="">Tour Types</option>
-                        @foreach($tourTypes as $t)<option value="{{ $t->slug }}" data-url="{{ route('tours.show', $t->slug) }}">{{ $t->name }}</option>@endforeach
-                    </select>
-                    <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink">@icon('chevron-down', 'size-4')</span>
-                </div>
+        {{-- Trust indicators --}}
+        <div class="marquee hero-rise hero-rise-3 mt-8 overflow-hidden rounded-full bg-ink/45 py-3.5 ring-1 ring-white/20 backdrop-blur-md lg:mt-10" role="region" aria-label="Why travellers trust us">
+            <div class="marquee-track">
+                @foreach([false, true] as $copy)
+                    <ul class="flex shrink-0 items-center gap-x-10 pr-10" @if($copy) aria-hidden="true" @endif>
+                        @foreach($trust as [$ic, $text])
+                            <li class="inline-flex items-center gap-2 whitespace-nowrap text-sm font-semibold text-white/90">@icon($ic, 'size-4 shrink-0 text-amber') {{ $text }}</li>
+                        @endforeach
+                    </ul>
+                @endforeach
             </div>
-
-            <div class="marquee min-w-0 flex-1 overflow-hidden" role="region" aria-label="Why travellers trust us">
-                <div class="marquee-track">
-                    @foreach([false, true] as $copy)
-                        <ul class="flex shrink-0 items-center gap-x-8 pr-8" @if($copy) aria-hidden="true" @endif>
-                            @foreach($trust as [$ic, $text])
-                                <li class="inline-flex items-center gap-2 whitespace-nowrap text-sm font-semibold text-white/90">@icon($ic, 'size-4 shrink-0 text-amber') {{ $text }}</li>
-                            @endforeach
-                        </ul>
-                    @endforeach
-                </div>
-            </div>
-
-            <button type="submit" class="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-amber px-6 font-display font-semibold text-ink hover:bg-amber-deep lg:size-12 lg:px-0">
-                <span class="lg:sr-only">Show trips</span>@icon('arrow-right', 'size-5')
-            </button>
-        </form>
+        </div>
     </div>
 </section>
 

@@ -49,3 +49,26 @@
     .marquee-track { animation: none; }
     .marquee-track > [aria-hidden='true'] { display: none; }
 }
+
+/* Home hero slideshow. Three slides share an 18s cycle, 6s apart. Each one fades in, zooms and drifts slowly
+   (Ken Burns), then fades out as the next fades in. Slide 1 starts already visible (negative delay) so the
+   first paint is never empty. */
+.hero-slide {
+    opacity: 0;
+    will-change: transform, opacity;
+    transform-origin: 50% 50%;
+    animation: hero-kenburns 18s linear infinite both;
+}
+.hero-slide-1 { animation-delay: -1.44s; --kb-x: -2.5%; --kb-y: -1.5%; }
+.hero-slide-2 { animation-delay: 4.56s;  --kb-x: 2.5%;  --kb-y: -1%; }
+.hero-slide-3 { animation-delay: 10.56s; --kb-x: -1.5%; --kb-y: 2%; }
+@keyframes hero-kenburns {
+    0%   { opacity: 0; transform: scale(1) translate(0, 0); }
+    8%   { opacity: 1; }
+    33%  { opacity: 1; }
+    41%, 100% { opacity: 0; transform: scale(1.14) translate(var(--kb-x), var(--kb-y)); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide { animation: none; will-change: auto; }
+    .hero-slide-1 { opacity: 1; }
+}
