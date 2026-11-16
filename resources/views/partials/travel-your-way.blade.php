@@ -1,6 +1,6 @@
 {{-- Include with: tourTypes, eyebrow, heading --}}
 @php $first = $tourTypes->first()?->slug; @endphp
-<section class="py-16 sm:py-24" aria-labelledby="way-title" x-data="{ way: @js($first) }">
+<section class="bg-ivory py-16 sm:py-24" aria-labelledby="way-title" x-data="{ way: @js($first) }">
     <div class="container-page">
         <div class="max-w-3xl">
             <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
