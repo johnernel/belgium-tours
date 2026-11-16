@@ -19,6 +19,10 @@ Nothing here has been invented as fact. Each item is a visible placeholder or an
 - [ ] Hero headline and subheading match your Google Ads copy
 - [ ] Hero trust marquee: four plain service promises (free no-obligation quote, tailor-made itineraries, three ways to travel, hotels/routes/transfers planned) plus the three trust badges above. Remove any promise you cannot keep (Admin > Pages > Home, marquee_1 to marquee_4).
 
+## Tour type pages (Admin > Tour types)
+- [ ] Headline, description and Google wording for Self Drive, Chauffeur Driven and Coach Tours are plain starter copy describing each service. Check they match what you really offer.
+- [ ] The photos (a country road, a river town, a Ghent canal) are generic Belgian scenes, not photos of your tours.
+
 ## About page
 - [ ] Company story, team, years in business, accreditations or bonding numbers (`[CONFIRM: ...]`)
 

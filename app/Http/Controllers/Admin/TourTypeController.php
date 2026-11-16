@@ -16,12 +16,16 @@ class TourTypeController extends CrudController
     {
         return [
             'title' => 'Tour types', 'singular' => 'Tour type',
-            'help' => 'These appear as cards on the home page, in the menu and as package filters.',
+            'help' => 'Each tour type has its own page (menu: Tour Types), a card on the home page and a package filter.',
             'columns' => ['Name' => 'name', 'Packages' => fn ($r) => $r->packages()->count(), 'Active' => fn ($r) => $r->active ? 'Yes' : 'No'],
             'fields' => [
                 ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'required' => true],
                 ['name' => 'slug', 'label' => 'URL name', 'type' => 'text', 'help' => 'Leave blank to create it from the name.'],
-                ['name' => 'summary', 'label' => 'Short description', 'type' => 'textarea'],
+                ['name' => 'headline', 'label' => 'Page headline', 'type' => 'text', 'help' => 'The large heading on the tour type page. Blank uses the name.'],
+                ['name' => 'summary', 'label' => 'Card summary (home page and other pages)', 'type' => 'textarea'],
+                ['name' => 'intro', 'label' => 'Page description (beside the quiz)', 'type' => 'textarea', 'help' => 'Two or three short sentences.'],
+                ['name' => 'seo_title', 'label' => 'Page title for Google', 'type' => 'text'],
+                ['name' => 'meta_description', 'label' => 'Description for Google', 'type' => 'textarea'],
                 ['name' => 'image', 'label' => 'Card photo', 'type' => 'image', 'alt' => 'image_alt'],
                 ['name' => 'sort', 'label' => 'Order (smaller shows first)', 'type' => 'number'],
                 ['name' => 'active', 'label' => 'Show on the site', 'type' => 'checkbox'],
@@ -34,7 +38,11 @@ class TourTypeController extends CrudController
         return [
             'name' => ['required', 'string', 'max:120'],
             'slug' => ['nullable', 'alpha_dash', 'max:120', Rule::unique('tour_types', 'slug')->ignore($record?->id)],
+            'headline' => ['nullable', 'string', 'max:160'],
             'summary' => ['nullable', 'string', 'max:600'],
+            'intro' => ['nullable', 'string', 'max:700'],
+            'seo_title' => ['nullable', 'string', 'max:160'],
+            'meta_description' => ['nullable', 'string', 'max:320'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
             'image_alt' => ['nullable', 'string', 'max:200', 'required_with:image'],
             'sort' => ['nullable', 'integer', 'min:0'],

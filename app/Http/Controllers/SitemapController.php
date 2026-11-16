@@ -14,6 +14,10 @@ class SitemapController extends Controller
             [route('packages.index'), now()],
         ];
 
+        foreach (\App\Models\TourType::active()->get() as $t) {
+            $urls[] = [route('tours.show', $t->slug), $t->updated_at];
+        }
+
         foreach (Page::where('noindex', false)->whereIn('slug', ['about', 'contact', 'terms', 'privacy'])->get() as $p) {
             $urls[] = [route($p->slug), $p->updated_at];
         }

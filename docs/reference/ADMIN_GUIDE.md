@@ -23,13 +23,13 @@ Add, edit, duplicate, publish or hide, feature, and reorder trips.
 - **Duplicate** makes a draft copy to adapt.
 
 ## Tour types and Destinations
-The lists that packages belong to. Tour types also appear as the cards on the home page and in the menu. "Order" decides the sequence; untick "Show on the site" to hide one.
+The lists that packages belong to. **Each tour type has its own page** (menu: Tour Types; also linked from the home page dropdown and cards). For each one set the **page headline**, the **page description** (shown beside the quiz), the Google title and description, and the **photo** (it is the background of that page). "Order" decides the sequence; untick "Show on the site" to hide one.
 
 ## Quiz
 The questions in the home page "Start Your Adventure" box. Edit the wording, switch steps on or off, reorder, and add, rename or remove answers (and choose an icon). A new step starts switched off until you add answers and tick **On**. The contact form is always the last step. Answers are saved with the enquiry and sent to GoHighLevel.
 
 ## Pages
-Edit the text of the home page sections, About, Contact, Terms and Privacy. Text in [square brackets] is a placeholder to replace. Terms and Privacy are **starter templates**: have a professional review them. Type `[Company Name]` and it becomes your legal company name.
+Edit the text of the home page sections, About, Contact, Terms and Privacy. About and Contact have a **banner**: change its short description and photo (describe the photo for accessibility). Text in [square brackets] is a placeholder to replace. Terms and Privacy are **starter templates**: have a professional review them. Type `[Company Name]` and it becomes your legal company name.
 
 ## Testimonials and FAQs
 Only publish real reviews you have permission to use. Untick "placeholder" when a review is real. FAQs show on the home page and are sent to Google as FAQ data.

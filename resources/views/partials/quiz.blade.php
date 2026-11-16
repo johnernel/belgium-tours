@@ -3,7 +3,7 @@
 <div class="relative rounded-[1.75rem] border-4 border-amber bg-cream p-5 text-ink shadow-lift sm:p-7" id="quiz">
     <h2 id="quiz-title" class="text-2xl sm:text-[1.75rem]">Start Your Adventure</h2>
 
-    <div x-cloak x-data="quiz(@js($quizSteps))" x-ref="card" tabindex="-1" role="group" aria-labelledby="quiz-title" class="mt-3 outline-none"
+    <div x-cloak x-data="quiz(@js($quizSteps), @js($quizPreset ?? []), @js($quizTourType ?? ''))" x-ref="card" tabindex="-1" role="group" aria-labelledby="quiz-title" class="mt-3 outline-none"
          x-init="window.quizIcons = @js(\App\Support\Icons::all())">
         <div class="mb-4 flex items-center gap-3" aria-live="polite">
             <div class="h-2 flex-1 overflow-hidden rounded-full bg-ink/10" role="progressbar" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progress" aria-label="Quiz progress">
@@ -67,7 +67,7 @@
 
     <div class="no-js-only">
         <p class="mt-3 text-slate">Tell us about your trip and we will send a free quote.</p>
-        <div class="mt-4"><x-enquiry-form form-name="hero-quiz" id-prefix="ns" :extended="true" submit-label="Get my free quote" /></div>
+        <div class="mt-4"><x-enquiry-form form-name="hero-quiz" id-prefix="ns" :extended="true" :tour-type="$quizTourType ?? null" submit-label="Get my free quote" /></div>
     </div>
 
     <p class="mt-5 flex items-center gap-2 text-sm text-slate">

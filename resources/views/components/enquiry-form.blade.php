@@ -21,6 +21,7 @@
 
     @if($mode === 'quiz')
         <input type="hidden" name="answers" x-bind:value="answersJson">
+        <input type="hidden" name="tour_type" x-bind:value="tourType">
     @endif
 
     @if($mode === 'modal')

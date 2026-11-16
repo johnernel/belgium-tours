@@ -1,14 +1,21 @@
 @extends('layouts.app')
 
 @section('title', $page->seo_title ?: $page->title)
-@section('description', $page->meta_description)
+@section('description', (string) ($page->meta_description ?? ''))
+@section('hero', '1')
 @if($page->noindex)@section('noindex', '1')@endif
 
 @section('content')
+@include('partials.page-hero', [
+    'title' => $page->title,
+    'sub' => $page->block('hero_sub', 'How we plan self drive, chauffeur driven and coach tours of Belgium.'),
+    'image' => $page->block('hero_image', 'images/photos/gravensteen'),
+    'alt' => $page->block('hero_image_alt', 'The medieval Gravensteen castle in Ghent at sunset'),
+])
+
 <section class="py-12 sm:py-16">
     <div class="container-page">
-        <x-section-heading tag="h1" :title="$page->title" />
-        <div class="prose-page mt-8">{!! $page->body !!}</div>
+        <div class="prose-page">{!! $page->body !!}</div>
 
         <section id="photo-credits" class="mt-16 rounded-2xl bg-paper p-6 shadow-card" aria-labelledby="pc">
             <h2 id="pc" class="text-xl">Photo credits</h2>

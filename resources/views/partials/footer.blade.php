@@ -11,9 +11,9 @@
             </ul>
         </div>
         <nav aria-label="Tours">
-            <p class="font-display text-lg font-semibold">Tours</p>
+            <p class="font-display text-lg font-semibold">Tour Types</p>
             <ul class="mt-3 space-y-1">
-                @foreach($footTypes as $t)<li><a class="inline-block py-1 hover:text-amber" href="{{ route('packages.index', ['type' => $t->slug]) }}">{{ $t->name }}</a></li>@endforeach
+                @foreach($footTypes as $t)<li><a class="inline-block py-1 hover:text-amber" href="{{ route('tours.show', $t->slug) }}">{{ $t->name }}</a></li>@endforeach
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('packages.index') }}">All packages</a></li>
             </ul>
         </nav>

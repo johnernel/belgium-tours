@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Services\ImageService;
 use App\Support\Html;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class PageController extends Controller
         return view('admin.pages.edit', ['page' => $page]);
     }
 
-    public function update(Request $request, Page $page)
+    public function update(Request $request, Page $page, ImageService $images)
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:160'],
@@ -28,6 +29,7 @@ class PageController extends Controller
             'body' => ['nullable', 'string'],
             'content' => ['nullable', 'array'],
             'content.*' => ['nullable', 'string', 'max:1000'],
+            'hero_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
         ]);
 
         $page->fill([
@@ -41,6 +43,12 @@ class PageController extends Controller
         }
         if (isset($data['content'])) {
             $page->content = array_merge($page->content ?? [], $data['content']);
+        }
+        if ($request->hasFile('hero_image')) {
+            if (blank($request->input('content.hero_image_alt'))) {
+                return back()->withErrors(['content.hero_image_alt' => 'Please describe the new hero photo (alt text).'])->withInput();
+            }
+            $page->content = array_merge($page->content ?? [], ['hero_image' => $images->store($request->file('hero_image'), $request->input('content.hero_image_alt'))->path]);
         }
         $page->save();
 

@@ -18,18 +18,31 @@ class ContentSeeder extends Seeder
         }
 
         $types = [
-            ['Self Drive', 'self-drive', 'Your own pace, your own route. We book the hotels, plan the roads and send you off with everything in hand.'],
-            ['Chauffeur Driven', 'chauffeur-driven', 'Sit back while a private driver-guide handles the roads, the parking and the stories behind each stop.'],
-            ['Coach Tours', 'coach-tours', 'Small-group touring with a guide, ready-made company and no driving. Simple to book, easy to enjoy.'],
+            ['Self Drive', 'self-drive', 'Your own pace, your own route. We book the hotels, plan the roads and send you off with everything in hand.',
+                'Self drive Belgium, at your own pace',
+                'A hire car, hotels and a route planned for you. Stop where you like and stay as long as you like, with everything arranged before you go.',
+                'Self Drive Tours of Belgium | Go Belgium Tours',
+                'Plan a self drive holiday in Belgium: hotels, routes and a hire car arranged for you. Explore Bruges, Ghent and Brussels at your own pace. Free quote.'],
+            ['Chauffeur Driven', 'chauffeur-driven', 'Sit back while a private driver-guide handles the roads, the parking and the stories behind each stop.',
+                'Belgium with a private driver-guide',
+                'Sit back while your driver handles the roads and the parking, and tells you the stories behind each stop. Private, flexible and planned around your group.',
+                'Chauffeur Driven Tours of Belgium | Go Belgium Tours',
+                'See Belgium with a private driver-guide: no driving, no parking, just the best of Bruges, Ghent, Brussels and the Ardennes. Request a free quote.'],
+            ['Coach Tours', 'coach-tours', 'Small-group touring with a guide, ready-made company and no driving. Simple to book, easy to enjoy.',
+                'Belgium by small-group coach',
+                'Join a guided small-group tour with hotels and transport organised. No driving and no planning, with easy company along the way.',
+                'Small-Group Coach Tours of Belgium | Go Belgium Tours',
+                'Guided small-group coach tours of Belgium with hotels and transport organised. No driving, no planning. Get a free quote.'],
         ];
         $images = [
             'self-drive' => ['images/photos/countryside', 'A quiet tree-lined road through green Belgian farmland'],
             'chauffeur-driven' => ['images/photos/la-roche', 'A river town in the wooded hills of the Belgian Ardennes'],
             'coach-tours' => ['images/photos/ghent-graslei', 'Visitors relaxing beside the canal at Graslei in Ghent'],
         ];
-        foreach ($types as $i => [$name, $slug, $summary]) {
+        foreach ($types as $i => [$name, $slug, $summary, $headline, $intro, $seoTitle, $metaDescription]) {
             TourType::firstOrCreate(['slug' => $slug], [
                 'name' => $name, 'summary' => $summary, 'sort' => $i + 1,
+                'headline' => $headline, 'intro' => $intro, 'seo_title' => $seoTitle, 'meta_description' => $metaDescription,
                 'image' => $images[$slug][0], 'image_alt' => $images[$slug][1],
             ]);
         }
@@ -90,12 +103,14 @@ class ContentSeeder extends Seeder
                 'title' => 'About Us',
                 'seo_title' => 'About Go Belgium Tours',
                 'meta' => 'Meet the team behind Go Belgium Tours and see how we plan self drive, chauffeur driven and coach tours of Belgium.',
+                'content' => ['hero_sub' => 'How we plan self drive, chauffeur driven and coach tours of Belgium.'],
                 'body' => '<p>Go Belgium Tours plans holidays in Belgium and tailor-made trips across Europe. We offer three ways to travel: self drive, chauffeur driven and small-group coach tours.</p><p>[CONFIRM: company story, team, years in business and any accreditations. Replace this paragraph with real details.]</p><h2>What we do</h2><p>We listen to how you like to travel, then build the trip: hotels, routes, transfers and the extras that make it feel local. You get one quote and one point of contact.</p>',
             ],
             'contact' => [
                 'title' => 'Contact Us',
                 'seo_title' => 'Contact Go Belgium Tours',
                 'meta' => 'Ask a question or request a free Belgium tour quote. Send your details and we will get back to you.',
+                'content' => ['hero_sub' => 'Ask a question or request a free quote. We reply as soon as we can.'],
                 'body' => '<p>Questions about a trip or ready for a quote? Send us a message and we will reply as soon as we can.</p>',
             ],
             'terms' => [

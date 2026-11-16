@@ -148,12 +148,25 @@ Alpine.data('enquiryForm', (config = {}) => ({
    Tile steps advance on click, dropdown steps use a Next button.
    The last step is the shared enquiry form with the answers attached.
    ------------------------------------------------------------------ */
-Alpine.data('quiz', (steps) => ({
+Alpine.data('quiz', (allSteps, preset = {}, tourType = '') => {
+    // Steps already answered elsewhere (e.g. the tour type page) are pre-filled and skipped.
+    const answers = {};
+    const labels = {};
+    Object.entries(preset || {}).forEach(([key, value]) => {
+        const opt = allSteps.find((s) => s.key === key)?.options.find((o) => o.value === value);
+        if (opt) {
+            answers[key] = value;
+            labels[key] = opt.label;
+        }
+    });
+    const steps = allSteps.filter((s) => !(s.key in answers));
+
+    return {
     steps,
+    tourType,
     i: 0,
-    answers: {},
-    labels: {},
-    selects: {},
+    answers,
+    labels,
 
     get total() {
         return this.steps.length + 1;
@@ -208,7 +221,8 @@ Alpine.data('quiz', (steps) => ({
     back() {
         if (this.i > 0) this.i--;
     },
-}));
+    };
+});
 
 /* Modal + shared opener. Any element can call $store.modal.open({...}). */
 Alpine.store('modal', {

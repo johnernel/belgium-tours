@@ -65,6 +65,21 @@ class PublicPagesTest extends TestCase
         $this->get('/')->assertSee('GTM-TEST123', false);
     }
 
+    public function test_a_page_with_no_meta_description_falls_back_to_the_site_default(): void
+    {
+        $level = ob_get_level();
+        \App\Models\Setting::put('default_meta_description', 'Site wide fallback description');
+
+        foreach (['home', 'about', 'contact', 'terms', 'privacy'] as $slug) {
+            \App\Models\Page::bySlug($slug)->update(['meta_description' => null, 'seo_title' => null]);
+        }
+
+        foreach (['/', '/about', '/contact', '/terms-and-conditions', '/privacy-policy'] as $url) {
+            $this->get($url)->assertOk()->assertSee('<meta name="description" content="Site wide fallback description">', false);
+        }
+        $this->assertSame($level, ob_get_level(), 'an empty @section must not leave a buffer open');
+    }
+
     public function test_security_headers_are_sent(): void
     {
         $this->get('/')->assertHeader('X-Content-Type-Options', 'nosniff')->assertHeader('X-Frame-Options', 'SAMEORIGIN');

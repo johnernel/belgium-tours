@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $page->seo_title ?: $page->title)
-@section('description', $page->meta_description)
+@section('description', (string) ($page->meta_description ?? ''))
 @if($page->noindex)@section('noindex', '1')@endif
 
 @section('content')

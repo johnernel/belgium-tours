@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TourType extends Model
 {
-    protected $fillable = ['name', 'slug', 'summary', 'image', 'image_alt', 'sort', 'active'];
+    protected $fillable = ['name', 'slug', 'headline', 'summary', 'intro', 'seo_title', 'meta_description', 'image', 'image_alt', 'sort', 'active'];
 
     protected function casts(): array
     {

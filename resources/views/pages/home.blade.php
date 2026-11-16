@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('title', $page->seo_title ?: $page->title)
-@section('description', $page->meta_description)
+@section('description', (string) ($page->meta_description ?? ''))
+@section('hero', '1')
 @if($page->noindex)@section('noindex', '1')@endif
 
 @push('preload')
@@ -58,16 +59,16 @@
         <p class="hero-rise hero-rise-2 mt-8 max-w-xl text-lg text-white/90 sm:text-xl lg:mt-10">{{ $c('hero_sub') }}</p>
 
         {{-- Way-to-travel picker + trust marquee. A plain GET form: works without JavaScript. --}}
-        <form method="GET" action="{{ route('packages.index') }}" aria-label="Find trips by way of travelling"
+        <form method="GET" action="{{ route('tours.index') }}" aria-label="Find trips by way of travelling"
               class="hero-rise hero-rise-3 mt-8 flex flex-col gap-3 rounded-[2rem] bg-ink/45 p-3 ring-1 ring-white/20 backdrop-blur-md lg:mt-10 lg:flex-row lg:items-center lg:rounded-full lg:p-2.5 lg:pl-6">
             <div class="flex flex-wrap items-center gap-x-4 gap-y-2 lg:flex-nowrap">
                 <label for="hero-way" class="text-sm font-semibold text-white/85 lg:whitespace-nowrap">Way to see your destinations</label>
                 <div class="relative">
-                    {{-- Choosing an option goes straight to that tour type's packages (the arrow button covers no-JS). --}}
-                    <select id="hero-way" name="type" @change="if ($el.value) $el.form.submit()"
+                    {{-- Choosing an option goes straight to that tour type's page (the arrow button covers no-JS). --}}
+                    <select id="hero-way" name="type" @change="if ($el.value) window.location.href = $el.selectedOptions[0].dataset.url"
                             class="min-h-10 w-full cursor-pointer appearance-none rounded-full bg-white py-1.5 pl-4 pr-9 text-sm font-semibold text-ink hover:bg-cream">
                         <option value="">Tour Types</option>
-                        @foreach($tourTypes as $t)<option value="{{ $t->slug }}">{{ $t->name }}</option>@endforeach
+                        @foreach($tourTypes as $t)<option value="{{ $t->slug }}" data-url="{{ route('tours.show', $t->slug) }}">{{ $t->name }}</option>@endforeach
                     </select>
                     <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink">@icon('chevron-down', 'size-4')</span>
                 </div>
@@ -138,8 +139,8 @@
                             <x-button size="sm" @click="$store.modal.open({ tourType: '{{ $t->name }}', heading: 'Get a quote: {{ $t->name }}' })">Get a Quote</x-button>
                             <x-button size="sm" variant="outline" @click="$store.modal.open({ mode: 'question', tourType: '{{ $t->name }}' })">Ask Us a Question</x-button>
                         </div>
-                        <a href="{{ route('packages.index', ['type' => $t->slug]) }}" class="mt-4 inline-flex min-h-8 items-center gap-1.5 font-semibold underline decoration-amber decoration-2 underline-offset-4">
-                            See {{ $t->name }} trips @icon('arrow-right', 'size-4')
+                        <a href="{{ route('tours.show', $t->slug) }}" class="mt-4 inline-flex min-h-8 items-center gap-1.5 font-semibold underline decoration-amber decoration-2 underline-offset-4">
+                            Explore {{ $t->name }} @icon('arrow-right', 'size-4')
                         </a>
                     </div>
                 </article>
