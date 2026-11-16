@@ -157,6 +157,9 @@
 {{-- 8. TESTIMONIALS --}}
 @include('partials.testimonials')
 
+{{-- 8b. GALLERY: curved photo marquee --}}
+@include('partials.gallery')
+
 {{-- 9. FAQ --}}
 <section class="py-16 sm:py-24" aria-labelledby="faq-title">
     <div class="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">

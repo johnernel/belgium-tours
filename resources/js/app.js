@@ -334,4 +334,57 @@ function initLazyVideos() {
 }
 document.addEventListener('DOMContentLoaded', initLazyVideos);
 
+/* ------------------------------------------------------------------
+   Gallery marquee: cards drift left forever; each card is bent toward the
+   viewer by its distance from the centre (big and angled at the edges,
+   small and flat in the middle). Pauses on hover and when off-screen; with
+   reduced motion the cards stay flat and the row scrolls by hand.
+   ------------------------------------------------------------------ */
+Alpine.data('gallery', () => ({
+    init() {
+        const stage = this.$refs.stage;
+        const track = this.$refs.track;
+        const cards = [...track.children];
+        if (!cards.length) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            stage.classList.add('overflow-x-auto');
+            return;
+        }
+        let x = 0, last = 0, paused = false, visible = false, raf = 0, setW = 0, stageW = 0, centres = [], widths = [];
+        const measure = () => {
+            stageW = stage.clientWidth;
+            centres = cards.map((c) => c.offsetLeft + c.offsetWidth / 2);
+            widths = cards.map((c) => c.offsetWidth);
+            // The list is rendered twice: one loop is the distance from a card to its twin (includes the gap).
+            const half = cards.length / 2;
+            setW = cards[half].offsetLeft - cards[0].offsetLeft;
+        };
+        const frame = (t) => {
+            raf = visible ? requestAnimationFrame(frame) : 0;
+            const dt = last ? Math.min(t - last, 50) : 16;
+            last = t;
+            if (!paused) {
+                x -= (stageW < 640 ? 0.035 : 0.05) * dt;
+                if (x <= -setW) x += setW;
+            }
+            track.style.transform = 'translate3d(' + x + 'px,0,0)';
+            for (let i = 0; i < cards.length; i++) {
+                let cx = centres[i] + x;
+                if (cx < -widths[i]) cx += setW; // wrap so the second copy bends the same way
+                const n = Math.max(-1.4, Math.min(1.4, (cx - stageW / 2) / (stageW / 2)));
+                const a = Math.abs(n);
+                const s = 0.78 + 0.62 * a * a;
+                cards[i].style.transform = 'perspective(900px) rotateY(' + (n * -26).toFixed(2) + 'deg) scale(' + s.toFixed(3) + ')';
+            }
+        };
+        const start = () => { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } };
+        measure();
+        window.addEventListener('resize', measure);
+        stage.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') paused = true; });
+        stage.addEventListener('pointerleave', () => { paused = false; });
+        new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) start(); }, { rootMargin: '100px' }).observe(stage);
+        track.querySelectorAll('img').forEach((i) => i.addEventListener('load', measure, { once: true }));
+    },
+}));
+
 Alpine.start();

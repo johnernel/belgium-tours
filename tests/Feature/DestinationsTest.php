@@ -64,6 +64,19 @@ class DestinationsTest extends TestCase
         $this->assertLessThan(strpos($html, 'aria-labelledby="t-title"'), $start);
     }
 
+    public function test_home_has_the_gallery_marquee_after_testimonials(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<em class="heading-accent">pictures</em>', $html);
+        $start = strpos($html, 'aria-labelledby="gal-title"');
+        $section = substr($html, $start, strpos($html, '</section>', $start) - $start);
+        $this->assertStringContainsString('x-data="gallery()"', substr($html, $start - 200, 400));
+        $this->assertSame(20, substr_count($section, '<img')); // 10 cards, rendered twice for the seamless loop
+        $this->assertLessThan($start, strpos($html, 'aria-labelledby="t-title"'));
+        $this->assertLessThan(strpos($html, 'aria-labelledby="faq-title"'), $start);
+    }
+
     public function test_the_six_destinations_are_seeded_with_real_tour_counts(): void
     {
         $this->assertSame(['Bruges', 'Ghent', 'Brussels', 'Antwerp', 'Leuven', 'Ardennes'], Experience::active()->pluck('name')->all());
