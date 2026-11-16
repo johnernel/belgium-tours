@@ -18,7 +18,7 @@
         <div class="prose-page">{!! $page->body !!}</div>
 
         <section id="photo-credits" class="mt-16 rounded-2xl bg-paper p-6 shadow-card" aria-labelledby="pc">
-            <h2 id="pc" class="text-xl">Photo credits</h2>
+            <h2 id="pc" class="text-xl">@heading('Photo credits')</h2>
             <p class="mt-2 text-slate">Photographs are used under Creative Commons licences from Wikimedia Commons. Full list, authors and licences:</p>
             <ul class="mt-3 space-y-1 text-sm text-slate">
                 @foreach(config('credits.photos') as $c)

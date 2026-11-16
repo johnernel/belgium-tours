@@ -18,6 +18,8 @@ Contrast: ink on cream/amber/sky and white on ink/slate pass WCAG AA. Do not set
 
 Type: **Fraunces** (variable, with an optical-size axis; upright and italic) at weight **300** for every heading and title, and **Instrument Sans** (variable, 400 to 700) for descriptions, body text, navigation, prices and all buttons. Both are self-hosted from `public/fonts` (`font-display: swap`) and preloaded in the layout (the italic is preloaded on the home page). Tokens: `--font-display` / `--font-serif` (Fraunces), `--font-sans` (Instrument Sans). The light weight is enforced by one unlayered rule at the end of `brand.css`.
 
+**Two-colour headings:** every headline has a main part and an italic accent (`@heading`, `*star*` the accent, else the last word). Slate accent on light backgrounds, amber on dark.
+
 **Heading size:** every page and section heading (h1/h2) uses the `text-heading` class, which is `--text-heading: 50px`. Change that one token to resize them all. Exceptions that keep their own sizes: hero headlines (home, About/Contact banners, tour type pages, package page), and titles inside cards, panels, the modal, the quiz, sidebars, prose content and the admin.
 
 Other tokens: `--radius-card`, `--shadow-card`, `--shadow-lift`. Motion: one hero entrance (`.hero-rise`), modal/quiz transitions only; reduced motion is honoured.

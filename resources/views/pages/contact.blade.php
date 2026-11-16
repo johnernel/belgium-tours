@@ -27,7 +27,7 @@
             </ul>
         </div>
         <div class="rounded-[1.75rem] bg-paper p-6 shadow-card sm:p-8">
-            <h2 class="text-2xl">Send us a message</h2>
+            <h2 class="text-2xl">@heading('Send us a message')</h2>
             <div class="mt-5"><x-enquiry-form form-name="contact" :extended="true" id-prefix="c" submit-label="Send message" /></div>
         </div>
     </div>

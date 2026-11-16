@@ -248,4 +248,90 @@ Alpine.store('modal', {
     },
 });
 
+/* ------------------------------------------------------------------
+   Journey carousel: native scroll-snap track with arrows and dots.
+   ------------------------------------------------------------------ */
+Alpine.data('carousel', () => ({
+    index: 0,
+    canPrev: false,
+    canNext: true,
+    count: 0,
+
+    init() {
+        this.count = this.$refs.track ? this.$refs.track.children.length : 0;
+        this.$nextTick(() => this.update());
+        window.addEventListener('resize', () => this.update(), { passive: true });
+    },
+    get active() {
+        return this.canNext ? this.index : this.count - 1;
+    },
+    step() {
+        const t = this.$refs.track;
+        const first = t.children[0];
+        if (!first) return t.clientWidth;
+        return first.getBoundingClientRect().width + (parseFloat(getComputedStyle(t).columnGap) || 0);
+    },
+    update() {
+        const t = this.$refs.track;
+        if (!t) return;
+        this.index = Math.min(this.count - 1, Math.round(t.scrollLeft / this.step()));
+        this.canPrev = t.scrollLeft > 4;
+        this.canNext = t.scrollLeft + t.clientWidth < t.scrollWidth - 4;
+    },
+    scrollTo(left) {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.$refs.track.scrollTo({ left, behavior: reduce ? 'auto' : 'smooth' });
+    },
+    prev() {
+        this.scrollTo(this.$refs.track.scrollLeft - this.step());
+    },
+    next() {
+        this.scrollTo(this.$refs.track.scrollLeft + this.step());
+    },
+    go(i) {
+        this.scrollTo(i * this.step());
+    },
+}));
+
+/* ------------------------------------------------------------------
+   Background video: loaded only when it is about to scroll into view,
+   paused while off screen, and skipped entirely for reduced motion or
+   data-saver visitors (the poster image stays).
+   ------------------------------------------------------------------ */
+function initLazyVideos() {
+    const skip = window.matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.connection?.saveData;
+
+    document.querySelectorAll('video[data-lazy-video]').forEach((video) => {
+        let loaded = false;
+        const io = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !loaded) {
+                        loaded = true;
+                        if (video.dataset.poster) video.poster = video.dataset.poster; // poster always; footage only if allowed
+                        if (skip) {
+                            io.disconnect();
+                            return;
+                        }
+                        [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(([key, type]) => {
+                            if (!video.dataset[key]) return;
+                            const s = document.createElement('source');
+                            s.src = video.dataset[key];
+                            s.type = type;
+                            video.appendChild(s);
+                        });
+                        video.load();
+                    }
+                    if (loaded) {
+                        entry.isIntersecting ? video.play().catch(() => {}) : video.pause();
+                    }
+                });
+            },
+            { rootMargin: '300px 0px' },
+        );
+        io.observe(video);
+    });
+}
+document.addEventListener('DOMContentLoaded', initLazyVideos);
+
 Alpine.start();

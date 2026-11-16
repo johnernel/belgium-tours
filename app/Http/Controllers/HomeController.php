@@ -14,8 +14,7 @@ class HomeController extends Controller
     {
         return view('pages.home', [
             'page' => Page::bySlug('home') ?? new Page(['title' => 'Home', 'content' => []]),
-            'tourTypes' => TourType::active()->get(),
-            'packages' => Package::published()->with(['tourType', 'destination'])->orderByDesc('is_featured')->orderBy('sort')->take(6)->get(),
+            'tourTypes' => TourType::active()->with(['packages' => fn ($q) => $q->published()->orderByDesc('is_featured')->orderBy('sort')])->get(),
             'testimonials' => Testimonial::active()->get(),
             'faqs' => Faq::active()->get(),
         ]);

@@ -20,6 +20,7 @@ class TourTypeController extends CrudController
             'columns' => ['Name' => 'name', 'Packages' => fn ($r) => $r->packages()->count(), 'Active' => fn ($r) => $r->active ? 'Yes' : 'No'],
             'fields' => [
                 ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'required' => true],
+                ['name' => 'tab_label', 'label' => 'Short tab label', 'type' => 'text', 'help' => 'Used on the home page tabs and card tags, e.g. Self-Drive. Blank uses the name.'],
                 ['name' => 'slug', 'label' => 'URL name', 'type' => 'text', 'help' => 'Leave blank to create it from the name.'],
                 ['name' => 'headline', 'label' => 'Page headline', 'type' => 'text', 'help' => 'The large heading on the tour type page. Blank uses the name.'],
                 ['name' => 'summary', 'label' => 'Card summary (home page and other pages)', 'type' => 'textarea'],
@@ -38,6 +39,7 @@ class TourTypeController extends CrudController
         return [
             'name' => ['required', 'string', 'max:120'],
             'slug' => ['nullable', 'alpha_dash', 'max:120', Rule::unique('tour_types', 'slug')->ignore($record?->id)],
+            'tab_label' => ['nullable', 'string', 'max:40'],
             'headline' => ['nullable', 'string', 'max:160'],
             'summary' => ['nullable', 'string', 'max:600'],
             'intro' => ['nullable', 'string', 'max:700'],

@@ -6,7 +6,6 @@
 @if($page->noindex)@section('noindex', '1')@endif
 
 @push('preload')
-    <link rel="preload" href="/fonts/fraunces-latin-opsz-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" as="image" href="{{ asset('images/photos/bruges-canal-800.webp') }}" imagesrcset="{{ asset('images/photos/bruges-canal-480.webp') }} 640w, {{ asset('images/photos/bruges-canal-800.webp') }} 1024w, {{ asset('images/photos/bruges-canal-1280.webp') }} 1600w" imagesizes="100vw" fetchpriority="high">
 @endpush
 
@@ -49,16 +48,16 @@
     {{-- Background slideshow: three photos crossfade, each with a slow zoom and pan (Ken Burns). CSS only, see app.css. --}}
     <div class="absolute inset-0 z-0 overflow-hidden bg-ink" aria-hidden="true">
         <x-photo base="images/photos/bruges-canal" alt="" sizes="100vw" :eager="true" class="hero-slide hero-slide-1 absolute inset-0 size-full" />
-        <x-photo base="images/photos/brussels-grand-place" alt="" sizes="100vw" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
-        <x-photo base="images/photos/gravensteen" alt="" sizes="100vw" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
+        <x-photo base="images/photos/brussels-grand-place" alt="" sizes="100vw" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
+        <x-photo base="images/photos/gravensteen" alt="" sizes="100vw" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
     </div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/35 to-ink/85"></div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/70 via-ink/25 to-transparent"></div>
 
     <div class="container-page relative z-10 flex flex-1 flex-col justify-end pb-6 pt-32 sm:pb-8">
-        <h1 class="hero-rise max-w-[18ch] font-serif text-5xl font-medium leading-[1] !text-white sm:text-6xl lg:max-w-none lg:text-[5.75rem]">
+        <h1 class="on-dark hero-rise max-w-[18ch] font-serif text-5xl font-medium leading-[1] !text-white sm:text-6xl lg:max-w-none lg:text-[5.75rem]">
             @if($line2)<span class="block">{{ $line1 }}</span>@endif
-            <span class="block">{{ $tailPlain }}@if($tailPlain) @endif<em class="text-amber">{{ $tailEm }}</em></span>
+            <span class="block">{{ $tailPlain }}@if($tailPlain) @endif<em class="heading-accent">{{ $tailEm }}</em></span>
         </h1>
         <p class="hero-rise hero-rise-2 mt-8 max-w-xl text-lg text-white/90 sm:text-xl lg:mt-10">{{ $c('hero_sub') }}</p>
 
@@ -79,10 +78,8 @@
 
 {{-- 4. WHY TRAVELLERS CHOOSE US --}}
 @php
-    // Last word of the heading is set in italic slate, as in the design reference.
+    // Two-colour heading: the last word (or the *starred* part) is the italic accent.
     $why = trim($c('why_heading') ?: 'Every journey, personally crafted.');
-    $whyCut = strrpos($why, ' ');
-    [$whyPlain, $whyEm] = $whyCut ? [substr($why, 0, $whyCut), substr($why, $whyCut + 1)] : ['', $why];
     $whyPhotos = [
         ['images/photos/flower-carpet', 'Flower carpet laid out in front of the Brussels Grand Place', [1600, 1023]],
         ['images/photos/gravensteen', 'The medieval Gravensteen castle in Ghent at sunset', [1600, 1044]],
@@ -94,7 +91,7 @@
         <div class="grid h-80 grid-cols-2 gap-3 sm:h-96 sm:gap-4 lg:h-auto lg:min-h-[30rem]">
             @foreach($whyPhotos as [$base, $alt, $ratio])
                 <div class="relative overflow-hidden rounded-3xl shadow-card">
-                    <x-photo :base="$base" :alt="$alt" :widths="[480, 800, 1280, 1600, 2400]" sizes="(min-width:1024px) 1000px, 700px" :ratio="$ratio" class="absolute inset-0 size-full" />
+                    <x-photo :base="$base" :alt="$alt" :widths="[480, 800, 1280, 1600, 2400]" sizes="(min-width:1024px) 1000px, (min-width:640px) 640px, 400px" fetchpriority="low" :ratio="$ratio" class="absolute inset-0 size-full" />
                 </div>
             @endforeach
         </div>
@@ -103,15 +100,13 @@
             <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
                 <span class="h-px w-10 bg-slate/50" aria-hidden="true"></span>{{ $c('why_eyebrow') ?: 'Tailor-made in Belgium' }}
             </p>
-            <h2 id="why-title" class="mt-5 font-serif text-heading">
-                {{ $whyPlain }}@if($whyPlain) @endif<em class="text-slate">{{ $whyEm }}</em>
-            </h2>
+            <h2 id="why-title" class="mt-5 font-serif text-heading">@heading($why)</h2>
             <p class="mt-6 text-lg leading-relaxed text-slate">{{ $c('why_sub') }}</p>
 
             <ul class="mt-8 divide-y divide-ink/10 border-t border-ink/10">
                 @foreach([1, 2, 3] as $n)
                     <li class="grid grid-cols-[2.75rem_1fr] items-baseline gap-x-2 py-4">
-                        <span class="font-serif text-lg italic text-amber-deep" aria-hidden="true">{{ sprintf('%02d', $n) }}</span>
+                        <span class="font-serif text-lg italic text-amber-ink" aria-hidden="true">{{ sprintf('%02d', $n) }}</span>
                         <div>
                             <h3 class="font-serif text-xl font-normal leading-snug">{{ $c("why_{$n}_title") }}</h3>
                             <p class="mt-1 text-[0.95rem] text-slate">{{ $c("why_{$n}_text") }}</p>
@@ -127,54 +122,16 @@
     </div>
 </section>
 
-{{-- 5. TOUR TYPES --}}
-<section class="bg-cream-deep/60 py-16 sm:py-24" aria-labelledby="types-title">
-    <div class="container-page">
-        <x-section-heading id="types-title" :title="$c('tour_types_heading')" :sub="$c('tour_types_sub')" align="center" />
-        <div class="mt-10 grid gap-6 md:grid-cols-3">
-            @foreach($tourTypes as $t)
-                <article class="flex flex-col overflow-hidden rounded-[1.5rem] bg-paper shadow-card">
-                    <div class="aspect-[16/10]">
-                        @if($t->image)
-                            <x-photo :base="$t->image" :alt="$t->image_alt ?: $t->name" sizes="(min-width:768px) 30vw, 92vw" class="size-full" />
-                        @else
-                            <div class="size-full bg-sky" role="img" aria-label="Image to be added"></div>
-                        @endif
-                    </div>
-                    <div class="flex flex-1 flex-col p-6">
-                        <h3 class="text-2xl">{{ $t->name }}</h3>
-                        <p class="mt-2 flex-1 text-slate">{{ $t->summary }}</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <x-button size="sm" @click="$store.modal.open({ tourType: '{{ $t->name }}', heading: 'Get a quote: {{ $t->name }}' })">Get a Quote</x-button>
-                            <x-button size="sm" variant="outline" @click="$store.modal.open({ mode: 'question', tourType: '{{ $t->name }}' })">Ask Us a Question</x-button>
-                        </div>
-                        <a href="{{ route('tours.show', $t->slug) }}" class="mt-4 inline-flex min-h-8 items-center gap-1.5 font-semibold underline decoration-amber decoration-2 underline-offset-4">
-                            Explore {{ $t->name }} @icon('arrow-right', 'size-4')
-                        </a>
-                    </div>
-                </article>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- 6. FEATURED PACKAGES --}}
-<section class="py-16 sm:py-24" aria-labelledby="pk-title">
-    <div class="container-page">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-            <x-section-heading id="pk-title" :title="$c('packages_heading')" :sub="$c('packages_sub')" />
-            <x-button :href="route('packages.index')" variant="outline" icon="arrow-right">All packages</x-button>
-        </div>
-        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            @foreach($packages as $package)
-                @include('partials.package-card', ['package' => $package])
-            @endforeach
-        </div>
-    </div>
-</section>
+{{-- 5. THREE WAYS TO TRAVEL: video background, tabs and journey carousels --}}
+@include('partials.ways-to-travel', [
+    'tourTypes' => $tourTypes,
+    'eyebrow' => $c('ways_eyebrow') ?: 'Signature Journeys',
+    'heading' => $c('ways_heading') ?: 'Three Ways to *Travel* Belgium',
+    'sub' => $c('ways_sub') ?: 'Choose how you move. We handle everything else.',
+])
 
 {{-- 7. HOW IT WORKS (a real sequence, so numbered) --}}
-<section class="pb-16 sm:pb-24" aria-labelledby="how-title">
+<section class="py-16 sm:py-24" aria-labelledby="how-title">
     <div class="container-page">
         <x-section-heading id="how-title" :title="$c('steps_heading')" align="center" />
         <ol class="mt-10 grid gap-6 md:grid-cols-3">
@@ -222,7 +179,7 @@
     <div class="container-page">
         <div class="relative isolate overflow-hidden rounded-[2rem] bg-slate px-6 py-14 text-center text-white sm:px-12">
             <svg class="pointer-events-none absolute -right-10 -top-6 z-0 w-72 text-white/15" viewBox="0 0 300 120" fill="none" aria-hidden="true"><path class="doodle-path" d="M5 110C70 20 150 130 220 50s60-30 75-40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-            <h2 id="cta-title" class="relative z-10 text-heading !text-white">{{ $c('cta_heading') }}</h2>
+            <h2 id="cta-title" class="on-dark relative z-10 text-heading !text-white">@heading($c('cta_heading'))</h2>
             <p class="relative z-10 mx-auto mt-3 max-w-xl text-lg text-white/90">{{ $c('cta_text') }}</p>
             <div class="relative z-10 mt-7 flex flex-wrap justify-center gap-3">
                 <x-button size="lg" @click="$store.modal.open()">Start Your Adventure</x-button>

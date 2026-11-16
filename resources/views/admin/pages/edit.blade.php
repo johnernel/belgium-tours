@@ -30,7 +30,7 @@
     @if($page->slug === 'home' && $page->content)
         <section class="space-y-4 rounded-2xl bg-paper p-6 shadow-card">
             <h2 class="text-xl">Home page wording</h2>
-            <p class="text-sm text-slate">Each box is one piece of text on the home page. Anything in [square brackets] is a placeholder to confirm.</p>
+            <p class="text-sm text-slate">Each box is one piece of text on the home page. Anything in [square brackets] is a placeholder to confirm. In headings, put *asterisks* around the part that should be the coloured italic accent, for example Three Ways to *Travel* Belgium. With no asterisks the last word is the accent.</p>
             @foreach($page->content as $key => $val)
                 @if(strlen($val) > 90)<x-admin.textarea :name="'content['.$key.']'" :label="ucfirst(str_replace('_', ' ', $key))" :value="$val" :rows="3" />
                 @else<x-admin.input :name="'content['.$key.']'" :label="ucfirst(str_replace('_', ' ', $key))" :value="$val" />@endif

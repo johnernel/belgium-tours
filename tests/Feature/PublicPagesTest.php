@@ -67,6 +67,44 @@ class PublicPagesTest extends TestCase
         $this->assertStringContainsString('bg-amber text-white hover:bg-sky-hover', $html, 'CTA button style');
     }
 
+    public function test_the_ways_to_travel_section_has_video_tabs_and_journey_cards(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertSame(1, substr_count($html, 'data-lazy-video'), 'only one video-background section');
+        $this->assertStringContainsString('media/ways-loop.webm', $html);
+        $this->assertStringContainsString('media/ways-poster.webp', $html);
+        $this->assertStringContainsString('Signature Journeys', $html);
+        $this->assertStringContainsString('<em class="heading-accent">Travel</em>', $html);
+        foreach (['Self-Drive', 'Chauffeur', 'Coach Tour'] as $tab) {
+            $this->assertMatchesRegularExpression('/role="tab"[^>]*>[\s\S]{0,1500}'.preg_quote($tab, '/').'/', $html);
+        }
+        $this->assertSame(3, substr_count($html, 'role="tabpanel"'));
+        $this->assertSame(15, substr_count($html, 'journey-card group'), 'five journeys per tab');
+        foreach (['Bruges & Ghent Medieval Escape', 'Brussels Art Nouveau & Chocolate Day', 'Belgium Highlights in 7 Days'] as $title) {
+            $this->assertStringContainsString(e($title), $html);
+        }
+        $this->assertStringContainsString('Get a Quote', $html);
+        $this->assertStringContainsString('More Info', $html);
+        $this->assertStringContainsString('Bruges · Ghent', $html, 'route line');
+    }
+
+    public function test_only_the_home_page_has_a_background_video(): void
+    {
+        foreach (['/packages', '/about', '/contact', '/tours/self-drive'] as $url) {
+            $this->get($url)->assertOk()->assertDontSee('data-lazy-video', false);
+        }
+    }
+
+    public function test_every_section_headline_on_home_is_two_coloured(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        foreach (['why-title', 'ways-title', 'how-title', 't-title', 'faq-title', 'cta-title'] as $id) {
+            $this->assertMatchesRegularExpression('/id="'.$id.'"[^>]*>[^<]*(<[^>]+>[^<]*)*<em class="heading-accent">/s', $html, "$id should have an accent part");
+        }
+    }
+
     public function test_home_has_faq_structured_data(): void
     {
         $this->get('/')->assertOk()->assertSee('"@type":"FAQPage"', false);
@@ -74,7 +112,7 @@ class PublicPagesTest extends TestCase
 
     public function test_unknown_page_returns_custom_404(): void
     {
-        $this->get('/does-not-exist')->assertNotFound()->assertSee('wrong turn');
+        $this->get('/does-not-exist')->assertNotFound()->assertSee('We took a wrong', false)->assertSee('<em class="heading-accent">turn</em>', false);
     }
 
     public function test_gtm_snippet_only_appears_when_configured(): void

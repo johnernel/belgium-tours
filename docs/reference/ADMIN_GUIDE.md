@@ -20,10 +20,11 @@ Add, edit, duplicate, publish or hide, feature, and reorder trips.
 - Itinerary and trip questions: use **Add a day / Add a question**.
 - Photos: the hero photo and every gallery photo need a short **description** (alt text) for accessibility and Google. Use photos you own or that are free for commercial use.
 - "Page title for Google" and "Description for Google" control what searchers see. Tick "Hide from search" for private pages.
+- **Route** (cities, e.g. `Bruges · Ghent`) and the first three **Highlights** appear on the home page journey cards. The card shows "N days" (nights + 1) and the From price, or "Price on request" when the price is blank.
 - **Duplicate** makes a draft copy to adapt.
 
 ## Tour types and Destinations
-The lists that packages belong to. **Each tour type has its own page** (menu: Tour Types; also linked from the home page dropdown and cards). For each one set the **page headline**, the **page description** (shown beside the quiz), the Google title and description, and the **photo** (it is the background of that page). "Order" decides the sequence; untick "Show on the site" to hide one.
+The lists that packages belong to. **Each tour type has its own page** (menu: Tour Types; also linked from the home page dropdown and cards). For each one set the **short tab label** (used on the home page tabs, e.g. Self-Drive), the **page headline**, the **page description** (shown beside the quiz), the Google title and description, and the **photo** (it is the background of that page). "Order" decides the sequence; untick "Show on the site" to hide one.
 
 ## Quiz
 The questions in the home page "Start Your Adventure" box. Edit the wording, switch steps on or off, reorder, and add, rename or remove answers (and choose an icon). A new step starts switched off until you add answers and tick **On**. The contact form is always the last step. Answers are saved with the enquiry and sent to GoHighLevel.

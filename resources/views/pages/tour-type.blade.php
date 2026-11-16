@@ -33,7 +33,7 @@
     <div class="container-page relative z-10 grid w-full items-center gap-10 py-14 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-20">
         <div>
             <p class="hero-rise mb-4 text-sm font-semibold text-white/85"><a href="{{ route('home') }}" class="underline decoration-amber decoration-2 underline-offset-4">Home</a> / {{ $type->name }}</p>
-            <h1 class="hero-rise hero-rise-2 max-w-[16ch] font-serif text-5xl font-medium leading-[1.02] !text-white sm:text-6xl lg:max-w-[14ch] lg:text-[4.5rem]">{{ $type->headline ?: $type->name }}</h1>
+            <h1 class="on-dark hero-rise hero-rise-2 max-w-[16ch] font-serif text-5xl font-medium leading-[1.02] !text-white sm:text-6xl lg:max-w-[14ch] lg:text-[4.5rem]">@heading($type->headline ?: $type->name)</h1>
             <p class="hero-rise hero-rise-2 mt-8 max-w-lg text-lg text-white/90 sm:text-xl">{{ $type->intro ?: $type->summary }}</p>
         </div>
 
@@ -64,7 +64,7 @@
 @if($others->isNotEmpty())
 <section class="bg-cream-deep/60 py-14 sm:py-16" aria-labelledby="others-title">
     <div class="container-page">
-        <h2 id="others-title" class="text-heading">Other ways to see Belgium</h2>
+        <h2 id="others-title" class="text-heading">@heading('Other ways to see Belgium')</h2>
         <ul class="mt-6 grid gap-4 sm:grid-cols-2">
             @foreach($others as $o)
                 <li class="rounded-2xl bg-paper p-5 shadow-card">
@@ -81,7 +81,7 @@
 <section class="pt-16 sm:pt-20" aria-labelledby="cta-title">
     <div class="container-page">
         <div class="rounded-[2rem] bg-slate px-6 py-12 text-center text-white sm:px-12">
-            <h2 id="cta-title" class="text-heading !text-white">Ready for {{ strtolower($type->name) }} in Belgium?</h2>
+            <h2 id="cta-title" class="on-dark text-heading !text-white">@heading('Ready for '.strtolower($type->name).' in Belgium?')</h2>
             <p class="mx-auto mt-3 max-w-xl text-lg text-white/90">Tell us when you want to go and who is coming. We will send a free quote.</p>
             <div class="mt-7 flex flex-wrap justify-center gap-3">
                 <x-button size="lg" @click="$store.modal.open({ tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Get a free quote</x-button>

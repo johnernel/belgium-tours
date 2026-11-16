@@ -27,6 +27,7 @@
                 <x-admin.select name="currency" label="Currency" :options="['EUR' => 'EUR', 'USD' => 'USD', 'GBP' => 'GBP']" :value="$package->currency" />
             </div>
         </div>
+        <x-admin.input name="route" label="Route (cities, shown on the journey card)" :value="$package->route" help="Separate places with a middle dot, e.g. Bruges · Ghent" />
         <x-admin.textarea name="summary" label="Short summary (shown on cards)" :value="$package->summary" :rows="3" />
         <div class="flex flex-wrap gap-x-8">
             <x-admin.check name="is_published" label="Published" :checked="$package->is_published" />

@@ -34,6 +34,7 @@ class ContentSeeder extends Seeder
                 'Small-Group Coach Tours of Belgium | Go Belgium Tours',
                 'Guided small-group coach tours of Belgium with hotels and transport organised. No driving, no planning. Get a free quote.'],
         ];
+        $tabLabels = ['self-drive' => 'Self-Drive', 'chauffeur-driven' => 'Chauffeur', 'coach-tours' => 'Coach Tour'];
         $images = [
             'self-drive' => ['images/photos/countryside', 'A quiet tree-lined road through green Belgian farmland'],
             'chauffeur-driven' => ['images/photos/la-roche', 'A river town in the wooded hills of the Belgian Ardennes'],
@@ -41,7 +42,7 @@ class ContentSeeder extends Seeder
         ];
         foreach ($types as $i => [$name, $slug, $summary, $headline, $intro, $seoTitle, $metaDescription]) {
             TourType::firstOrCreate(['slug' => $slug], [
-                'name' => $name, 'summary' => $summary, 'sort' => $i + 1,
+                'name' => $name, 'tab_label' => $tabLabels[$slug] ?? null, 'summary' => $summary, 'sort' => $i + 1,
                 'headline' => $headline, 'intro' => $intro, 'seo_title' => $seoTitle, 'meta_description' => $metaDescription,
                 'image' => $images[$slug][0], 'image_alt' => $images[$slug][1],
             ]);
@@ -79,10 +80,9 @@ class ContentSeeder extends Seeder
                     'why_3_title' => 'Local expert guides',
                     'why_3_text' => 'Historians, chocolatiers and cyclists who live the route.',
                     'why_cta' => 'Plan My Journey',
-                    'tour_types_heading' => 'Pick how you want to travel',
-                    'tour_types_sub' => 'Three ways to see Belgium. Not sure which suits you? Ask and we will help you choose.',
-                    'packages_heading' => 'Popular Belgium trips',
-                    'packages_sub' => 'Sample trips to start from. Every one can be changed to fit you.',
+                    'ways_eyebrow' => 'Signature Journeys',
+                    'ways_heading' => 'Three Ways to *Travel* Belgium',
+                    'ways_sub' => 'Choose how you move. We handle everything else.',
                     'steps_heading' => 'How it works',
                     'step_1_title' => 'Tell us your plans',
                     'step_1_text' => 'Answer a few quick questions or send us a message. It takes under a minute.',

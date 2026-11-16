@@ -19,6 +19,11 @@ Nothing here has been invented as fact. Each item is a visible placeholder or an
 - [ ] Hero headline and subheading match your Google Ads copy
 - [ ] Hero trust marquee: four plain service promises (free no-obligation quote, tailor-made itineraries, three ways to travel, hotels/routes/transfers planned) plus the three trust badges above. Remove any promise you cannot keep (Admin > Pages > Home, marquee_1 to marquee_4).
 
+## Home page journeys ("Three Ways to Travel Belgium")
+- [ ] The 15 journeys (five per tab), their routes, durations and the three highlights on each card are **invented samples** (the nine named journeys come from the design brief; six more were added to fill the carousels). Confirm, edit or delete in Admin > Packages.
+- [ ] Prices are blank, so the cards say "Price on request". Enter a From price per package and the card shows it.
+- [ ] Several journeys reuse the same photos. Replace with photos of the real trips.
+
 ## Tour type pages (Admin > Tour types)
 - [ ] Headline, description and Google wording for Self Drive, Chauffeur Driven and Coach Tours are plain starter copy describing each service. Check they match what you really offer.
 - [ ] The photos (a country road, a river town, a Ghent canal) are generic Belgian scenes, not photos of your tours.

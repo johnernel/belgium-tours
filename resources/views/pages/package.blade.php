@@ -53,7 +53,7 @@
         @if($package->summary)<p class="text-xl text-slate">{{ $package->summary }}</p>@endif
 
         @if($package->highlights)
-            <section aria-labelledby="hl"><h2 id="hl" class="text-heading">Highlights</h2>
+            <section aria-labelledby="hl"><h2 id="hl" class="text-heading">@heading('Highlights')</h2>
                 <ul class="mt-4 grid gap-3 sm:grid-cols-2">
                     @foreach($package->highlights as $h)
                         <li class="flex gap-3 rounded-2xl bg-paper p-4 shadow-card">@icon('check', 'mt-0.5 size-5 shrink-0 text-amber-deep') <span>{{ $h }}</span></li>
@@ -63,13 +63,13 @@
         @endif
 
         @if($package->description)
-            <section aria-labelledby="ov"><h2 id="ov" class="text-heading">Overview</h2>
+            <section aria-labelledby="ov"><h2 id="ov" class="text-heading">@heading('Overview')</h2>
                 <div class="prose-page mt-4">{!! $package->description !!}</div>
             </section>
         @endif
 
         @if($package->itinerary)
-            <section aria-labelledby="it"><h2 id="it" class="text-heading">Day by day</h2>
+            <section aria-labelledby="it"><h2 id="it" class="text-heading">@heading('Day by day')</h2>
                 <div class="mt-4 space-y-3">
                     @foreach($package->itinerary as $day)
                         <x-faq-item :question="$day['title']">{{ $day['text'] }}</x-faq-item>
@@ -84,13 +84,13 @@
                     <div class="rounded-2xl bg-sky-soft p-6"><h2 class="text-xl">Included</h2><ul class="mt-3 space-y-2">@foreach($package->inclusions as $i)<li class="flex gap-2">@icon('check', 'mt-1 size-4 shrink-0'){{ $i }}</li>@endforeach</ul></div>
                 @endif
                 @if($package->exclusions)
-                    <div class="rounded-2xl bg-cream-deep p-6"><h2 class="text-xl">Not included</h2><ul class="mt-3 space-y-2">@foreach($package->exclusions as $i)<li class="flex gap-2">@icon('x', 'mt-1 size-4 shrink-0'){{ $i }}</li>@endforeach</ul></div>
+                    <div class="rounded-2xl bg-cream-deep p-6"><h2 class="text-xl">@heading('Not included')</h2><ul class="mt-3 space-y-2">@foreach($package->exclusions as $i)<li class="flex gap-2">@icon('x', 'mt-1 size-4 shrink-0'){{ $i }}</li>@endforeach</ul></div>
                 @endif
             </section>
         @endif
 
         @if($package->images->isNotEmpty())
-            <section aria-labelledby="gal"><h2 id="gal" class="text-heading">Gallery</h2>
+            <section aria-labelledby="gal"><h2 id="gal" class="text-heading">@heading('Gallery')</h2>
                 <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
                     @foreach($package->images as $img)
                         <x-photo :base="$img->path" :alt="$img->alt" sizes="(min-width:640px) 30vw, 46vw" class="aspect-[4/3] w-full rounded-2xl" />
@@ -100,7 +100,7 @@
         @endif
 
         @if($package->faqs)
-            <section aria-labelledby="pf"><h2 id="pf" class="text-heading">Questions about this trip</h2>
+            <section aria-labelledby="pf"><h2 id="pf" class="text-heading">@heading('Questions about this trip')</h2>
                 <div class="mt-4 space-y-3">@foreach($package->faqs as $f)<x-faq-item :question="$f['question']">{{ $f['answer'] }}</x-faq-item>@endforeach</div>
             </section>
         @endif
@@ -110,7 +110,7 @@
         <div class="rounded-[1.75rem] border-4 border-amber bg-paper p-6 shadow-lift">
             <p class="font-sans text-2xl font-bold">{{ $package->priceLabel() }}</p>
             <p class="text-sm text-slate">per person, based on the trip as described</p>
-            <h2 class="mt-5 text-xl">Get a free quote</h2>
+            <h2 class="mt-5 text-xl">@heading('Get a free quote')</h2>
             <div class="mt-4">
                 <x-enquiry-form form-name="package-quote" :package="$package" id-prefix="p" submit-label="Get a quote for this trip" />
             </div>
@@ -121,7 +121,7 @@
 </div>
 
 @if($related->isNotEmpty())
-    <section class="pb-8"><div class="container-page"><h2 class="text-heading">You might also like</h2>
+    <section class="pb-8"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">@foreach($related as $package)@include('partials.package-card', ['package' => $package])@endforeach</div>
     </div></section>
 @endif

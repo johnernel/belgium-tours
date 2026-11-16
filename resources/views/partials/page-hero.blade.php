@@ -12,7 +12,7 @@
     <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/70 via-ink/25 to-transparent"></div>
     <div class="container-page relative z-10 pb-12 pt-32 sm:pb-14">
         @if($crumb)<p class="hero-rise mb-3 text-sm font-semibold text-white/85"><a href="{{ route('home') }}" class="underline decoration-amber decoration-2 underline-offset-4">Home</a> / {{ $crumb }}</p>@endif
-        <h1 class="hero-rise max-w-3xl font-serif text-5xl font-medium leading-[1.02] !text-white sm:text-6xl lg:text-[4.5rem]">{{ $title }}</h1>
+        <h1 class="on-dark hero-rise max-w-3xl font-serif text-5xl font-medium leading-[1.02] !text-white sm:text-6xl lg:text-[4.5rem]">@heading($title)</h1>
         @if($sub)<p class="hero-rise hero-rise-2 mt-6 max-w-xl text-lg text-white/90 sm:text-xl">{{ $sub }}</p>@endif
     </div>
 </section>

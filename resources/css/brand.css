@@ -14,6 +14,7 @@
     --color-slate: #58617e;
     --color-amber: #fcb345;
     --color-amber-deep: #e89a1c;
+    --color-amber-ink: #9a5b00; /* amber for text on cream (4.9:1) */
     --color-ink: #2b2e37;
     --color-paper: #fffdf7;
     --color-bar: #f3ecd8; /* sticky navigation bar */
@@ -133,4 +134,14 @@
 h1, h2, h3, h4, .font-display, .font-serif {
     font-weight: 300;
     font-synthesis-weight: none;
+}
+
+/* Two-colour headings: the accent part is an italic em (see App\Support\Heading). Slate on light, amber on dark. */
+.heading-accent {
+    font-style: italic;
+    color: var(--color-slate);
+}
+.on-dark .heading-accent,
+.on-dark.heading-accent {
+    color: var(--color-amber);
 }

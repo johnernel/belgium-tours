@@ -21,3 +21,7 @@ All photos come from Wikimedia Commons under Creative Commons licences that allo
 - `flower-carpet` and `gravensteen` also have a 2400 px-wide version (`-2400.webp`) because the Tailor-made section shows them as tall portrait crops and needs the extra pixels to stay sharp on high-density screens. Use `:widths` and a matching `sizes` on `<x-photo>` for any photo shown that way.
 - To replace a photo, put new WebP sizes (480, 800, 1280, 1600 wide) in `public/images/photos` with the same base name, or upload via Admin > Media, and update this file.
 - Placeholder: no Antwerp photo is included (no non-ShareAlike licence found). Add one when you supply an image.
+
+## Background video (home page, "Three Ways to Travel Belgium")
+
+`public/media/ways-loop.webm` and `ways-loop.mp4` (25 s, silent, 1280x720) were **rendered from four photos in the table above** (Grand-Place, Bruges Market Square, Gravensteen, Bruges canal) as a slow zoom-and-dissolve loop, so they carry the same CC BY credits (Trougnouf, Tim Adams, Trougnouf, Thomas Quine) and no new licence. `ways-poster.webp` is the first frame. No third-party footage is used: the Wikimedia Commons clips of Brussels that were tried are handheld street videos with identifiable people and were rejected. To use your own footage, replace the two files (keep it under ~3 MB, silent, 16:9) and the poster.

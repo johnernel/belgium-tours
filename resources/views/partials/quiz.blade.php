@@ -1,7 +1,7 @@
 @props([])
 {{-- Hero quiz card. Steps come from the database (Admin > Quiz). JS-only; <noscript> shows the plain form. --}}
 <div class="relative rounded-[1.75rem] border-4 border-amber bg-cream p-5 text-ink shadow-lift sm:p-7" id="quiz">
-    <h2 id="quiz-title" class="text-2xl sm:text-[1.75rem]">Start Your Adventure</h2>
+    <h2 id="quiz-title" class="text-2xl sm:text-[1.75rem]">@heading('Start Your Adventure')</h2>
 
     <div x-cloak x-data="quiz(@js($quizSteps), @js($quizPreset ?? []), @js($quizTourType ?? ''))" x-ref="card" tabindex="-1" role="group" aria-labelledby="quiz-title" class="mt-3 outline-none"
          x-init="window.quizIcons = @js(\App\Support\Icons::all())">

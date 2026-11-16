@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
         // @icon('phone', 'size-5 text-amber'): inline SVG without the cost of a component render.
         \Illuminate\Support\Facades\Blade::directive('icon', fn ($expression) => "<?php echo \App\Support\Icons::svg($expression); ?>");
 
+        // @heading('Three Ways to *Travel* Belgium'): two-colour headline (see App\Support\Heading).
+        \Illuminate\Support\Facades\Blade::directive('heading', fn ($expression) => "<?php echo \\App\\Support\\Heading::html($expression); ?>");
+
         // Per-IP limits: enquiries and admin login attempts.
         RateLimiter::for('enquiry', fn (Request $r) => Limit::perMinute(6)->by($r->ip()));
         RateLimiter::for('admin-login', fn (Request $r) => Limit::perMinute(5)->by($r->ip().'|'.strtolower((string) $r->input('email'))));
