@@ -164,6 +164,9 @@
     </div>
 </section>
 
+{{-- 7b. QUOTE BAND: photo band with the two main calls to action --}}
+@include('partials.quote-band')
+
 {{-- 8. TESTIMONIALS --}}
 <section class="bg-amber py-16 sm:py-20" aria-labelledby="t-title">
     <div class="container-page">

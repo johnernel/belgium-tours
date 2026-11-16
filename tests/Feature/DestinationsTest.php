@@ -47,6 +47,23 @@ class DestinationsTest extends TestCase
         $this->assertLessThan(strpos($html, 'aria-labelledby="how-title"'), strpos($html, 'aria-labelledby="wcu-title"'));
     }
 
+    public function test_home_has_the_quote_band_after_how_it_works_with_both_buttons(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<em class="heading-accent">your way</em>', $html);
+        $start = strpos($html, 'aria-labelledby="qb-title"');
+        $section = substr($html, $start, strpos($html, '</section>', $start) - $start);
+        $this->assertStringContainsString('Plan my trip', $section);
+        $this->assertStringContainsString('$store.modal.open()', $section);
+        $this->assertStringContainsString('href="'.route('packages.index').'"', $section);
+        foreach (['Self drive', 'Private chauffeur', 'Coach tours'] as $style) {
+            $this->assertStringContainsString($style, $section);
+        }
+        $this->assertLessThan($start, strpos($html, 'aria-labelledby="how-title"'));
+        $this->assertLessThan(strpos($html, 'aria-labelledby="t-title"'), $start);
+    }
+
     public function test_the_six_destinations_are_seeded_with_real_tour_counts(): void
     {
         $this->assertSame(['Bruges', 'Ghent', 'Brussels', 'Antwerp', 'Leuven', 'Ardennes'], Experience::active()->pluck('name')->all());
