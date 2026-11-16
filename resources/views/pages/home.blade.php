@@ -149,20 +149,7 @@
 @include('partials.why-choose-us')
 
 {{-- 7. HOW IT WORKS (a real sequence, so numbered) --}}
-<section class="py-16 sm:py-24" aria-labelledby="how-title">
-    <div class="container-page">
-        <x-section-heading id="how-title" :title="$c('steps_heading')" align="center" />
-        <ol class="mt-10 grid gap-6 md:grid-cols-3">
-            @foreach([1, 2, 3] as $n)
-                <li class="relative rounded-[1.5rem] bg-sky-soft p-7">
-                    <span class="font-display text-5xl font-semibold text-slate/50" aria-hidden="true">{{ $n }}</span>
-                    <h3 class="mt-2 text-xl">{{ $c("step_{$n}_title") }}</h3>
-                    <p class="mt-2 text-slate">{{ $c("step_{$n}_text") }}</p>
-                </li>
-            @endforeach
-        </ol>
-    </div>
-</section>
+@include('partials.how-it-works')
 
 {{-- 7b. QUOTE BAND: photo band with the two main calls to action --}}
 @include('partials.quote-band')
