@@ -145,6 +145,9 @@
     'heading' => $c('way_heading') ?: 'Travel *Your Way*',
 ])
 
+{{-- 6c. WHY CHOOSE US: dusk background, features, optional confirmed stats --}}
+@include('partials.why-choose-us')
+
 {{-- 7. HOW IT WORKS (a real sequence, so numbered) --}}
 <section class="py-16 sm:py-24" aria-labelledby="how-title">
     <div class="container-page">

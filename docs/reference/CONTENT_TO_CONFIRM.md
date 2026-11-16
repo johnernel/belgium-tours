@@ -59,3 +59,4 @@ Nothing here has been invented as fact. Each item is a visible placeholder or an
 ## Images
 - [ ] No Antwerp photo is included (see IMAGE_CREDITS.md); supply or choose one
 - [ ] Photos are CC BY licensed and need the credits already shown on the About page
+- [ ] Home "Why travel with us" section: the four short benefit lines are generic; confirm they are true. Add real figures (tours designed, years in Belgium, guides, travellers) and the years badge in Admin > Pages > Home (`wcu_stat_*`, `wcu_badge_*`); they stay hidden until filled.

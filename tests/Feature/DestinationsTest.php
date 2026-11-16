@@ -34,6 +34,18 @@ class DestinationsTest extends TestCase
         $this->assertLessThan(strpos($html, 'aria-labelledby="how-title"'), strpos($html, 'aria-labelledby="way-title"'));
     }
 
+    public function test_home_has_why_choose_us_after_travel_your_way_and_invents_no_figures(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<em class="heading-accent">exceptional</em>', $html);
+        $section = substr($html, strpos($html, 'aria-labelledby="wcu-title"'), 12000);
+        $this->assertSame(4, substr_count($section, '<h3'));
+        $this->assertStringNotContainsString('Tours designed', $section); // stats band stays hidden until real figures are entered
+        $this->assertLessThan(strpos($html, 'aria-labelledby="wcu-title"'), strpos($html, 'aria-labelledby="way-title"'));
+        $this->assertLessThan(strpos($html, 'aria-labelledby="how-title"'), strpos($html, 'aria-labelledby="wcu-title"'));
+    }
+
     public function test_the_six_destinations_are_seeded_with_real_tour_counts(): void
     {
         $this->assertSame(['Bruges', 'Ghent', 'Brussels', 'Antwerp', 'Leuven', 'Ardennes'], Experience::active()->pluck('name')->all());
