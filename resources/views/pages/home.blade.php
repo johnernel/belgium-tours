@@ -31,10 +31,11 @@
     $lastSpace = strrpos($headline, ' ');
     [$h1a, $h1b] = $lastSpace ? [substr($headline, 0, $lastSpace), substr($headline, $lastSpace + 1)] : [$headline, null];
 @endphp
-<section class="relative isolate flex min-h-[40rem] items-center overflow-hidden bg-ink text-white lg:min-h-[44rem]">
+<section class="relative isolate -mt-[4.5rem] flex min-h-[40rem] items-center overflow-hidden bg-ink pt-[4.5rem] text-white lg:min-h-[44rem]">
     <x-photo base="images/photos/bruges-canal" alt="A canal lined with brick houses and the Belfry tower in Bruges, Belgium" sizes="100vw" :eager="true" class="absolute inset-0 z-0 size-full" />
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/30 via-ink/20 to-ink/60"></div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/75 via-ink/40 to-transparent lg:via-ink/30"></div>
+    <div class="absolute inset-x-0 top-0 z-[1] h-40 bg-gradient-to-b from-ink/60 to-transparent"></div>
 
     <div class="container-page relative z-10 grid w-full items-center gap-10 py-14 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-20">
         <div>

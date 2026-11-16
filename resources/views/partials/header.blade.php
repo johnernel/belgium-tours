@@ -6,17 +6,19 @@
         ['Contact', route('contact'), request()->routeIs('contact')],
     ];
     // Plain black text, no background and no radius. The current page is marked with an amber underline.
-    $item = 'relative inline-flex min-h-11 items-center px-4 text-[0.95rem] font-semibold text-black hover:text-black/70';
+    $item = 'nav-link relative inline-flex min-h-11 items-center px-4 text-[0.95rem] font-semibold text-black hover:text-black/70';
     $current = 'after:absolute after:inset-x-4 after:bottom-1.5 after:h-0.5 after:bg-amber';
+    // Home only: the photo sits behind the header, so it starts transparent with white text (see app.css).
+    $overlay = request()->routeIs('home');
 @endphp
-<header class="sticky top-0 z-40 border-b border-ink/15 bg-bar" x-data="{ open: false, tours: false }" @keydown.escape.window="open = false; tours = false">
+<header class="sticky top-0 z-40 border-b border-ink/15 bg-bar transition-colors duration-200 {{ $overlay ? 'nav-overlay' : '' }}" :class="open && 'is-open'" x-data="{ open: false, tours: false }" @keydown.escape.window="open = false; tours = false">
     <div class="container-page flex h-[4.5rem] items-center justify-between gap-3">
         <a href="{{ route('home') }}" class="flex items-center gap-2.5">
             @if($site->logo)
                 <img src="{{ asset($site->logo) }}" alt="{{ $site->brand }}" class="h-10 w-auto" width="160" height="40">
             @else
                 <span class="grid size-10 place-items-center rounded-xl bg-ink text-amber" aria-hidden="true">@icon('compass', 'size-6')</span>
-                <span class="font-display text-xl font-semibold leading-none tracking-tight">Go Belgium<span class="block text-[0.7rem] font-medium tracking-[0.22em] text-slate">TOURS</span><span class="sr-only"> home</span></span>
+                <span class="nav-brand font-display text-xl font-semibold leading-none tracking-tight">Go Belgium<span class="nav-brand-sub block text-[0.7rem] font-medium tracking-[0.22em] text-slate">TOURS</span><span class="sr-only"> home</span></span>
             @endif
         </a>
 
@@ -42,7 +44,7 @@
 
         <div class="flex items-center gap-2">
             <x-button size="sm" class="hidden sm:inline-flex" @click="$store.modal.open()">Get a free quote</x-button>
-            <button type="button" class="grid size-11 place-items-center rounded-full text-black hover:bg-black/5 lg:hidden" @click="open = !open" :aria-expanded="open" aria-controls="mobile-nav" aria-label="Menu">
+            <button type="button" class="nav-menu-btn grid size-11 place-items-center rounded-full text-black hover:bg-black/5 lg:hidden" @click="open = !open" :aria-expanded="open" aria-controls="mobile-nav" aria-label="Menu">
                 @icon('menu')
             </button>
         </div>

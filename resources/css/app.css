@@ -6,3 +6,24 @@
 @source not "../views/layouts/admin.blade.php";
 @source not "../views/components/admin";
 @source not "../js/admin.js";
+
+/* Home page header: transparent with white text at the top, solid bar once scrolled (or when the mobile menu is open).
+   Only applies with JavaScript on; without it the solid bar is used everywhere. */
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) {
+    background-color: transparent;
+    border-bottom-color: transparent;
+}
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-link,
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-brand,
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-menu-btn {
+    color: #fff;
+}
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-link:hover {
+    color: rgb(255 255 255 / 0.75);
+}
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-brand-sub {
+    color: rgb(255 255 255 / 0.8);
+}
+.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-menu-btn:hover {
+    background-color: rgb(255 255 255 / 0.12);
+}

@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <script>document.documentElement.classList.add('js')</script>
+    <script>(function(){var d=document.documentElement;d.classList.add('js');function u(){d.classList.toggle('is-scrolled',window.scrollY>8)}u();window.addEventListener('scroll',u,{passive:true})})()</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $pageDesc }}">
