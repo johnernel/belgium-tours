@@ -4,7 +4,7 @@
         <div class="container-page text-center">
             <h2 id="t-title" class="text-heading">@heading($c('testimonials_heading') ?: 'What travellers *say*')</h2>
 
-            <div class="mx-auto mt-10 max-w-3xl">
+            <div class="mx-auto mt-10 max-w-5xl">
                 <span class="mx-auto flex size-14 items-center justify-center rounded-full bg-amber/25 font-serif text-6xl leading-none text-amber-ink" aria-hidden="true"><span class="translate-y-2.5">&ldquo;</span></span>
 
                 <div class="mt-8" aria-live="polite">
