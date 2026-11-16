@@ -27,3 +27,26 @@
 .js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-menu-btn:hover {
     background-color: rgb(255 255 255 / 0.12);
 }
+
+/* Trust-indicator marquee in the hero bar. Pauses on hover/focus; static when motion is reduced. */
+.marquee {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+}
+@keyframes marquee {
+    to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .marquee { overflow-x: auto; }
+    .marquee-track { animation: none; }
+    .marquee-track > [aria-hidden='true'] { display: none; }
+}

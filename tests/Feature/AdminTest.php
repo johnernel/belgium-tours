@@ -195,15 +195,15 @@ class AdminTest extends TestCase
         $this->get('/contact')->assertSee('Go Belgium Tours Ltd', false)->assertSee('tel:+3220000000', false);
     }
 
-    public function test_quiz_edits_change_the_public_quiz(): void
+    public function test_quiz_edits_change_the_quiz_component(): void
     {
         $this->actingAs($this->admin());
         $step = \App\Models\QuizStep::where('key', 'season')->firstOrFail();
 
         $this->put("/admin/quiz/steps/{$step->id}", ['question' => 'When would you like to go?', 'type' => 'tiles', 'sort' => 2, 'active' => '1'])->assertRedirect();
-        $this->get('/')->assertSee('When would you like to go?');
+        $this->assertStringContainsString('When would you like to go?', view('partials.quiz', ['quizSteps' => \App\Models\QuizStep::forQuiz()])->render());
 
         $this->put("/admin/quiz/steps/{$step->id}", ['question' => 'Hidden?', 'type' => 'tiles', 'sort' => 2])->assertRedirect(); // active unchecked => off
-        $this->get('/')->assertDontSee('Hidden?');
+        $this->assertStringNotContainsString('Hidden?', view('partials.quiz', ['quizSteps' => \App\Models\QuizStep::forQuiz()])->render());
     }
 }

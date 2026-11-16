@@ -17,6 +17,7 @@ Nothing here has been invented as fact. Each item is a visible placeholder or an
 - [ ] Trust badges: "Best price promise [CONFIRM: wording]", "Belgium specialists", "Reviews [CONFIRM: review source]". Do not claim a guarantee, rating or review count that is not true.
 - [ ] "Local knowledge" wording ("chosen by people who know...") matches the team
 - [ ] Hero headline and subheading match your Google Ads copy
+- [ ] Hero trust marquee: four plain service promises (free no-obligation quote, tailor-made itineraries, three ways to travel, hotels/routes/transfers planned) plus the three trust badges above. Remove any promise you cannot keep (Admin > Pages > Home, marquee_1 to marquee_4).
 
 ## About page
 - [ ] Company story, team, years in business, accreditations or bonding numbers (`[CONFIRM: ...]`)

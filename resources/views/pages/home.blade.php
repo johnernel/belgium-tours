@@ -26,43 +26,67 @@
 
 {{-- 3. HERO --}}
 @php
-    // The last word of the headline gets the italic amber treatment (as in the design reference).
+    // Headline: break after the first comma; the last word gets the italic amber treatment (as in the design reference).
     $headline = trim($c('hero_h1') ?: 'Belgium, planned around you');
-    $lastSpace = strrpos($headline, ' ');
-    [$h1a, $h1b] = $lastSpace ? [substr($headline, 0, $lastSpace), substr($headline, $lastSpace + 1)] : [$headline, null];
+    [$line1, $line2] = str_contains($headline, ',') ? array_map('trim', explode(',', $headline, 2)) : [$headline, null];
+    $line1 .= $line2 ? ',' : '';
+    $tail = $line2 ?? $line1;
+    $cut = strrpos($tail, ' ');
+    [$tailPlain, $tailEm] = $cut ? [substr($tail, 0, $cut), substr($tail, $cut + 1)] : ['', $tail];
+
+    // Trust indicators for the marquee. Edit in Admin > Pages > Home (marquee_1 to marquee_4; badges are shared).
+    $trust = array_values(array_filter([
+        ['check', $c('marquee_1') ?: 'Free, no-obligation quote'],
+        ['check', $c('marquee_2') ?: 'Tailor-made itineraries'],
+        ['check', $c('marquee_3') ?: 'Self drive, chauffeur driven and coach tours'],
+        ['check', $c('marquee_4') ?: 'Hotels, routes and transfers planned for you'],
+        ['shield', $c('badge_1')],
+        ['compass', $c('badge_2')],
+        ['star', $c('badge_3')],
+    ], fn ($t) => filled($t[1])));
 @endphp
-<section class="relative isolate -mt-[4.5rem] flex min-h-[40rem] items-center overflow-hidden bg-ink pt-[4.5rem] text-white lg:min-h-[44rem]">
+<section class="relative isolate -mt-[4.5rem] flex min-h-[42rem] flex-col overflow-hidden bg-ink text-white lg:min-h-[48rem]">
     <x-photo base="images/photos/bruges-canal" alt="A canal lined with brick houses and the Belfry tower in Bruges, Belgium" sizes="100vw" :eager="true" class="absolute inset-0 z-0 size-full" />
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/30 via-ink/20 to-ink/60"></div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/75 via-ink/40 to-transparent lg:via-ink/30"></div>
-    <div class="absolute inset-x-0 top-0 z-[1] h-40 bg-gradient-to-b from-ink/60 to-transparent"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/35 to-ink/85"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/70 via-ink/25 to-transparent"></div>
 
-    <div class="container-page relative z-10 grid w-full items-center gap-10 py-14 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-20">
-        <div>
-            <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-paper/90 px-4 py-1.5 text-sm font-semibold text-ink shadow-card">
-                <span class="size-2 rounded-full bg-amber" aria-hidden="true"></span>{{ $c('hero_tagline') ?: 'Belgium tours, tailor-made' }}
-            </p>
-            <h1 class="hero-rise hero-rise-2 mt-5 max-w-[14ch] font-serif text-5xl font-medium leading-[1.05] !text-white sm:text-6xl lg:max-w-[16ch] lg:text-[4.5rem]">
-                {{ $h1a }}@if($h1b) <em class="text-amber">{{ $h1b }}</em>@endif
-            </h1>
-            <p class="hero-rise hero-rise-2 mt-6 max-w-lg text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
+    <div class="container-page relative z-10 flex flex-1 flex-col justify-end pb-6 pt-32 sm:pb-8">
+        <h1 class="hero-rise max-w-[18ch] font-serif text-5xl font-medium leading-[1] !text-white sm:text-6xl lg:max-w-none lg:text-[5.75rem]">
+            @if($line2)<span class="block">{{ $line1 }}</span>@endif
+            <span class="block">{{ $tailPlain }}@if($tailPlain) @endif<em class="text-amber">{{ $tailEm }}</em></span>
+        </h1>
+        <p class="hero-rise hero-rise-2 mt-5 max-w-xl text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
 
-            <ul class="hero-rise hero-rise-3 mt-7 flex flex-wrap gap-2.5 text-sm font-semibold">
-                @foreach([['shield', 'badge_1'], ['compass', 'badge_2'], ['star', 'badge_3']] as [$ic, $k])
-                    <li class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 ring-1 ring-white/30 backdrop-blur-sm">
-                        @icon($ic, 'size-5 text-amber') {{ $c($k) }}
-                    </li>
-                @endforeach
-            </ul>
+        {{-- Way-to-travel picker + trust marquee. A plain GET form: works without JavaScript. --}}
+        <form method="GET" action="{{ route('packages.index') }}" aria-label="Find trips by way of travelling"
+              class="hero-rise hero-rise-3 mt-8 flex flex-col gap-3 rounded-[2rem] bg-ink/45 p-3 ring-1 ring-white/20 backdrop-blur-md lg:mt-10 lg:flex-row lg:items-center lg:rounded-full lg:p-2.5 lg:pl-6">
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 lg:flex-nowrap">
+                <label for="hero-way" class="text-sm font-semibold text-white/85 lg:whitespace-nowrap">Way to see your destinations</label>
+                <div class="relative">
+                    <select id="hero-way" name="type" class="min-h-12 w-full cursor-pointer appearance-none rounded-full bg-amber py-2 pl-5 pr-11 font-display text-base font-semibold text-ink hover:bg-amber-deep">
+                        <option value="">Choose one</option>
+                        @foreach($tourTypes as $t)<option value="{{ $t->slug }}">{{ $t->name }}</option>@endforeach
+                    </select>
+                    <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink">@icon('chevron-down', 'size-5')</span>
+                </div>
+            </div>
 
-            @if($site->phone)
-                <a href="tel:{{ $site->phone_href }}" class="hero-rise hero-rise-3 mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-white hover:text-amber">@icon('phone', 'size-5') Call {{ $site->phone }}</a>
-            @endif
-        </div>
+            <div class="marquee min-w-0 flex-1 overflow-hidden" role="region" aria-label="Why travellers trust us">
+                <div class="marquee-track">
+                    @foreach([false, true] as $copy)
+                        <ul class="flex shrink-0 items-center gap-x-8 pr-8" @if($copy) aria-hidden="true" @endif>
+                            @foreach($trust as [$ic, $text])
+                                <li class="inline-flex items-center gap-2 whitespace-nowrap text-sm font-semibold text-white/90">@icon($ic, 'size-4 shrink-0 text-amber') {{ $text }}</li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                </div>
+            </div>
 
-        <div class="hero-rise hero-rise-2 lg:justify-self-end lg:w-full lg:max-w-[28rem]">
-            @include('partials.quiz')
-        </div>
+            <button type="submit" class="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-amber px-6 font-display font-semibold text-ink hover:bg-amber-deep lg:size-12 lg:px-0">
+                <span class="lg:sr-only">Show trips</span>@icon('arrow-right', 'size-5')
+            </button>
+        </form>
     </div>
 </section>
 

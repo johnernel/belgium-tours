@@ -36,6 +36,8 @@ Create the MySQL database `gobelgium` first. Details and troubleshooting: `docs/
 - **Content honesty.** Never invent facts. Unknowns are `[CONFIRM: ...]` placeholders, listed in `docs/reference/CONTENT_TO_CONFIRM.md`. Packages are sample data with no prices (shows "Price on request"). Legal pages are starter templates only.
 - **Images.** Only free-licence photos, recorded in `docs/reference/IMAGE_CREDITS.md` and `config/credits.php`. Uploads become WebP at 480/800/1280/1600 px under `storage/app/public/uploads`; seeded photos live in `public/images/photos`. Render with `<x-photo>`.
 
+- **Home hero (current).** Full-bleed photo, large serif headline (last word italic amber), and a glass bar with a "Way to see your destinations" dropdown (tour types, plain GET to /packages?type=slug), a trust-indicator marquee and an arrow button. The 9-step quiz was taken off the home page on purpose: it still exists (`partials/quiz.blade.php`, Alpine `quiz` in app.js, admin quiz editor) and will be placed on inner pages later. Marquee text comes from Admin > Pages > Home (marquee_1 to marquee_4) plus the three trust badges.
+
 ## Conventions and gotchas
 - Icons: `@icon('name', 'classes')`, add paths in `App\Support\Icons`. (A `<x-icon>` component per icon was measurably slow.)
 - Colours/fonts come from tokens in `brand.css`; do not hard-code hex in views.
