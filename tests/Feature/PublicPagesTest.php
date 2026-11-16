@@ -100,7 +100,7 @@ class PublicPagesTest extends TestCase
     {
         $html = $this->get('/')->assertOk()->getContent();
 
-        foreach (['why-title', 'ways-title', 'how-title', 't-title', 'faq-title', 'cta-title'] as $id) {
+        foreach (['why-title', 'ways-title', 'how-title', 't-title', 'faq-title'] as $id) {
             $this->assertMatchesRegularExpression('/id="'.$id.'"[^>]*>[^<]*(<[^>]+>[^<]*)*<em class="heading-accent">/s', $html, "$id should have an accent part");
         }
     }

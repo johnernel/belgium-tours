@@ -30,7 +30,7 @@ class JournalTest extends TestCase
         $this->assertStringContainsString('href="'.route('journal.show', $first->slug).'"', $section);
         $this->assertStringContainsString('min read', $section);
         $this->assertLessThan($start, strpos($html, 'aria-labelledby="faq-title"'));
-        $this->assertLessThan(strpos($html, 'aria-labelledby="cta-title"'), $start);
+        $this->assertStringNotContainsString('aria-labelledby="cta-title"', $html); // the blog is the last section before the footer
     }
 
     public function test_journal_list_and_article_pages_work_and_sample_articles_are_hidden_from_google(): void

@@ -6,7 +6,7 @@
             <x-photo :base="$post->image" :alt="$post->image_alt ?: ''" sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 92vw" fetchpriority="low" :ratio="[1200, 1600]" class="absolute inset-0 size-full transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none" />
         @endif
         @if($post->category)
-            <span class="absolute left-4 top-4 rounded-full bg-amber px-3.5 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-ink">{{ $post->category }}</span>
+            <span class="absolute left-4 top-4 rounded-full bg-aqua px-3.5 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-ink">{{ $post->category }}</span>
         @endif
     </div>
     <h3 class="mt-5 text-2xl leading-snug">

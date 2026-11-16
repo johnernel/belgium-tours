@@ -166,18 +166,4 @@
 {{-- 9b. BLOG: latest Journal articles --}}
 @include('partials.blog-section')
 
-{{-- 10. FINAL CTA --}}
-<section class="pb-4" aria-labelledby="cta-title">
-    <div class="container-page">
-        <div class="relative isolate overflow-hidden rounded-[2rem] bg-slate px-6 py-14 text-center text-white sm:px-12">
-            <svg class="pointer-events-none absolute -right-10 -top-6 z-0 w-72 text-white/15" viewBox="0 0 300 120" fill="none" aria-hidden="true"><path class="doodle-path" d="M5 110C70 20 150 130 220 50s60-30 75-40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-            <h2 id="cta-title" class="on-dark relative z-10 text-heading !text-white">@heading($c('cta_heading'))</h2>
-            <p class="relative z-10 mx-auto mt-3 max-w-xl text-lg text-white/90">{{ $c('cta_text') }}</p>
-            <div class="relative z-10 mt-7 flex flex-wrap justify-center gap-3">
-                <x-button size="lg" @click="$store.modal.open()">Start Your Adventure</x-button>
-                @if($site->phone)<x-button size="lg" variant="light" :href="'tel:'.$site->phone_href" icon="phone">Call us</x-button>@endif
-            </div>
-        </div>
-    </div>
-</section>
 @endsection
