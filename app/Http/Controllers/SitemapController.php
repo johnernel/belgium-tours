@@ -13,10 +13,15 @@ class SitemapController extends Controller
             [route('home'), now()],
             [route('packages.index'), now()],
             [route('destinations.index'), now()],
+            [route('journal.index'), now()],
         ];
 
         foreach (\App\Models\TourType::active()->get() as $t) {
             $urls[] = [route('tours.show', $t->slug), $t->updated_at];
+        }
+
+        foreach (\App\Models\Post::published()->where('is_placeholder', false)->get() as $post) {
+            $urls[] = [route('journal.show', $post->slug), $post->updated_at];
         }
 
         foreach (Page::where('noindex', false)->whereIn('slug', ['about', 'contact', 'terms', 'privacy'])->get() as $p) {

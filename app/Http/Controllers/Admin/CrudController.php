@@ -30,17 +30,29 @@ abstract class CrudController extends Controller
         return 'sort';
     }
 
+    /** 'asc' or 'desc' for orderBy(). */
+    protected function orderDirection(): string
+    {
+        return 'asc';
+    }
+
+    /** A blank record for the Add screen. Screens whose table has no sort column override this. */
+    protected function newRecord(): Model
+    {
+        return new $this->model(['active' => true, 'sort' => $this->model::max('sort') + 1]);
+    }
+
     public function index()
     {
         return view('admin.crud.index', [
             'cfg' => $this->config(), 'routeBase' => $this->routeBase,
-            'rows' => $this->model::orderBy($this->orderBy())->get(),
+            'rows' => $this->model::orderBy($this->orderBy(), $this->orderDirection())->get(),
         ]);
     }
 
     public function create()
     {
-        return view('admin.crud.form', ['cfg' => $this->config(), 'routeBase' => $this->routeBase, 'record' => new $this->model(['active' => true, 'sort' => $this->model::max('sort') + 1])]);
+        return view('admin.crud.form', ['cfg' => $this->config(), 'routeBase' => $this->routeBase, 'record' => $this->newRecord()]);
     }
 
     public function store(Request $request, ImageService $images)
@@ -105,9 +117,9 @@ abstract class CrudController extends Controller
             }
         }
 
-        // A blank (or missing) URL name is built from the name; an existing one is kept.
-        if (array_key_exists('slug', $this->rules($record->exists ? $record : null)) && blank($data['slug'] ?? null) && ! empty($data['name'])) {
-            $data['slug'] = ($record->exists && $record->slug) ? $record->slug : Str::slug($data['name']);
+        // A blank (or missing) URL name is built from the name (or title); an existing one is kept.
+        if (array_key_exists('slug', $this->rules($record->exists ? $record : null)) && blank($data['slug'] ?? null) && ! empty($data['name'] ?? $data['title'] ?? null)) {
+            $data['slug'] = ($record->exists && $record->slug) ? $record->slug : Str::slug($data['name'] ?? $data['title']);
         }
 
         $record->fill($data)->save();

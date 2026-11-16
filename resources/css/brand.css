@@ -143,6 +143,10 @@ h1, h2, h3, h4, .font-display, .font-serif {
     font-style: italic;
     color: var(--color-slate);
 }
+/* Amber-toned accent word on cream (amber-ink keeps 4.9:1 contrast): the Journal headings. */
+.heading-amber .heading-accent {
+    color: var(--color-amber-ink);
+}
 .on-dark .heading-accent,
 .on-dark.heading-accent {
     color: var(--color-amber);

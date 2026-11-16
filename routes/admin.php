@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -54,6 +55,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::resource('testimonials', TestimonialController::class)->except('show');
         Route::resource('faqs', FaqController::class)->except('show');
+        Route::resource('posts', PostController::class)->except('show');
 
         Route::get('media', [MediaController::class, 'index'])->name('media.index');
         Route::post('media', [MediaController::class, 'store'])->name('media.store');

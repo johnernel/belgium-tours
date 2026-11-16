@@ -38,6 +38,9 @@ Edit the text of the home page sections, About, Contact, Terms and Privacy. Abou
 ## Testimonials and FAQs
 Only publish real reviews you have permission to use. Untick "placeholder" when a review is real. FAQs show on the home page and are sent to Google as FAQ data.
 
+## Journal (blog)
+Admin > Journal. Each article has a title, a category tag (shown on the card), a short excerpt, the article text, a photo with alt text, minutes to read and a publish date (blank = now; a future date hides it until then). The home page shows the three newest; /journal lists them all. Sample articles are marked "placeholder": they show a notice, are hidden from Google and left out of the sitemap. Replace them with real articles and untick "placeholder". Only use photos you are free to use.
+
 ## Media
 Upload photos once; they are resized and converted for fast loading. Describe every photo.
 

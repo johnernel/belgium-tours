@@ -24,6 +24,7 @@
         ['admin.pages.index', 'Pages', 'calendar'],
         ['admin.testimonials.index', 'Testimonials', 'star'],
         ['admin.faqs.index', 'FAQs', 'help'],
+        ['admin.posts.index', 'Journal', 'calendar'],
         ['admin.media.index', 'Media', 'plane'],
         ['admin.settings.edit', 'Settings', 'shield'],
         ['admin.users.index', 'Admin users', 'users'],

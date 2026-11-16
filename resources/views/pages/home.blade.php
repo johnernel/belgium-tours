@@ -163,6 +163,9 @@
 {{-- 9. FAQ --}}
 @include('partials.faq')
 
+{{-- 9b. BLOG: latest Journal articles --}}
+@include('partials.blog-section')
+
 {{-- 10. FINAL CTA --}}
 <section class="pb-4" aria-labelledby="cta-title">
     <div class="container-page">

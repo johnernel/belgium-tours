@@ -50,6 +50,7 @@ class ContentSeeder extends Seeder
 
         $this->pages();
         $this->testimonials();
+        $this->posts();
         $this->faqs();
     }
 
@@ -80,6 +81,9 @@ class ContentSeeder extends Seeder
                     'why_3_title' => 'Local expert guides',
                     'why_3_text' => 'Historians, chocolatiers and cyclists who live the route.',
                     'why_cta' => 'Plan My Journey',
+                    'blog_eyebrow' => 'The Journal',
+                    'blog_heading' => 'Stories from the *Lowlands.*',
+                    'blog_all' => 'All articles',
                     'gal_eyebrow' => 'From the road',
                     'gal_heading' => 'Belgium in *pictures*',
                     'gal_text' => 'A few glimpses of the places on our routes, from canal-side Bruges to the green hills of the Ardennes.',
@@ -199,6 +203,36 @@ class ContentSeeder extends Seeder
                 'quote' => '[PLACEHOLDER REVIEW '.$i.': replace with a real, permitted customer review before launch.]',
                 'is_placeholder' => true,
                 'sort' => $i,
+            ]);
+        }
+    }
+
+    /** Sample Journal articles: general, non-factual wording, flagged as placeholders until real ones are written. */
+    private function posts(): void
+    {
+        if (\App\Models\Post::exists()) {
+            return;
+        }
+        $note = '<p><em>[CONFIRM: this is a sample article. Replace it with a real story before launch.]</em></p>';
+        $posts = [
+            ['A morning in Bruges, before the boats', 'City notes', 3, 'images/photos/bruges-canal', 'Brick houses beside a canal in Bruges',
+                'Why an early walk along the canals is the gentlest way to meet the city, and where to start.',
+                '<p>Bruges is at its quietest early in the day. Walk the canals while the streets are still empty and the water is still, and the old brick houses look just as they do on the postcards.</p><p>Start at the edge of the old town and let the canals lead you toward the squares. There is no need for a plan: the best views tend to be the ones you stumble on.</p>'],
+            ['Slow days in the Ardennes', 'Countryside', 4, 'images/photos/la-roche', 'A river town in the wooded hills of the Belgian Ardennes',
+                'Wooded valleys, river towns and the unhurried pace of the Belgian countryside, away from the cities.',
+                '<p>South of the big cities, Belgium changes. Roads wind through wooded valleys and small towns sit beside the river, and a day here moves at a different speed.</p><p>It is a region that suits a car or a private driver best, so you can stop wherever a view or a village catches your eye.</p>'],
+            ['The Grand Place, from morning to twilight', 'Brussels', 4, 'images/photos/brussels-grand-place', 'The Grand Place in Brussels at twilight',
+                'How the main square of Brussels changes through the day, and when it is at its best.',
+                '<p>The Grand Place is a square worth seeing more than once. In the morning it is calm and bright, and as evening falls the carved fronts are lit and the square fills with quiet conversation.</p><p>Give it two visits if you can: once early, once at dusk.</p>'],
+            ['Ghent on foot: quays, castle and a long evening', 'City notes', 5, 'images/photos/ghent-graslei', 'Visitors relaxing beside the canal at Graslei in Ghent',
+                'A relaxed walking day in Ghent, from the old quays to the castle and a late dinner.',
+                '<p>Ghent rewards walking. The old quays along the canal, the castle and the narrow streets between them are all close together, so you can see a lot without hurrying.</p><p>Finish on the quays in the evening, when the buildings are lit and the water reflects them.</p>'],
+        ];
+        foreach ($posts as $i => [$title, $category, $minutes, $image, $alt, $excerpt, $body]) {
+            \App\Models\Post::create([
+                'title' => $title, 'slug' => \Illuminate\Support\Str::slug($title), 'category' => $category, 'read_minutes' => $minutes,
+                'image' => $image, 'image_alt' => $alt, 'excerpt' => $excerpt, 'body' => $body.$note,
+                'published_at' => now()->subDays($i + 1), 'is_placeholder' => true, 'active' => true,
             ]);
         }
     }
