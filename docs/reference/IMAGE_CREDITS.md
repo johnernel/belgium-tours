@@ -13,9 +13,8 @@ All photos come from Wikimedia Commons under Creative Commons licences that allo
 | `countryside` | [Falmignoul Countryside R06.jpg](https://commons.wikimedia.org/wiki/File:Falmignoul_Countryside_R06.jpg) | Marc Ryckaert (MJJR) | CC BY 3.0 | Self Drive card, Flanders package |
 | `flower-carpet` | [2018 flower carpet at Grand Place, Brussels (DSCF6849).jpg](https://commons.wikimedia.org/wiki/File:2018_flower_carpet_at_Grand_Place,_Brussels_%28DSCF6849%29.jpg) | Trougnouf (Benoit Brummer) | CC BY 4.0 | Why choose us |
 | `bruges-belfry` | [Brugge - Belfort van Brugge (48196317111).jpg](https://commons.wikimedia.org/wiki/File:Brugge_-_Belfort_van_Brugge_%2848196317111%29.jpg) | Fred Romero | CC BY 2.0 | Chauffeur Belgium and Netherlands package |
-| `experience-chocolate` | [Chocolate candy piece.jpg](https://commons.wikimedia.org/wiki/File:Chocolate_candy_piece.jpg) | Flickr user "visualpanic" | CC BY 2.0 | Top Destinations: Chocolate & Pralines |
-| `experience-abbeys` | [Westmalle Trappistenbrauerei 2014 1.JPG](https://commons.wikimedia.org/wiki/File:Westmalle_Trappistenbrauerei_2014_1.JPG) | Gordito1869 | CC BY 3.0 | Top Destinations: Beer & Abbeys |
-| `experience-flanders` | [Chateau Wood Ypres 1917.jpg](https://commons.wikimedia.org/wiki/File:Chateau_Wood_Ypres_1917.jpg) | Frank Hurley | Public domain | Top Destinations: Flanders Fields History |
+| `city-antwerp` | [Antwerp cathedral clock (34759983841).jpg](https://commons.wikimedia.org/wiki/File:Antwerp_cathedral_clock_%2834759983841%29.jpg) | Bobo Boom | CC BY 2.0 | Destinations: Antwerp |
+| `city-leuven` | [Louvain Grote Markt (52173635498).jpg](https://commons.wikimedia.org/wiki/File:Louvain_Grote_Markt_%2852173635498%29.jpg) | Jorge Franganillo | CC BY 2.0 | Destinations: Leuven |
 
 ## Notes
 
@@ -23,7 +22,7 @@ All photos come from Wikimedia Commons under Creative Commons licences that allo
 - Licence texts: CC BY 2.0 https://creativecommons.org/licenses/by/2.0/, CC BY 3.0 https://creativecommons.org/licenses/by/3.0/, CC BY 4.0 https://creativecommons.org/licenses/by/4.0/
 - `flower-carpet` and `gravensteen` also have a 2400 px-wide version (`-2400.webp`) because the Tailor-made section shows them as tall portrait crops and needs the extra pixels to stay sharp on high-density screens. Use `:widths` and a matching `sizes` on `<x-photo>` for any photo shown that way.
 - To replace a photo, put new WebP sizes (480, 800, 1280, 1600 wide) in `public/images/photos` with the same base name, or upload via Admin > Media, and update this file.
-- Top Destinations also reuses `brussels-grand-place` (Art & Architecture) and `bruges-canal` (Canals & Cycling). No suitable free cycling photo was found. Photos of chocolate and beer that showed shop or brand names were rejected.
+- The Destinations accordion uses `bruges-canal`, `ghent-graslei`, `brussels-grand-place`, `la-roche` (existing) plus `city-antwerp` and `city-leuven` (new). Photos of chocolate, beer and abbeys from an earlier themed version were removed; none of the free ones found were free of brand names.
 - Placeholder: no Antwerp photo is included (no non-ShareAlike licence found). Add one when you supply an image.
 
 ## Background video (home page, "Three Ways to Travel Belgium")

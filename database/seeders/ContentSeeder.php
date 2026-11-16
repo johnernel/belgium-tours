@@ -80,8 +80,8 @@ class ContentSeeder extends Seeder
                     'why_3_title' => 'Local expert guides',
                     'why_3_text' => 'Historians, chocolatiers and cyclists who live the route.',
                     'why_cta' => 'Plan My Journey',
-                    'dest_eyebrow' => 'Top Destinations',
-                    'dest_heading' => 'Five things worth *slowing down* for.',
+                    'dest_eyebrow' => 'Where we go',
+                    'dest_heading' => 'Six places worth *slowing down* for.',
                     'dest_cta' => 'View All Destinations',
                     'ways_eyebrow' => 'Signature Journeys',
                     'ways_heading' => 'Three Ways to *Travel* Belgium',
@@ -118,11 +118,11 @@ class ContentSeeder extends Seeder
             ],
             'destinations' => [
                 'title' => 'Destinations',
-                'seo_title' => 'Top Destinations and Experiences in Belgium | Go Belgium Tours',
-                'meta' => 'Chocolate and pralines, beer and abbeys, art and architecture, Flanders Fields history, canals and cycling. Pick a theme and see the Belgium tours that go there.',
+                'seo_title' => 'Belgium Destinations: Bruges, Ghent, Brussels and More | Go Belgium Tours',
+                'meta' => 'Bruges, Ghent, Brussels, Antwerp, Leuven and the Ardennes. Pick a place and see the Belgium tours that go there.',
                 'content' => [
                     'hero_headline' => 'Destinations worth *slowing down* for',
-                    'hero_sub' => 'Five things to build a Belgium trip around. Pick one and we will show you the tours that go there.',
+                    'hero_sub' => 'Six places to build a Belgium trip around. Pick one and we will show you the tours that go there.',
                 ],
             ],
             'terms' => [

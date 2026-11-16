@@ -13,7 +13,7 @@ class DestinationsController extends Controller
     {
         return view('pages.destinations', [
             'page' => Page::bySlug('destinations') ?? abort(404),
-            'experiences' => Experience::active()->get(),
+            'experiences' => Experience::active()->withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get(),
             'quizSteps' => QuizStep::forQuiz(),
             'quizPreset' => [],
             'quizTourType' => '',

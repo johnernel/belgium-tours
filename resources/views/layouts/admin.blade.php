@@ -19,7 +19,7 @@
         ['admin.packages.index', 'Packages', 'map-pin'],
         ['admin.tour-types.index', 'Tour types', 'car'],
         ['admin.destinations.index', 'Regions', 'globe'],
-        ['admin.experiences.index', 'Top destinations', 'map-pin'],
+        ['admin.experiences.index', 'Destinations', 'map-pin'],
         ['admin.quiz.index', 'Quiz', 'help'],
         ['admin.pages.index', 'Pages', 'calendar'],
         ['admin.testimonials.index', 'Testimonials', 'star'],

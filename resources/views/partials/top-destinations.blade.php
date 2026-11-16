@@ -1,6 +1,8 @@
-{{-- Include with: experiences, eyebrow, heading, cta --}}
-@php $first = $experiences->first()?->slug; @endphp
-<section class="py-16 sm:py-24" aria-labelledby="dest-title" x-data="{ dest: @js($first) }">
+{{-- Include with: experiences (with packages_count), eyebrow, heading, cta --}}
+@php
+    $nTours = fn ($n) => $n === 1 ? '1 tour' : $n.' tours';
+@endphp
+<section class="py-16 sm:py-24" aria-labelledby="dest-title" x-data="{ open: 0 }">
     <div class="container-page">
         <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div class="max-w-3xl">
@@ -15,41 +17,40 @@
         </div>
 
         @if($experiences->isNotEmpty())
-        <div class="mt-10 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-            {{-- Tabs: a vertical list on desktop, a scrolling row on mobile --}}
-            <div class="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
-                <div role="tablist" aria-label="Top destinations" aria-orientation="vertical" class="flex w-max gap-2 lg:w-auto lg:flex-col lg:gap-1"
-                     @keydown.down.prevent="$el.querySelector('[aria-selected=true]').nextElementSibling?.focus(); $el.querySelector('[aria-selected=true]').nextElementSibling?.click()"
-                     @keydown.up.prevent="$el.querySelector('[aria-selected=true]').previousElementSibling?.focus(); $el.querySelector('[aria-selected=true]').previousElementSibling?.click()"
-                     @keydown.right.prevent="$el.querySelector('[aria-selected=true]').nextElementSibling?.focus(); $el.querySelector('[aria-selected=true]').nextElementSibling?.click()"
-                     @keydown.left.prevent="$el.querySelector('[aria-selected=true]').previousElementSibling?.focus(); $el.querySelector('[aria-selected=true]').previousElementSibling?.click()">
-                    @foreach($experiences as $e)
-                        <a id="dtab-{{ $e->slug }}" role="tab" href="{{ route('packages.index', ['experience' => $e->slug]) }}" aria-controls="dpanel-{{ $e->slug }}"
-                           :aria-selected="dest === '{{ $e->slug }}'" :tabindex="dest === '{{ $e->slug }}' ? 0 : -1"
-                           @click.prevent="dest = '{{ $e->slug }}'"
-                           class="block shrink-0 whitespace-nowrap rounded-full border-b-4 px-5 py-2 font-display text-xl leading-tight transition-colors lg:whitespace-normal lg:rounded-none lg:border-b-0 lg:border-l-4 lg:px-7 lg:py-5 lg:text-[1.75rem]"
-                           :class="dest === '{{ $e->slug }}' ? 'border-amber bg-sky-soft text-ink' : 'border-transparent text-ink/80 hover:bg-ink/5 hover:text-ink'">{{ $e->name }}</a>
-                    @endforeach
-                </div>
-            </div>
+            {{-- Expanding accordion: horizontal on desktop (hover or click a strip), vertical stack on mobile (tap a panel) --}}
+            <div class="mt-10 flex flex-col gap-3 lg:h-[35rem] lg:flex-row lg:gap-3.5">
+                @foreach($experiences as $i => $e)
+                    <article class="relative isolate overflow-hidden rounded-[1.75rem] bg-ink text-white transition-[height,flex-grow] duration-500 ease-out lg:h-auto lg:min-w-0 lg:basis-0"
+                             :class="open === {{ $i }} ? 'h-[360px] lg:grow-[4.6]' : 'h-20 lg:grow'"
+                             @mouseenter="if (window.matchMedia('(min-width: 1024px)').matches) open = {{ $i }}">
+                        @if($e->image)
+                            <x-photo :base="$e->image" :alt="$e->image_alt ?: $e->name" :widths="[480, 800, 1280, 1600]" sizes="(min-width:1024px) 640px, 400px" fetchpriority="low" :ratio="[1600, 1067]"
+                                     class="absolute inset-0 -z-10 size-full" style="object-position: {{ $e->image_focus ?: '50% 50%' }}" />
+                        @endif
+                        <div class="absolute inset-0 -z-10 transition-colors duration-500"
+                             :class="open === {{ $i }} ? 'bg-gradient-to-t from-ink/85 via-ink/15 to-transparent' : 'bg-ink/45'"></div>
 
-            {{-- Panel for the active tab --}}
-            <div>
-                @foreach($experiences as $e)
-                    <div id="dpanel-{{ $e->slug }}" role="tabpanel" aria-labelledby="dtab-{{ $e->slug }}" x-show="dest === '{{ $e->slug }}'" @if(! $loop->first) style="display:none" @endif x-transition.opacity.duration.300ms>
-                        <div class="aspect-[4/3] overflow-hidden rounded-[1.75rem] bg-sky-soft shadow-card lg:aspect-[16/11]">
-                            @if($e->image)
-                                <x-photo :base="$e->image" :alt="$e->image_alt ?: $e->name" sizes="(min-width:1024px) 55vw, 92vw" class="size-full" :ratio="[1600, 1100]" />
-                            @endif
+                        {{-- The whole panel is a button that opens it (hover, tap, click or keyboard focus) --}}
+                        <button type="button" class="absolute inset-0 z-10 cursor-pointer focus-visible:outline-offset-[-4px]" :class="open === {{ $i }} && 'pointer-events-none'"
+                                :aria-expanded="open === {{ $i }}" @click="open = {{ $i }}" @focus="open = {{ $i }}">
+                            <span class="sr-only">Show {{ $e->name }}, {{ $nTours($e->packages_count) }}</span>
+                        </button>
+
+                        {{-- Collapsed label: vertical on desktop, a single line on mobile --}}
+                        <span class="pointer-events-none absolute font-display text-xl transition-opacity duration-300 max-lg:left-6 max-lg:top-1/2 max-lg:-translate-y-1/2 lg:bottom-7 lg:left-1/2 lg:-translate-x-1/2 lg:rotate-180 lg:text-2xl lg:[writing-mode:vertical-rl]"
+                              :class="open === {{ $i }} ? 'opacity-0' : 'opacity-100'" aria-hidden="true">{{ $e->name }}</span>
+
+                        {{-- Expanded content --}}
+                        <div class="absolute inset-x-0 bottom-0 z-20 p-6 transition duration-500 lg:p-8" :class="open === {{ $i }} ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'" :inert="open !== {{ $i }}">
+                            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sky">{{ $nTours($e->packages_count) }}</p>
+                            <h3 class="mt-2 font-display text-4xl text-white lg:text-[2.75rem]">{{ $e->name }}</h3>
+                            @if($e->description)<p class="mt-2 max-w-[calc(100%-4.5rem)] text-sm text-white/85 sm:max-w-[calc(100%-5rem)] sm:text-base lg:max-w-[17rem]">{{ $e->description }}</p>@endif
+                            <a href="{{ route('packages.index', ['experience' => $e->slug]) }}" aria-label="View {{ $e->name }} tours"
+                               class="absolute bottom-6 right-6 grid size-12 place-items-center rounded-full bg-amber text-ink shadow-lift transition hover:bg-sky-hover lg:bottom-8 lg:right-8">@icon('arrow-right', 'size-5')</a>
                         </div>
-                        <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate">{{ $e->description }}</p>
-                        <a href="{{ route('packages.index', ['experience' => $e->slug]) }}" class="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-amber decoration-2 underline-offset-4 hover:text-slate">
-                            View tours<span class="sr-only"> for {{ $e->name }}</span> @icon('arrow-right', 'size-4')
-                        </a>
-                    </div>
+                    </article>
                 @endforeach
             </div>
-        </div>
         @endif
     </div>
 </section>

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/** A "top destination": a themed reason to visit Belgium (shown on the home page tabs and the Destinations page). */
+/** A destination (Bruges, Ghent, ...): one accordion panel on the home page and one card on the Destinations page. Visitors only see the word "Destinations". */
 class Experience extends Model
 {
-    protected $fillable = ['name', 'slug', 'description', 'image', 'image_alt', 'sort', 'active'];
+    protected $fillable = ['name', 'slug', 'description', 'image', 'image_alt', 'image_focus', 'sort', 'active'];
 
     protected function casts(): array
     {

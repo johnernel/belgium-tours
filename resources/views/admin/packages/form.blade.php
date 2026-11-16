@@ -28,7 +28,7 @@
             </div>
         </div>
         <div>
-            <p class="mb-1 text-sm font-semibold">Top destinations this tour belongs to</p>
+            <p class="mb-1 text-sm font-semibold">Destinations this tour visits</p>
             <div class="flex flex-wrap gap-x-6 gap-y-1">
                 @foreach($experiences as $id => $label)
                     <label class="inline-flex min-h-11 items-center gap-2"><input type="checkbox" name="experience_ids[]" value="{{ $id }}" class="size-5 accent-ink" @checked(in_array($id, old('experience_ids', $package->exists ? $package->experiences->pluck('id')->all() : [])))> {{ $label }}</label>

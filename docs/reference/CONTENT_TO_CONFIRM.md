@@ -24,10 +24,11 @@ Nothing here has been invented as fact. Each item is a visible placeholder or an
 - [ ] Prices are blank, so the cards say "Price on request". Enter a From price per package and the card shows it.
 - [ ] Several journeys reuse the same photos. Replace with photos of the real trips.
 
-## Top destinations (home page and /destinations)
-- [ ] The five destination descriptions are general, plain copy about Belgium, not claims about your services. Check they suit how you sell each theme.
-- [ ] Photos: chocolate (a single praline), beer and abbeys (an abbey-brewery tower), Flanders Fields (a 1917 historical photograph of Ypres) and two reused city photos. No suitable free cycling or beer-tasting photos were found; supply your own where you can.
-- [ ] Which tours belong to which destination is a first guess (Admin > Packages).
+## Destinations (home page accordion and /destinations)
+- [ ] The six one-line descriptions are general, plain statements about each place, not claims about your services. Check they suit how you describe them.
+- [ ] Photos: Bruges, Ghent, Brussels and the Ardennes reuse the site's city photos; Antwerp (cathedral tower) and Leuven (Grote Markt) are new. Replace with your own when you have them.
+- [ ] Which tours visit which destination was matched automatically from each tour's route. Check it in Admin > Packages.
+- [ ] Tour counts are computed from published tours, so they will change as you add or unpublish tours.
 
 ## Tour type pages (Admin > Tour types)
 - [ ] Headline, description and Google wording for Self Drive, Chauffeur Driven and Coach Tours are plain starter copy describing each service. Check they match what you really offer.

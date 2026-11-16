@@ -5,10 +5,13 @@ namespace Database\Seeders;
 use App\Models\Experience;
 use App\Models\Package;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 /**
- * The five "top destinations" and which sample journeys belong to each.
- * Descriptions are plain, general copy (not claims about the business): edit in Admin > Top destinations.
+ * The six "Destinations" (cities and regions) shown as the home page accordion and on /destinations.
+ * (Internally the model is called Experience; visitors only ever see "Destinations".)
+ * Descriptions are short, general facts about each place. Tours are linked automatically by matching the
+ * place name against each package's title and route, so the tour counts shown are always real.
  */
 class ExperienceSeeder extends Seeder
 {
@@ -18,36 +21,40 @@ class ExperienceSeeder extends Seeder
             return;
         }
 
-        // [name, slug, description, photo, alt, package titles]
+        // [name, short description, photo, alt text, focal point, words that link a package to this place]
         $rows = [
-            ['Chocolate & Pralines', 'chocolate-pralines',
-                'Belgium is famous for its chocolate. Visit chocolatiers, taste pralines still made in small batches and learn how a good one is judged.',
-                'experience-chocolate', 'A single praline chocolate on a white cloth',
-                ['Brussels Art Nouveau & Chocolate Day', 'Chocolate & Beer Trail']],
-            ['Beer & Abbeys', 'beer-abbeys',
-                'From abbey breweries to small family brewers, Belgian beer is a culture of its own. Pair tastings with quiet abbey grounds and country lanes.',
-                'experience-abbeys', 'The brick tower of an abbey brewery under a blue sky',
-                ['Beer & Abbeys Private Journey', 'Chocolate & Beer Trail']],
-            ['Art & Architecture', 'art-architecture',
-                'Guildhouse squares, Gothic belfries and Art Nouveau townhouses. Belgium\'s cities are open-air galleries, best seen unhurried.',
-                'brussels-grand-place', 'Guildhouses of the Grand Place in Brussels lit at twilight',
-                ['Brussels Art Nouveau & Chocolate Day', 'Bruges, Ghent & Antwerp Grand Tour', 'Antwerp & Mechelen City Drive', 'Belgium Highlights in 7 Days']],
-            ['Flanders Fields History', 'flanders-fields-history',
-                'A respectful look at the Western Front around Ypres: memorials, museums and cemeteries, with time to reflect and a guide who knows the stories.',
-                'experience-flanders', 'A 1917 photograph of soldiers on a duckboard track through the shattered trees of Chateau Wood near Ypres',
-                ['Flanders Fields Heritage Drive', 'Flanders Fields Private Guided Day', 'Flanders Fields Remembrance Tour']],
-            ['Canals & Cycling', 'canals-cycling',
-                'Flat landscapes, towpaths and canal-side towns make Belgium easy to explore slowly, by boat, on foot or by bicycle.',
-                'bruges-canal', 'A canal lined with brick houses and the Belfry tower in Bruges',
-                ['Bruges & Ghent Medieval Escape', 'Cities & Canals Small-Group Tour', 'Bruges, Ghent & Antwerp Grand Tour']],
+            ['Bruges', 'Canals, cobbled lanes and a skyline of gables and bell towers.',
+                'bruges-canal', 'A canal lined with brick houses and the Belfry tower in Bruges', '32% 50%', ['Bruges']],
+            ['Ghent', 'A castle, lively canal-side quays and a busy student-town feel.',
+                'ghent-graslei', 'Visitors beside the canal at Graslei in Ghent', '45% 50%', ['Ghent']],
+            ['Brussels', 'Grand squares, Art Nouveau streets and chocolate shops.',
+                'brussels-grand-place', 'Guildhouses of the Grand Place in Brussels lit at twilight', '50% 50%', ['Brussels']],
+            ['Antwerp', 'A cathedral spire above the old town, with fashion and design close by.',
+                'city-antwerp', 'The gold clock faces on the tower of Antwerp Cathedral', '56% 30%', ['Antwerp']],
+            ['Leuven', 'A university town with a Gothic town hall and lively squares.',
+                'city-leuven', 'The Grote Markt in Leuven beside the Gothic town hall', '8% 50%', ['Leuven']],
+            ['Ardennes', 'Forested hills, river valleys and quiet villages.',
+                'la-roche', 'The Ourthe river and wooded hills at La Roche-en-Ardenne', '50% 50%', ['Ardennes', 'Dinant', 'La Roche', 'Durbuy', 'Namur']],
         ];
 
-        foreach ($rows as $i => [$name, $slug, $description, $photo, $alt, $titles]) {
+        foreach ($rows as $i => [$name, $description, $photo, $alt, $focus, $words]) {
             $experience = Experience::create([
-                'name' => $name, 'slug' => $slug, 'description' => $description,
-                'image' => 'images/photos/'.$photo, 'image_alt' => $alt, 'sort' => $i + 1,
+                'name' => $name, 'slug' => Str::slug($name), 'description' => $description,
+                'image' => 'images/photos/'.$photo, 'image_alt' => $alt, 'image_focus' => $focus, 'sort' => $i + 1,
             ]);
-            $experience->packages()->sync(Package::whereIn('title', $titles)->pluck('id'));
+
+            $ids = Package::all()->filter(function ($p) use ($words) {
+                $text = $p->title.' '.$p->route;
+                foreach ($words as $w) {
+                    if (stripos($text, $w) !== false) {
+                        return true;
+                    }
+                }
+
+                return false;
+            })->pluck('id');
+
+            $experience->packages()->sync($ids);
         }
     }
 }

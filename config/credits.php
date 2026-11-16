@@ -13,8 +13,7 @@ return [
         ['slug' => 'countryside', 'title' => 'Falmignoul Countryside R06.jpg', 'author' => 'Marc Ryckaert (MJJR)', 'licence' => 'CC BY 3.0', 'url' => 'https://commons.wikimedia.org/wiki/File:Falmignoul_Countryside_R06.jpg'],
         ['slug' => 'flower-carpet', 'title' => '2018 flower carpet at Grand Place, Brussels (DSCF6849).jpg', 'author' => 'Trougnouf (Benoit Brummer)', 'licence' => 'CC BY 4.0', 'url' => 'https://commons.wikimedia.org/wiki/File:2018_flower_carpet_at_Grand_Place,_Brussels_(DSCF6849).jpg'],
         ['slug' => 'bruges-belfry', 'title' => 'Brugge - Belfort van Brugge (48196317111).jpg', 'author' => 'Fred Romero', 'licence' => 'CC BY 2.0', 'url' => 'https://commons.wikimedia.org/wiki/File:Brugge_-_Belfort_van_Brugge_(48196317111).jpg'],
-        ['slug' => 'experience-chocolate', 'title' => 'Chocolate candy piece.jpg', 'author' => 'Flickr user "visualpanic"', 'licence' => 'CC BY 2.0', 'url' => 'https://commons.wikimedia.org/wiki/File:Chocolate_candy_piece.jpg'],
-        ['slug' => 'experience-abbeys', 'title' => 'Westmalle Trappistenbrauerei 2014 1.JPG', 'author' => 'Gordito1869', 'licence' => 'CC BY 3.0', 'url' => 'https://commons.wikimedia.org/wiki/File:Westmalle_Trappistenbrauerei_2014_1.JPG'],
-        ['slug' => 'experience-flanders', 'title' => 'Chateau Wood Ypres 1917.jpg', 'author' => 'Frank Hurley', 'licence' => 'Public domain', 'url' => 'https://commons.wikimedia.org/wiki/File:Chateau_Wood_Ypres_1917.jpg'],
+        ['slug' => 'city-antwerp', 'title' => 'Antwerp cathedral clock (34759983841).jpg', 'author' => 'Bobo Boom', 'licence' => 'CC BY 2.0', 'url' => 'https://commons.wikimedia.org/wiki/File:Antwerp_cathedral_clock_(34759983841).jpg'],
+        ['slug' => 'city-leuven', 'title' => 'Louvain Grote Markt (52173635498).jpg', 'author' => 'Jorge Franganillo', 'licence' => 'CC BY 2.0', 'url' => 'https://commons.wikimedia.org/wiki/File:Louvain_Grote_Markt_(52173635498).jpg'],
     ],
 ];

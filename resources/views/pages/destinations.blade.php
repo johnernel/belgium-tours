@@ -26,7 +26,7 @@
 
 <section class="py-16 sm:py-24" aria-labelledby="all-dest-title">
     <div class="container-page">
-        <x-section-heading id="all-dest-title" title="All our *destinations*" sub="Each one links to the tours that go there." />
+        <x-section-heading id="all-dest-title" title="All our *destinations*" sub="Pick a place to see the tours that go there." />
 
         @if($experiences->isEmpty())
             <p class="mt-10 rounded-2xl bg-paper p-6 shadow-card">Destinations are coming soon. <a href="{{ route('packages.index') }}" class="font-semibold underline">Browse all packages</a> in the meantime.</p>
@@ -37,14 +37,15 @@
                         <article class="group flex w-full flex-col overflow-hidden rounded-[1.5rem] bg-paper shadow-card">
                             <div class="aspect-[4/3] overflow-hidden bg-sky-soft">
                                 @if($e->image)
-                                    <x-photo :base="$e->image" :alt="$e->image_alt ?: $e->name" sizes="(min-width:1024px) 30vw, (min-width:640px) 46vw, 92vw" class="size-full transition-transform duration-700 group-hover:scale-105" />
+                                    <x-photo :base="$e->image" :alt="$e->image_alt ?: $e->name" sizes="(min-width:1024px) 30vw, (min-width:640px) 46vw, 92vw"
+                                             class="size-full transition-transform duration-700 group-hover:scale-105" style="object-position: {{ $e->image_focus ?: '50% 50%' }}" />
                                 @endif
                             </div>
                             <div class="flex flex-1 flex-col p-6">
-                                <h3 class="text-2xl">{{ $e->name }}</h3>
-                                <p class="mt-3 flex-1 text-slate">{{ $e->description }}</p>
+                                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate">{{ $e->packages_count === 1 ? '1 tour' : $e->packages_count.' tours' }}</p>
+                                <h3 class="mt-2 text-3xl">{{ $e->name }}</h3>
                                 <a href="{{ route('packages.index', ['experience' => $e->slug]) }}" class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-amber decoration-2 underline-offset-4 hover:text-slate">
-                                    View tours<span class="sr-only"> for {{ $e->name }}</span> @icon('arrow-right', 'size-4')
+                                    View tours<span class="sr-only"> in {{ $e->name }}</span> @icon('arrow-right', 'size-4')
                                 </a>
                             </div>
                         </article>

@@ -23,8 +23,8 @@ Add, edit, duplicate, publish or hide, feature, and reorder trips.
 - **Route** (cities, e.g. `Bruges · Ghent`) and the first three **Highlights** appear on the home page journey cards. The card shows "N days" (nights + 1) and the From price, or "Price on request" when the price is blank.
 - **Duplicate** makes a draft copy to adapt.
 
-## Top destinations
-The five themed destinations shown as tabs on the home page and as cards on the **Destinations** page (Chocolate & Pralines, Beer & Abbeys, and so on). For each one set the name, a two-sentence description and a photo (describe the photo). To decide which tours a destination shows, open a package and tick the destinations it belongs to. Edit the page banner (headline, short description, photo) in Admin > Pages > Destinations; put *asterisks* round the accent words of the headline.
+## Destinations
+The six places shown in the home page accordion and as cards on the **Destinations** page (Bruges, Ghent, Brussels, Antwerp, Leuven, Ardennes). For each one set the name, a short description and a photo (describe the photo). **Photo focus** (optional, e.g. `30% 50%`) chooses which part of the photo stays visible in the narrow strips. The **tour count is automatic**: open a package and tick the destinations it visits. Edit the page banner (headline, short description, photo) in Admin > Pages > Destinations; put *asterisks* round the accent words of the headline.
 
 ## Tour types and Regions
 Regions (for example "Belgium" or "Belgium and the Netherlands") are the country-level groups packages sit in, and are used by the Region filter on the Packages page. **Each tour type has its own page** (menu: Tour Types; also linked from the home page dropdown and cards). For each one set the **short tab label** (used on the home page tabs, e.g. Self-Drive), the **page headline**, the **page description** (shown beside the quiz), the Google title and description, and the **photo** (it is the background of that page). "Order" decides the sequence; untick "Show on the site" to hide one.
