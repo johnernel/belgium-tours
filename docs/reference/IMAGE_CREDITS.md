@@ -18,5 +18,6 @@ All photos come from Wikimedia Commons under Creative Commons licences that allo
 
 - No photo shows a recognisable brand, logo or private property needing a release. One candidate (Dinant street scene with shop signage) was rejected for that reason.
 - Licence texts: CC BY 2.0 https://creativecommons.org/licenses/by/2.0/, CC BY 3.0 https://creativecommons.org/licenses/by/3.0/, CC BY 4.0 https://creativecommons.org/licenses/by/4.0/
+- `flower-carpet` and `gravensteen` also have a 2400 px-wide version (`-2400.webp`) because the Tailor-made section shows them as tall portrait crops and needs the extra pixels to stay sharp on high-density screens. Use `:widths` and a matching `sizes` on `<x-photo>` for any photo shown that way.
 - To replace a photo, put new WebP sizes (480, 800, 1280, 1600 wide) in `public/images/photos` with the same base name, or upload via Admin > Media, and update this file.
 - Placeholder: no Antwerp photo is included (no non-ShareAlike licence found). Add one when you supply an image.

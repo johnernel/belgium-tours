@@ -64,7 +64,7 @@
 @if($others->isNotEmpty())
 <section class="bg-cream-deep/60 py-14 sm:py-16" aria-labelledby="others-title">
     <div class="container-page">
-        <h2 id="others-title" class="text-2xl sm:text-3xl">Other ways to see Belgium</h2>
+        <h2 id="others-title" class="text-heading">Other ways to see Belgium</h2>
         <ul class="mt-6 grid gap-4 sm:grid-cols-2">
             @foreach($others as $o)
                 <li class="rounded-2xl bg-paper p-5 shadow-card">
@@ -81,7 +81,7 @@
 <section class="pt-16 sm:pt-20" aria-labelledby="cta-title">
     <div class="container-page">
         <div class="rounded-[2rem] bg-slate px-6 py-12 text-center text-white sm:px-12">
-            <h2 id="cta-title" class="text-3xl !text-white sm:text-4xl">Ready for {{ strtolower($type->name) }} in Belgium?</h2>
+            <h2 id="cta-title" class="text-heading !text-white">Ready for {{ strtolower($type->name) }} in Belgium?</h2>
             <p class="mx-auto mt-3 max-w-xl text-lg text-white/90">Tell us when you want to go and who is coming. We will send a free quote.</p>
             <div class="mt-7 flex flex-wrap justify-center gap-3">
                 <x-button size="lg" @click="$store.modal.open({ tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Get a free quote</x-button>

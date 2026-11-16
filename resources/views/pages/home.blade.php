@@ -6,6 +6,7 @@
 @if($page->noindex)@section('noindex', '1')@endif
 
 @push('preload')
+    <link rel="preload" href="/fonts/fraunces-latin-opsz-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" as="image" href="{{ asset('images/photos/bruges-canal-800.webp') }}" imagesrcset="{{ asset('images/photos/bruges-canal-480.webp') }} 640w, {{ asset('images/photos/bruges-canal-800.webp') }} 1024w, {{ asset('images/photos/bruges-canal-1280.webp') }} 1600w" imagesizes="100vw" fetchpriority="high">
 @endpush
 
@@ -93,7 +94,7 @@
         <div class="grid h-80 grid-cols-2 gap-3 sm:h-96 sm:gap-4 lg:h-auto lg:min-h-[30rem]">
             @foreach($whyPhotos as [$base, $alt, $ratio])
                 <div class="relative overflow-hidden rounded-3xl shadow-card">
-                    <x-photo :base="$base" :alt="$alt" sizes="(min-width:1024px) 24vw, 46vw" :ratio="$ratio" class="absolute inset-0 size-full" />
+                    <x-photo :base="$base" :alt="$alt" :widths="[480, 800, 1280, 1600, 2400]" sizes="(min-width:1024px) 1000px, 700px" :ratio="$ratio" class="absolute inset-0 size-full" />
                 </div>
             @endforeach
         </div>
@@ -102,7 +103,7 @@
             <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
                 <span class="h-px w-10 bg-slate/50" aria-hidden="true"></span>{{ $c('why_eyebrow') ?: 'Tailor-made in Belgium' }}
             </p>
-            <h2 id="why-title" class="mt-5 font-serif text-4xl font-normal leading-[1.08] sm:text-5xl lg:text-[3.5rem]">
+            <h2 id="why-title" class="mt-5 font-serif text-heading">
                 {{ $whyPlain }}@if($whyPlain) @endif<em class="text-slate">{{ $whyEm }}</em>
             </h2>
             <p class="mt-6 text-lg leading-relaxed text-slate">{{ $c('why_sub') }}</p>
@@ -221,7 +222,7 @@
     <div class="container-page">
         <div class="relative isolate overflow-hidden rounded-[2rem] bg-slate px-6 py-14 text-center text-white sm:px-12">
             <svg class="pointer-events-none absolute -right-10 -top-6 z-0 w-72 text-white/15" viewBox="0 0 300 120" fill="none" aria-hidden="true"><path class="doodle-path" d="M5 110C70 20 150 130 220 50s60-30 75-40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-            <h2 id="cta-title" class="relative z-10 text-3xl !text-white sm:text-4xl">{{ $c('cta_heading') }}</h2>
+            <h2 id="cta-title" class="relative z-10 text-heading !text-white">{{ $c('cta_heading') }}</h2>
             <p class="relative z-10 mx-auto mt-3 max-w-xl text-lg text-white/90">{{ $c('cta_text') }}</p>
             <div class="relative z-10 mt-7 flex flex-wrap justify-center gap-3">
                 <x-button size="lg" @click="$store.modal.open()">Start Your Adventure</x-button>
