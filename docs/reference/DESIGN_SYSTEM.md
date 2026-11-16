@@ -21,7 +21,7 @@ Type: **Fredoka** (variable) for headings, **Nunito** (variable) for body, both 
 Other tokens: `--radius-card`, `--shadow-card`, `--shadow-lift`. Motion: one hero entrance (`.hero-rise`), modal/quiz transitions only; reduced motion is honoured.
 
 ## Components (`resources/views/components`)
-- `<x-button variant="primary|dark|sky|outline|light" size="sm|md|lg" href icon>`
+- `<x-button variant="primary|cta|dark|sky|outline|light" size="sm|md|lg" href icon>` (`cta` = solid #FCB345, white text, #A1DBE6 hover; used for the nav quote buttons and "Plan My Journey")
 - `<x-section-heading title sub align tag tone>`
 - `<x-faq-item question>` (native `<details>`)
 - `<x-field name label type required hint>` text input with inline error slot

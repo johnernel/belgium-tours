@@ -57,6 +57,16 @@ class PublicPagesTest extends TestCase
         $this->assertStringNotContainsString('hero-way', $html);
     }
 
+    public function test_the_tailor_made_section_shows_its_copy_and_the_cta_style(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        foreach (['Tailor-made in Belgium', 'Every journey, personally', 'Bespoke itineraries', 'Handpicked stays', 'Local expert guides', 'Plan My Journey'] as $text) {
+            $this->assertStringContainsString($text, $html);
+        }
+        $this->assertStringContainsString('bg-amber text-white hover:bg-sky-hover', $html, 'CTA button style');
+    }
+
     public function test_home_has_faq_structured_data(): void
     {
         $this->get('/')->assertOk()->assertSee('"@type":"FAQPage"', false);

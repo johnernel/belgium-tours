@@ -4,6 +4,8 @@
     $sizes = ['sm' => 'px-4 py-2.5 text-sm', 'md' => 'px-6 py-3.5 text-base', 'lg' => 'px-8 py-4 text-lg'];
     $variants = [
         'primary' => 'bg-amber text-ink hover:bg-amber-deep',
+        // Brand CTA: solid amber, white text, light blue on hover (hover text goes dark so it stays readable).
+        'cta' => 'bg-amber text-white hover:bg-sky-hover hover:text-ink',
         'dark' => 'bg-ink text-cream hover:bg-slate',
         'sky' => 'bg-sky text-ink hover:bg-sky-soft',
         'outline' => 'border-2 border-ink text-ink hover:bg-ink hover:text-cream',

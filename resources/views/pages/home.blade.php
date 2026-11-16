@@ -79,26 +79,52 @@
 </section>
 
 {{-- 4. WHY TRAVELLERS CHOOSE US --}}
+@php
+    // Last word of the heading is set in italic slate, as in the design reference.
+    $why = trim($c('why_heading') ?: 'Every journey, personally crafted.');
+    $whyCut = strrpos($why, ' ');
+    [$whyPlain, $whyEm] = $whyCut ? [substr($why, 0, $whyCut), substr($why, $whyCut + 1)] : ['', $why];
+    $whyPhotos = [
+        ['images/photos/flower-carpet', 'Flower carpet laid out in front of the Brussels Grand Place', [1600, 1023]],
+        ['images/photos/gravensteen', 'The medieval Gravensteen castle in Ghent at sunset', [1600, 1044]],
+        ['images/photos/la-roche', 'The Ourthe river and wooded hills at La Roche-en-Ardenne', [1600, 1067]],
+    ];
+@endphp
 <section class="relative py-16 sm:py-24" aria-labelledby="why-title">
-    <div class="container-page grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-        <div class="grid grid-cols-3 items-end gap-3 sm:gap-4" aria-hidden="false">
-            <x-photo base="images/photos/flower-carpet" alt="Flower carpet laid out in front of the Brussels Grand Place" sizes="(min-width:1024px) 14vw, 30vw" :ratio="[1600, 1023]" class="aspect-[3/4] w-full rounded-3xl shadow-card" />
-            <x-photo base="images/photos/gravensteen" alt="The medieval Gravensteen castle in Ghent at sunset" sizes="(min-width:1024px) 14vw, 30vw" :ratio="[1600, 1044]" class="aspect-[3/5] w-full rounded-3xl shadow-card" />
-            <x-photo base="images/photos/la-roche" alt="The Ourthe river and wooded hills at La Roche-en-Ardenne" sizes="(min-width:1024px) 14vw, 30vw" class="aspect-[3/4] w-full rounded-3xl shadow-card" />
+    <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+        {{-- Photos fill the full height of the text column, so both sides stay balanced --}}
+        <div class="grid h-80 grid-cols-3 gap-3 sm:h-96 sm:gap-4 lg:h-auto lg:min-h-[30rem]">
+            @foreach($whyPhotos as [$base, $alt, $ratio])
+                <div class="relative overflow-hidden rounded-3xl shadow-card">
+                    <x-photo :base="$base" :alt="$alt" sizes="(min-width:1024px) 16vw, 30vw" :ratio="$ratio" class="absolute inset-0 size-full" />
+                </div>
+            @endforeach
         </div>
-        <div>
-            <x-section-heading id="why-title" :title="$c('why_heading')" :sub="$c('why_sub')" />
-            <ul class="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2">
-                @foreach([['compass', 1], ['map-pin', 2], ['wallet', 3], ['phone', 4]] as [$ic, $n])
-                    <li class="flex gap-4">
-                        <span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-sky text-ink">@icon($ic)</span>
+
+        <div class="flex flex-col justify-center lg:max-w-xl">
+            <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
+                <span class="h-px w-10 bg-slate/50" aria-hidden="true"></span>{{ $c('why_eyebrow') ?: 'Tailor-made in Belgium' }}
+            </p>
+            <h2 id="why-title" class="mt-5 font-serif text-4xl font-normal leading-[1.08] sm:text-5xl lg:text-[3.5rem]">
+                {{ $whyPlain }}@if($whyPlain) @endif<em class="text-slate">{{ $whyEm }}</em>
+            </h2>
+            <p class="mt-6 text-lg leading-relaxed text-slate">{{ $c('why_sub') }}</p>
+
+            <ul class="mt-8 divide-y divide-ink/10 border-t border-ink/10">
+                @foreach([1, 2, 3] as $n)
+                    <li class="grid grid-cols-[2.75rem_1fr] items-baseline gap-x-2 py-4">
+                        <span class="font-serif text-lg italic text-amber-deep" aria-hidden="true">{{ sprintf('%02d', $n) }}</span>
                         <div>
-                            <h3 class="font-display text-lg font-semibold">{{ $c("why_{$n}_title") }}</h3>
-                            <p class="mt-1 text-slate">{{ $c("why_{$n}_text") }}</p>
+                            <h3 class="font-serif text-xl font-normal leading-snug">{{ $c("why_{$n}_title") }}</h3>
+                            <p class="mt-1 text-[0.95rem] text-slate">{{ $c("why_{$n}_text") }}</p>
                         </div>
                     </li>
                 @endforeach
             </ul>
+
+            <div class="mt-8">
+                <x-button variant="cta" size="lg" icon="arrow-right" @click="$store.modal.open()">{{ $c('why_cta') ?: 'Plan My Journey' }}</x-button>
+            </div>
         </div>
     </div>
 </section>

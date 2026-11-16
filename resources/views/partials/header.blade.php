@@ -42,7 +42,7 @@
         </nav>
 
         <div class="flex items-center gap-2">
-            <x-button size="sm" class="hidden sm:inline-flex" @click="$store.modal.open()">Get a free quote</x-button>
+            <x-button variant="cta" size="sm" class="hidden sm:inline-flex" @click="$store.modal.open()">Get a free quote</x-button>
             <button type="button" class="nav-menu-btn grid size-11 place-items-center rounded-full text-black hover:bg-black/5 lg:hidden" @click="open = !open" :aria-expanded="open" aria-controls="mobile-nav" aria-label="Menu">
                 @icon('menu')
             </button>
@@ -59,7 +59,7 @@
             <li><a href="{{ route('packages.index') }}" class="block px-1 py-3 text-lg font-semibold text-black">Packages</a></li>
             <li><a href="{{ route('about') }}" class="block px-1 py-3 text-lg font-semibold text-black">About</a></li>
             <li><a href="{{ route('contact') }}" class="block px-1 py-3 text-lg font-semibold text-black">Contact</a></li>
-            <li class="pt-2"><x-button class="w-full" @click="open = false; $store.modal.open()">Start Your Adventure</x-button></li>
+            <li class="pt-2"><x-button variant="cta" class="w-full" @click="open = false; $store.modal.open()">Start Your Adventure</x-button></li>
         </ul>
     </nav>
 </header>
