@@ -351,6 +351,7 @@ Alpine.data('gallery', () => ({
             return;
         }
         let x = 0, last = 0, paused = false, visible = false, raf = 0, setW = 0, stageW = 0, centres = [], widths = [];
+        const tilt = [], scale = [], shift = [];
         const measure = () => {
             stageW = stage.clientWidth;
             centres = cards.map((c) => c.offsetLeft + c.offsetWidth / 2);
@@ -368,13 +369,32 @@ Alpine.data('gallery', () => ({
                 if (x <= -setW) x += setW;
             }
             track.style.transform = 'translate3d(' + x + 'px,0,0)';
+            // 1) each card's scale and tilt come from where it sits on screen
+            const mid = stageW / 2;
             for (let i = 0; i < cards.length; i++) {
-                let cx = centres[i] + x;
-                if (cx < -widths[i]) cx += setW; // wrap so the second copy bends the same way
-                const n = Math.max(-1.4, Math.min(1.4, (cx - stageW / 2) / (stageW / 2)));
+                const n = Math.max(-1.4, Math.min(1.4, (centres[i] + x - mid) / mid));
                 const a = Math.abs(n);
-                const s = 0.78 + 0.62 * a * a;
-                cards[i].style.transform = 'perspective(900px) rotateY(' + (n * -26).toFixed(2) + 'deg) scale(' + s.toFixed(3) + ')';
+                tilt[i] = n * -26;
+                scale[i] = 0.78 + 0.62 * a * a;
+            }
+            // 2) scaling shrinks or grows a card around its centre without moving its neighbours, so the gaps
+            //    would stretch in the middle and overlap at the edges. Shift every card by the width its
+            //    neighbours gained or lost so the gap stays the same, anchored at the screen centre.
+            let acc = 0, anchor = 0, found = false;
+            for (let i = 0; i < cards.length; i++) {
+                shift[i] = acc; // total growth of all cards to the left of this one
+                if (!found && centres[i] + x >= mid) {
+                    const prev = i ? shift[i - 1] : 0;
+                    const span = i ? centres[i] - centres[i - 1] : 1;
+                    const f = i ? (mid - (centres[i - 1] + x)) / span : 1;
+                    anchor = prev + (shift[i] - prev) * Math.max(0, Math.min(1, f));
+                    found = true;
+                }
+                acc += widths[i] * (scale[i] - 1);
+            }
+            for (let i = 0; i < cards.length; i++) {
+                const tx = shift[i] - anchor + (widths[i] * (scale[i] - 1)) / 2;
+                cards[i].style.transform = 'translateX(' + tx.toFixed(1) + 'px) perspective(900px) rotateY(' + tilt[i].toFixed(2) + 'deg) scale(' + scale[i].toFixed(3) + ')';
             }
         };
         const start = () => { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } };

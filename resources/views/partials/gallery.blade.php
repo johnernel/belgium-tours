@@ -25,10 +25,10 @@
 
     {{-- Photo credits for these images are in docs/reference/IMAGE_CREDITS.md and config/credits.php. The second copy is hidden from assistive tech. --}}
     <div x-ref="stage" class="mt-12 py-10 sm:mt-14" role="group" aria-label="Photo gallery" style="perspective: 1400px">
-        <div x-ref="track" class="flex w-max items-center gap-4 will-change-transform sm:gap-6">
+        <div x-ref="track" class="flex w-max items-center gap-3 will-change-transform sm:gap-4">
             @foreach([0, 1] as $copy)
                 @foreach($galleryPhotos as [$base, $alt])
-                    <div class="relative h-44 w-32 shrink-0 overflow-hidden rounded-2xl bg-sky-soft shadow-card will-change-transform sm:h-60 sm:w-44 lg:h-72 lg:w-52" @if($copy) aria-hidden="true" @endif>
+                    <div class="relative h-48 w-32 shrink-0 overflow-hidden rounded-2xl bg-sky-soft shadow-card will-change-transform sm:h-72 sm:w-44 lg:h-[340px] lg:w-52" @if($copy) aria-hidden="true" @endif>
                         <x-photo :base="'images/photos/'.$base" :alt="$copy ? '' : $alt" :widths="[480, 800]" sizes="(min-width:1024px) 300px, 200px" :ratio="[480, 640]" class="absolute inset-0 size-full" draggable="false" />
                     </div>
                 @endforeach
