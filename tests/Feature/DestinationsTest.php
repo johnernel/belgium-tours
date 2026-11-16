@@ -39,7 +39,8 @@ class DestinationsTest extends TestCase
         $html = $this->get('/')->assertOk()->getContent();
 
         $this->assertStringContainsString('<em class="heading-accent">exceptional</em>', $html);
-        $section = substr($html, strpos($html, 'aria-labelledby="wcu-title"'), 12000);
+        $start = strpos($html, 'aria-labelledby="wcu-title"');
+        $section = substr($html, $start, strpos($html, '</section>', $start) - $start);
         $this->assertSame(4, substr_count($section, '<h3'));
         $this->assertStringNotContainsString('Tours designed', $section); // stats band stays hidden until real figures are entered
         $this->assertLessThan(strpos($html, 'aria-labelledby="wcu-title"'), strpos($html, 'aria-labelledby="way-title"'));
