@@ -11,7 +11,7 @@
         trix-toolbar .trix-button-group--file-tools { display: none; }
     </style>
 </head>
-<body class="bg-cream-deep/40 text-ink" x-data="{ nav: false }">
+<body class="admin-ui" x-data="{ nav: false }">
 @php
     $links = [
         ['admin.dashboard', 'Dashboard', 'compass'],
@@ -32,11 +32,11 @@
     ];
 @endphp
 <div class="flex min-h-screen">
-    <aside class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-ink p-4 text-cream transition-transform lg:static lg:translate-x-0" :class="nav && '!translate-x-0'">
+    <aside class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full admin-sidebar text-cream transition-transform lg:static lg:translate-x-0" :class="nav && '!translate-x-0'">
         <a href="{{ route('admin.dashboard') }}" class="mb-6 block font-display text-xl font-semibold">{{ \App\Models\Setting::get('brand_name', 'Admin') }}<span class="block text-xs font-normal text-cream/60">Admin</span></a>
         <nav aria-label="Admin" class="space-y-1">
             @foreach($links as [$route, $label, $icon])
-                <a href="{{ route($route) }}" class="flex min-h-11 items-center gap-3 rounded-xl px-3 font-semibold hover:bg-white/10 {{ request()->routeIs(Str::beforeLast($route, '.').'*') ? 'bg-white/15' : '' }}">
+                <a href="{{ route($route) }}" class="flex min-h-11 items-center gap-3 rounded-xl px-3 font-semibold hover:bg-white/10 {{ ($route === 'admin.dashboard' ? request()->routeIs('admin.dashboard') : request()->routeIs(Str::beforeLast($route, '.').'*')) ? 'is-active' : '' }}">
                     @icon($icon, 'size-5 text-amber') {{ $label }}
                 </a>
             @endforeach
@@ -46,7 +46,7 @@
     <div x-show="nav" x-cloak class="fixed inset-0 z-30 bg-ink/50 lg:hidden" @click="nav = false"></div>
 
     <div class="min-w-0 flex-1">
-        <header class="flex items-center justify-between gap-3 border-b border-ink/10 bg-cream px-4 py-3 sm:px-6">
+        <header class="flex items-center justify-between gap-3 admin-topbar px-4 py-3 sm:px-6">
             <button type="button" class="grid size-11 place-items-center rounded-full hover:bg-ink/5 lg:hidden" @click="nav = true" aria-label="Open menu">@icon('menu')</button>
             <h1 class="font-display text-xl font-semibold sm:text-2xl">@yield('heading')</h1>
             <div class="flex items-center gap-3 text-sm">

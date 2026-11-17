@@ -7,7 +7,7 @@
     <title>Admin login</title>
     @vite(['resources/css/admin.css'])
 </head>
-<body class="grid min-h-screen place-items-center bg-cream-deep/50 p-4">
+<body class="admin-login grid min-h-screen place-items-center p-4">
 <main class="w-full max-w-sm rounded-[1.75rem] bg-paper p-8 shadow-lift">
     <h1 class="text-3xl">Admin login</h1>
     <p class="mt-1 text-slate">{{ \App\Models\Setting::get('brand_name', config('app.name')) }}</p>
