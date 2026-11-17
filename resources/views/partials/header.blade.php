@@ -1,5 +1,6 @@
 @php
-    $navTypes = \App\Models\TourType::active()->get();
+    // Tour types for the mega menu, each with its published packages (featured first; the menu shows the first 3).
+    $navTypes = \App\Models\TourType::active()->with(['packages' => fn ($q) => $q->published()->orderByDesc('is_featured')->orderBy('sort')])->get();
     $links = [
         ['Packages', route('packages.index'), request()->routeIs('packages.*')],
         ['About', route('about'), request()->routeIs('about')],
@@ -11,7 +12,7 @@
     // Pages with a photo hero (@section('hero')) start transparent with white text; see app.css.
     $overlay = $__env->hasSection('hero');
 @endphp
-<header class="sticky top-0 z-40 bg-bar transition-colors duration-200 {{ $overlay ? 'nav-overlay' : '' }}" :class="open && 'is-open'" x-data="{ open: false, tours: false }" @keydown.escape.window="open = false; tours = false">
+<header class="sticky top-0 z-40 bg-bar transition-colors duration-200 {{ $overlay ? 'nav-overlay' : '' }}" :class="open && 'is-open'" x-data="{ open: false, tours: false }" @keydown.escape.window="open = false; tours = false" @mouseleave="tours = false" @focusout="if (! $el.contains($event.relatedTarget)) tours = false">
     <div class="container-page flex h-[4.5rem] items-center justify-between gap-3">
         <a href="{{ route('home') }}" class="flex items-center gap-2.5">
             @if($site->logo)
@@ -25,21 +26,70 @@
         </a>
 
         <nav class="hidden items-center lg:flex" aria-label="Main">
-            <a href="{{ route('home') }}" class="{{ $item }} {{ request()->routeIs('home') ? $current : '' }}" @if(request()->routeIs('home')) aria-current="page" @endif>Home</a>
-            <div class="relative" @mouseenter="tours = true" @mouseleave="tours = false">
-                <button type="button" class="{{ $item }} gap-1 {{ request()->routeIs('tours.*') ? $current : '' }}" @click="tours = !tours" :aria-expanded="tours" aria-haspopup="true">
-                    Tour Types @icon('chevron-down', 'size-4')
+            <a href="{{ route('home') }}" @mouseenter="tours = false" class="{{ $item }} {{ request()->routeIs('home') ? $current : '' }}" @if(request()->routeIs('home')) aria-current="page" @endif>Home</a>
+            {{-- Tour Types mega menu: the panel is positioned against the (sticky) header, so it spans the full width --}}
+            <div @mouseenter="tours = true" @click.outside="tours = false">
+                <button type="button" class="{{ $item }} gap-1 {{ request()->routeIs('tours.*') ? $current : '' }}" @click="matchMedia('(hover: hover)').matches ? tours = true : tours = !tours" :aria-expanded="tours" aria-controls="mega-tours" aria-haspopup="true">
+                    Tour Types @icon('chevron-down', 'size-4 transition-transform duration-200')
                 </button>
-                <div x-cloak x-show="tours" x-transition.opacity class="absolute left-0 top-full w-60 pt-1">
-                    <ul class="rounded-2xl bg-paper p-2 text-ink shadow-lift ring-1 ring-ink/10">
-                        @foreach($navTypes as $t)
-                            <li><a href="{{ route('tours.show', $t->slug) }}" class="block rounded-xl px-4 py-2.5 font-semibold hover:bg-cream" @if(request()->is('tours/'.$t->slug)) aria-current="page" @endif>{{ $t->name }}</a></li>
-                        @endforeach
-                    </ul>
+
+                <div id="mega-tours" x-cloak x-show="tours" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50">
+                    <div class="mx-auto max-w-[78rem] px-4 sm:px-6">
+                        <div class="overflow-hidden rounded-b-[2rem] bg-paper text-ink shadow-lift ring-1 ring-ink/10">
+                            <div class="grid gap-x-8 gap-y-6 p-6 lg:grid-cols-3 lg:p-8">
+                                @foreach($navTypes as $t)
+                                    @php $featured = $t->packages->take(3); @endphp
+                                    <section aria-labelledby="mega-{{ $t->slug }}" class="flex min-w-0 flex-col">
+                                        {{-- Photo tile with the tour type name over it --}}
+                                        <a href="{{ route('tours.show', $t->slug) }}" class="group relative block aspect-[16/8] overflow-hidden rounded-2xl bg-slate" @if(request()->is('tours/'.$t->slug)) aria-current="page" @endif>
+                                            @if($t->image)
+                                                <x-photo :base="$t->image" :alt="''" sizes="(min-width:1024px) 26vw, 90vw" fetchpriority="low" :ratio="[1600, 800]" class="size-full transition-transform duration-500 group-hover:scale-105" />
+                                            @endif
+                                            <span class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" aria-hidden="true"></span>
+                                            <span class="absolute inset-x-4 bottom-3 flex items-end justify-between gap-3">
+                                                <span id="mega-{{ $t->slug }}" class="font-serif text-2xl leading-tight text-white">{{ $t->name }}</span>
+                                                <span class="mb-1 grid size-8 shrink-0 place-items-center rounded-full bg-amber text-ink transition group-hover:bg-white" aria-hidden="true">@icon('arrow-right', 'size-4')</span>
+                                            </span>
+                                        </a>
+                                        <p class="mt-3 text-sm leading-relaxed text-slate">{{ $t->summary }}</p>
+
+                                        {{-- Featured trips --}}
+                                        @if($featured->isNotEmpty())
+                                            <p class="mt-4 flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-amber-ink"><span class="h-px w-6 bg-amber" aria-hidden="true"></span>Featured trips</p>
+                                            <ul class="mt-2 divide-y divide-ink/10">
+                                                @foreach($featured as $p)
+                                                    <li>
+                                                        <a href="{{ route('packages.show', $p->slug) }}" class="group/row flex items-center gap-3 py-2.5">
+                                                            <span class="size-12 shrink-0 overflow-hidden rounded-xl bg-sky-soft">
+                                                                @if($p->hero_image)<x-photo :base="$p->hero_image" :alt="''" :widths="[480, 800]" sizes="48px" :ratio="[480, 480]" class="size-full" />@endif
+                                                            </span>
+                                                            <span class="min-w-0 flex-1">
+                                                                <span class="block truncate text-[0.95rem] font-semibold leading-snug group-hover/row:text-amber-ink">{{ $p->title }}</span>
+                                                                <span class="block truncate text-xs text-slate">{{ $p->nights > 0 ? $p->nights.' nights' : '1 day' }}{{ $p->route ? ' · '.$p->route : '' }}</span>
+                                                            </span>
+                                                            @icon('arrow-up-right', 'size-4 shrink-0 text-slate opacity-0 transition group-hover/row:opacity-100 group-focus-visible/row:opacity-100')
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+
+                                        <a href="{{ route('packages.index', ['type' => $t->slug]) }}" class="mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-xs font-semibold uppercase tracking-[0.16em] text-ink underline decoration-amber decoration-2 underline-offset-4 hover:text-amber-ink">
+                                            View all {{ $t->name }} @icon('arrow-right', 'size-3.5')
+                                        </a>
+                                    </section>
+                                @endforeach
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-t border-ink/10 bg-cream px-6 py-3 lg:px-8">
+                                <p class="text-sm text-ink">Not sure which way to travel suits you? Tell us what you like and we will suggest one.</p>
+                                <x-button variant="cta" size="sm" @click="tours = false; $store.modal.open()">Get a free quote</x-button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             @foreach($links as [$label, $url, $active])
-                <a href="{{ $url }}" class="{{ $item }} {{ $active ? $current : '' }}" @if($active) aria-current="page" @endif>{{ $label }}</a>
+                <a href="{{ $url }}" @mouseenter="tours = false" class="{{ $item }} {{ $active ? $current : '' }}" @if($active) aria-current="page" @endif>{{ $label }}</a>
             @endforeach
         </nav>
 
