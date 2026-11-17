@@ -40,9 +40,10 @@ class ContentSeeder extends Seeder
             'chauffeur-driven' => ['images/photos/la-roche', 'A river town in the wooded hills of the Belgian Ardennes'],
             'coach-tours' => ['images/photos/ghent-graslei', 'Visitors relaxing beside the canal at Graslei in Ghent'],
         ];
+        $menuTexts = ['self-drive' => 'Your own pace, your own route.', 'chauffeur-driven' => 'A private driver-guide at the wheel.', 'coach-tours' => 'Small-group touring, no driving.'];
         foreach ($types as $i => [$name, $slug, $summary, $headline, $intro, $seoTitle, $metaDescription]) {
             TourType::firstOrCreate(['slug' => $slug], [
-                'name' => $name, 'tab_label' => $tabLabels[$slug] ?? null, 'summary' => $summary, 'sort' => $i + 1,
+                'name' => $name, 'tab_label' => $tabLabels[$slug] ?? null, 'summary' => $summary, 'menu_text' => $menuTexts[$slug] ?? null, 'sort' => $i + 1,
                 'headline' => $headline, 'intro' => $intro, 'seo_title' => $seoTitle, 'meta_description' => $metaDescription,
                 'image' => $images[$slug][0], 'image_alt' => $images[$slug][1],
             ]);

@@ -34,11 +34,12 @@
                 </button>
 
                 <div id="mega-tours" x-cloak x-show="tours" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50">
-                    <div class="mx-auto max-w-[78rem] px-4 sm:px-6">
-                        <div class="overflow-hidden rounded-b-[2rem] bg-paper text-ink shadow-lift ring-1 ring-ink/10">
-                            <div class="grid gap-x-8 gap-y-6 p-6 lg:grid-cols-3 lg:p-8">
+                    {{-- Full-bleed panel (edge to edge); the columns line up with the page content --}}
+                    <div class="border-t border-ink/10 bg-paper text-ink shadow-lift">
+                        <div>
+                            <div class="container-page grid gap-x-10 gap-y-6 py-7 lg:grid-cols-3">
                                 @foreach($navTypes as $t)
-                                    @php $featured = $t->packages->take(3); @endphp
+                                    @php $featured = $t->packages->take(2); @endphp
                                     <section aria-labelledby="mega-{{ $t->slug }}" class="flex min-w-0 flex-col">
                                         {{-- Photo tile with the tour type name over it --}}
                                         <a href="{{ route('tours.show', $t->slug) }}" class="group relative block aspect-[16/8] overflow-hidden rounded-2xl bg-slate" @if(request()->is('tours/'.$t->slug)) aria-current="page" @endif>
@@ -51,7 +52,7 @@
                                                 <span class="mb-1 grid size-8 shrink-0 place-items-center rounded-full bg-amber text-ink transition group-hover:bg-white" aria-hidden="true">@icon('arrow-right', 'size-4')</span>
                                             </span>
                                         </a>
-                                        <p class="mt-3 text-sm leading-relaxed text-slate">{{ $t->summary }}</p>
+                                        <p class="mt-3 truncate text-sm text-slate">{{ $t->menu_text ?: \Illuminate\Support\Str::limit((string) $t->summary, 40) }}</p>
 
                                         {{-- Featured trips --}}
                                         @if($featured->isNotEmpty())
@@ -80,9 +81,11 @@
                                     </section>
                                 @endforeach
                             </div>
-                            <div class="flex items-center justify-between gap-4 border-t border-ink/10 bg-cream px-6 py-3 lg:px-8">
-                                <p class="text-sm text-ink">Not sure which way to travel suits you? Tell us what you like and we will suggest one.</p>
-                                <x-button variant="cta" size="sm" @click="tours = false; $store.modal.open()">Get a free quote</x-button>
+                            <div class="border-t border-ink/10 bg-cream">
+                                <div class="container-page flex items-center justify-between gap-4 py-3">
+                                    <p class="text-sm text-ink">Not sure which way to travel suits you? Tell us what you like and we will suggest one.</p>
+                                    <x-button variant="cta" size="sm" @click="tours = false; $store.modal.open()">Get a free quote</x-button>
+                                </div>
                             </div>
                         </div>
                     </div>
