@@ -9,8 +9,8 @@
     --a-card: #ffffff;
     --a-border: #e4e8f1;
     --a-border-strong: #d3d9e8;
-    --a-text: #161d3f;
-    --a-muted: #66708f;
+    --a-text: #58617e; /* the website slate */
+    --a-muted: #58617e;
     --a-primary: #2f6df6;
     --a-primary-hover: #1f56d8;
     --a-primary-soft: #e9f0ff;
@@ -134,7 +134,7 @@
     padding: 0 1rem;
     transition: background-color 0.15s, border-color 0.15s, color 0.15s;
 }
-.admin-topbar form button:hover { background: var(--a-primary); border-color: var(--a-primary); color: #fff; }
+.admin-topbar form button:hover { background: #fcb345; border-color: #fcb345; color: var(--color-ink); }
 .admin-topbar > div > span { color: var(--a-muted); background: var(--a-bg); border: 1px solid var(--a-border); border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.8rem; }
 
 /* ---------- Cards, panels, tables ---------- */
@@ -173,13 +173,13 @@
 .admin-ui .grid > .rounded-2xl.bg-paper > .text-sm.text-slate { font-weight: 600; }
 
 /* ---------- Links, buttons ---------- */
-.admin-ui main a.underline { color: var(--a-primary); text-decoration: none; font-weight: 600; }
+.admin-ui main a.underline { color: var(--a-text); text-decoration: none; font-weight: 600; }
 .admin-ui main a.underline:hover { text-decoration: underline; text-underline-offset: 3px; }
 .admin-ui main button.underline { text-decoration: none; font-weight: 600; }
 .admin-ui main button.underline.text-red-800, .admin-ui main button.underline.text-red-900 { color: #c8342b; }
 
-.admin-ui .bg-amber { background: var(--a-primary); color: #fff; }
-.admin-ui .hover\:bg-amber-deep:hover, .admin-ui .hover\:bg-sky-hover:hover { background: var(--a-primary-hover); color: #fff; }
+.admin-ui .bg-amber { background: #fcb345; color: var(--color-ink); }
+.admin-ui .hover\:bg-amber-deep:hover, .admin-ui .hover\:bg-sky-hover:hover { background: #f0a02f; color: var(--color-ink); }
 .admin-ui .bg-ink.text-cream, .admin-ui .bg-ink.text-white { background: var(--a-navy); color: #fff; }
 .admin-ui button.rounded-full, .admin-ui a.rounded-full { border-radius: 0.7rem; }
 .admin-ui a.bg-amber.rounded-2xl {
@@ -191,9 +191,9 @@
     text-align: left;
     transition: border-color 0.15s, transform 0.15s, color 0.15s;
 }
-.admin-ui a.bg-amber.rounded-2xl:hover { background: var(--a-card); color: var(--a-primary); border-color: var(--a-primary); transform: translateY(-1px); }
+.admin-ui a.bg-amber.rounded-2xl:hover { background: var(--a-card); color: var(--color-ink); border-color: #fcb345; transform: translateY(-1px); }
 .admin-ui .border-2.border-ink { border-width: 1px; border-color: var(--a-border-strong); color: var(--a-text); }
-.admin-ui .border-2.border-ink:hover { background: var(--a-primary); border-color: var(--a-primary); color: #fff; }
+.admin-ui .border-2.border-ink:hover { background: #fcb345; border-color: #fcb345; color: var(--color-ink); }
 
 /* ---------- Forms ---------- */
 .admin-ui label { color: var(--a-text); }
@@ -237,8 +237,8 @@
 }
 .admin-login main { border: 0; box-shadow: 0 30px 80px rgb(5 10 40 / 0.45); }
 .admin-login h1 { font-size: 1.7rem; }
-.admin-login .bg-amber { background: var(--a-primary); color: #fff; border-radius: 0.7rem; }
-.admin-login .bg-amber:hover { background: var(--a-primary-hover); }
+.admin-login .bg-amber { background: #fcb345; color: var(--color-ink); border-radius: 0.7rem; }
+.admin-login .bg-amber:hover { background: #f0a02f; }
 
 /* secondary (aqua) buttons follow the admin palette */
 .admin-ui .bg-sky { background: var(--a-primary-soft); color: #1d46b8; border: 1px solid #cddcff; }
