@@ -55,6 +55,7 @@ Create the MySQL database `gobelgium` first. Details and troubleshooting: `docs/
 - **Home hero (current).** Three-photo background slideshow with a Ken Burns zoom/pan (CSS only: `.hero-slide-1..3` in `app.css`, 18 s cycle, static first photo when motion is reduced), a large serif headline (last word italic amber) and a glass bar holding only the trust-indicator marquee. The 9-step quiz is not on the home page: it lives on the tour type pages (`partials/quiz.blade.php`). Marquee text comes from Admin > Pages > Home (marquee_1 to marquee_4) plus the three trust badges.
 
 ## Conventions and gotchas
+- **Every local change also goes to the live site** (https://slategrey-chimpanzee-513787.hostingersite.com/, Hostinger). Order: change, `php artisan optimize:clear`, `php artisan test`, commit, `npm run build`, deploy (procedure in `docs/reference/DEPLOYMENT.md` section 8), then check the live page. Never overwrite the server's `.env`, `public_html/index.php`, the PHP `AddHandler` line or the live database content. Pushing to GitHub is a separate request.
 - Icons: `@icon('name', 'classes')`, add paths in `App\Support\Icons`. (A `<x-icon>` component per icon was measurably slow.)
 - Colours/fonts come from tokens in `brand.css`; do not hard-code hex in views.
 - Never run tests with a cached config: `php artisan optimize:clear` first. A cached config points tests at the real MySQL database and `RefreshDatabase` will wipe it. (This happened once during the build.)
