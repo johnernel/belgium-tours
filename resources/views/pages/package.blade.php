@@ -2,6 +2,7 @@
 
 @section('title', $package->seo_title ?: $package->title.' | '.$site->brand)
 @section('description', $package->meta_description ?: \Illuminate\Support\Str::limit(strip_tags((string) $package->summary), 155))
+@section('hero', '1')
 @if($package->noindex)@section('noindex', '1')@endif
 @if($package->social_image)@section('og_image', asset($package->social_image))@elseif($package->hero_image)@section('og_image', asset($package->hero_image.'-1600.webp'))@endif
 
@@ -32,31 +33,42 @@
 @endpush
 
 @section('content')
-<section class="relative isolate overflow-hidden bg-ink text-white">
-    @if($package->hero_image)
-        <x-photo :base="$package->hero_image" :alt="$package->hero_image_alt ?: $package->title" :eager="true" class="absolute inset-0 z-0 size-full" />
-    @endif
-    <div class="absolute inset-0 z-[1] bg-gradient-to-t from-ink via-ink/60 to-ink/30"></div>
-    <div class="container-page relative z-10 py-14 sm:py-24">
-        <nav aria-label="Breadcrumb" class="mb-4 text-sm text-white/80"><a href="{{ route('home') }}" class="underline">Home</a> / <a href="{{ route('packages.index') }}" class="underline">Packages</a></nav>
-        <h1 class="max-w-3xl text-4xl !text-white sm:text-5xl">{{ $package->title }}</h1>
-        <ul class="mt-5 flex flex-wrap gap-2 text-sm font-bold text-ink">
-            <li class="rounded-full bg-amber px-3 py-1.5">{{ $package->nights }} nights</li>
-            @if($package->tourType)<li class="rounded-full bg-sky px-3 py-1.5">{{ $package->tourType->name }}</li>@endif
-            @if($package->destination)<li class="rounded-full bg-cream px-3 py-1.5">{{ $package->destination->name }}</li>@endif
-        </ul>
+{{-- Same photo hero as the other pages: headline and trip facts on the left, the main quiz form on the right. The enquiry stays linked to this package. --}}
+@push('hero-extra')
+    <ul class="hero-rise hero-rise-2 mt-6 flex flex-wrap gap-2 text-sm font-bold text-ink">
+        <li class="rounded-full bg-amber px-3 py-1.5">{{ $package->nights > 0 ? $package->nights.' nights' : '1 day' }}</li>
+        @if($package->tourType)<li class="rounded-full bg-sky px-3 py-1.5">{{ $package->tourType->name }}</li>@endif
+        @if($package->destination)<li class="rounded-full bg-cream px-3 py-1.5">{{ $package->destination->name }}</li>@endif
+    </ul>
+    <div class="hero-rise hero-rise-2 mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <p><span class="font-serif text-3xl text-amber">{{ $package->priceLabel() }}</span> <span class="block text-sm text-white/85">per person, based on the trip as described</span></p>
+        <x-button variant="light" size="sm" @click="$store.modal.open({ mode: 'question', packageId: '{{ $package->id }}', packageName: {{ \Illuminate\Support\Js::from($package->title) }} })">Ask us a question</x-button>
     </div>
-</section>
+@endpush
+@include('partials.quiz-hero', [
+    'heroTitle' => $package->title,
+    'heroTitleClass' => 'max-w-[20ch] text-4xl leading-[1.05] sm:text-5xl lg:max-w-[18ch] lg:text-6xl',
+    'heroText' => (string) $package->summary,
+    'heroImage' => $package->hero_image ?: 'images/photos/bruges-market',
+    'heroAlt' => $package->hero_image ? ($package->hero_image_alt ?: $package->title) : '',
+    'crumb' => $package->title,
+    'crumbMid' => [route('packages.index'), 'Packages'],
+])
 
-<div class="container-page grid gap-10 py-12 lg:grid-cols-[1fr_22rem] lg:py-16">
-    <div class="min-w-0 space-y-12">
-        @if($package->summary)<p class="text-xl text-slate">{{ $package->summary }}</p>@endif
-
-        @if($package->highlights)
+<div class="container-page space-y-14 py-12 lg:space-y-16 lg:py-16">
+        @if($highlights)
             <section aria-labelledby="hl"><h2 id="hl" class="text-heading">@heading('Highlights')</h2>
-                <ul class="mt-4 grid gap-3 sm:grid-cols-2">
-                    @foreach($package->highlights as $h)
-                        <li class="flex gap-3 rounded-2xl bg-paper p-4 shadow-card">@icon('check', 'mt-0.5 size-5 shrink-0 text-amber-deep') <span>{{ $h }}</span></li>
+                <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    @foreach($highlights as $i => $h)
+                        @php $img = $highlightImages[$i] ?? null; @endphp
+                        <li class="group flex flex-col overflow-hidden rounded-3xl bg-paper shadow-card">
+                            @if($img)
+                                <div class="relative aspect-[4/3] overflow-hidden bg-sky-soft">
+                                    <x-photo :base="$img['base']" :alt="$img['alt']" sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 92vw" fetchpriority="low" :ratio="[1600, 1200]" class="absolute inset-0 size-full transition-transform duration-500 group-hover:scale-105" />
+                                </div>
+                            @endif
+                            <p class="flex items-start gap-3 p-5 text-lg font-semibold leading-snug">@icon('check', 'mt-1 size-5 shrink-0 text-amber-deep') <span>{{ $h }}</span></p>
+                        </li>
                     @endforeach
                 </ul>
             </section>
@@ -64,15 +76,34 @@
 
         @if($package->description)
             <section aria-labelledby="ov"><h2 id="ov" class="text-heading">@heading('Overview')</h2>
-                <div class="prose-page mt-4">{!! $package->description !!}</div>
+                <div class="prose-page mt-4 max-w-3xl">{!! $package->description !!}</div>
             </section>
         @endif
 
-        @if($package->itinerary)
+        @if($days)
             <section aria-labelledby="it"><h2 id="it" class="text-heading">@heading('Day by day')</h2>
-                <div class="mt-4 space-y-3">
-                    @foreach($package->itinerary as $day)
-                        <x-faq-item :question="$day['title']">{{ $day['text'] }}</x-faq-item>
+                <div class="mt-6 space-y-3">
+                    @foreach($days as $i => $day)
+                        @php $img = $dayImages[$i] ?? null; @endphp
+                        <details name="itinerary" @if($loop->first) open @endif class="group overflow-hidden rounded-3xl bg-paper shadow-card">
+                            <summary class="flex cursor-pointer list-none items-center gap-4 p-3 pr-5 [&::-webkit-details-marker]:hidden">
+                                @if($img)
+                                    <span class="relative size-16 shrink-0 overflow-hidden rounded-2xl bg-sky-soft sm:size-[4.5rem]">
+                                        <x-photo :base="$img['base']" alt="" :widths="[480, 800]" sizes="72px" :ratio="[480, 480]" class="absolute inset-0 size-full" />
+                                    </span>
+                                @endif
+                                <span class="flex-1 font-display text-lg leading-snug sm:text-xl">{{ $day['title'] ?? 'Day '.($i + 1) }}</span>
+                                @icon('chevron-down', 'size-5 shrink-0 text-slate transition-transform group-open:rotate-180')
+                            </summary>
+                            <div class="grid gap-5 p-5 pt-2 md:grid-cols-[minmax(0,20rem)_1fr] md:items-start">
+                                @if($img)
+                                    <div class="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sky-soft">
+                                        <x-photo :base="$img['base']" :alt="$img['alt']" :widths="[480, 800, 1280]" sizes="(min-width:768px) 320px, 92vw" fetchpriority="low" :ratio="[1600, 1200]" class="absolute inset-0 size-full" />
+                                    </div>
+                                @endif
+                                <p class="text-lg leading-relaxed text-slate">{{ $day['text'] ?? '' }}</p>
+                            </div>
+                        </details>
                     @endforeach
                 </div>
             </section>
@@ -104,20 +135,6 @@
                 <div class="mt-4 space-y-3">@foreach($package->faqs as $f)<x-faq-item :question="$f['question']">{{ $f['answer'] }}</x-faq-item>@endforeach</div>
             </section>
         @endif
-    </div>
-
-    <aside class="lg:sticky lg:top-24 lg:self-start" aria-label="Request a quote">
-        <div class="rounded-[1.75rem] border-4 border-amber bg-paper p-6 shadow-lift">
-            <p class="font-sans text-2xl font-bold">{{ $package->priceLabel() }}</p>
-            <p class="text-sm text-slate">per person, based on the trip as described</p>
-            <h2 class="mt-5 text-xl">@heading('Get a free quote')</h2>
-            <div class="mt-4">
-                <x-enquiry-form form-name="package-quote" :package="$package" id-prefix="p" submit-label="Get a quote for this trip" />
-            </div>
-        </div>
-        <button type="button" class="mt-4 w-full rounded-full border-2 border-ink px-6 py-3 font-sans font-semibold hover:bg-ink hover:text-cream"
-                @click="$store.modal.open({ mode: 'question', packageId: '{{ $package->id }}', packageName: @js($package->title) })">Ask us a question</button>
-    </aside>
 </div>
 
 @if($related->isNotEmpty())

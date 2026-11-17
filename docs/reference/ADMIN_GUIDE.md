@@ -41,6 +41,9 @@ Only publish real reviews you have permission to use. Untick "placeholder" when 
 ## Journal (blog)
 Admin > Journal. Each article has a title, a category tag (shown on the card), a short excerpt, the article text, a photo with alt text, minutes to read and a publish date (blank = now; a future date hides it until then). The home page shows the three newest; /journal lists them all. Sample articles are marked "placeholder": they show a notice, are hidden from Google and left out of the sitemap. Replace them with real articles and untick "placeholder". Only use photos you are free to use.
 
+## Package page images
+On each package page the Highlights and every day of the Day by Day accordion show an image. Photos you upload in the package's Gallery (Admin > Packages) are used first, in order, with the description you gave them. Without gallery photos the site picks a photo of the places named in the text and the route (Bruges, Ghent and so on). The package's right-hand quote form was replaced by the main quiz form in the page's photo banner.
+
 ## Team and the About Us pages
 Admin > Team holds the people on the Meet Our Team page (name, role, short introduction, optional photo with alt text, order, show/hide). Use only real people who agreed to be shown, and only photos you may use. The sample entries are placeholders: replace them and untick "placeholder". While every entry is a placeholder the page is hidden from Google.
 Admin > Pages also lists Meet Our Team, Testimonials and FAQs: you can change the banner headline (put *asterisks* round the accent words), the short text under it and the banner photo. Testimonials come from Admin > Testimonials and the questions from Admin > FAQs.

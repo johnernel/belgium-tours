@@ -9,7 +9,7 @@ use App\Models\TourType;
 class TourTypeController extends Controller
 {
     /** Quiz answer value for the "favourite way to see a country" step, per tour type. */
-    private const TRAVEL_STYLE = [
+    public const TRAVEL_STYLE = [
         'self-drive' => 'self-drive',
         'chauffeur-driven' => 'chauffeur',
         'coach-tours' => 'coach',

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Destination;
 use App\Models\Package;
+use App\Models\QuizStep;
 use App\Models\TourType;
+use App\Support\PlaceImages;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -40,6 +42,27 @@ class PackageController extends Controller
             ->when($package->tour_type_id, fn ($q) => $q->where('tour_type_id', $package->tour_type_id))
             ->take(3)->get();
 
-        return view('pages.package', compact('package', 'related'));
+        // The main quiz form sits in the hero. The travel-style step is pre-answered from the tour type and the
+        // enquiry stays linked to this package.
+        $quizSteps = QuizStep::forQuiz();
+        $preset = [];
+        $value = TourTypeController::TRAVEL_STYLE[$package->tourType?->slug] ?? null;
+        $step = collect($quizSteps)->firstWhere('key', 'travel_style');
+        if ($value && $step && collect($step['options'])->contains('value', $value)) {
+            $preset = ['travel_style' => $value];
+        }
+
+        // One image per highlight and per day
+        $highlights = array_values((array) $package->highlights);
+        $days = array_values((array) $package->itinerary);
+        $highlightImages = PlaceImages::forPackage($package, $highlights);
+        $dayImages = PlaceImages::forPackage($package, array_map(fn ($d) => ($d['title'] ?? '').' '.($d['text'] ?? ''), $days));
+
+        return view('pages.package', [
+            'package' => $package, 'related' => $related,
+            'highlights' => $highlights, 'highlightImages' => $highlightImages,
+            'days' => $days, 'dayImages' => $dayImages,
+            'quizSteps' => $quizSteps, 'quizPreset' => $preset, 'quizTourType' => $package->tourType?->name ?? '', 'quizPackage' => $package,
+        ]);
     }
 }

@@ -57,7 +57,7 @@
                         </ul>
                     </details>
                     <div class="mt-4 rounded-2xl bg-cream p-4 text-ink">
-                        <x-enquiry-form form-name="hero-quiz" mode="quiz" id-prefix="q" submit-label="Get my free quote" />
+                        <x-enquiry-form form-name="hero-quiz" mode="quiz" id-prefix="q" :package="$quizPackage ?? null" submit-label="Get my free quote" />
                     </div>
                     <button type="button" @click="back()" class="mt-3 min-h-11 text-sm font-semibold text-white underline underline-offset-4 hover:text-amber">Back</button>
                 </div>
@@ -66,7 +66,7 @@
 
         <div class="no-js-only">
             <p class="mt-3 text-white">Tell us about your trip and we will send a free quote.</p>
-            <div class="mt-4 rounded-2xl bg-cream p-4 text-ink"><x-enquiry-form form-name="hero-quiz" id-prefix="ns" :extended="true" :tour-type="$quizTourType ?? null" submit-label="Get my free quote" /></div>
+            <div class="mt-4 rounded-2xl bg-cream p-4 text-ink"><x-enquiry-form form-name="hero-quiz" id-prefix="ns" :extended="true" :tour-type="$quizTourType ?? null" :package="$quizPackage ?? null" submit-label="Get my free quote" /></div>
         </div>
 
         <p class="mt-6 flex items-center justify-center gap-2 text-center text-sm text-white">
