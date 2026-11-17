@@ -197,11 +197,28 @@ Alpine.data('quiz', (allSteps, preset = {}, tourType = '') => {
     isPicked(opt) {
         return this.answers[this.step.key] === opt.value;
     },
+    arrow: false,
+    // Dropdown steps move on by themselves once an option is chosen. Keyboard users stepping through the list with the
+    // arrow keys only choose (a browser fires change on every arrow press); Enter then confirms and moves on.
+    selectKey(e) {
+        if (['ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'].includes(e.key)) {
+            this.arrow = true;
+        } else if (e.key === 'Enter' && this.answers[this.step.key]) {
+            e.preventDefault();
+            this.next();
+        }
+    },
     selectChange(e) {
         const opt = this.step.options.find((o) => o.value === e.target.value);
         if (opt) {
             this.answers[this.step.key] = opt.value;
             this.labels[this.step.key] = opt.label;
+            if (this.arrow) {
+                this.arrow = false;
+            } else {
+                const key = this.step.key;
+                setTimeout(() => { if (!this.onContact && this.step.key === key) this.next(); }, 180);
+            }
         } else {
             delete this.answers[this.step.key];
             delete this.labels[this.step.key];

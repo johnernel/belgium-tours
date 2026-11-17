@@ -32,15 +32,15 @@ class QuizSeeder extends Seeder
             ['nights', 'How many nights?', 'select', array_map(
                 fn ($n) => [$n === 14 ? '14 or more' : "$n nights", (string) $n, null], range(3, 14))],
             ['flights_booked', 'Have you booked flights?', 'tiles', [
-                ['Yes', 'yes', 'check'], ['No', 'no', 'x'],
+                ['Yes', 'yes', 'plane'], ['No', 'no', 'plane-off'],
             ]],
             ['budget', 'Do you have a budget in mind per person?', 'tiles', [
-                ['€1,000', '1000', 'wallet'], ['€2,000', '2000', 'wallet'],
-                ['€3,000', '3000', 'wallet'], ['€4,000 or more', '4000+', 'wallet'],
+                ['€1,000', '1000', 'coins'], ['€2,000', '2000', 'wallet'],
+                ['€3,000', '3000', 'banknote'], ['€4,000 or more', '4000+', 'gem'],
             ]],
             ['likelihood', 'How likely are you to travel?', 'tiles', [
-                ["I'm 100% sure I'm going", '100', 'check'], ["I'm 80% sure", '80', 'check'],
-                ['50/50', '50', 'help'], ['Unsure, just researching', 'researching', 'help'],
+                ["I'm 100% sure I'm going", '100', 'circle-check'], ["I'm 80% sure", '80', 'smile'],
+                ['50/50', '50', 'meh'], ['Unsure, just researching', 'researching', 'search'],
             ]],
         ];
 

@@ -4,19 +4,12 @@
      button. The final contact step and the no-JS form sit on a light inner panel so the shared enquiry-form stays unchanged. --}}
 <div class="on-dark relative overflow-hidden rounded-[1.75rem] border border-white/25 bg-ink/55 text-cream shadow-lift backdrop-blur-xl" id="quiz">
     <div class="bg-ink/90 px-5 py-5 sm:px-7 sm:py-6">
-        <h2 id="quiz-title" class="font-serif text-2xl font-light leading-snug text-cream sm:text-[1.75rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
+        <h2 id="quiz-title" class="text-center font-serif text-2xl font-light leading-snug text-cream sm:text-[1.75rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
     </div>
 
     <div class="p-5 sm:p-7">
         <div x-cloak x-data="quiz(@js($quizSteps), @js($quizPreset ?? []), @js($quizTourType ?? ''))" x-ref="card" tabindex="-1" role="group" aria-labelledby="quiz-title" class="outline-none"
              x-init="window.quizIcons = @js(\App\Support\Icons::all())">
-            <div class="mb-5 flex items-center gap-3" aria-live="polite">
-                <div class="h-2 flex-1 overflow-hidden rounded-full bg-white/20" role="progressbar" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progress" aria-label="Quiz progress">
-                    <div class="h-full rounded-full bg-amber transition-all duration-300" :style="`width:${progress}%`"></div>
-                </div>
-                <span class="text-sm font-semibold text-cream/90" x-text="`Step ${i + 1} of ${total}`"></span>
-            </div>
-
             {{-- Question steps --}}
             <template x-if="!onContact">
                 <div>
@@ -26,9 +19,11 @@
                         <div class="mt-4 grid gap-3" :class="step.options.length === 3 ? 'grid-cols-3' : 'grid-cols-2'">
                             <template x-for="opt in step.options" :key="opt.value">
                                 <button type="button" @click="pick(opt)"
-                                        class="flex min-h-[4rem] flex-col items-center justify-center gap-1.5 rounded-xl border px-2 py-3 text-center text-[0.95rem] font-semibold leading-tight text-cream transition hover:border-amber hover:bg-white/15"
+                                        class="group flex min-h-[4.5rem] flex-col items-center justify-center gap-2 rounded-xl border px-2 py-3 text-center text-[0.95rem] font-semibold leading-tight text-cream transition hover:border-amber hover:bg-white/15"
                                         :class="isPicked(opt) ? 'border-amber bg-amber/25' : 'border-white/30 bg-white/10'">
-                                    <svg x-show="opt.icon" class="size-6 text-cream" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" x-html="(window.quizIcons || {})[opt.icon] || ''"></svg>
+                                    <span x-show="opt.icon" class="flex size-11 items-center justify-center rounded-full bg-amber/20 text-amber ring-1 ring-amber/40 transition group-hover:bg-amber/30" aria-hidden="true">
+                                        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" x-html="(window.quizIcons || {})[opt.icon] || ''"></svg>
+                                    </span>
                                     <span x-text="opt.label"></span>
                                 </button>
                             </template>
@@ -38,13 +33,12 @@
                     <template x-if="step.type === 'select'">
                         <div class="mt-4">
                             <label class="sr-only" :for="'quiz-select-' + step.key" x-text="step.question"></label>
-                            <select :id="'quiz-select-' + step.key" @change="selectChange($event)" class="min-h-14 w-full rounded-xl border border-white/30 bg-white/10 px-4 text-base text-cream focus:border-amber focus:outline-none [&>option]:text-ink">
+                            <select :id="'quiz-select-' + step.key" @change="selectChange($event)" @keydown="selectKey($event)" class="min-h-14 w-full rounded-xl border border-white/30 bg-white/10 px-4 text-base text-cream focus:border-amber focus:outline-none [&>option]:text-ink">
                                 <option value="">Choose one</option>
                                 <template x-for="opt in step.options" :key="opt.value">
                                     <option :value="opt.value" :selected="isPicked(opt)" x-text="opt.label"></option>
                                 </template>
                             </select>
-                            <x-button class="mt-5 w-full" size="lg" icon="arrow-right" @click="next()" x-bind:disabled="!answers[step.key]" x-bind:class="!answers[step.key] && 'opacity-50 cursor-not-allowed'">Next</x-button>
                         </div>
                     </template>
 
