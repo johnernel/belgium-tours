@@ -12,7 +12,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.index', ['pages' => Page::all()->sortBy(fn ($p) => array_search($p->slug, ['home', 'about', 'contact', 'terms', 'privacy']))->values()]);
+        return view('admin.pages.index', ['pages' => Page::all()->sortBy(fn ($p) => array_search($p->slug, ['home', 'about', 'team', 'testimonials', 'faqs', 'contact', 'terms', 'privacy']))->values()]);
     }
 
     public function edit(Page $page)

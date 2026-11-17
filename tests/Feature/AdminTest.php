@@ -71,7 +71,7 @@ class AdminTest extends TestCase
         foreach ([
             '/admin', '/admin/enquiries', '/admin/packages', '/admin/packages/create', "/admin/packages/{$package->id}/edit",
             '/admin/tour-types', '/admin/tour-types/create', '/admin/destinations', '/admin/quiz', '/admin/pages', '/admin/pages/1/edit',
-            '/admin/testimonials', '/admin/faqs', '/admin/posts', '/admin/posts/create', '/admin/media', '/admin/settings', '/admin/users', '/admin/users/create',
+            '/admin/testimonials', '/admin/faqs', '/admin/posts', '/admin/posts/create', '/admin/team', '/admin/team/create', '/admin/media', '/admin/settings', '/admin/users', '/admin/users/create',
         ] as $url) {
             $this->get($url)->assertOk();
         }

@@ -25,6 +25,7 @@
         ['admin.testimonials.index', 'Testimonials', 'star'],
         ['admin.faqs.index', 'FAQs', 'help'],
         ['admin.posts.index', 'Journal', 'calendar'],
+        ['admin.team.index', 'Team', 'users'],
         ['admin.media.index', 'Media', 'plane'],
         ['admin.settings.edit', 'Settings', 'shield'],
         ['admin.users.index', 'Admin users', 'users'],

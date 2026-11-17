@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\TourTypeController;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('testimonials', TestimonialController::class)->except('show');
         Route::resource('faqs', FaqController::class)->except('show');
         Route::resource('posts', PostController::class)->except('show');
+        Route::resource('team', TeamMemberController::class)->except('show')->parameters(['team' => 'team']);
 
         Route::get('media', [MediaController::class, 'index'])->name('media.index');
         Route::post('media', [MediaController::class, 'store'])->name('media.store');

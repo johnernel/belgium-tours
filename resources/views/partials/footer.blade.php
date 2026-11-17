@@ -30,6 +30,9 @@
             <ul class="mt-3 space-y-1">
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('destinations.index') }}">Destinations</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('about') }}">About us</a></li>
+                <li><a class="inline-block py-1 hover:text-amber" href="{{ route('team') }}">Meet our team</a></li>
+                <li><a class="inline-block py-1 hover:text-amber" href="{{ route('testimonials') }}">Testimonials</a></li>
+                <li><a class="inline-block py-1 hover:text-amber" href="{{ route('faqs') }}">FAQs</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('contact') }}">Contact</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('terms') }}">Terms and Conditions</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('privacy') }}">Privacy Policy</a></li>

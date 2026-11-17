@@ -14,7 +14,16 @@ class SitemapController extends Controller
             [route('packages.index'), now()],
             [route('destinations.index'), now()],
             [route('journal.index'), now()],
+            [route('faqs'), now()],
         ];
+
+        // Sample (placeholder) team and testimonials stay out of the sitemap until real ones exist.
+        if (\App\Models\TeamMember::active()->where('is_placeholder', false)->exists() && ! Page::bySlug('team')?->noindex) {
+            $urls[] = [route('team'), now()];
+        }
+        if (\App\Models\Testimonial::active()->where('is_placeholder', false)->exists() && ! Page::bySlug('testimonials')?->noindex) {
+            $urls[] = [route('testimonials'), now()];
+        }
 
         foreach (\App\Models\TourType::active()->get() as $t) {
             $urls[] = [route('tours.show', $t->slug), $t->updated_at];

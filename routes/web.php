@@ -3,6 +3,7 @@
 use App\Http\Controllers\DestinationsController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InfoPagesController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SitemapController;
@@ -22,6 +23,9 @@ Route::get('/destinations', [DestinationsController::class, 'index'])->name('des
 Route::get('/journal', [\App\Http\Controllers\JournalController::class, 'index'])->name('journal.index');
 Route::get('/journal/{slug}', [\App\Http\Controllers\JournalController::class, 'show'])->name('journal.show');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/meet-our-team', [InfoPagesController::class, 'team'])->name('team');
+Route::get('/testimonials', [InfoPagesController::class, 'testimonials'])->name('testimonials');
+Route::get('/faqs', [InfoPagesController::class, 'faqs'])->name('faqs');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
