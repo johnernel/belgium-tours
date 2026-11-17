@@ -6,11 +6,12 @@
 @if($page->noindex)@section('noindex', '1')@endif
 
 @section('content')
-@include('partials.page-hero', [
-    'title' => $page->title,
-    'sub' => $page->block('hero_sub', 'How we plan self drive, chauffeur driven and coach tours of Belgium.'),
-    'image' => $page->block('hero_image', 'images/photos/gravensteen'),
-    'alt' => $page->block('hero_image_alt', 'The medieval Gravensteen castle in Ghent at sunset'),
+@include('partials.quiz-hero', [
+    'heroTitle' => $page->block('hero_headline', 'About *Us*'),
+    'heroText' => $page->block('hero_sub', 'How we plan self drive, chauffeur driven and coach tours of Belgium.'),
+    'heroImage' => $page->block('hero_image', 'images/photos/gravensteen'),
+    'heroAlt' => $page->block('hero_image_alt', 'The medieval Gravensteen castle in Ghent at sunset'),
+    'crumb' => 'About Us',
 ])
 
 <section class="py-12 sm:py-16">

@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\QuizStep;
 
 class PageController extends Controller
 {
     public function about()
     {
-        return view('pages.about', ['page' => $this->page('about')]);
+        // Same hero as the tour type and Destinations pages: photo background with the main quiz form.
+        return view('pages.about', [
+            'page' => $this->page('about'),
+            'quizSteps' => QuizStep::forQuiz(),
+            'quizPreset' => [],
+            'quizTourType' => '',
+        ]);
     }
 
     public function contact()

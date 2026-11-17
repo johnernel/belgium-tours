@@ -15,7 +15,7 @@
     @if(in_array($page->slug, ['about', 'contact', 'destinations', 'team', 'testimonials', 'faqs'], true))
         <section class="space-y-4 rounded-2xl bg-paper p-6 shadow-card">
             <h2 class="text-xl">Banner at the top of the page</h2>
-            @if(in_array($page->slug, ['destinations', 'team', 'testimonials', 'faqs'], true))<x-admin.input name="content[hero_headline]" label="Headline (put *asterisks* round the accent words)" :value="$page->block('hero_headline')" />@endif
+            @if(in_array($page->slug, ['about', 'destinations', 'team', 'testimonials', 'faqs'], true))<x-admin.input name="content[hero_headline]" label="Headline (put *asterisks* round the accent words)" :value="$page->block('hero_headline')" />@endif
             <x-admin.textarea name="content[hero_sub]" label="Short description under the heading" :value="$page->block('hero_sub')" :rows="2" help="Blank uses the standard wording." />
             <div class="space-y-2 rounded-xl border-2 border-dashed border-slate/30 p-4">
                 <p class="text-sm font-semibold">Banner photo</p>

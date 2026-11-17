@@ -48,6 +48,16 @@ class InfoPagesTest extends TestCase
         }
     }
 
+    public function test_the_about_page_has_the_same_photo_hero_with_the_main_quiz_form(): void
+    {
+        $html = $this->get('/about')->assertOk()->getContent();
+
+        $this->assertStringContainsString('id="quiz"', $html);
+        $this->assertStringContainsString('Belgium, Tailored to You in 30 Seconds', strip_tags($html));
+        $this->assertStringContainsString('nav-overlay', $html);
+        $this->assertStringContainsString('About', strip_tags($html));
+    }
+
     public function test_sample_team_and_testimonials_are_hidden_from_google_until_real_ones_exist(): void
     {
         $this->get(route('team'))->assertSee('Sample team', false)->assertSee('noindex', false);
