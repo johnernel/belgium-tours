@@ -49,7 +49,7 @@
                                             <span class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" aria-hidden="true"></span>
                                             <span class="absolute inset-x-4 bottom-3 flex items-end justify-between gap-3">
                                                 <span id="mega-{{ $t->slug }}" class="font-serif text-2xl leading-tight text-white">{{ $t->name }}</span>
-                                                <span class="mb-1 grid size-8 shrink-0 place-items-center rounded-full bg-amber text-ink transition group-hover:bg-white" aria-hidden="true">@icon('arrow-right', 'size-4')</span>
+                                                <span class="mb-1 grid size-8 shrink-0 place-items-center rounded-full bg-aqua text-ink transition group-hover:bg-white" aria-hidden="true">@icon('arrow-right', 'size-4')</span>
                                             </span>
                                         </a>
                                         <p class="mt-3 truncate text-sm text-slate">{{ $t->menu_text ?: \Illuminate\Support\Str::limit((string) $t->summary, 40) }}</p>
@@ -76,7 +76,7 @@
                                         @endif
 
                                         <a href="{{ route('packages.index', ['type' => $t->slug]) }}" class="mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-xs font-semibold uppercase tracking-[0.16em] text-ink underline decoration-amber decoration-2 underline-offset-4 hover:text-amber-ink">
-                                            View all {{ $t->name }} @icon('arrow-right', 'size-3.5')
+                                            View all<span class="sr-only"> {{ $t->name }}</span> @icon('arrow-right', 'size-3.5')
                                         </a>
                                     </section>
                                 @endforeach
