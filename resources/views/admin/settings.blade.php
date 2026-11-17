@@ -41,10 +41,7 @@
         <x-admin.input name="notification_emails" label="Send new-enquiry emails to" :value="$s['notification_emails'] ?? ''" help="Separate several addresses with commas." />
         <x-admin.input name="quote_discount_text" label="Quote popup wording" :value="$s['quote_discount_text'] ?? ''" help='Completes "Fill out this form and ...". Only promise a discount you really offer.' />
         <x-admin.input name="gtm_id" label="Google Tag Manager ID" :value="$s['gtm_id'] ?? ''" placeholder="GTM-XXXXXXX" help="Leave blank to switch tracking off." />
-        <div class="grid gap-4 sm:grid-cols-2">
-            <x-admin.input name="recaptcha_site_key" label="reCAPTCHA site key" :value="$s['recaptcha_site_key'] ?? ''" help="Blank uses the key in .env." />
-            <x-admin.input name="recaptcha_secret_key" type="password" label="reCAPTCHA secret key" value="" autocomplete="off" :help="empty($s['recaptcha_secret_key']) ? 'Blank uses the key in .env.' : 'A secret is saved. Leave blank to keep it.'" />
-        </div>
+        <p class="text-sm text-slate">reCAPTCHA keys and the on/off switch are in <a href="{{ route('admin.recaptcha.edit') }}" class="underline">Admin > reCAPTCHA</a>.</p>
     </section>
 
     <section class="space-y-3 rounded-2xl bg-paper p-6 shadow-card">

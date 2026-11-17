@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\GhlController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\RecaptchaController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\SettingController;
@@ -70,6 +71,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('ghl', [GhlController::class, 'update'])->name('ghl.update');
         Route::post('ghl/test', [GhlController::class, 'test'])->name('ghl.test');
         Route::post('ghl/setup', [GhlController::class, 'setup'])->name('ghl.setup');
+        Route::get('recaptcha', [RecaptchaController::class, 'edit'])->name('recaptcha.edit');
+        Route::put('recaptcha', [RecaptchaController::class, 'update'])->name('recaptcha.update');
+        Route::post('recaptcha/test', [RecaptchaController::class, 'test'])->name('recaptcha.test');
 
         Route::resource('users', AdminUserController::class)->except('show')->parameters(['users' => 'user']);
     });

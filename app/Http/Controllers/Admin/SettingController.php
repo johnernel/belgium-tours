@@ -14,7 +14,7 @@ class SettingController extends Controller
     /** Plain text settings saved as-is. */
     private const TEXT = [
         'brand_name', 'legal_company_name', 'tagline', 'phone', 'email', 'address', 'notification_emails',
-        'social_facebook', 'social_instagram', 'gtm_id', 'recaptcha_site_key', 'recaptcha_secret_key',
+        'social_facebook', 'social_instagram', 'gtm_id',
         'footer_text', 'quote_discount_text', 'default_meta_description',
     ];
 
@@ -47,8 +47,6 @@ class SettingController extends Controller
             'social_facebook' => ['nullable', 'url', 'max:255'],
             'social_instagram' => ['nullable', 'url', 'max:255'],
             'gtm_id' => ['nullable', 'regex:/^GTM-[A-Z0-9]{4,10}$/'],
-            'recaptcha_site_key' => ['nullable', 'string', 'max:200'],
-            'recaptcha_secret_key' => ['nullable', 'string', 'max:200'],
             'footer_text' => ['nullable', 'string', 'max:300'],
             'quote_discount_text' => ['nullable', 'string', 'max:100'],
             'default_meta_description' => ['nullable', 'string', 'max:320'],
@@ -58,10 +56,6 @@ class SettingController extends Controller
         ], ['gtm_id.regex' => 'The Tag Manager ID looks like GTM-XXXXXXX.']);
 
         foreach (self::TEXT as $key) {
-            // Keep the saved secret if the box was left blank.
-            if ($key === 'recaptcha_secret_key' && blank($data[$key] ?? null) && ! $request->boolean('clear_secret')) {
-                continue;
-            }
             Setting::put($key, $data[$key] ?? null);
         }
 

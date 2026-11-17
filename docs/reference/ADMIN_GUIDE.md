@@ -48,6 +48,9 @@ On each package page the Highlights and every day of the Day by Day accordion sh
 Admin > Team holds the people on the Meet Our Team page (name, role, short introduction, optional photo with alt text, order, show/hide). Use only real people who agreed to be shown, and only photos you may use. The sample entries are placeholders: replace them and untick "placeholder". While every entry is a placeholder the page is hidden from Google.
 Admin > Pages also lists Meet Our Team, Testimonials and FAQs: you can change the banner headline (put *asterisks* round the accent words), the short text under it and the banner photo. Testimonials come from Admin > Testimonials and the questions from Admin > FAQs.
 
+## reCAPTCHA
+Admin > reCAPTCHA: paste the Site key and the Secret key from google.com/recaptcha/admin (type reCAPTCHA v2, "I'm not a robot" checkbox, with this website's domain added), keep "Use reCAPTCHA on my forms" ticked and press Save keys. The secret is stored encrypted and shown only as its last 4 characters; leave the box blank to keep it. "Test secret key" asks Google whether the secret is valid (it cannot check the site key: open a form on the website, tick the box and send a test enquiry). Untick the switch only for testing: with it off, forms accept anyone and only the hidden honeypot and the rate limit stop spam. The status badge warns when Google's always-pass test keys are in use.
+
 ## Media
 Upload photos once; they are resized and converted for fast loading. Describe every photo.
 

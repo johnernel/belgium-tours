@@ -47,7 +47,7 @@ class EnquiryRequest extends FormRequest
             'page_url' => ['nullable', 'string', 'max:1000'],
             'consent' => ['accepted'],
             'website' => ['max:0'], // honeypot: real people leave it empty
-            'g-recaptcha-response' => ['required'],
+            'g-recaptcha-response' => [Recaptcha::enabled() ? 'required' : 'nullable'],
         ];
     }
 

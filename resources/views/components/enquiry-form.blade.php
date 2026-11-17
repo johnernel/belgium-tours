@@ -131,8 +131,8 @@
             <p class="mt-1 text-sm font-semibold text-red-800" x-show="fieldError('g-recaptcha-response')" x-text="fieldError('g-recaptcha-response')" role="alert"></p>
             @error('g-recaptcha-response')<p class="mt-1 text-sm font-semibold text-red-800">{{ $message }}</p>@enderror
         </div>
-    @else
-        <p class="rounded-lg bg-amber/30 p-3 text-sm font-semibold">reCAPTCHA keys are not set, so this form cannot be submitted. Add them in Admin &gt; Settings or in .env.</p>
+    @elseif($site->recaptcha_on ?? true)
+        <p class="rounded-lg bg-amber/30 p-3 text-sm font-semibold">reCAPTCHA keys are not set, so this form cannot be submitted. Add them in Admin &gt; reCAPTCHA.</p>
     @endif
 
     <p class="rounded-lg bg-red-50 p-3 text-sm font-semibold text-red-900" x-show="generalError" x-text="generalError" role="alert"></p>

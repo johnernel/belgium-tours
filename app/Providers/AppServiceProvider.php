@@ -48,7 +48,8 @@ class AppServiceProvider extends ServiceProvider
                 'logo' => Setting::get('logo'),
                 'favicon' => Setting::get('favicon'),
                 'social_image' => Setting::get('default_social_image'),
-                'recaptcha_key' => Recaptcha::siteKey(),
+                'recaptcha_on' => Recaptcha::enabled(),
+                'recaptcha_key' => Recaptcha::enabled() ? Recaptcha::siteKey() : null,
             ];
             $view->with('site', $site);
             // Error pages (404) render outside the session middleware, so give them an empty error bag.
