@@ -12,6 +12,11 @@ class PageController extends Controller
         // Same hero as the tour type and Destinations pages: photo background with the main quiz form.
         return view('pages.about', [
             'page' => $this->page('about'),
+            // The home sections shown on About Us use the home page copy (Admin > Pages > Home) and the same data.
+            'home' => Page::bySlug('home') ?? new Page(['title' => 'Home', 'content' => []]),
+            'tourTypes' => \App\Models\TourType::active()->with(['packages' => fn ($q) => $q->published()->orderByDesc('is_featured')->orderBy('sort')])->get(),
+            'testimonials' => \App\Models\Testimonial::active()->get(),
+            'posts' => \App\Models\Post::published()->limit(3)->get(),
             'quizSteps' => QuizStep::forQuiz(),
             'quizPreset' => [],
             'quizTourType' => '',

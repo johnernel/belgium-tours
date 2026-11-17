@@ -14,16 +14,37 @@
     'crumb' => 'About Us',
 ])
 
+@php $c = fn ($k) => $home->block($k); @endphp
+
 <section class="py-12 sm:py-16">
     <div class="container-page">
         <div class="prose-page">{!! $page->body !!}</div>
+    </div>
+</section>
 
-        <section id="photo-credits" class="mt-16 rounded-2xl bg-paper p-6 shadow-card" aria-labelledby="pc">
+{{-- The same sections as on the home page, with the home page wording --}}
+@include('partials.tailor-made')
+
+@include('partials.travel-your-way', [
+    'tourTypes' => $tourTypes,
+    'eyebrow' => $c('way_eyebrow') ?: 'Pick your pace',
+    'heading' => $c('way_heading') ?: 'Travel *Your Way*',
+])
+
+@include('partials.why-choose-us')
+
+@include('partials.testimonials')
+
+@include('partials.blog-section')
+
+<section class="py-12 sm:py-16">
+    <div class="container-page">
+        <section id="photo-credits" class="rounded-2xl bg-paper p-6 shadow-card" aria-labelledby="pc">
             <h2 id="pc" class="text-xl">@heading('Photo credits')</h2>
             <p class="mt-2 text-slate">Photographs are used under Creative Commons licences from Wikimedia Commons. Full list, authors and licences:</p>
             <ul class="mt-3 space-y-1 text-sm text-slate">
-                @foreach(config('credits.photos') as $c)
-                    <li>{{ $c['title'] }}: <a class="underline" href="{{ $c['url'] }}" rel="noopener" target="_blank">{{ $c['author'] }}</a>, {{ $c['licence'] }}</li>
+                @foreach(config('credits.photos') as $credit)
+                    <li>{{ $credit['title'] }}: <a class="underline" href="{{ $credit['url'] }}" rel="noopener" target="_blank">{{ $credit['author'] }}</a>, {{ $credit['licence'] }}</li>
                 @endforeach
             </ul>
         </section>

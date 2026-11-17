@@ -58,6 +58,25 @@ class InfoPagesTest extends TestCase
         $this->assertStringContainsString('About', strip_tags($html));
     }
 
+    public function test_the_about_page_repeats_five_home_sections_in_order(): void
+    {
+        $html = $this->get('/about')->assertOk()->getContent();
+
+        $ids = ['why-title', 'way-title', 'wcu-title', 't-title', 'blog-title'];
+        $last = 0;
+        foreach ($ids as $id) {
+            $pos = strpos($html, 'aria-labelledby="'.$id.'"');
+            $this->assertNotFalse($pos, "$id is on the About page");
+            $this->assertGreaterThan($last, $pos, "$id comes after the previous section");
+            $last = $pos;
+        }
+        $text = strip_tags($html);
+        foreach (['Every Journey, Personally Crafted.', 'Travel Your Way', 'Quietly Exceptional Service.', 'What Travellers Say', 'Stories from the Lowlands.'] as $heading) {
+            $this->assertStringContainsString($heading, $text);
+        }
+        $this->assertLessThan(strpos($html, 'id="photo-credits"'), $last, 'the photo credits stay at the bottom');
+    }
+
     public function test_sample_team_and_testimonials_are_hidden_from_google_until_real_ones_exist(): void
     {
         $this->get(route('team'))->assertSee('Sample team', false)->assertSee('noindex', false);
