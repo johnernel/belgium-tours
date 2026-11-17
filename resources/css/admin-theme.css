@@ -183,6 +183,7 @@
 .admin-ui main a.underline { color: var(--a-text); text-decoration: none; font-weight: 600; }
 .admin-ui main a.underline:hover { text-decoration: underline; text-underline-offset: 3px; }
 .admin-ui main button.underline { text-decoration: none; font-weight: 600; }
+.admin-ui main button.underline:hover { text-decoration: underline; text-underline-offset: 3px; }
 .admin-ui main button.underline.text-red-800, .admin-ui main button.underline.text-red-900 { color: #c8342b; }
 
 .admin-ui .bg-amber { background: #fcb345; color: var(--color-ink); }
