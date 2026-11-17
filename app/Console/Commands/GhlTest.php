@@ -25,11 +25,11 @@ class GhlTest extends Command
 
             return self::FAILURE;
         }
-        $this->info('Connected to location: '.($check['name'] ?: config('gotour.ghl.location_id')));
+        $this->info('Connected to location: '.($check['name'] ?: $ghl->locationId()));
 
         try {
             $res = $ghl->upsertRaw([
-                'locationId' => config('gotour.ghl.location_id'),
+                'locationId' => $ghl->locationId(),
                 'firstName' => 'TEST',
                 'lastName' => 'Do Not Contact',
                 'email' => 'ghl-test+'.time().'@example.com',

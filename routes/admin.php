@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\GhlController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PageController;
@@ -65,6 +66,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');
         Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+        Route::get('ghl', [GhlController::class, 'edit'])->name('ghl.edit');
+        Route::put('ghl', [GhlController::class, 'update'])->name('ghl.update');
+        Route::post('ghl/test', [GhlController::class, 'test'])->name('ghl.test');
+        Route::post('ghl/setup', [GhlController::class, 'setup'])->name('ghl.setup');
 
         Route::resource('users', AdminUserController::class)->except('show')->parameters(['users' => 'user']);
     });

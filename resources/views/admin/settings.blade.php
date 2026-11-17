@@ -51,7 +51,7 @@
         <h2 class="text-xl">GoHighLevel</h2>
         <p>Status: <strong class="{{ $ghlOn ? 'text-green-800' : 'text-slate' }}">{{ $ghlOn ? 'On, enquiries sync to your CRM' : 'Off' }}</strong></p>
         <ul class="text-sm text-slate"><li>GHL_API_TOKEN: {{ $tokenSet ? 'set' : 'not set' }}</li><li>GHL_LOCATION_ID: {{ $locationSet ? 'set' : 'not set' }}</li></ul>
-        <p class="text-sm text-slate">For security these two values live only in the server's .env file, never here. See docs/reference/GHL_INTEGRATION.md.</p>
+        <p class="text-sm text-slate">Manage the Location ID and API token in <a href="{{ route('admin.ghl.edit') }}" class="underline">Admin > GoHighLevel</a> (the token is stored encrypted).</p>
     </section>
 
     <section class="space-y-4 rounded-2xl bg-paper p-6 shadow-card">

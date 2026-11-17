@@ -53,3 +53,6 @@ UTM and ad ids are sent from **every** form (hero quiz, header modal, package qu
 - You **can** move custom fields into folders in GHL (the API cannot create folders).
 - You **must not rename** the fields. Matching is by exact name. To rename one, change it in GHL **and** in `GhlFields.php` together, then clear the cache (`php artisan cache:clear`).
 - A new quiz step: its answer is included in "Quiz Answers". To give it its own field, add a line to `GhlFields::quizFieldMap()` and re-run `ghl:setup`.
+
+## Entering the credentials in the admin (recommended)
+Admin > GoHighLevel: paste the Location ID and the Private Integration token, keep "Send enquiries to GoHighLevel" ticked, press Save, then "Test connection" and "Create missing custom fields". The token is stored encrypted and is never displayed again (only its last 4 characters). Values saved here override `GHL_API_TOKEN` / `GHL_LOCATION_ID` in `.env`, which still work as a fallback. Untick the box to pause the sync without losing the credentials; enquiries received meanwhile can be sent later with Retry on the enquiry.

@@ -15,7 +15,7 @@ class GhlSetup extends Command
     public function handle(GhlClient $ghl): int
     {
         if (! $ghl->enabled()) {
-            $this->error('GHL_API_TOKEN and GHL_LOCATION_ID are not set in .env. Nothing to do.');
+            $this->error('No GoHighLevel credentials are set (Admin > GoHighLevel, or GHL_API_TOKEN and GHL_LOCATION_ID in .env), or the sync is paused. Nothing to do.');
 
             return self::FAILURE;
         }

@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Services\Ghl\GhlFields;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -15,22 +16,91 @@ use Illuminate\Support\Facades\Http;
  */
 class GhlClient
 {
+    /** Credentials saved in Admin > GoHighLevel win; the .env values are the fallback. */
+    public function token(): ?string
+    {
+        $saved = Setting::get('ghl_api_token');
+        if ($saved) {
+            try {
+                return Crypt::decryptString($saved);
+            } catch (\Throwable $e) {
+                return null; // unreadable (APP_KEY changed): treated as "no token", never a crash
+            }
+        }
+
+        return config('gotour.ghl.token') ?: null;
+    }
+
+    public function locationId(): ?string
+    {
+        return Setting::get('ghl_location_id') ?: (config('gotour.ghl.location_id') ?: null);
+    }
+
+    /** True when the sync is switched off on purpose (the "Send enquiries to GoHighLevel" box is unticked). */
+    public function paused(): bool
+    {
+        return Setting::get('ghl_enabled') === '0';
+    }
+
     public function enabled(): bool
     {
-        return filled(config('gotour.ghl.token')) && filled(config('gotour.ghl.location_id'));
+        return filled($this->token()) && filled($this->locationId()) && ! $this->paused();
+    }
+
+    /** Where the active credentials come from: 'admin', 'env' or 'none'. */
+    public function source(): string
+    {
+        if (Setting::get('ghl_api_token') || Setting::get('ghl_location_id')) {
+            return 'admin';
+        }
+
+        return (filled(config('gotour.ghl.token')) || filled(config('gotour.ghl.location_id'))) ? 'env' : 'none';
+    }
+
+    /** Create the custom fields this site uses that are missing in GoHighLevel. Returns counts and any errors. */
+    public function setupFields(): array
+    {
+        $existing = $this->fieldIds(fresh: true);
+        $created = $skipped = 0;
+        $failed = [];
+        foreach (GhlFields::definitions() as $name => $type) {
+            if (isset($existing[$name])) {
+                $skipped++;
+
+                continue;
+            }
+            try {
+                $this->createField($name, $type);
+                $created++;
+            } catch (\Throwable $e) {
+                $failed[] = $name.': '.mb_substr($e->getMessage(), 0, 120);
+            }
+        }
+        $this->fieldIds(fresh: true);
+
+        return ['created' => $created, 'existing' => $skipped, 'failed' => $failed, 'total' => count(GhlFields::definitions())];
+    }
+
+    /** How many of the site's custom fields already exist in GoHighLevel. */
+    public function fieldStatus(): array
+    {
+        $existing = $this->fieldIds(fresh: true);
+        $missing = array_values(array_filter(array_keys(GhlFields::definitions()), fn ($n) => ! isset($existing[$n])));
+
+        return ['total' => count(GhlFields::definitions()), 'missing' => $missing];
     }
 
     private function http(): PendingRequest
     {
         return Http::baseUrl(config('gotour.ghl.base_url'))
-            ->withToken(config('gotour.ghl.token'))
+            ->withToken((string) $this->token())
             ->withHeaders(['Version' => config('gotour.ghl.version')])
             ->acceptJson()->asJson()->timeout(20);
     }
 
     private function loc(): string
     {
-        return (string) config('gotour.ghl.location_id');
+        return (string) $this->locationId();
     }
 
     /** name => id for existing contact custom fields. Cached for an hour. */

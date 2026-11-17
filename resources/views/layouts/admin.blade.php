@@ -28,6 +28,7 @@
         ['admin.team.index', 'Team', 'users'],
         ['admin.media.index', 'Media', 'plane'],
         ['admin.settings.edit', 'Settings', 'shield'],
+        ['admin.ghl.edit', 'GoHighLevel', 'globe'],
         ['admin.users.index', 'Admin users', 'users'],
     ];
 @endphp
