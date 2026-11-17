@@ -26,14 +26,19 @@
     -webkit-font-smoothing: antialiased;
 }
 
-/* Typography: clean sans headings instead of the public site's serif */
+/* Typography: Fraunces for the titles and the tabs, Instrument Sans for field titles and all other text */
 .admin-ui h1, .admin-ui h2, .admin-ui h3, .admin-ui h4,
 .admin-login h1, .admin-login h2,
 .admin-ui .font-display, .admin-login .font-display {
-    font-family: var(--font-sans);
-    font-weight: 650;
-    letter-spacing: -0.015em;
+    font-family: var(--font-display);
+    font-weight: 450;
+    letter-spacing: -0.005em;
     color: var(--a-text);
+}
+/* field titles (form labels, table column headings) and text */
+.admin-ui label, .admin-ui legend, .admin-ui thead th, .admin-login label,
+.admin-ui input, .admin-ui select, .admin-ui textarea, .admin-ui button, .admin-login input, .admin-login button {
+    font-family: var(--font-sans);
 }
 .admin-ui .text-slate, .admin-login .text-slate { color: var(--a-muted); }
 .admin-ui :focus-visible, .admin-login :focus-visible { outline: 2px solid var(--a-primary); outline-offset: 2px; }
@@ -73,10 +78,11 @@
     margin-bottom: 1.5rem;
     padding: 0.5rem 0.5rem 0.9rem;
     border-bottom: 1px solid rgb(252 244 223 / 0.14);
-    font-family: var(--font-sans);
+    font-family: var(--font-display);
     font-size: 1.05rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
+    font-weight: 450;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
     color: #fff;
 }
 .admin-sidebar > a:first-child::before {
@@ -88,15 +94,16 @@
     background: linear-gradient(135deg, #ffd08a, var(--color-amber));
     box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35), 0 6px 14px rgb(252 179 69 / 0.35);
 }
-.admin-sidebar > a:first-child > span { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(252 244 223 / 0.6); font-weight: 600; }
+.admin-sidebar > a:first-child > span { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(252 244 223 / 0.6); font-weight: 600; }
 
 .admin-sidebar nav { display: flex; flex-direction: column; gap: 0.2rem; }
 .admin-sidebar nav a {
     border-radius: 0.8rem;
     padding: 0.55rem 0.8rem;
     min-height: 2.75rem;
-    font-size: 0.93rem;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 450;
     color: rgb(252 244 223 / 0.88);
     transition: background-color 0.15s, color 0.15s;
 }
@@ -108,7 +115,7 @@
     box-shadow: 0 6px 16px rgb(0 0 0 / 0.28);
 }
 .admin-sidebar nav a.is-active svg { color: #e89a1c; }
-.admin-sidebar > a:last-child { margin-top: 1.5rem; display: inline-flex; align-items: center; padding: 0.5rem 0.8rem; color: rgb(252 244 223 / 0.7); text-decoration: none; font-weight: 600; }
+.admin-sidebar > a:last-child { font-family: var(--font-sans); margin-top: 1.5rem; display: inline-flex; align-items: center; padding: 0.5rem 0.8rem; color: rgb(252 244 223 / 0.7); text-decoration: none; font-weight: 600; }
 .admin-sidebar > a:last-child:hover { color: #fff; }
 
 /* ---------- Top bar ---------- */
@@ -123,7 +130,7 @@
     padding-top: 0.85rem;
     padding-bottom: 0.85rem;
 }
-.admin-topbar h1 { font-size: 1.35rem; }
+.admin-topbar h1 { font-size: 1.6rem; }
 .admin-topbar form button {
     border: 1px solid var(--a-border-strong);
     border-radius: 0.65rem;
@@ -169,7 +176,7 @@
 .admin-ui .overflow-x-auto.bg-paper { padding: 0; overflow-y: hidden; }
 
 /* dashboard figures */
-.admin-ui .font-display.text-4xl { font-weight: 700; letter-spacing: -0.03em; color: var(--a-text); }
+.admin-ui .font-display.text-4xl { font-family: var(--font-sans); font-weight: 700; letter-spacing: -0.03em; color: var(--a-text); }
 .admin-ui .grid > .rounded-2xl.bg-paper > .text-sm.text-slate { font-weight: 600; }
 
 /* ---------- Links, buttons ---------- */
