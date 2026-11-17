@@ -121,6 +121,9 @@
 {{-- 9. FAQ --}}
 @include('partials.faq')
 
+{{-- 9a. THE JOURNEY NEVER ENDS: interactive Belgium map with photo polaroids --}}
+@include('partials.journey-map')
+
 {{-- 9b. BLOG: latest Journal articles --}}
 @include('partials.blog-section')
 

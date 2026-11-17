@@ -2,7 +2,7 @@
 
 @section('title', 'Belgium Tour Packages | '.$site->brand)
 @section('description', 'Browse self drive, chauffeur driven and coach tour packages in Belgium. Every trip can be tailored. Request a free quote.')
-@if($activeType || $activeDestination || $activeExperience)@section('canonical', route('packages.index'))@endif
+@if($activeType || $activeDestination || $activeExperience || $activePlace)@section('canonical', route('packages.index'))@endif
 
 @push('schema')
     <script type="application/ld+json">{!! json_encode([
@@ -45,6 +45,10 @@
             <x-button type="submit" variant="dark">Filter</x-button>
             @if($activeType || $activeDestination || $activeExperience)<a href="{{ route('packages.index') }}" class="min-h-11 py-3 font-semibold underline">Clear</a>@endif
         </form>
+
+        @if($activePlace)
+            <p class="mt-4 text-slate">Showing trips that visit <strong class="text-ink">{{ $activePlace }}</strong>. <a href="{{ route('packages.index') }}" class="font-semibold underline">Show all packages</a></p>
+        @endif
 
         @if($packages->isEmpty())
             <p class="mt-10 rounded-2xl bg-paper p-6 shadow-card">No packages match those filters yet. <a href="{{ route('packages.index') }}" class="font-semibold underline">Show all packages</a> or <button type="button" class="font-semibold underline" @click="$store.modal.open()">ask us to plan one for you</button>.</p>

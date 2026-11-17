@@ -51,6 +51,9 @@ Admin > Pages also lists Meet Our Team, Testimonials and FAQs: you can change th
 ## reCAPTCHA
 Admin > reCAPTCHA: paste the Site key and the Secret key from google.com/recaptcha/admin (type reCAPTCHA v2, "I'm not a robot" checkbox, with this website's domain added), keep "Use reCAPTCHA on my forms" ticked and press Save keys. The secret is stored encrypted and shown only as its last 4 characters; leave the box blank to keep it. "Test secret key" asks Google whether the secret is valid (it cannot check the site key: open a form on the website, tick the box and send a test enquiry). Untick the switch only for testing: with it off, forms accept anyone and only the hidden honeypot and the rate limit stop spam. The status badge warns when Google's always-pass test keys are in use.
 
+## Home page: The Journey Never Ends
+The interactive Belgium map on the home page (below the FAQ). Its headline, text and button wording are in Admin > Pages > Home (the "Journey" boxes). The cities, photos and tour counts come from the site itself: a city's count is the number of published packages whose route or title names that city, and "View tours" opens the Packages page filtered to it (`/packages?place=Ghent`). To make a new trip count for a city, put the city name in the package's Route or title.
+
 ## Media
 Upload photos once; they are resized and converted for fast loading. Describe every photo.
 

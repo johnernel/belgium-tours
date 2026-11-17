@@ -86,3 +86,85 @@
     .hero-slide { animation: none; will-change: auto; }
     .hero-slide-1 { opacity: 1; }
 }
+
+/* ------------------------------------------------------------------
+   "The Journey Never Ends" (home). Interactive Belgium map: partials/journey-map.blade.php + Alpine journeyMap in app.js.
+   ------------------------------------------------------------------ */
+.jm {
+    background: radial-gradient(ellipse 75% 85% at 72% 48%, #3d302a 0%, #2b2421 48%, #1b1816 100%);
+}
+.jm::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 42%, rgb(0 0 0 / 0.58) 100%);
+}
+.jm-stage { --px: 0; --py: 0; }
+.jm-land { filter: drop-shadow(0 12px 28px rgb(0 0 0 / 0.5)); }
+
+/* routes: dotted amber legs that draw in, brighten with their cities */
+.jm-route { stroke: #fcb345; opacity: 0.6; transition: opacity 0.25s, stroke-width 0.25s, filter 0.25s; }
+.jm-route.is-lit { opacity: 1; stroke-width: 5; filter: drop-shadow(0 0 4px rgb(252 179 69 / 0.85)); }
+.jm-reveal { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.js .jm:not(.is-in) .jm-reveal { stroke-dashoffset: 1; }
+.js .jm.is-in .jm-reveal { animation: jm-draw 1.4s ease-out both; animation-delay: calc(var(--i) * 0.38s); }
+@keyframes jm-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.jm-plane { filter: drop-shadow(0 0 3px rgb(252 179 69 / 0.7)); transition: opacity 0.8s 3s; }
+.js .jm:not(.is-in) .jm-plane { opacity: 0; }
+.jm-reduce .jm-plane { display: none; }
+
+/* city dots: glowing core plus a pulse that runs from city to city */
+.jm-dot { position: absolute; z-index: 15; display: grid; width: 2rem; height: 2rem; place-items: center; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; transform: translate(-50%, -50%); }
+.jm-core { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: #ffd08a; box-shadow: 0 0 0 3px rgb(252 179 69 / 0.25), 0 0 14px 4px rgb(252 179 69 / 0.6); transition: transform 0.2s, box-shadow 0.2s; }
+.jm-dot::before { content: ''; position: absolute; inset: 0.4rem; border: 2px solid rgb(252 179 69 / 0.85); border-radius: 50%; opacity: 0; pointer-events: none; }
+.js .jm.is-in .jm-dot::before { animation: jm-ping 2.6s ease-out infinite; animation-delay: calc(1.6s + var(--i) * 0.34s); }
+@keyframes jm-ping { 0% { opacity: 0.9; transform: scale(0.6); } 70%, 100% { opacity: 0; transform: scale(2.7); } }
+.jm-dot:hover .jm-core, .jm-dot:focus-visible .jm-core, .jm-dot.is-hot .jm-core, .jm-dot.is-open .jm-core { transform: scale(1.7); box-shadow: 0 0 0 4px rgb(252 179 69 / 0.35), 0 0 22px 8px rgb(252 179 69 / 0.8); }
+.jm-dot:focus-visible { outline: 2px solid #fcb345; outline-offset: 2px; }
+.jm-tag { position: absolute; top: 50%; left: calc(100% - 0.4rem); transform: translateY(-50%); white-space: nowrap; pointer-events: none; font-family: var(--font-serif); font-size: 1rem; font-style: italic; color: rgb(252 244 223 / 0.92); text-shadow: 0 1px 8px rgb(0 0 0 / 0.9); }
+.jm-tag-l { left: auto; right: calc(100% - 0.4rem); }
+
+/* polaroids: white border, tilted, crossfading photos, parallax with the mouse */
+.jm-pol {
+    position: absolute;
+    z-index: 10;
+    width: 19%;
+    --r: var(--r0, 0deg);
+    transform: translate(-50%, -50%) translate(calc(var(--px) * var(--d) * 1px), calc(var(--py) * var(--d) * 1px)) rotate(var(--r)) scale(var(--s, 1));
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.jm-pol.is-hot { --r: 0deg; --s: 1.1; z-index: 20; }
+.jm-pol-btn { display: block; width: 100%; padding: 4% 4% 0; border: 0; border-radius: 2px; background: #fff; cursor: pointer; box-shadow: 0 10px 26px rgb(0 0 0 / 0.55); }
+.jm-pol-btn:focus-visible { outline: 3px solid #fcb345; outline-offset: 3px; }
+.jm-photo { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #d8d2c6; }
+.jm-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.9s ease; }
+.jm-img[data-first], .jm-img.is-on { opacity: 1; }
+.jm-pdots { display: flex; justify-content: center; gap: 0.25rem; padding: 0.4rem 0 0.45rem; }
+.jm-pdots i, .jm-cdots i { width: 0.3rem; height: 0.3rem; border-radius: 50%; background: #cfcfcf; transition: background 0.3s, transform 0.3s; }
+.jm-pdots i.is-on, .jm-cdots i.is-on { background: #fcb345; transform: scale(1.35); }
+.jm-label { position: absolute; top: calc(100% + 0.15rem); left: 50%; transform: translateX(-50%); white-space: nowrap; pointer-events: none; font-family: var(--font-serif); font-size: 1.1rem; font-style: italic; color: #fcf4df; text-shadow: 0 1px 8px rgb(0 0 0 / 0.9); }
+
+/* city detail card */
+.jm-card { position: absolute; z-index: 30; width: min(16.5rem, 64%); overflow: hidden; border: 1px solid rgb(252 244 223 / 0.16); border-radius: 1rem; background: rgb(33 28 26 / 0.96); box-shadow: 0 22px 54px rgb(0 0 0 / 0.65); outline: none; }
+.jm-slide { position: relative; aspect-ratio: 16 / 10; background: #151210; }
+.jm-nav { position: absolute; top: 50%; display: grid; width: 1.9rem; height: 1.9rem; place-items: center; transform: translateY(-50%); border-radius: 50%; background: rgb(0 0 0 / 0.5); color: #fff; font-size: 1.35rem; line-height: 1; }
+.jm-nav:hover { background: #fcb345; color: #2b2e37; }
+.jm-prev { left: 0.45rem; } .jm-next { right: 0.45rem; }
+.jm-cdots { position: absolute; right: 0; bottom: 0.5rem; left: 0; display: flex; justify-content: center; gap: 0.3rem; }
+.jm-close { position: absolute; top: 0.45rem; right: 0.45rem; display: grid; width: 1.9rem; height: 1.9rem; place-items: center; border-radius: 50%; background: rgb(0 0 0 / 0.55); color: #fff; font-size: 1.25rem; line-height: 1; }
+.jm-close:hover { background: #fcb345; color: #2b2e37; }
+
+@media (max-width: 639px) {
+    .jm-pol { width: 21%; }
+    .jm-label { font-size: 0.85rem; }
+    .jm-tag { font-size: 0.78rem; }
+    /* on phones the card sits under the map instead of covering it */
+    .jm-card { position: static !important; width: auto; margin-top: 0.85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .jm-reveal { animation: none !important; stroke-dashoffset: 0 !important; }
+    .jm-dot::before { animation: none !important; }
+    .jm-pol, .jm-img, .jm-route { transition: none; }
+}

@@ -1,6 +1,6 @@
 # Image credits
 
-All photos come from Wikimedia Commons under Creative Commons licences that allow commercial use **with attribution** (CC BY). None are ShareAlike. They were downloaded, resized to WebP (480/800/1280/1600 px) and stored in `public/images/photos`. Credits also appear on the About page (#photo-credits).
+All photos come from Wikimedia Commons under Creative Commons licences that allow commercial use **with attribution** (CC BY). The first photos listed are CC BY (no ShareAlike). The eleven photos added for the home page Journey map are mostly **CC BY-SA** (or CC BY): still free for commercial use with credit, but ShareAlike means the resized WebP copies of those files are themselves shared under the same licence, so keep their credit (they are listed on the About page) and do not claim them as your own. They were downloaded, resized to WebP (480/800/1280/1600 px) and stored in `public/images/photos`. Credits also appear on the About page (#photo-credits).
 
 | File | Source | Author | Licence | Used on |
 |---|---|---|---|---|
@@ -15,6 +15,17 @@ All photos come from Wikimedia Commons under Creative Commons licences that allo
 | `bruges-belfry` | [Brugge - Belfort van Brugge (48196317111).jpg](https://commons.wikimedia.org/wiki/File:Brugge_-_Belfort_van_Brugge_%2848196317111%29.jpg) | Fred Romero | CC BY 2.0 | Chauffeur Belgium and Netherlands package |
 | `city-antwerp` | [Antwerp cathedral clock (34759983841).jpg](https://commons.wikimedia.org/wiki/File:Antwerp_cathedral_clock_%2834759983841%29.jpg) | Bobo Boom | CC BY 2.0 | Destinations: Antwerp |
 | `city-leuven` | [Louvain Grote Markt (52173635498).jpg](https://commons.wikimedia.org/wiki/File:Louvain_Grote_Markt_%2852173635498%29.jpg) | Jorge Franganillo | CC BY 2.0 | Destinations: Leuven |
+| `ghent-evening` | [Graslei gent avondlicht.jpg](https://commons.wikimedia.org/wiki/File:Graslei_gent_avondlicht.jpg) | Michiel Hendryckx | CC BY-SA 4.0 | Journey map (Ghent) |
+| `brussels-facades` | [Edificios en la Grand-Place, Bruselas, Bélgica, 2021-12-15, DD 12.jpg](https://commons.wikimedia.org/wiki/File:Edificios_en_la_Grand-Place,_Bruselas,_B%C3%A9lgica,_2021-12-15,_DD_12.jpg) | Diego Delso | CC BY-SA 4.0 | Journey map (Brussels) |
+| `antwerp-tower` | [Grote Markt (Antwerp) 20180629-1.jpg](https://commons.wikimedia.org/wiki/File:Grote_Markt_(Antwerp)_20180629-1.jpg) | Suicasmo | CC BY-SA 4.0 | Journey map (Antwerp) |
+| `antwerp-guildhouses` | [Grote Markt (Antwerp) 20180629-2.jpg](https://commons.wikimedia.org/wiki/File:Grote_Markt_(Antwerp)_20180629-2.jpg) | Suicasmo | CC BY-SA 4.0 | Journey map (Antwerp) |
+| `leuven-hall-tower` | [Leuven-Town-Hall-West-Wall-HD-ID42150.jpg](https://commons.wikimedia.org/wiki/File:Leuven-Town-Hall-West-Wall-HD-ID42150.jpg) | Kai Tang | CC BY-SA 3.0 | Journey map (Leuven) |
+| `leuven-hall-church` | [Leuven Grote Markt.JPG](https://commons.wikimedia.org/wiki/File:Leuven_Grote_Markt.JPG) | Latinista | CC BY-SA 3.0 | Journey map (Leuven) |
+| `dinant-citadel` | [Dinant from Tourist Office.jpg](https://commons.wikimedia.org/wiki/File:Dinant_from_Tourist_Office.jpg) | Graham Richter | CC BY-SA 3.0 | Journey map (Dinant) |
+| `namur-citadel` | [Citadelle de Namur - 92094-CLT-0105-01.jpg](https://commons.wikimedia.org/wiki/File:Citadelle_de_Namur_-_92094-CLT-0105-01.jpg) | Johan Bakker | CC BY-SA 3.0 | Journey map (Namur) |
+| `liege-guillemins` | [15.02.2020.Liège-Guillemins train station 01.jpg](https://commons.wikimedia.org/wiki/File:15.02.2020.Li%C3%A8ge-Guillemins_train_station_01.jpg) | Nenea hartia | CC BY-SA 4.0 | Journey map (Liège) |
+| `ypres-cloth-hall` | [Laika ac Cloth Hall, Ypres (6420229309).jpg](https://commons.wikimedia.org/wiki/File:Laika_ac_Cloth_Hall,_Ypres_(6420229309).jpg) | Laika ac from USA | CC BY-SA 2.0 | Journey map (Ypres) |
+| `mechelen-tower` | [Sint-Romboutstoren 8 augustus 2020.jpg](https://commons.wikimedia.org/wiki/File:Sint-Romboutstoren_8_augustus_2020.jpg) | SPQRobin | CC BY-SA 4.0 | Journey map (Mechelen) |
 
 ## Notes
 
@@ -28,3 +39,6 @@ All photos come from Wikimedia Commons under Creative Commons licences that allo
 ## Background video (home page, "Three Ways to Travel Belgium")
 
 `public/media/ways-loop.webm` and `ways-loop.mp4` (9 s, silent, 1280x600) and `ways-poster.webp` are **client-supplied footage**: a Canva design called "Copy of britain video" (Bruges, Brussels Grand-Place, Ghent, a Meuse river town and Antwerp station), exported at 1280x720 and processed here: the bottom strip was cropped off to remove a burned-in caption ("Ghent - Where History Glows") and the end was cross-faded into the start so it loops without a jump. **The licence of the clips inside that Canva design has NOT been verified** (Canva stock, AI-generated or the client's own footage?). Confirm before launch; if any of it is not licensed for commercial web use, swap the files (keep them under ~3 MB, silent, 16:9) and the poster. The earlier loop that was rendered from the CC BY photos listed above is in git history (commit before this change).
+
+## Map data
+The Belgium outline and province borders on the Journey map (`resources/data/belgium-map.json`) were generated from the Natural Earth admin-1 boundaries (naturalearthdata.com), which are **public domain**: no credit is required. City positions are plain geographic coordinates.

@@ -449,4 +449,129 @@ Alpine.data('gallery', () => ({
     },
 }));
 
+/* ------------------------------------------------------------------
+   Journey map (home "The Journey Never Ends"). Dots and polaroids open a
+   detail card with the city's photos; polaroid photos crossfade on a staggered
+   timer (paused on hover, off-screen and with reduced motion); the routes draw
+   in when the section scrolls into view; polaroids drift with the mouse.
+   ------------------------------------------------------------------ */
+Alpine.data('journeyMap', (cities) => ({
+    cities,
+    open: null,
+    hover: null,
+    card: 0,
+    inView: false,
+    reduce: false,
+    idx: Object.fromEntries(cities.map((c) => [c.slug, 0])),
+    trigger: null,
+    raf: 0,
+    pos: '',
+
+    get cur() {
+        return this.cities.find((c) => c.slug === this.open) || null;
+    },
+    lit(a, b) {
+        const s = this.open || this.hover;
+        return s === a || s === b;
+    },
+    init() {
+        this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const root = this.$el;
+        if (this.reduce) root.classList.add('jm-reduce');
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(([e]) => {
+                this.inView = e.isIntersecting;
+                if (e.isIntersecting) root.classList.add('is-in');
+            }, { threshold: 0.2 }).observe(root);
+        } else {
+            this.inView = true;
+            root.classList.add('is-in');
+        }
+        if (this.reduce) return;
+        // Staggered photo cycling: every polaroid starts at a different moment and runs at a slightly different pace.
+        this.cities.filter((c) => c.polaroid && c.images.length > 1).forEach((c, i) => {
+            setTimeout(() => setInterval(() => this.tick(c), 3100 + i * 290), 500 + i * 780);
+        });
+    },
+    tick(c) {
+        if (!this.inView || document.hidden || this.hover === c.slug) return;
+        this.idx[c.slug] = (this.idx[c.slug] + 1) % c.images.length;
+    },
+    toggle(slug, ev) {
+        if (this.open === slug) return this.close();
+        this.open = slug;
+        this.card = 0;
+        this.trigger = ev?.currentTarget || null;
+        this.place();
+        if (ev && ev.detail === 0) this.$nextTick(() => document.getElementById('jm-card')?.focus()); // keyboard users land in the card
+    },
+    close(restoreFocus = false) {
+        if (!this.open) return;
+        this.open = null;
+        if (restoreFocus && this.trigger) this.trigger.focus();
+    },
+    // Put the card beside the city on the side that covers the fewest other dots and polaroids (never its own dot).
+    place() {
+        const c = this.cur;
+        const wrap = this.$refs.wrap;
+        const stage = this.$refs.stage;
+        if (!c || !wrap || !stage) return;
+        const W = stage.clientWidth;
+        const H = stage.clientHeight;
+        if (W < 560) {
+            this.pos = ''; // phones: the card flows under the map
+            return;
+        }
+        const cx = (c.x / 100) * W;
+        const cy = (c.y / 100) * H;
+        const cw = Math.min(264, W * 0.64);
+        const ch = 292;
+        const g = 28;
+        const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+        const options = [
+            [cx + g, cy - ch / 2], [cx - g - cw, cy - ch / 2], [cx - cw / 2, cy + g], [cx - cw / 2, cy - ch - g],
+            [4, H - ch - 4], [W - cw - 4, H - ch - 4], [W - cw - 4, 4], [4, 4], // the empty corners of the map
+        ].map(([l, t]) => ({ l: clamp(l, 4, W - cw - 4), t: clamp(t, 4, H - ch - 4) }));
+        const hit = (r, px, py, pad) => px > r.l - pad && px < r.l + cw + pad && py > r.t - pad && py < r.t + ch + pad;
+        const score = (r) => {
+            let s = hit(r, cx, cy, 14) ? 100 : 0;
+            this.cities.forEach((o) => {
+                if (o.slug !== c.slug && hit(r, (o.x / 100) * W, (o.y / 100) * H, 16)) s += 3;
+                if (o.polaroid) {
+                    const pw = W * 0.19;
+                    const ph = pw * 0.86;
+                    const px = (o.polaroid.x / 100) * W;
+                    const py = (o.polaroid.y / 100) * H;
+                    const ox = Math.max(0, Math.min(r.l + cw, px + pw / 2) - Math.max(r.l, px - pw / 2));
+                    const oy = Math.max(0, Math.min(r.t + ch, py + ph / 2) - Math.max(r.t, py - ph / 2));
+                    s += ((ox * oy) / (pw * ph)) * (o.slug === c.slug ? 6 : 3);
+                }
+            });
+            return s;
+        };
+        const far = (r) => (Math.hypot(r.l + cw / 2 - cx, r.t + ch / 2 - cy) / W) * 3; // prefer a spot close to the city
+        const best = options.map((r, i) => ({ r, s: score(r) + far(r) + i * 0.01 })).sort((a, b) => a.s - b.s)[0].r;
+        this.pos = 'left:' + Math.round(best.l) + 'px;top:' + Math.round(best.t) + 'px';
+    },
+    step(d) {
+        const n = this.cur ? this.cur.images.length : 1;
+        this.card = (this.card + d + n) % n;
+    },
+    parallax(e) {
+        if (this.reduce || e.pointerType === 'touch') return;
+        const stage = e.currentTarget;
+        cancelAnimationFrame(this.raf);
+        this.raf = requestAnimationFrame(() => {
+            const r = stage.getBoundingClientRect();
+            stage.style.setProperty('--px', (((e.clientX - r.left) / r.width - 0.5) * 2).toFixed(3));
+            stage.style.setProperty('--py', (((e.clientY - r.top) / r.height - 0.5) * 2).toFixed(3));
+        });
+    },
+    resetParallax() {
+        const stage = this.$refs.stage;
+        stage.style.setProperty('--px', 0);
+        stage.style.setProperty('--py', 0);
+    },
+}));
+
 Alpine.start();

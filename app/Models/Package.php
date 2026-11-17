@@ -50,6 +50,14 @@ class Package extends Model
         return $this->hasMany(PackageImage::class)->orderBy('sort');
     }
 
+    /** Trips whose route or title mentions a place (accent-insensitive on MySQL). Used by the ?place= filter and the home map. */
+    public function scopeMentioning($q, string $place)
+    {
+        $place = trim(preg_replace('/[%_\\\\]/', '', $place));
+
+        return $place === '' ? $q : $q->where(fn ($w) => $w->where('route', 'like', "%{$place}%")->orWhere('title', 'like', "%{$place}%"));
+    }
+
     public function scopePublished($q)
     {
         return $q->where('is_published', true);

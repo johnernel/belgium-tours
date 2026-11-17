@@ -16,11 +16,13 @@ class PackageController extends Controller
         $type = $request->query('type');
         $destination = $request->query('destination');
         $experience = $request->query('experience');
+        $place = mb_substr(trim((string) $request->query('place')), 0, 40);
 
         $packages = Package::published()->with(['tourType', 'destination'])
             ->when($type, fn ($q) => $q->whereHas('tourType', fn ($t) => $t->where('slug', $type)))
             ->when($destination, fn ($q) => $q->whereHas('destination', fn ($d) => $d->where('slug', $destination)))
             ->when($experience, fn ($q) => $q->whereHas('experiences', fn ($e) => $e->where('slug', $experience)))
+            ->when($place !== '', fn ($q) => $q->mentioning($place))
             ->orderByDesc('is_featured')->orderBy('sort')->get();
 
         return view('pages.packages', [
@@ -29,6 +31,7 @@ class PackageController extends Controller
             'destinations' => Destination::active()->get(),
             'experiences' => \App\Models\Experience::active()->get(),
             'activeExperience' => $experience,
+            'activePlace' => $place,
             'activeType' => $type,
             'activeDestination' => $destination,
         ]);
