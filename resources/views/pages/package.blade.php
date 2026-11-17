@@ -40,9 +40,8 @@
         @if($package->tourType)<li class="rounded-full bg-sky px-3 py-1.5">{{ $package->tourType->name }}</li>@endif
         @if($package->destination)<li class="rounded-full bg-cream px-3 py-1.5">{{ $package->destination->name }}</li>@endif
     </ul>
-    <div class="hero-rise hero-rise-2 mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+    <div class="hero-rise hero-rise-2 mt-6">
         <p><span class="font-serif text-3xl text-amber">{{ $package->priceLabel() }}</span> <span class="block text-sm text-white/85">per person, based on the trip as described</span></p>
-        <x-button variant="light" size="sm" @click="$store.modal.open({ mode: 'question', packageId: '{{ $package->id }}', packageName: {{ \Illuminate\Support\Js::from($package->title) }} })">Ask us a question</x-button>
     </div>
 @endpush
 @include('partials.quiz-hero', [

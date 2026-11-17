@@ -34,7 +34,7 @@ class PackagePageTest extends TestCase
         $this->assertStringNotContainsString('aria-label="Request a quote"', $html);
         $this->assertStringNotContainsString('Get a quote for this trip', $html);
         $this->assertStringContainsString('name="package_id" value="'.$package->id.'"', $html, 'the quiz enquiry stays linked to the package');
-        $this->assertStringContainsString('Ask us a question', $html);
+        $this->assertStringNotContainsString("mode: 'question', packageId", $html, 'no "Ask us a question" button on the package page');
         $this->assertStringContainsString($package->title, strip_tags($html));
     }
 
