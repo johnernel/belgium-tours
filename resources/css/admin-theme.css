@@ -233,7 +233,8 @@
 
 /* ---------- Login ---------- */
 .admin-login {
-    background: radial-gradient(1200px 600px at 10% -10%, #1f3fb8 0%, transparent 60%), linear-gradient(160deg, #0a1240 0%, #12206f 60%, #1b34a0 100%);
+    /* one website colour (the charcoal ink used by the footer and the admin sidebar), lighter at the top left and deeper at the bottom */
+    background: radial-gradient(1100px 600px at 12% -10%, #4a4f60 0%, transparent 62%), linear-gradient(160deg, var(--color-ink) 0%, #262932 55%, #1c1f26 100%);
 }
 .admin-login main { border: 0; box-shadow: 0 30px 80px rgb(5 10 40 / 0.45); }
 .admin-login h1 { font-size: 1.7rem; }
