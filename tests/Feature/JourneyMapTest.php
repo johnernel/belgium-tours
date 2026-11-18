@@ -32,7 +32,9 @@ class JourneyMapTest extends TestCase
         $this->assertStringContainsString('The Journey', $text);
         $this->assertStringContainsString('Never Ends', $text);
         $this->assertStringContainsString('every journey adds a new chapter to your story', $text);
-        $this->assertStringContainsString('href="'.route('destinations.index').'"', $html);
+        $start = strpos($html, 'aria-labelledby="journey-title"');
+        $section = substr($html, $start, strpos($html, '</section>', $start) - $start);
+        $this->assertMatchesRegularExpression('/<button[^>]*store\.modal\.open\(\)[^>]*>\s*Plan my journey now/', $section, 'the button opens the Get Quote popup');
         $this->assertStringContainsString('Plan my journey now', $text);
     }
 

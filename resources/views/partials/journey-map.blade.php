@@ -14,9 +14,9 @@
                 <span class="block text-cream">{{ $c('journey_title_2') ?: 'Never Ends' }}</span>
             </h2>
             <p class="mt-6 max-w-md text-lg leading-relaxed text-cream/80">{{ $c('journey_text') ?: 'From hidden canals to medieval towns, every journey adds a new chapter to your story.' }}</p>
-            <a href="{{ route('destinations.index') }}" class="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-amber px-7 py-3 font-sans text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-amber transition-colors duration-200 hover:bg-amber hover:text-ink focus-visible:bg-amber focus-visible:text-ink">
+            <button type="button" @click="$store.modal.open()" class="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-amber px-7 py-3 font-sans text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-amber transition-colors duration-200 hover:bg-amber hover:text-ink focus-visible:bg-amber focus-visible:text-ink">
                 {{ $c('journey_cta') ?: 'Plan my journey now' }} @icon('arrow-right', 'size-4')
-            </a>
+            </button>
         </div>
 
         {{-- Right: the map --}}
