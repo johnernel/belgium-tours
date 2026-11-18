@@ -63,7 +63,7 @@
         @error('phone')<p class="mt-1 text-sm font-semibold text-red-800">{{ $message }}</p>@enderror
     </div>
 
-    <x-field :id="$id('travel_date')" name="travel_date" label="Approximate travel date" placeholder="e.g. June 2027" />
+    <x-field :id="$id('travel_date')" name="travel_date" type="date" :min="now()->format('Y-m-d')" label="Approximate travel date" autocomplete="off" onclick="try { this.showPicker() } catch (e) {}" />
 
     @if($extended)
         <div class="grid gap-4 sm:grid-cols-3">
@@ -90,16 +90,6 @@
             </div>
         </div>
     @endif
-
-    <div>
-        <label for="{{ $id('second_quote') }}" class="mb-1.5 block text-sm font-semibold">Would you like a second quote from a partner?</label>
-        <select id="{{ $id('second_quote') }}" name="second_quote" class="min-h-11 w-full rounded-xl border-2 border-slate/30 bg-white px-3 py-2.5 text-base focus:border-ink focus:outline-none">
-            <option value="">Choose one</option>
-            <option value="yes" @selected(old('second_quote') === 'yes')>Yes, please</option>
-            <option value="no" @selected(old('second_quote') === 'no')>No, thanks</option>
-            <option value="maybe" @selected(old('second_quote') === 'maybe')>Maybe later</option>
-        </select>
-    </div>
 
     <div>
         <label for="{{ $id('message') }}" class="mb-1.5 block text-sm font-semibold">
