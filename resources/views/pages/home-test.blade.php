@@ -328,35 +328,4 @@
     </div>
 </section>
 
-{{-- 10. FAQ: heading and help card on the left, native accordion on the right --}}
-@if($faqs->isNotEmpty())
-<section class="bg-white py-16 sm:py-24" aria-labelledby="ht-faq">
-    <div class="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <div>
-            @include('partials.ht-eyebrow', ['label' => $c('faq_eyebrow') ?: 'Questions'])
-            <h2 id="ht-faq" class="mt-5 font-serif text-heading">@heading($c('faq_heading') ?: 'Good to *Know*')</h2>
-            <div class="mt-8 rounded-3xl bg-dusk p-7 text-cream">
-                <h3 class="font-display text-2xl text-cream">Still have questions?</h3>
-                <p class="mt-2 text-cream/85">Ask us anything. We reply quickly and there is no obligation.</p>
-                <div class="mt-5 flex flex-wrap gap-3">
-                    @if($site->phone)<x-button :href="'tel:'.$site->phone_href" variant="light" size="sm">Call us</x-button>@endif
-                    <x-button variant="primary" size="sm" @click="$store.modal.open()">Get Quote Now</x-button>
-                </div>
-            </div>
-        </div>
-        <div class="space-y-3">
-            @foreach($faqs->take(6) as $f)
-                <details name="ht-faq" class="group rounded-2xl border border-amber/25 bg-white open:border-amber open:bg-cream/50">
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-display text-lg [&::-webkit-details-marker]:hidden">{{ $f->question }} @icon('chevron-down', 'size-5 shrink-0 text-slate transition-transform group-open:rotate-180')</summary>
-                    <p class="px-5 pb-5 text-slate">{{ $f->answer }}</p>
-                </details>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
-
-{{-- 11. JOURNAL --}}
-@include('partials.blog-section')
-
 @endsection
