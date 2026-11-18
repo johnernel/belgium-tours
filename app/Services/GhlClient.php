@@ -131,7 +131,10 @@ class GhlClient
     {
         $res = $this->http()->get('/locations/'.$this->loc());
 
-        return ['ok' => $res->successful(), 'status' => $res->status(), 'name' => $res->json('location.name') ?? $res->json('name')];
+        // GoHighLevel explains refusals in the body ("Invalid JWT", "not authorized for this scope", ...): pass that on.
+        $said = $res->json('message') ?? $res->json('error') ?? $res->json('msg');
+
+        return ['ok' => $res->successful(), 'status' => $res->status(), 'name' => $res->json('location.name') ?? $res->json('name'), 'said' => is_array($said) ? implode('; ', $said) : (string) $said];
     }
 
     /** Build the contact payload for an enquiry. Public so tests can inspect it. */

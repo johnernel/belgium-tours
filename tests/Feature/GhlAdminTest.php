@@ -95,6 +95,23 @@ class GhlAdminTest extends TestCase
         $this->assertStringContainsString('rejected the token', session('errors')->first('ghl'));
     }
 
+    public function test_the_refusal_message_from_gohighlevel_is_shown(): void
+    {
+        $this->put('/admin/ghl', ['location_id' => 'LOC1', 'api_token' => 'bad-token', 'send' => '1']);
+        Http::fake(['*' => Http::response(['statusCode' => 401, 'message' => 'The token is not authorized for this scope.'], 401)]);
+
+        $this->post('/admin/ghl/test')->assertSessionHasErrors('ghl');
+        $this->assertStringContainsString('The token is not authorized for this scope.', session('errors')->first('ghl'));
+    }
+
+    public function test_a_pasted_token_is_cleaned_of_quotes_spaces_and_the_bearer_prefix(): void
+    {
+        $this->put('/admin/ghl', ['location_id' => "  LOC1\n", 'api_token' => "Bearer \"pit-abc123 \n\"\n", 'send' => '1']);
+
+        $this->assertSame('pit-abc123', app(GhlClient::class)->token());
+        $this->assertSame('LOC1', app(GhlClient::class)->locationId());
+    }
+
     public function test_create_missing_custom_fields_only_creates_what_is_missing(): void
     {
         $this->put('/admin/ghl', ['location_id' => 'LOC1', 'api_token' => 'tok-1234', 'send' => '1']);

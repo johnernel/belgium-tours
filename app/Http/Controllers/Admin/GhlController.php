@@ -37,12 +37,12 @@ class GhlController extends Controller
             'api_token' => ['nullable', 'string', 'max:400'],
         ], ['location_id.regex' => 'The Location ID can only contain letters, numbers, dashes and underscores.']);
 
-        Setting::put('ghl_location_id', trim((string) ($data['location_id'] ?? '')) ?: null);
+        Setting::put('ghl_location_id', preg_replace('/\s+/', '', (string) ($data['location_id'] ?? '')) ?: null);
 
         if ($request->boolean('token_remove')) {
             Setting::put('ghl_api_token', null);
         } elseif (filled($data['api_token'] ?? null)) {
-            Setting::put('ghl_api_token', Crypt::encryptString(trim($data['api_token'])));
+            Setting::put('ghl_api_token', Crypt::encryptString(self::cleanToken($data['api_token'])));
         }
         // A blank token box keeps the saved one.
 
@@ -50,6 +50,14 @@ class GhlController extends Controller
         \Illuminate\Support\Facades\Cache::forget('ghl.field_ids.'.$ghl->locationId());
 
         return back()->with('status', 'GoHighLevel settings saved.');
+    }
+
+    /** Pasted tokens often carry a trailing newline, surrounding quotes or a "Bearer " prefix: none of those belong to the token. */
+    private static function cleanToken(string $raw): string
+    {
+        $t = preg_replace('/^\s*(authorization:\s*)?bearer\s+/i', '', trim($raw));
+
+        return preg_replace('/[\s"\'`]+/', '', $t);
     }
 
     public function test(GhlClient $ghl)
@@ -62,12 +70,12 @@ class GhlController extends Controller
             $check = $ghl->checkConnection();
             if (! $check['ok']) {
                 $why = match ($check['status']) {
-                    401, 403 => 'GoHighLevel rejected the token or its permissions (error '.$check['status'].'). Check the token is a Private Integration token with access to this location.',
+                    401, 403 => 'GoHighLevel rejected the token (error '.$check['status'].'). Check that it is a Private Integration token created in THIS sub-account (Settings > Private Integrations), pasted whole, and that it has the scopes listed below.',
                     404 => 'GoHighLevel does not know that Location ID (error 404). Check it in GoHighLevel > Settings > Business Profile.',
                     default => 'GoHighLevel answered with error '.$check['status'].'.',
                 };
 
-                return back()->withErrors(['ghl' => $why]);
+                return back()->withErrors(['ghl' => $why.($check['said'] !== '' ? ' GoHighLevel says: "'.mb_substr($check['said'], 0, 160).'".' : '')]);
             }
             $fields = $ghl->fieldStatus();
         } catch (\Throwable $e) {
