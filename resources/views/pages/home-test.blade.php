@@ -211,7 +211,7 @@
             <div class="grid gap-4 sm:grid-cols-2">
                 @foreach($wcu as $f)
                     <div class="bg-white/10 p-6 ring-1 ring-white/15">
-                        <span class="grid size-12 place-items-center rounded-full bg-amber text-ink">@icon($f['icon'], 'size-6')</span>
+                        <span class="grid size-12 place-items-center rounded-full bg-mint text-ink">@icon($f['icon'], 'size-6')</span>
                         <h3 class="mt-4 font-display text-xl text-cream">{{ $f['title'] }}</h3>
                         <p class="mt-2 text-[0.95rem] text-cream/85">{{ $f['text'] }}</p>
                     </div>
