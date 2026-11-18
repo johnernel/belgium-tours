@@ -83,7 +83,7 @@
     <div class="container-page grid gap-y-8 py-9 sm:grid-cols-2 xl:grid-cols-4 lg:py-10">
         @foreach($strip as [$ic, $title, $text])
             <div class="flex items-start gap-3 {{ $loop->first ? 'xl:pr-5' : ($loop->last ? 'xl:border-l xl:border-ink/15 xl:pl-5' : 'xl:border-l xl:border-ink/15 xl:px-5') }}">
-                <span class="grid size-12 shrink-0 place-items-center bg-aqua text-ink">@icon($ic, 'size-6')</span>
+                <span class="grid size-12 shrink-0 place-items-center bg-slate text-aqua-light">@icon($ic, 'size-6')</span>
                 <div class="min-w-0">
                     <h3 class="font-display text-lg leading-snug text-ink xl:text-xl xl:whitespace-nowrap">{{ $title }}</h3>
                     <p class="mt-1 text-[0.95rem] leading-snug text-slate">{{ $text }}</p>
@@ -122,31 +122,34 @@
     </div>
 </section>
 
-{{-- 4. CHOOSE YOUR JOURNEY: one tall photo card per tour type --}}
-<section class="bg-white py-16 sm:py-24" aria-labelledby="ht-ways">
+{{-- 4. CHOOSE YOUR JOURNEY (card layout copied from the client's reference): heading block, then a full-width, edge-to-edge row of three equal photo cards.
+     Each card: title, one-line tagline, a small uppercase "Best for" line and an outlined square "Get quote" button, all bottom-left over the photo. --}}
+@php
+    $bestFor = ['self-drive' => 'Couples · Families · Independent travellers', 'chauffeur-driven' => 'Couples · Solo travellers · Luxury seekers', 'coach-tours' => 'Solo travellers · Couples · Groups'];
+@endphp
+<section class="bg-white pb-16 pt-16 sm:pb-24 sm:pt-24" aria-labelledby="ht-ways">
     <div class="container-page">
         <div class="mx-auto max-w-2xl text-center">
             @include('partials.ht-eyebrow', ['label' => $c('ways_eyebrow') ?: 'Choose your journey', 'center' => true])
             <h2 id="ht-ways" class="mt-5 font-serif text-heading">@heading($c('ways_heading') ?: 'Three Ways to *Travel* Belgium')</h2>
             <p class="mt-4 text-lg text-slate">{{ $c('ways_sub') ?: 'Choose how you move. We handle everything else.' }}</p>
         </div>
-        <div class="mt-12 grid gap-6 md:grid-cols-3">
-            @foreach($tourTypes as $t)
-                <article class="group relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-3xl bg-ink p-6 text-white shadow-card sm:min-h-[30rem]">
-                    @if($t->image)<x-photo :base="$t->image" alt="" :widths="[480, 800, 1280]" sizes="(min-width:768px) 33vw, 92vw" fetchpriority="low" :ratio="[1600, 1067]" class="absolute inset-0 -z-20 size-full transition-transform duration-700 group-hover:scale-105" />@endif
-                    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/35 to-transparent"></div>
-                    <h3 class="font-display text-3xl text-white">{{ $t->name }}</h3>
-                    @if($t->summary)<p class="mt-2 text-white/85">{{ \Illuminate\Support\Str::limit(strip_tags((string) $t->summary), 110) }}</p>@endif
-                    <div class="mt-5 flex flex-wrap gap-3">
-                        <x-button variant="primary" size="sm" @click="$store.modal.open({ tourType: {{ \Illuminate\Support\Js::from($t->name) }} })">Get a Quote</x-button>
-                        <x-button :href="route('tours.show', $t->slug)" variant="light" size="sm" icon="arrow-right">Explore</x-button>
-                    </div>
-                </article>
-            @endforeach
-        </div>
+    </div>
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+        @foreach($tourTypes as $t)
+            <article class="group relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden bg-ink p-6 text-white sm:min-h-[30rem] lg:min-h-[32rem] lg:p-8">
+                @if($t->image)<x-photo :base="$t->image" alt="" :widths="[480, 800, 1280, 1600]" sizes="(min-width:768px) 34vw, 100vw" fetchpriority="low" :ratio="[1600, 1067]" class="absolute inset-0 -z-20 size-full transition-transform duration-700 group-hover:scale-105" />@endif
+                <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent"></div>
+                <h3 class="font-display text-3xl font-semibold leading-tight text-white lg:text-[2rem]"><a href="{{ route('tours.show', $t->slug) }}" class="hover:text-amber">{{ $t->name }}</a></h3>
+                @if($t->menu_text)<p class="mt-1 text-[0.95rem] text-white">{{ $t->menu_text }}</p>@endif
+                @if(isset($bestFor[$t->slug]))<p class="mt-5 text-xs font-medium uppercase tracking-[0.08em] text-white/85"><span class="text-white/70">Best for</span> · {{ $bestFor[$t->slug] }}</p>@endif
+                <div class="mt-4">
+                    <button type="button" @click="$store.modal.open({ tourType: {{ \Illuminate\Support\Js::from($t->name) }} })" class="inline-flex min-h-11 items-center border border-white px-6 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-ink">Get Quote</button>
+                </div>
+            </article>
+        @endforeach
     </div>
 </section>
-
 {{-- 5. PACKAGES: three trips per tour type --}}
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="ht-packages">
     <div class="container-page space-y-16">
