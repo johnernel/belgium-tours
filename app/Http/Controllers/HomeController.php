@@ -6,6 +6,7 @@ use App\Models\Experience;
 use App\Models\Faq;
 use App\Models\Package;
 use App\Models\Page;
+use App\Models\QuizStep;
 use App\Models\Testimonial;
 use App\Models\TourType;
 
@@ -20,6 +21,10 @@ class HomeController extends Controller
             'experiences' => Experience::active()->withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get(),
             'testimonials' => Testimonial::active()->get(),
             'faqs' => Faq::active()->get(),
+            // The main quiz form in the hero (same as the tour type, Destinations and About pages).
+            'quizSteps' => QuizStep::forQuiz(),
+            'quizPreset' => [],
+            'quizTourType' => '',
         ]);
     }
 }

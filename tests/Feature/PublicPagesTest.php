@@ -105,6 +105,20 @@ class PublicPagesTest extends TestCase
         }
     }
 
+    public function test_home_hero_has_the_main_quiz_form_beside_centred_text_and_keeps_the_marquee(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $hero = substr($html, strpos($html, '<section class="relative isolate -mt-[4.5rem]'), 14000);
+
+        $this->assertStringContainsString('id="quiz"', $hero);
+        $this->assertStringContainsString('Belgium, Tailored to You in 30 Seconds', strip_tags($hero));
+        $this->assertStringContainsString('lg:grid-cols-[1.1fr_0.9fr]', $hero, 'same two-column layout as the other pages');
+        $this->assertStringContainsString('items-center', $hero);
+        $this->assertStringContainsString('lg:text-[4.5rem]', $hero, 'same headline size as the other pages');
+        $this->assertStringContainsString('class="marquee', $html, 'the trust marquee stays in the hero');
+        $this->assertStringContainsString('hero-slide-3', $html, 'the photo slideshow is kept');
+    }
+
     public function test_home_has_faq_structured_data(): void
     {
         $this->get('/')->assertOk()->assertSee('"@type":"FAQPage"', false);

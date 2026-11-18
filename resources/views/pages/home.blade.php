@@ -55,15 +55,22 @@
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/35 to-ink/85"></div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/70 via-ink/25 to-transparent"></div>
 
-    <div class="container-page relative z-10 flex flex-1 flex-col justify-end pb-6 pt-32 sm:pb-8">
-        <h1 class="on-dark hero-rise max-w-[18ch] font-serif text-5xl font-medium leading-[1] !text-white sm:text-6xl lg:max-w-none lg:text-[5.75rem]">
-            @if($line2)<span class="block">{{ $line1 }}</span>@endif
-            <span class="block">{{ $tailPlain }}@if($tailPlain) @endif<em class="heading-accent">{{ $tailEm }}</em></span>
-        </h1>
-        <p class="hero-rise hero-rise-2 mt-8 max-w-xl text-lg text-white/90 sm:text-xl lg:mt-10">{{ $c('hero_sub') }}</p>
+    {{-- Same layout as the other pages: headline and description centred beside the main quiz form --}}
+    <div class="container-page relative z-10 grid w-full flex-1 items-center gap-10 pb-6 pt-[calc(4.5rem+3rem)] sm:pb-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:pt-[calc(4.5rem+2rem)]">
+        <div>
+            <h1 class="on-dark hero-rise font-serif font-medium !text-white max-w-[16ch] text-5xl leading-[1.02] sm:text-6xl lg:max-w-[14ch] lg:text-[4.5rem]">@heading($headline)</h1>
+            <p class="hero-rise hero-rise-2 mt-8 max-w-lg text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
+        </div>
 
+        <div class="hero-rise hero-rise-2 lg:w-full lg:max-w-[28rem] lg:justify-self-end">
+            @include('partials.quiz')
+        </div>
+    </div>
+
+    {{-- The trust-indicator marquee stays at the bottom of the hero --}}
+    <div class="container-page relative z-10 pb-6 sm:pb-8">
         {{-- Trust indicators --}}
-        <div class="marquee hero-rise hero-rise-3 mt-8 overflow-hidden rounded-full bg-ink/45 py-3.5 ring-1 ring-white/20 backdrop-blur-md lg:mt-10" role="region" aria-label="Why travellers trust us">
+        <div class="marquee hero-rise hero-rise-3 overflow-hidden rounded-full bg-ink/45 py-3.5 ring-1 ring-white/20 backdrop-blur-md" role="region" aria-label="Why travellers trust us">
             <div class="marquee-track">
                 @foreach([false, true] as $copy)
                     <ul class="flex shrink-0 items-center gap-x-10 pr-10" @if($copy) aria-hidden="true" @endif>
