@@ -47,7 +47,7 @@
         </nav>
 
         <div class="flex items-center gap-2">
-            <x-button variant="primary" size="sm" class="hidden sm:inline-flex lg:hidden [.is-scrolled_&]:lg:inline-flex" @click="$store.modal.open()">Enquire Now</x-button>
+            <x-button square variant="primary" size="sm" class="hidden sm:inline-flex lg:hidden [.is-scrolled_&]:lg:inline-flex" @click="$store.modal.open()">Enquire Now</x-button>
             <button type="button" class="nav-menu-btn grid size-11 place-items-center rounded-full text-ink hover:bg-ink/5 lg:hidden" @click="open = !open" :aria-expanded="open" aria-controls="mobile-nav-test" aria-label="Menu">@icon('menu')</button>
         </div>
     </div>
@@ -63,7 +63,7 @@
             @foreach($aboutLinks as [$l, $u])<li><a href="{{ $u }}" class="block px-4 py-2.5 text-lg font-semibold text-ink">{{ $l }}</a></li>@endforeach
             <li><a href="{{ route('journal.index') }}" class="block px-1 py-3 text-lg font-semibold text-ink">Journal</a></li>
             <li><a href="{{ route('contact') }}" class="block px-1 py-3 text-lg font-semibold text-ink">Contact</a></li>
-            <li class="pt-2"><x-button variant="primary" class="w-full" @click="open = false; $store.modal.open()">Enquire Now</x-button></li>
+            <li class="pt-2"><x-button square variant="primary" class="w-full" @click="open = false; $store.modal.open()">Enquire Now</x-button></li>
         </ul>
     </nav>
 </header>

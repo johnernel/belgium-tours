@@ -5,4 +5,5 @@
     'tag' => $package->tourType?->tab_label ?: ($package->tourType?->name ?? 'Tour'),
     'solid' => true,
     'level' => $level ?? 3,
+    'square' => $square ?? false,
 ])

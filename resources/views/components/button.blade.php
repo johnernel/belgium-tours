@@ -1,4 +1,4 @@
-@props(['href' => null, 'variant' => 'primary', 'size' => 'md', 'icon' => null])
+@props(['href' => null, 'variant' => 'primary', 'size' => 'md', 'icon' => null, 'square' => false])
 @php
     $base = 'inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold leading-none transition-colors duration-150 min-h-11 cursor-pointer';
     $sizes = ['sm' => 'px-4 py-2.5 text-sm', 'md' => 'px-6 py-3.5 text-base', 'lg' => 'px-8 py-4 text-lg'];
@@ -12,6 +12,7 @@
         'light' => 'border-2 border-white/80 text-white hover:bg-white hover:text-ink',
     ];
     $cls = "$base {$sizes[$size]} {$variants[$variant]}";
+    if ($square) { $cls = str_replace('rounded-full', 'rounded-none', $cls); }
 @endphp
 @if($href)
     <a href="{{ $href }}" {{ $attributes->merge(['class' => $cls]) }}>{{ $slot }}@if($icon)@icon($icon, 'size-5')@endif</a>

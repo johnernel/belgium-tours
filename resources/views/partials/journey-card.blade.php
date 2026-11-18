@@ -7,10 +7,11 @@
     $level = $level ?? 3;
     // Solid cards sit on #58617E, so the small text is a touch brighter to keep its contrast.
     $muted = $solid ? 'text-cream/90' : 'text-cream/70';
+    $square = $square ?? false; // true = no rounded corners (Homepage Test)
 @endphp
 {{-- Journey card. Frosted glass in the "Three Ways to Travel Belgium" carousel, solid slate everywhere else. --}}
-<article class="journey-card group flex h-full flex-col rounded-[20px] p-3 text-cream shadow-lift ring-1 {{ $solid ? 'bg-slate ring-white/10' : 'bg-ink/55 ring-white/15 backdrop-blur-md' }}">
-    <div class="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-slate">
+<article class="journey-card group flex h-full flex-col {{ $square ? 'rounded-none' : 'rounded-[20px]' }} p-3 text-cream shadow-lift ring-1 {{ $solid ? 'bg-slate ring-white/10' : 'bg-ink/55 ring-white/15 backdrop-blur-md' }}">
+    <div class="relative aspect-[4/3] overflow-hidden {{ $square ? 'rounded-none' : 'rounded-[14px]' }} bg-slate">
         @if($package->hero_image)
             <x-photo :base="$package->hero_image" :alt="$package->hero_image_alt ?: $package->title" sizes="(min-width:1024px) 30vw, (min-width:640px) 44vw, 82vw" fetchpriority="low"
                      class="size-full transition-transform duration-700 group-hover:scale-105" />
@@ -50,8 +51,8 @@
         @endif
 
         <div class="mt-4 grid grid-cols-2 gap-2">
-            <x-button variant="cta" size="sm" @click="$store.modal.open({ packageId: '{{ $package->id }}', packageName: {{ \Illuminate\Support\Js::from($package->title) }}, tourType: {{ \Illuminate\Support\Js::from($package->tourType?->name) }} })">Get a Quote</x-button>
-            <x-button variant="light" size="sm" :href="route('packages.show', $package->slug)">More Info<span class="sr-only"> about {{ $package->title }}</span></x-button>
+            <x-button variant="cta" size="sm" :square="$square" @click="$store.modal.open({ packageId: '{{ $package->id }}', packageName: {{ \Illuminate\Support\Js::from($package->title) }}, tourType: {{ \Illuminate\Support\Js::from($package->tourType?->name) }} })">Get a Quote</x-button>
+            <x-button variant="light" size="sm" :square="$square" :href="route('packages.show', $package->slug)">More Info<span class="sr-only"> about {{ $package->title }}</span></x-button>
         </div>
     </div>
 </article>
