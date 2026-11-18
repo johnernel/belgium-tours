@@ -63,13 +63,14 @@
 
     <a href="#main" class="sr-only z-[100] rounded-full bg-ink px-4 py-2 text-cream focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
 
-    @include('partials.header')
+    {{-- A page may swap the header/footer (the "Homepage Test" design does) with @section('header_view', '...') --}}
+    @include(trim($__env->yieldContent('header_view')) ?: 'partials.header')
 
     <main id="main">
         @yield('content')
     </main>
 
-    @include('partials.footer')
+    @include(trim($__env->yieldContent('footer_view')) ?: 'partials.footer')
     @include('partials.enquiry-modal')
 
     @stack('scripts')

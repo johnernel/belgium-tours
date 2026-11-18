@@ -12,9 +12,20 @@ use App\Models\TourType;
 
 class HomeController extends Controller
 {
+    /** Design trial of the home page (/homepage-test): same data and content as the real home page, new layout. Not indexed, not in the sitemap. */
+    public function test()
+    {
+        return view('pages.home-test', $this->data());
+    }
+
     public function index()
     {
-        return view('pages.home', [
+        return view('pages.home', $this->data());
+    }
+
+    private function data(): array
+    {
+        return [
             'page' => Page::bySlug('home') ?? new Page(['title' => 'Home', 'content' => []]),
             'tourTypes' => TourType::active()->with(['packages' => fn ($q) => $q->published()->orderByDesc('is_featured')->orderBy('sort')])->get(),
             'posts' => \App\Models\Post::published()->limit(3)->get(),
@@ -25,6 +36,6 @@ class HomeController extends Controller
             'quizSteps' => QuizStep::forQuiz(),
             'quizPreset' => [],
             'quizTourType' => '',
-        ]);
+        ];
     }
 }
