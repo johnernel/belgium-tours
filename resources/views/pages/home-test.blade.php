@@ -194,13 +194,15 @@
 </section>
 {{-- 6. WHY CHOOSE US: dusk band, photo plus a 2x2 grid of reasons --}}
 @if($wcu->isNotEmpty())
-<section class="on-dark bg-dusk py-16 text-cream sm:py-24" aria-labelledby="ht-wcu">
+<section class="relative isolate overflow-hidden bg-mist py-16 text-ink sm:py-24" aria-labelledby="ht-wcu">
+    {{-- Decorative Antwerp skyline (client-supplied image turned into a soft tint), bottom right, behind everything; hidden on phones --}}
+    <img src="{{ asset('images/decor/antwerp-skyline.webp') }}" alt="" aria-hidden="true" width="927" height="617" loading="lazy" class="pointer-events-none absolute bottom-0 right-0 -z-10 hidden h-[24rem] w-auto max-w-[60%] select-none opacity-60 md:block lg:h-[28rem]">
     <div class="container-page">
         <div class="flex flex-wrap items-end justify-between gap-6">
             <div class="max-w-2xl">
-                @include('partials.ht-eyebrow', ['label' => $c('wcu_eyebrow') ?: 'Why choose us', 'dark' => true])
-                <h2 id="ht-wcu" class="mt-5 font-serif text-heading !text-cream">@heading($c('wcu_heading') ?: 'Why Choose *Us*')</h2>
-                @if($c('wcu_sub'))<p class="mt-4 text-lg text-cream/85">{{ $c('wcu_sub') }}</p>@endif
+                @include('partials.ht-eyebrow', ['label' => $c('wcu_eyebrow') ?: 'Why choose us'])
+                <h2 id="ht-wcu" class="mt-5 font-serif text-heading">@heading($c('wcu_heading') ?: 'Why Choose *Us*')</h2>
+                @if($c('wcu_sub'))<p class="mt-4 text-lg text-ink/85">{{ $c('wcu_sub') }}</p>@endif
             </div>
             <x-button square variant="primary" size="lg" icon="arrow-right" @click="$store.modal.open()">Start Your Journey</x-button>
         </div>
@@ -210,10 +212,10 @@
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
                 @foreach($wcu as $f)
-                    <div class="bg-white/10 p-6 ring-1 ring-white/15">
+                    <div class="border border-mist-deep bg-mist p-6 shadow-[0_8px_22px_-14px_var(--color-mist-deep)]">
                         <span class="grid size-12 place-items-center rounded-full bg-mint text-ink">@icon($f['icon'], 'size-6')</span>
-                        <h3 class="mt-4 font-display text-xl text-cream">{{ $f['title'] }}</h3>
-                        <p class="mt-2 text-[0.95rem] text-cream/85">{{ $f['text'] }}</p>
+                        <h3 class="mt-4 font-display text-xl text-ink">{{ $f['title'] }}</h3>
+                        <p class="mt-2 text-[0.95rem] text-ink/80">{{ $f['text'] }}</p>
                     </div>
                 @endforeach
             </div>

@@ -42,3 +42,7 @@ All photos come from Wikimedia Commons under Creative Commons licences that allo
 
 ## Map data
 The Belgium outline and province borders on the Journey map (`resources/data/belgium-map.json`) were generated from the Natural Earth admin-1 boundaries (naturalearthdata.com), which are **public domain**: no credit is required. City positions are plain geographic coordinates.
+
+## Decorative skyline (Homepage Test, Why Travel With Us)
+
+public/images/decor/antwerp-skyline.webp is derived from a faded Antwerp skyline image **supplied by the client** (Onze-Lieve-Vrouwekathedraal tower, guild houses and the Brabo fountain). Its colours were removed and turned into a soft slate-tinted transparency mask, shown at low opacity. **Source and licence are NOT verified**: confirm with the client before this page goes live for good, or replace it.
