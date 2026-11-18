@@ -95,7 +95,7 @@ class GhlClient
         return Http::baseUrl(config('gotour.ghl.base_url'))
             ->withToken((string) $this->token())
             ->withHeaders(['Version' => config('gotour.ghl.version')])
-            ->acceptJson()->asJson()->timeout(20);
+            ->acceptJson()->asJson()->timeout(12);
     }
 
     private function loc(): string

@@ -63,11 +63,17 @@ class EnquiryService
         $this->notifyStaff($enquiry);
 
         if ($enquiry->ghl_status === 'pending') {
+            // Sent straight away (no queue worker needed). A CRM failure must never fail the enquiry: it is recorded
+            // on the enquiry and queued for a retry (and can be re-sent with Retry in Admin > Enquiries).
             try {
-                SyncEnquiryToGhl::dispatch($enquiry->id);
+                SyncEnquiryToGhl::dispatchSync($enquiry->id);
             } catch (\Throwable $e) {
-                // With QUEUE_CONNECTION=sync the job runs inline; a CRM failure must never fail the enquiry.
                 report($e);
+                try {
+                    SyncEnquiryToGhl::dispatch($enquiry->id)->delay(now()->addMinutes(2));
+                } catch (\Throwable $q) {
+                    report($q);
+                }
             }
         }
 
