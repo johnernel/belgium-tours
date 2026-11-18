@@ -33,7 +33,7 @@ class JourneyMapTest extends TestCase
         $this->assertStringContainsString('Never Ends', $text);
         $this->assertStringContainsString('every journey adds a new chapter to your story', $text);
         $this->assertStringContainsString('href="'.route('destinations.index').'"', $html);
-        $this->assertStringContainsString('Explore Destinations', $text);
+        $this->assertStringContainsString('Plan my journey now', $text);
     }
 
     public function test_the_map_has_ten_cities_nine_route_legs_planes_and_five_polaroids_with_three_or_more_photos(): void

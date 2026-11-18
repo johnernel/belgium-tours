@@ -10,7 +10,7 @@ return new class extends Migration
         'journey_title_1' => 'The Journey',
         'journey_title_2' => 'Never Ends',
         'journey_text' => 'From hidden canals to medieval towns, every journey adds a new chapter to your story.',
-        'journey_cta' => 'Explore Destinations',
+        'journey_cta' => 'Plan my journey now',
     ];
 
     public function up(): void
