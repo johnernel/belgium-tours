@@ -70,18 +70,28 @@
         </div>
     </div>
 </section>
-{{-- 2. TRUST STRIP: four reassurance points on charcoal, overlapping the hero edge --}}
-<section class="relative z-10 bg-ink text-cream" aria-label="Why travellers trust us">
-    <div class="container-page grid grid-cols-2 gap-y-8 py-9 lg:grid-cols-4">
-        @foreach($trust as [$ic, $text])
-            <div class="flex flex-col items-center gap-3 px-4 text-center {{ $loop->first ? '' : 'lg:border-l lg:border-cream/15' }}">
-                <span class="grid size-12 place-items-center rounded-full border-2 {{ ['border-amber text-amber', 'border-aqua text-aqua'][$loop->index % 2] }}">@icon($ic, 'size-5')</span>
-                <p class="max-w-[14rem] text-sm font-semibold leading-snug sm:text-base">{{ $text }}</p>
+{{-- 2. FEATURE STRIP (layout copied from the client's reference): white band, four items, each a square icon tile with the title and a two-line description beside it, thin dividers between items --}}
+@php
+    $strip = [
+        ['wallet', 'Honest, Upfront Pricing', 'Clearly outlined details for complete peace of mind'],
+        ['flag', 'More Belgium for Less', 'Carefully crafted trips designed for maximum value'],
+        ['shield', 'Safety First', 'Explore Belgium with complete peace of mind.'],
+        ['headset', 'Customer Support', 'Dedicated personal support from start to finish.'],
+    ];
+@endphp
+<section class="relative z-10 bg-white" aria-label="Why travel with us">
+    <div class="container-page grid gap-y-8 py-9 sm:grid-cols-2 lg:flex lg:justify-between lg:py-10">
+        @foreach($strip as [$ic, $title, $text])
+            <div class="flex items-start gap-4 {{ $loop->first ? 'lg:pr-5' : ($loop->last ? 'lg:border-l lg:border-ink/15 lg:pl-5' : 'lg:border-l lg:border-ink/15 lg:px-5') }}">
+                <span class="grid size-16 shrink-0 place-items-center bg-dusk text-white">@icon($ic, 'size-8')</span>
+                <div class="min-w-0">
+                    <h3 class="font-display text-xl leading-snug text-ink lg:whitespace-nowrap">{{ $title }}</h3>
+                    <p class="mt-1 text-[0.95rem] leading-snug text-slate lg:max-w-[13.5rem]">{{ $text }}</p>
+                </div>
             </div>
         @endforeach
     </div>
 </section>
-
 {{-- 3. ABOUT / TAILOR-MADE: big photo with a small overlapping one, copy and checklist --}}
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="ht-about">
     <div class="container-page grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
