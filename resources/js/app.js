@@ -311,6 +311,51 @@ Alpine.data('carousel', () => ({
 }));
 
 /* ------------------------------------------------------------------
+   Paged carousel (Homepage Test packages): a native scroll-snap track, so touch swiping works with no code. The number of cards per
+   view comes from the CSS widths (3 desktop, 2 tablet, 1 mobile); pages = cards / per view. No autoplay.
+   ------------------------------------------------------------------ */
+Alpine.data('pageCarousel', () => ({
+    page: 0,
+    pages: 1,
+    perView: 1,
+
+    init() {
+        this.$nextTick(() => this.measure());
+        window.addEventListener('resize', () => this.measure(), { passive: true });
+    },
+    cards() {
+        return this.$refs.track ? this.$refs.track.children.length : 0;
+    },
+    step() {
+        const t = this.$refs.track;
+        const first = t && t.children[0];
+        if (!first) return 1;
+        return first.getBoundingClientRect().width + (parseFloat(getComputedStyle(t).columnGap) || 0);
+    },
+    measure() {
+        const t = this.$refs.track;
+        if (!t) return;
+        const gap = parseFloat(getComputedStyle(t).columnGap) || 0;
+        this.perView = Math.max(1, Math.round((t.clientWidth + gap) / this.step()));
+        this.pages = Math.max(1, Math.ceil(this.cards() / this.perView));
+        this.update();
+    },
+    update() {
+        const t = this.$refs.track;
+        if (!t) return;
+        const atEnd = t.scrollLeft + t.clientWidth >= t.scrollWidth - 4;
+        this.page = atEnd ? this.pages - 1 : Math.min(this.pages - 1, Math.round(t.scrollLeft / (this.step() * this.perView)));
+    },
+    go(p) {
+        const t = this.$refs.track;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const target = Math.max(0, Math.min(this.pages - 1, p));
+        t.scrollTo({ left: target * this.perView * this.step(), behavior: reduce ? 'auto' : 'smooth' });
+    },
+    prev() { this.go(this.page - 1); },
+    next() { this.go(this.page + 1); },
+}));
+/* ------------------------------------------------------------------
    Background video: loaded only when it is about to scroll into view,
    paused while off screen, and skipped entirely for reduced motion or
    data-saver visitors (the poster image stays).

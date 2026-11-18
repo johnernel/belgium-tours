@@ -150,7 +150,7 @@
         @endforeach
     </div>
 </section>
-{{-- 5. PACKAGES: three trips per tour type --}}
+{{-- 5. PACKAGES: one swipeable carousel per tour type (3 cards per view on desktop, 2 on tablet, 1 on mobile), page indicator, no autoplay --}}
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="ht-packages">
     <div class="container-page space-y-16">
         <div class="mx-auto max-w-2xl text-center">
@@ -158,22 +158,40 @@
             <h2 id="ht-packages" class="mt-5 font-serif text-heading">@heading('Trips for *Every* Traveller')</h2>
         </div>
         @foreach($tourTypes as $t)
-            @php $list = $t->packages->take(3); @endphp
-            @if($list->isNotEmpty())
-                <div>
+            @if($t->packages->isNotEmpty())
+                <div x-data="pageCarousel()" role="region" aria-roledescription="carousel" aria-label="{{ $t->name }} trips">
                     <div class="flex flex-wrap items-end justify-between gap-4 border-b border-ink/15 pb-4">
                         <h3 class="font-display text-3xl">{{ $t->name }}</h3>
                         <a href="{{ route('tours.show', $t->slug) }}" class="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-ink px-5 text-sm font-semibold hover:bg-ink hover:text-cream">View all @icon('arrow-right', 'size-4')</a>
                     </div>
-                    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        @foreach($list as $package)@include('partials.package-card', ['package' => $package])@endforeach
+                    <div x-ref="track" @scroll.passive="update()" @keydown.arrow-left.prevent="prev()" @keydown.arrow-right.prevent="next()" tabindex="0" aria-label="{{ $t->name }} packages, swipe or use the arrows"
+                         class="mt-8 flex snap-x snap-mandatory items-stretch gap-6 overflow-x-auto scroll-smooth pb-4 [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden">
+                        @foreach($t->packages as $package)
+                            <div class="flex w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] [&>*]:w-full" role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
+                                @include('partials.package-card', ['package' => $package])
+                            </div>
+                        @endforeach
                     </div>
+
+                    {{-- Pagination: round arrows either side of a row of pill segments (the current page stretches and turns amber), plus a counter --}}
+                    <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-4">
+                        <button type="button" @click="prev()" :disabled="page === 0" aria-label="Previous page"
+                                class="grid size-11 place-items-center rounded-full border-2 border-ink/25 text-ink transition hover:border-ink hover:bg-ink hover:text-cream disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5 rotate-180')</button>
+                        <div class="flex items-center gap-2" role="group" aria-label="Choose a page">
+                            <template x-for="p in pages" :key="p">
+                                <button type="button" @click="go(p - 1)" :aria-label="'Page ' + p" :aria-current="page === p - 1 ? 'true' : null"
+                                        class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                            </template>
+                        </div>
+                        <button type="button" @click="next()" :disabled="page >= pages - 1" aria-label="Next page"
+                                class="grid size-11 place-items-center rounded-full border-2 border-ink/25 text-ink transition hover:border-ink hover:bg-ink hover:text-cream disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5')</button>
+                    </div>
+                    <p x-show="pages > 1" x-cloak class="mt-2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate" aria-live="polite"><span x-text="page + 1"></span> / <span x-text="pages"></span></p>
                 </div>
             @endif
         @endforeach
     </div>
 </section>
-
 {{-- 6. WHY CHOOSE US: dusk band, photo plus a 2x2 grid of reasons --}}
 @if($wcu->isNotEmpty())
 <section class="on-dark bg-dusk py-16 text-cream sm:py-24" aria-labelledby="ht-wcu">
