@@ -337,6 +337,35 @@
     </div>
 </section>
 
+{{-- 9b. FIND YOUR STYLE: simple, secure payments (layout copied from the client's reference, wording rewritten for Belgium): centred label, heading and two-line intro,
+     four equal square cards (round dark icon, two-line title, centred text), one centred button underneath. The payment wording is placeholder copy until the client confirms how payments work. --}}
+@php
+    $pay = [
+        ['smartphone', 'No More Payment Headaches', 'Let each traveller pay securely online, with no more chasing or managing group payments.'],
+        ['shield', 'Secure & Convenient', 'Fast, safe and hassle-free transactions so you can book with complete confidence.'],
+        ['bookmark', 'Instant Booking Confirmation', 'Once your group is finalised, booking is confirmed immediately, with no back and forth.'],
+        ['banknote', 'Flexible Payment Options', 'Multiple secure payment options available to suit every traveller in your whole group.'],
+    ];
+@endphp
+<section class="bg-white py-16 sm:py-24" aria-labelledby="ht-pay">
+    <div class="container-page">
+        <div class="mx-auto max-w-4xl text-center">
+            @include('partials.ht-eyebrow', ['label' => 'Find your style', 'center' => true])
+            <h2 id="ht-pay" class="mt-5 font-serif text-heading">@heading('Simple, Secure Payments, No *Worries Ever*')</h2>
+            <p class="mx-auto mt-5 max-w-3xl text-lg text-ink">Whether you are travelling with friends, family or colleagues, our flexible group payment options make booking your Belgium trip simple, straightforward and completely hassle-free for everyone involved.</p>
+        </div>
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            @foreach($pay as [$ic, $title, $text])
+                <article class="flex flex-col items-center border border-mist-deep bg-mist/60 px-6 pb-9 pt-6 text-center">
+                    <span class="grid size-[4.5rem] place-items-center rounded-full bg-slate text-white">@icon($ic, 'size-8')</span>
+                    <h3 class="mt-5 max-w-[11rem] font-display text-xl leading-tight text-ink">{{ $title }}</h3>
+                    <p class="mt-4 text-[1.02rem] leading-relaxed text-ink/85">{{ $text }}</p>
+                </article>
+            @endforeach
+        </div>
+        <div class="mt-12 text-center"><x-button square variant="primary" size="lg" @click="$store.modal.open()">Get Your Free Quote</x-button></div>
+    </div>
+</section>
 {{-- 10. PLAN YOUR TRIP (layout copied from the client's reference): pale band, centred label, heading, intro, three small reassurance points, one button,
      and a faded skyline silhouette along the bottom edge (Belgian step gables and belfries instead of mountains) --}}
 <section class="relative isolate overflow-hidden bg-white pb-44 pt-16 sm:pb-52 sm:pt-24" aria-labelledby="ht-plan">
