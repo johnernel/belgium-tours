@@ -4,7 +4,7 @@
 <div x-data="{ open: 0 }" class="space-y-3">
     @foreach($items as $i => $item)
         @php $img = $item['img'] ?? null; @endphp
-        <div class="overflow-hidden rounded-3xl bg-paper shadow-card">
+        <div class="overflow-hidden rounded-2xl border bg-white transition-[border-color,box-shadow] duration-300" :class="open === {{ $i }} ? 'border-amber shadow-card' : 'border-amber/25'">
             <h3>
                 <button type="button" id="{{ $kind }}-h-{{ $i }}" @click="open = open === {{ $i }} ? null : {{ $i }}"
                         :aria-expanded="open === {{ $i }} ? 'true' : 'false'" aria-controls="{{ $kind }}-p-{{ $i }}"

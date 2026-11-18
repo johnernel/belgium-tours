@@ -84,24 +84,24 @@
     $quoteJs = \Illuminate\Support\Js::from(['packageId' => (string) $package->id, 'packageName' => $package->title, 'tourType' => $package->tourType?->name]);
 @endphp
 
-<div class="container-page py-8 lg:py-10">
+<div class="bg-white"><div class="container-page py-8 lg:py-10">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_24rem] xl:gap-14">
         {{-- Main column: every section has the same top and bottom padding --}}
         <div class="min-w-0">
             @if($hlItems)
                 <section aria-labelledby="hl" class="py-8 lg:py-10">
-                    <h2 id="hl" class="text-heading">@heading('Tour highlights')</h2>
+                    <p class="mb-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-ink"><span class="h-px w-10 bg-amber"></span>Experiences</p><h2 id="hl" class="text-heading">@heading('Tour highlights')</h2>
                     <div class="mt-6">@include('partials.package-accordion', ['items' => $hlItems, 'kind' => 'highlight'])</div>
                 </section>
             @endif
 
             @if($package->description || $facts)
                 <section aria-labelledby="ov" class="py-8 lg:py-10">
-                    <h2 id="ov" class="text-heading">@heading('Overview')</h2>
+                    <p class="mb-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-ink"><span class="h-px w-10 bg-amber"></span>The trip</p><h2 id="ov" class="text-heading">@heading('Overview')</h2>
                     @if($package->description)<div class="prose-page mt-4 max-w-3xl">{!! $package->description !!}</div>@endif
                     <dl class="mt-6 grid gap-4 sm:grid-cols-2">
                         @foreach($facts as $f)
-                            <div class="flex items-center gap-4 rounded-2xl bg-paper p-4 shadow-card">
+                            <div class="flex items-center gap-4 rounded-2xl border border-ink/10 bg-white p-4">
                                 <span class="grid size-12 shrink-0 place-items-center rounded-full bg-amber/25 text-amber-ink">@icon($f['icon'], 'size-6')</span>
                                 <div class="min-w-0"><dt class="text-xs font-semibold uppercase tracking-[0.18em] text-slate">{{ $f['label'] }}</dt><dd class="font-display text-lg leading-snug text-ink">{{ $f['value'] }}</dd></div>
                             </div>
@@ -112,7 +112,7 @@
 
             @if($dayItems)
                 <section aria-labelledby="it" class="py-8 lg:py-10">
-                    <h2 id="it" class="text-heading">@heading('Day by day')</h2>
+                    <p class="mb-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-ink"><span class="h-px w-10 bg-amber"></span>Itinerary</p><h2 id="it" class="text-heading">@heading('Day by day')</h2>
                     <div class="mt-6">@include('partials.package-accordion', ['items' => $dayItems, 'kind' => 'day'])</div>
                 </section>
             @endif
@@ -135,7 +135,7 @@
             @endif
 
             @if($package->images->isNotEmpty())
-                <section aria-labelledby="gal" class="py-8 lg:py-10"><h2 id="gal" class="text-heading">@heading('Gallery')</h2>
+                <section aria-labelledby="gal" class="py-8 lg:py-10"><p class="mb-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-ink"><span class="h-px w-10 bg-amber"></span>Gallery</p><h2 id="gal" class="text-heading">@heading('Gallery')</h2>
                     <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
                         @foreach($package->images as $img)
                             <x-photo :base="$img->path" :alt="$img->alt" sizes="(min-width:640px) 22vw, 46vw" class="aspect-[4/3] w-full rounded-2xl" />
@@ -145,7 +145,7 @@
             @endif
 
             @if($package->faqs)
-                <section aria-labelledby="pf" class="py-8 lg:py-10"><h2 id="pf" class="text-heading">@heading('Questions about this trip')</h2>
+                <section aria-labelledby="pf" class="py-8 lg:py-10"><p class="mb-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-ink"><span class="h-px w-10 bg-amber"></span>Good to know</p><h2 id="pf" class="text-heading">@heading('Questions about this trip')</h2>
                     <div class="mt-4 space-y-3">@foreach($package->faqs as $f)<x-faq-item :question="$f['question']">{{ $f['answer'] }}</x-faq-item>@endforeach</div>
                 </section>
             @endif
@@ -173,7 +173,7 @@
             </div>
         </aside>
     </div>
-</div>
+</div></div>
 
 @if($related->isNotEmpty())
     <section class="pb-8"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
