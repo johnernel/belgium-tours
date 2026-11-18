@@ -83,7 +83,7 @@ class GhlController extends Controller
         }
 
         $have = $fields['total'] - count($fields['missing']);
-        $msg = 'Connected to '.($check['name'] ?: 'your location').". $have of {$fields['total']} custom fields exist.";
+        $msg = 'Connected'.($check['name'] ? ' to '.$check['name'] : '').". The token can read and write your custom fields and contacts. $have of {$fields['total']} custom fields exist.";
         if ($fields['missing']) {
             $msg .= ' '.count($fields['missing']).' are missing: press "Create missing custom fields".';
         }

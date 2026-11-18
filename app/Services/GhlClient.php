@@ -127,14 +127,29 @@ class GhlClient
         return $res->json('customField.id');
     }
 
+    /**
+     * The connection is good when GoHighLevel lets this token read the location's contact custom fields (the scope the
+     * sync itself needs). The business name is a bonus: it needs the separate "View Locations" scope, so a refusal there
+     * is not an error.
+     */
     public function checkConnection(): array
     {
-        $res = $this->http()->get('/locations/'.$this->loc());
+        $fields = $this->http()->get('/locations/'.$this->loc().'/customFields', ['model' => 'contact']);
+        if (! $fields->successful()) {
+            return ['ok' => false, 'status' => $fields->status(), 'name' => null, 'said' => $this->said($fields)];
+        }
 
-        // GoHighLevel explains refusals in the body ("Invalid JWT", "not authorized for this scope", ...): pass that on.
+        $loc = $this->http()->get('/locations/'.$this->loc());
+
+        return ['ok' => true, 'status' => 200, 'name' => $loc->successful() ? ($loc->json('location.name') ?? $loc->json('name')) : null, 'said' => ''];
+    }
+
+    /** GoHighLevel explains refusals in the body ("Invalid JWT", "not authorized for this scope", ...). */
+    private function said(\Illuminate\Http\Client\Response $res): string
+    {
         $said = $res->json('message') ?? $res->json('error') ?? $res->json('msg');
 
-        return ['ok' => $res->successful(), 'status' => $res->status(), 'name' => $res->json('location.name') ?? $res->json('name'), 'said' => is_array($said) ? implode('; ', $said) : (string) $said];
+        return is_array($said) ? implode('; ', $said) : (string) $said;
     }
 
     /** Build the contact payload for an enquiry. Public so tests can inspect it. */

@@ -82,7 +82,7 @@ class GhlAdminTest extends TestCase
             '*/locations/LOC1' => Http::response(['location' => ['name' => 'Go Belgium']]),
         ]);
 
-        $this->post('/admin/ghl/test')->assertRedirect()->assertSessionHas('status', fn ($s) => str_contains($s, 'Connected to Go Belgium') && str_contains($s, 'missing'));
+        $this->post('/admin/ghl/test')->assertRedirect()->assertSessionHas('status', fn ($s) => str_starts_with($s, 'Connected to Go Belgium') && str_contains($s, 'missing'));
         Http::assertSent(fn ($r) => $r->hasHeader('Authorization', 'Bearer tok-1234'));
     }
 
@@ -93,6 +93,18 @@ class GhlAdminTest extends TestCase
 
         $this->post('/admin/ghl/test')->assertRedirect()->assertSessionHasErrors('ghl');
         $this->assertStringContainsString('rejected the token', session('errors')->first('ghl'));
+    }
+
+    public function test_connection_is_ok_when_only_the_view_locations_scope_is_missing(): void
+    {
+        $this->put('/admin/ghl', ['location_id' => 'LOC1', 'api_token' => 'tok-1234', 'send' => '1']);
+        Http::fake([
+            '*/locations/LOC1/customFields*' => Http::response(['customFields' => [['id' => 'f1', 'name' => 'Package']]]),
+            '*/locations/LOC1' => Http::response(['statusCode' => 401, 'message' => 'The token is not authorized for this scope.'], 401),
+        ]);
+
+        $this->post('/admin/ghl/test')->assertRedirect()->assertSessionHasNoErrors()
+            ->assertSessionHas('status', fn ($s) => str_starts_with($s, 'Connected.') && str_contains($s, 'custom fields and contacts'));
     }
 
     public function test_the_refusal_message_from_gohighlevel_is_shown(): void

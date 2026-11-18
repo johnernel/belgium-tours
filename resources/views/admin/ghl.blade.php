@@ -63,7 +63,7 @@
             <summary class="cursor-pointer font-semibold text-ink">Which permissions does the token need?</summary>
             <p class="mt-2">In GoHighLevel open the sub-account (the one whose Location ID you entered), go to Settings > Private Integrations > Create new integration, tick these scopes, create it and copy the token (it is shown only once):</p>
             <ul class="mt-2 list-disc space-y-1 pl-5">
-                <li><strong>View Locations</strong> (locations.readonly), used by Test connection</li>
+                <li><strong>View Locations</strong> (locations.readonly), optional: only used to show your business name after Test connection</li>
                 <li><strong>View and Edit Custom Fields</strong> (locations/customFields.readonly and .write)</li>
                 <li><strong>View and Edit Contacts</strong> (contacts.readonly and .write)</li>
             </ul>
