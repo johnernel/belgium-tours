@@ -35,39 +35,41 @@
     $quotes = $testimonials->take(3);
 @endphp
 
-{{-- 1. HERO: photo slideshow, headline on the left, the quiz on the right --}}
-<section class="relative isolate -mt-[4.5rem] flex min-h-[44rem] flex-col overflow-hidden bg-ink text-white lg:-mt-[7rem] lg:min-h-[50rem]">
+{{-- 1. HERO: photo slideshow; pill, two-line headline with a short accent bar, text and highlights on the left; the quiz card on the right --}}
+@php
+    [$hl1, $hl2] = str_contains($headline, ',') ? array_map('trim', explode(',', $headline, 2)) : [$headline, null];
+    if ($hl2 === null) { $w = explode(' ', $headline); $half = (int) ceil(count($w) / 2); $hl1 = implode(' ', array_slice($w, 0, $half)); $hl2 = implode(' ', array_slice($w, $half)); } else { $hl1 .= ','; }
+@endphp
+<section class="relative isolate -mt-[4.5rem] flex min-h-[44rem] flex-col overflow-hidden bg-ink text-white lg:-mt-[9rem] lg:min-h-[50rem]">
     <div class="absolute inset-0 z-0 overflow-hidden bg-ink" aria-hidden="true">
         <x-photo base="images/photos/bruges-canal" alt="" sizes="100vw" :eager="true" class="hero-slide hero-slide-1 absolute inset-0 size-full" />
         <x-photo base="images/photos/brussels-grand-place" alt="" sizes="100vw" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
         <x-photo base="images/photos/gravensteen" alt="" sizes="100vw" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
     </div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/60 via-ink/35 to-ink/85"></div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/75 via-ink/30 to-transparent"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/60 via-ink/45 to-ink/85"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/80 via-ink/40 to-ink/10"></div>
 
-    <div class="container-page relative z-10 grid w-full flex-1 items-center gap-10 pb-16 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:pb-24 lg:pt-[calc(7rem+2rem)]">
-        <div>
+    <div class="container-page relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(9rem+1.5rem)]">
+        <div class="lg:pt-24">
             @if($badges)
-                <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-semibold text-white ring-1 ring-white/30 backdrop-blur">@icon('star', 'size-4 text-amber') {{ $badges[0] }}</p>
+                <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card">@icon('star', 'size-4 text-amber-deep') {{ $badges[0] }}</p>
             @endif
-            <h1 class="on-dark hero-rise mt-5 max-w-[16ch] font-serif text-5xl font-medium leading-[1.02] !text-white sm:text-6xl lg:max-w-[14ch] lg:text-[4.5rem]">@heading($headline)</h1>
-            <p class="hero-rise hero-rise-2 mt-7 max-w-lg text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
-            <div class="hero-rise hero-rise-2 mt-8 flex flex-wrap gap-3">
-                <x-button variant="primary" size="lg" icon="arrow-right" @click="$store.modal.open()">Get a Free Quote</x-button>
-                <x-button :href="route('packages.index')" variant="light" size="lg">See Packages</x-button>
-            </div>
+            <h1 class="on-dark hero-rise mt-6 font-serif text-5xl font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
+                {{ $hl1 }}<br><span class="text-amber">{{ $hl2 }}</span>
+            </h1>
+            <span class="hero-rise mt-4 block h-0.5 w-24 bg-amber" aria-hidden="true"></span>
+            <p class="hero-rise hero-rise-2 mt-7 max-w-xl text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
             @if(count($badges) > 1)
-                <ul class="hero-rise hero-rise-3 mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-white/90">
-                    @foreach(array_slice($badges, 1) as $b)<li class="inline-flex items-center gap-2">@icon('check', 'size-4 text-amber') {{ $b }}</li>@endforeach
+                <ul class="hero-rise hero-rise-3 mt-9 flex flex-wrap gap-x-8 gap-y-3">
+                    @foreach(array_slice($badges, 1) as $b)<li class="inline-flex items-center gap-2 font-serif text-xl text-white">@icon('check', 'size-5 text-amber') {{ $b }}</li>@endforeach
                 </ul>
             @endif
         </div>
-        <div class="hero-rise hero-rise-2 lg:w-full lg:max-w-[28rem] lg:justify-self-end">
-            @include('partials.quiz')
+        <div class="hero-rise hero-rise-2 w-full lg:max-w-[32rem] lg:justify-self-end">
+            @include('partials.quiz-light')
         </div>
     </div>
 </section>
-
 {{-- 2. TRUST STRIP: four reassurance points on charcoal, overlapping the hero edge --}}
 <section class="relative z-10 bg-ink text-cream" aria-label="Why travellers trust us">
     <div class="container-page grid grid-cols-2 gap-y-8 py-9 lg:grid-cols-4">
