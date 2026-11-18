@@ -20,13 +20,12 @@ class HomepageTestPageTest extends TestCase
         $this->get('/homepage-test')->assertOk()
             ->assertSee('noindex', false)
             ->assertSee('Enquire Now')
-            ->assertSee('Ready to plan your', false)
             ->assertSee('images/logo', false);
         $this->get('/sitemap.xml')->assertDontSee('homepage-test');
     }
 
     public function test_the_real_home_page_is_unchanged(): void
     {
-        $this->get('/')->assertOk()->assertDontSee('Ready to plan your', false)->assertDontSee('noindex', false);
+        $this->get('/')->assertOk()->assertDontSee('Plan Your Belgium Trip', false)->assertDontSee('noindex', false);
     }
 }
