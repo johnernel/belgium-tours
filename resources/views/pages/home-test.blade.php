@@ -161,7 +161,7 @@
             @if($t->packages->isNotEmpty())
                 <div x-data="pageCarousel()" role="region" aria-roledescription="carousel" aria-label="{{ $t->name }} trips">
                     <div class="flex flex-wrap items-end justify-between gap-4 border-b border-ink/15 pb-4">
-                        <h3 class="font-display text-3xl">{{ $t->name }}</h3>
+                        <h3 class="flex items-center gap-3 font-display text-3xl"><svg viewBox="0 0 15 13" class="h-[1.15rem] w-[1.35rem] shrink-0 rounded-[3px] shadow-sm ring-1 ring-ink/10" role="img" aria-label="Belgium flag"><rect width="5" height="13" fill="#000"/><rect x="5" width="5" height="13" fill="#FAE042"/><rect x="10" width="5" height="13" fill="#ED2939"/></svg><span>{{ $t->name }} Packages</span></h3>
                         <a href="{{ route('tours.show', $t->slug) }}" class="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-ink px-5 text-sm font-semibold hover:bg-ink hover:text-cream">View all @icon('arrow-right', 'size-4')</a>
                     </div>
                     <div x-ref="track" @scroll.passive="update()" @keydown.arrow-left.prevent="prev()" @keydown.arrow-right.prevent="next()" tabindex="0" aria-label="{{ $t->name }} packages, swipe or use the arrows"
