@@ -328,4 +328,21 @@
     </div>
 </section>
 
+{{-- 10. PLAN YOUR TRIP (layout copied from the client's reference): pale band, centred label, heading, intro, three small reassurance points, one button,
+     and a faded skyline silhouette along the bottom edge (Belgian step gables and belfries instead of mountains) --}}
+<section class="relative isolate overflow-hidden bg-white pb-44 pt-16 sm:pb-52 sm:pt-24" aria-labelledby="ht-plan">
+    <div class="absolute inset-0 -z-20 bg-sky-soft/55" aria-hidden="true"></div>
+    <div class="container-page text-center">
+        @include('partials.ht-eyebrow', ['label' => 'Craft your trip', 'center' => true])
+        <h2 id="ht-plan" class="mt-5 font-serif text-heading">@heading('Plan Your Belgium Trip')</h2>
+        <p class="mx-auto mt-5 max-w-2xl text-lg text-ink">Let Belgium's stories become yours. Our team of local experts is ready to craft something extraordinary, built entirely around you.</p>
+        <ul class="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-sm text-ink">
+            <li class="inline-flex items-center gap-2">@icon('lock', 'size-4 text-amber-deep') Secure booking</li>
+            <li class="inline-flex items-center gap-2">@icon('circle-check', 'size-4 text-amber-deep') Free quote</li>
+            <li class="inline-flex items-center gap-2">@icon('shield', 'size-4 text-amber-deep') No obligation</li>
+        </ul>
+        <div class="mt-8"><x-button variant="primary" size="lg" @click="$store.modal.open()">Plan My Belgium Trip</x-button></div>
+    </div>
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="xMidYMax slice" class="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-28 w-full text-aqua/60 [mask-image:linear-gradient(to_bottom,#000_45%,transparent)] sm:h-36" fill="currentColor" aria-hidden="true"><path d="M0 120 V90 L0 75 V68 H11 V61 H18 V54 H25 V47 H32 V40 H39 V47 H46 V54 H53 V61 H60 V68 H67 V75 H74 V75 H78 L78 74 V67 H89 V60 H96 V53 H103 V46 H110 V53 H117 V60 H124 V67 H131 V74 H138 V74 H142 L142 71 V64 H153 V57 H160 V50 H167 V43 H174 V36 H181 V43 H188 V50 H195 V57 H202 V64 H209 V71 H216 V71 H220 L220 67 H228 V63 L238 33 L248 63 V67 H256 L256 67 H264 V63 L274 33 L284 63 V67 H292 L292 79 V72 H303 V65 H310 V58 H317 V51 H324 V44 H331 V51 H338 V58 H345 V65 H352 V72 H359 V79 H366 V79 H370 L370 70 H378 V66 L388 36 L398 66 V70 H406 L406 80 H414 V76 L424 46 L434 76 V80 H442 L442 83 V76 H453 V69 H460 V62 H467 V55 H474 V62 H481 V69 H488 V76 H495 V83 H502 V83 H506 L506 86 V79 H517 V72 H524 V65 H531 V58 H538 V65 H545 V72 H552 V79 H559 V86 H566 V86 H570 L570 80 H578 V76 L588 46 L598 76 V80 H606 L606 73 V66 H617 V59 H624 V52 H631 V45 H638 V38 H645 V45 H652 V52 H659 V59 H666 V66 H673 V73 H680 V73 H684 L684 84 V77 H695 V70 H702 V63 H709 V70 H716 V77 H723 V84 H730 V84 H734 L734 72 V65 H745 V58 H752 V51 H759 V58 H766 V65 H773 V72 H780 V72 H784 L784 70 V63 H795 V56 H802 V49 H809 V42 H816 V49 H823 V56 H830 V63 H837 V70 H844 V70 H848 L848 61 H856 V57 L866 27 L876 57 V61 H884 L884 76 V69 H895 V62 H902 V55 H909 V62 H916 V69 H923 V76 H930 V76 H934 L934 59 H942 V55 L952 25 L962 55 V59 H970 L970 84 V77 H981 V70 H988 V63 H995 V56 H1002 V49 H1009 V56 H1016 V63 H1023 V70 H1030 V77 H1037 V84 H1044 V84 H1048 L1048 74 V67 H1059 V60 H1066 V53 H1073 V46 H1080 V39 H1087 V46 H1094 V53 H1101 V60 H1108 V67 H1115 V74 H1122 V74 H1126 L1126 63 H1134 V59 L1144 29 L1154 59 V63 H1162 L1162 60 H1170 V56 L1180 26 L1190 56 V60 H1198 L1198 80 V73 H1209 V66 H1216 V59 H1223 V52 H1230 V59 H1237 V66 H1244 V73 H1251 V80 H1258 V80 H1262 L1262 78 V71 H1273 V64 H1280 V57 H1287 V64 H1294 V71 H1301 V78 H1308 V78 H1312 L1312 84 V77 H1323 V70 H1330 V63 H1337 V70 H1344 V77 H1351 V84 H1358 V84 H1362 L1362 72 H1370 V68 L1380 38 L1390 68 V72 H1398 L1398 76 V69 H1409 V62 H1416 V55 H1423 V48 H1430 V41 H1437 V48 H1444 V55 H1451 V62 H1458 V69 H1465 V76 H1472 V76 H1476 V120 Z"/></svg>
+</section>
 @endsection
