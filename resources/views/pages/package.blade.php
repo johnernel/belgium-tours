@@ -54,86 +54,125 @@
     'crumbMid' => [route('packages.index'), 'Packages'],
 ])
 
-<div class="container-page space-y-14 py-12 lg:space-y-16 lg:py-16">
-        @if($highlights)
-            <section aria-labelledby="hl"><h2 id="hl" class="text-heading">@heading('Highlights')</h2>
-                <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                    @foreach($highlights as $i => $h)
-                        @php $img = $highlightImages[$i] ?? null; @endphp
-                        <li class="group flex flex-col overflow-hidden rounded-3xl bg-paper shadow-card">
-                            @if($img)
-                                <div class="relative aspect-[4/3] overflow-hidden bg-sky-soft">
-                                    <x-photo :base="$img['base']" :alt="$img['alt']" sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 92vw" fetchpriority="low" :ratio="[1600, 1200]" class="absolute inset-0 size-full transition-transform duration-500 group-hover:scale-105" />
-                                </div>
-                            @endif
-                            <p class="flex items-start gap-3 p-5 text-lg font-semibold leading-snug">@icon('check', 'mt-1 size-5 shrink-0 text-amber-deep') <span>{{ $h }}</span></p>
-                        </li>
-                    @endforeach
-                </ul>
-            </section>
-        @endif
+@php
+    // Highlights are one line each. "Title: short description" splits into a header and a panel text; a plain line is the title.
+    $hlItems = collect($highlights)->map(function ($h, $i) use ($highlightImages) {
+        $h = trim((string) $h);
+        $parts = preg_split('/\s*[:\x{2013}\x{2014}]\s+/u', $h, 2);
+        $hasText = count($parts) === 2 && mb_strlen($parts[0]) <= 70;
 
-        @if($package->description)
-            <section aria-labelledby="ov"><h2 id="ov" class="text-heading">@heading('Overview')</h2>
-                <div class="prose-page mt-4 max-w-3xl">{!! $package->description !!}</div>
-            </section>
-        @endif
+        return [
+            'title' => $hasText ? $parts[0] : $h,
+            'text' => $hasText ? $parts[1] : 'Ask us about this when you request your quote and we will tailor it to you.',
+            'img' => $highlightImages[$i] ?? null,
+        ];
+    })->all();
+    $dayItems = collect($days)->map(fn ($d, $i) => [
+        'title' => $d['title'] ?? 'Day '.($i + 1),
+        'text' => $d['text'] ?? '',
+        'img' => $dayImages[$i] ?? null,
+        'points' => array_values(array_filter((array) ($d['points'] ?? []))),
+    ])->all();
+    $amount = $package->price_from !== null ? substr($package->priceLabel(), 5) : null;
+    $duration = $package->nights > 0 ? $package->nights.' nights' : '1 day';
+    $facts = array_values(array_filter([
+        ['icon' => 'calendar', 'label' => 'Duration', 'value' => $duration],
+        $package->tourType ? ['icon' => 'compass', 'label' => 'Tour type', 'value' => $package->tourType->name] : null,
+        $package->route ? ['icon' => 'map-pin', 'label' => 'Route', 'value' => $package->route] : null,
+        $package->destination ? ['icon' => 'globe', 'label' => 'Destination', 'value' => $package->destination->name] : null,
+    ]));
+    $quoteJs = \Illuminate\Support\Js::from(['packageId' => (string) $package->id, 'packageName' => $package->title, 'tourType' => $package->tourType?->name]);
+@endphp
 
-        @if($days)
-            <section aria-labelledby="it"><h2 id="it" class="text-heading">@heading('Day by day')</h2>
-                <div class="mt-6 space-y-3">
-                    @foreach($days as $i => $day)
-                        @php $img = $dayImages[$i] ?? null; @endphp
-                        <details name="itinerary" @if($loop->first) open @endif class="group overflow-hidden rounded-3xl bg-paper shadow-card">
-                            <summary class="flex cursor-pointer list-none items-center gap-4 p-3 pr-5 [&::-webkit-details-marker]:hidden">
-                                @if($img)
-                                    <span class="relative size-16 shrink-0 overflow-hidden rounded-2xl bg-sky-soft sm:size-[4.5rem]">
-                                        <x-photo :base="$img['base']" alt="" :widths="[480, 800]" sizes="72px" :ratio="[480, 480]" class="absolute inset-0 size-full" />
-                                    </span>
-                                @endif
-                                <span class="flex-1 font-display text-lg leading-snug sm:text-xl">{{ $day['title'] ?? 'Day '.($i + 1) }}</span>
-                                @icon('chevron-down', 'size-5 shrink-0 text-slate transition-transform group-open:rotate-180')
-                            </summary>
-                            <div class="grid gap-5 p-5 pt-2 md:grid-cols-[minmax(0,20rem)_1fr] md:items-start">
-                                @if($img)
-                                    <div class="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sky-soft">
-                                        <x-photo :base="$img['base']" :alt="$img['alt']" :widths="[480, 800, 1280]" sizes="(min-width:768px) 320px, 92vw" fetchpriority="low" :ratio="[1600, 1200]" class="absolute inset-0 size-full" />
-                                    </div>
-                                @endif
-                                <p class="text-lg leading-relaxed text-slate">{{ $day['text'] ?? '' }}</p>
+<div class="container-page py-8 lg:py-10">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_24rem] xl:gap-14">
+        {{-- Main column: every section has the same top and bottom padding --}}
+        <div class="min-w-0">
+            @if($hlItems)
+                <section aria-labelledby="hl" class="py-8 lg:py-10">
+                    <h2 id="hl" class="text-heading">@heading('Tour highlights')</h2>
+                    <div class="mt-6">@include('partials.package-accordion', ['items' => $hlItems, 'kind' => 'highlight'])</div>
+                </section>
+            @endif
+
+            @if($package->description || $facts)
+                <section aria-labelledby="ov" class="py-8 lg:py-10">
+                    <h2 id="ov" class="text-heading">@heading('Overview')</h2>
+                    @if($package->description)<div class="prose-page mt-4 max-w-3xl">{!! $package->description !!}</div>@endif
+                    <dl class="mt-6 grid gap-4 sm:grid-cols-2">
+                        @foreach($facts as $f)
+                            <div class="flex items-center gap-4 rounded-2xl bg-paper p-4 shadow-card">
+                                <span class="grid size-12 shrink-0 place-items-center rounded-full bg-amber/25 text-amber-ink">@icon($f['icon'], 'size-6')</span>
+                                <div class="min-w-0"><dt class="text-xs font-semibold uppercase tracking-[0.18em] text-slate">{{ $f['label'] }}</dt><dd class="font-display text-lg leading-snug text-ink">{{ $f['value'] }}</dd></div>
                             </div>
-                        </details>
-                    @endforeach
-                </div>
-            </section>
-        @endif
+                        @endforeach
+                    </dl>
+                </section>
+            @endif
 
-        @if($package->inclusions || $package->exclusions)
-            <section class="grid gap-6 sm:grid-cols-2">
-                @if($package->inclusions)
-                    <div class="rounded-2xl bg-sky-soft p-6"><h2 class="text-xl">Included</h2><ul class="mt-3 space-y-2">@foreach($package->inclusions as $i)<li class="flex gap-2">@icon('check', 'mt-1 size-4 shrink-0'){{ $i }}</li>@endforeach</ul></div>
+            @if($dayItems)
+                <section aria-labelledby="it" class="py-8 lg:py-10">
+                    <h2 id="it" class="text-heading">@heading('Day by day')</h2>
+                    <div class="mt-6">@include('partials.package-accordion', ['items' => $dayItems, 'kind' => 'day'])</div>
+                </section>
+            @endif
+
+            @if($package->inclusions || $package->exclusions)
+                <section class="grid gap-6 py-8 sm:grid-cols-2 lg:py-10">
+                    @if($package->inclusions)
+                        <div class="rounded-3xl border border-ink/10 bg-cream p-6">
+                            <h2 class="font-display text-2xl">Included</h2>
+                            <ul class="mt-4 space-y-3">@foreach($package->inclusions as $i)<li class="flex items-start gap-3"><span class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-aqua text-ink">@icon('check', 'size-3.5')</span><span>{{ $i }}</span></li>@endforeach</ul>
+                        </div>
+                    @endif
+                    @if($package->exclusions)
+                        <div class="rounded-3xl bg-ink/5 p-6">
+                            <h2 class="font-display text-2xl">@heading('Not included')</h2>
+                            <ul class="mt-4 space-y-3">@foreach($package->exclusions as $i)<li class="flex items-start gap-3"><span class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-red-100 text-red-700">@icon('x', 'size-3.5')</span><span>{{ $i }}</span></li>@endforeach</ul>
+                        </div>
+                    @endif
+                </section>
+            @endif
+
+            @if($package->images->isNotEmpty())
+                <section aria-labelledby="gal" class="py-8 lg:py-10"><h2 id="gal" class="text-heading">@heading('Gallery')</h2>
+                    <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                        @foreach($package->images as $img)
+                            <x-photo :base="$img->path" :alt="$img->alt" sizes="(min-width:640px) 22vw, 46vw" class="aspect-[4/3] w-full rounded-2xl" />
+                        @endforeach
+                    </div>
+                </section>
+            @endif
+
+            @if($package->faqs)
+                <section aria-labelledby="pf" class="py-8 lg:py-10"><h2 id="pf" class="text-heading">@heading('Questions about this trip')</h2>
+                    <div class="mt-4 space-y-3">@foreach($package->faqs as $f)<x-faq-item :question="$f['question']">{{ $f['answer'] }}</x-faq-item>@endforeach</div>
+                </section>
+            @endif
+        </div>
+
+        {{-- Sticky booking card --}}
+        <aside class="lg:sticky lg:top-28" aria-label="Book this trip">
+            <div class="rounded-[20px] bg-ink p-6 text-cream shadow-card sm:p-7">
+                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-cream/70">{{ $amount ? 'From' : 'Price' }}</p>
+                @if($amount)
+                    <p class="mt-1"><span class="font-display text-4xl text-amber">{{ $amount }}</span> <span class="text-sm text-cream/80">per person</span></p>
+                @else
+                    <p class="mt-1 font-display text-3xl text-amber">Price on request</p>
                 @endif
-                @if($package->exclusions)
-                    <div class="rounded-2xl bg-cream-deep p-6"><h2 class="text-xl">@heading('Not included')</h2><ul class="mt-3 space-y-2">@foreach($package->exclusions as $i)<li class="flex gap-2">@icon('x', 'mt-1 size-4 shrink-0'){{ $i }}</li>@endforeach</ul></div>
-                @endif
-            </section>
-        @endif
-
-        @if($package->images->isNotEmpty())
-            <section aria-labelledby="gal"><h2 id="gal" class="text-heading">@heading('Gallery')</h2>
-                <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                    @foreach($package->images as $img)
-                        <x-photo :base="$img->path" :alt="$img->alt" sizes="(min-width:640px) 30vw, 46vw" class="aspect-[4/3] w-full rounded-2xl" />
-                    @endforeach
+                <ul class="mt-5 space-y-3 border-t border-cream/15 pt-5 text-sm">
+                    <li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber">@icon('calendar', 'size-4')</span>{{ $duration }}</li>
+                    @if($package->tourType)<li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber">@icon('compass', 'size-4')</span>{{ $package->tourType->name }}</li>@endif
+                    @if($package->destination)<li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber">@icon('map-pin', 'size-4')</span>{{ $package->destination->name }}</li>@endif
+                </ul>
+                <div class="mt-6 grid gap-3">
+                    <x-button variant="primary" size="md" class="w-full" @click="$store.modal.open({{ $quoteJs }})">Get a Quote</x-button>
+                    <x-button :href="route('packages.index')" variant="light" size="md" class="w-full">See Other Packages</x-button>
                 </div>
-            </section>
-        @endif
-
-        @if($package->faqs)
-            <section aria-labelledby="pf"><h2 id="pf" class="text-heading">@heading('Questions about this trip')</h2>
-                <div class="mt-4 space-y-3">@foreach($package->faqs as $f)<x-faq-item :question="$f['question']">{{ $f['answer'] }}</x-faq-item>@endforeach</div>
-            </section>
-        @endif
+                <p class="mt-4 text-center text-xs text-cream/70">Free to request. No payment needed.</p>
+            </div>
+        </aside>
+    </div>
 </div>
 
 @if($related->isNotEmpty())

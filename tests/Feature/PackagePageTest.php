@@ -48,8 +48,8 @@ class PackagePageTest extends TestCase
 
         $it = substr($html, strpos($html, 'id="it"'));
         $it = substr($it, 0, strpos($it, '</section>'));
-        $this->assertSame(count($package->itinerary), substr_count($it, '<details name="itinerary"'));
-        $this->assertSame(count($package->itinerary) * 2, substr_count($it, '<img'), 'a thumbnail and a larger image per day');
+        $this->assertSame(count($package->itinerary), substr_count($it, 'id="day-h-'), 'one accordion item per day');
+        $this->assertSame(count($package->itinerary), substr_count($it, '<img'), 'one image per day');
     }
 
     public function test_place_images_come_from_the_places_named_and_avoid_repeats(): void
