@@ -222,29 +222,32 @@
 </section>
 @endif
 
-{{-- 7. HOW IT WORKS: three numbered cards --}}
-@if($steps->isNotEmpty())
+{{-- 7. STRESS-FREE TRAVEL (layout copied from the client's reference, wording rewritten for Belgium): centred label, heading and one-line intro, then three equal square-cornered cards, each with a round icon, a bold title and a centred description --}}
+@php
+    $calm = [
+        ['users', 'Every Detail. Already Handled.', 'Our Belgium specialists plan every detail: hand-picked stays, ideal pacing and local stops, so nothing is left to chance.'],
+        ['search', 'Local access. Real moments.', 'Our local connections open doors beyond the tourist routes: insider tips, quiet corners and the true heart of Belgium, hassle-free.'],
+        ['compass', 'Travel Your Way', 'Take the wheel on a self-drive adventure, or relax with a private chauffeur or coach tour. Every journey is seamless.'],
+    ];
+@endphp
 <section class="bg-white py-16 sm:py-24" aria-labelledby="ht-steps">
     <div class="container-page">
-        <div class="mx-auto max-w-2xl text-center">
-            @include('partials.ht-eyebrow', ['label' => $c('steps_eyebrow') ?: 'How it works', 'center' => true])
-            <h2 id="ht-steps" class="mt-5 font-serif text-heading">@heading($c('steps_heading') ?: 'Planning Made *Simple*')</h2>
-            @if($c('steps_sub'))<p class="mt-4 text-lg text-slate">{{ $c('steps_sub') }}</p>@endif
+        <div class="mx-auto max-w-4xl text-center">
+            @include('partials.ht-eyebrow', ['label' => 'Stress-free travel', 'center' => true])
+            <h2 id="ht-steps" class="mt-5 font-serif text-heading">@heading('Discover Belgium the *Stress-Free* Way')</h2>
+            <p class="mx-auto mt-5 max-w-3xl text-lg text-ink">We take care of every detail so you can simply show up, enjoy the canals and cobbled squares, and let Belgium do the rest.</p>
         </div>
-        <ol class="mt-12 grid gap-6 md:grid-cols-3">
-            @foreach($steps as $s)
-                <li class="rounded-3xl border border-ink/10 bg-cream p-7">
-                    <span class="grid size-12 place-items-center rounded-full bg-amber font-display text-xl text-ink">{{ $loop->iteration }}</span>
-                    <h3 class="mt-5 font-display text-2xl">{{ $s['title'] }}</h3>
-                    <p class="mt-2 text-slate">{{ $s['text'] }}</p>
-                </li>
+        <div class="mt-14 grid gap-6 md:grid-cols-3 lg:gap-8">
+            @foreach($calm as [$ic, $title, $text])
+                <article class="flex flex-col items-center bg-slate px-8 pb-14 pt-11 text-center text-white">
+                    <span class="grid size-[4.75rem] place-items-center rounded-full bg-white/15 text-aqua-light">@icon($ic, 'size-9')</span>
+                    <h3 class="mt-7 font-display text-xl leading-snug text-white lg:text-[1.35rem]">{{ $title }}</h3>
+                    <p class="mt-4 text-lg leading-relaxed text-white/90">{{ $text }}</p>
+                </article>
             @endforeach
-        </ol>
-        <div class="mt-10 text-center"><x-button variant="primary" size="lg" icon="arrow-right" @click="$store.modal.open()">{{ $c('steps_cta') ?: 'Get a Free Quote' }}</x-button></div>
+        </div>
     </div>
 </section>
-@endif
-
 {{-- 8. TESTIMONIALS: three glass cards on charcoal --}}
 @if($quotes->isNotEmpty())
 <section class="on-dark bg-ink py-16 text-cream sm:py-24" aria-labelledby="ht-quotes">
