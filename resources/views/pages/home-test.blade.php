@@ -80,13 +80,13 @@
     ];
 @endphp
 <section class="relative z-10 bg-white" aria-label="Why travel with us">
-    <div class="container-page grid gap-y-8 py-9 sm:grid-cols-2 lg:flex lg:justify-between lg:py-10">
+    <div class="container-page grid gap-y-8 py-9 sm:grid-cols-2 xl:grid-cols-4 lg:py-10">
         @foreach($strip as [$ic, $title, $text])
-            <div class="flex items-start gap-4 {{ $loop->first ? 'lg:pr-5' : ($loop->last ? 'lg:border-l lg:border-ink/15 lg:pl-5' : 'lg:border-l lg:border-ink/15 lg:px-5') }}">
-                <span class="grid size-16 shrink-0 place-items-center bg-dusk text-white">@icon($ic, 'size-8')</span>
+            <div class="flex items-start gap-3 {{ $loop->first ? 'xl:pr-5' : ($loop->last ? 'xl:border-l xl:border-ink/15 xl:pl-5' : 'xl:border-l xl:border-ink/15 xl:px-5') }}">
+                <span class="grid size-12 shrink-0 place-items-center bg-aqua text-ink">@icon($ic, 'size-6')</span>
                 <div class="min-w-0">
-                    <h3 class="font-display text-xl leading-snug text-ink lg:whitespace-nowrap">{{ $title }}</h3>
-                    <p class="mt-1 text-[0.95rem] leading-snug text-slate lg:max-w-[13.5rem]">{{ $text }}</p>
+                    <h3 class="font-display text-lg leading-snug text-ink xl:text-xl xl:whitespace-nowrap">{{ $title }}</h3>
+                    <p class="mt-1 text-[0.95rem] leading-snug text-slate">{{ $text }}</p>
                 </div>
             </div>
         @endforeach
