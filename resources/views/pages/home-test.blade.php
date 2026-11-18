@@ -252,15 +252,22 @@
      then the testimonials as a carousel (3 cards per view on desktop, 2 tablet, 1 mobile; arrows, dots, swipe, no autoplay). No star ratings: there are none to back them. --}}
 @if($testimonials->isNotEmpty())
 <section class="on-dark bg-ink text-cream" aria-labelledby="ht-quotes">
-    {{-- Video block: the clip stays paused until the play button is pressed (nothing loads before that) --}}
-    <div class="relative h-[17rem] overflow-hidden sm:h-[26rem] lg:h-[32rem]" x-data="{ playing: false }">
+    {{-- Video block: starts by itself (muted, looping) when the section scrolls into view and pauses when it leaves; the button pauses or resumes it. Reduced-motion and data-saver visitors get the poster and the play button instead. --}}
+    <div class="relative h-[17rem] overflow-hidden sm:h-[26rem] lg:h-[32rem]" x-data="{ playing: false, userPaused: false }"
+         x-init="const v = $refs.v; const calm = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData);
+                 if (! calm && 'IntersectionObserver' in window) {
+                     new IntersectionObserver(([e]) => {
+                         if (e.isIntersecting) { if (! userPaused) { v.play().then(() => playing = true).catch(() => {}); } }
+                         else { v.pause(); playing = false; }
+                     }, { threshold: 0.35 }).observe($el);
+                 }">
         <video x-ref="v" class="absolute inset-0 size-full object-cover" muted loop playsinline preload="none" tabindex="-1" aria-label="Belgium travel footage"
                poster="{{ asset('media/ways-poster.webp').'?v='.filemtime(public_path('media/ways-poster.webp')) }}">
             <source src="{{ asset('media/ways-loop.webm').'?v='.filemtime(public_path('media/ways-loop.webm')) }}" type="video/webm">
             <source src="{{ asset('media/ways-loop.mp4').'?v='.filemtime(public_path('media/ways-loop.mp4')) }}" type="video/mp4">
         </video>
         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/30"></div>
-        <button type="button" @click="playing ? ($refs.v.pause(), playing = false) : ($refs.v.play(), playing = true)" :aria-label="playing ? 'Pause video' : 'Play video'" :aria-pressed="playing"
+        <button type="button" @click="playing ? ($refs.v.pause(), playing = false, userPaused = true) : ($refs.v.play(), playing = true, userPaused = false)" :aria-label="playing ? 'Pause video' : 'Play video'" :aria-pressed="playing"
                 class="absolute left-1/2 top-[42%] grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow-lift transition duration-300 hover:scale-105 hover:bg-white focus-visible:opacity-100 sm:size-24"
                 :class="playing ? 'opacity-0 hover:opacity-100' : 'opacity-100'">
             <svg x-show="!playing" viewBox="0 0 24 24" class="ml-1 size-9" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>
