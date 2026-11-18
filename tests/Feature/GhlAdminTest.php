@@ -82,7 +82,7 @@ class GhlAdminTest extends TestCase
             '*/locations/LOC1' => Http::response(['location' => ['name' => 'Go Belgium']]),
         ]);
 
-        $this->post('/admin/ghl/test')->assertRedirect()->assertSessionHas('status', fn ($s) => str_starts_with($s, 'Connected to Go Belgium') && str_contains($s, 'missing'));
+        $this->post('/admin/ghl/test')->assertRedirect()->assertSessionHas('status', fn ($s) => str_starts_with($s, 'Connected to Go Belgium') && str_contains($s, 'missing') && str_contains($s, ' are missing'));
         Http::assertSent(fn ($r) => $r->hasHeader('Authorization', 'Bearer tok-1234'));
     }
 
