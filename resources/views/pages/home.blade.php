@@ -347,20 +347,20 @@
             <h2 id="ht-pay" class="mt-5 font-serif text-heading">@heading('Simple, Secure Payments, No *Worries Ever*')</h2>
             <p class="mx-auto mt-5 max-w-3xl text-lg text-ink">Whether you are travelling with friends, family or colleagues, our flexible group payment options make booking your Belgium trip simple, straightforward and completely hassle-free for everyone involved.</p>
         </div>
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4 xl:gap-8">
             @foreach($pay as [$ic, $img, $title, $text])
                 {{-- Card copied from the client's reference: rounded corners and a big soft shadow, a white round icon with an amber ring, serif title, centred text, and a faded photo that fades in from the middle of the card down. The white wash over the photo keeps the text readable. --}}
-                <article class="relative isolate flex min-h-[22rem] flex-col items-center overflow-hidden rounded-lg bg-white px-7 pb-10 pt-9 text-center shadow-lift">
-                    <div class="absolute inset-x-0 bottom-0 -z-20 h-[80%] opacity-50 [mask-image:linear-gradient(to_bottom,transparent,black_45%)]" aria-hidden="true">
+                <article class="relative isolate flex min-h-[22rem] flex-col items-center overflow-hidden rounded-lg bg-white px-5 pb-10 pt-9 text-center shadow-lift xl:px-4">
+                    <div class="absolute inset-x-0 bottom-0 -z-20 h-[80%] opacity-35 [mask-image:linear-gradient(to_bottom,transparent,black_45%)]" aria-hidden="true">
                         <x-photo :base="$img" alt="" :widths="[480, 800]" sizes="(min-width:1024px) 25vw, 90vw" fetchpriority="low" :ratio="[1600, 1067]" class="size-full" />
                     </div>
-                    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white/55 to-white/60" aria-hidden="true"></div>
-                    <span class="grid size-20 place-items-center rounded-full border-2 border-amber bg-white text-ink shadow-card">@icon($ic, 'size-9')</span>
+                    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white/75 to-white/80" aria-hidden="true"></div>
+                    <span class="grid size-20 place-items-center rounded-full border-2 border-amber bg-white text-slate shadow-card [&_svg]:![stroke-width:1.25]">@icon($ic, 'size-9')</span>
                     <h3 class="mt-7 max-w-[12rem] font-display text-[1.4rem] font-semibold leading-tight text-ink">{{ $title }}</h3>
-                    <p class="mt-5 text-[1.02rem] leading-relaxed text-ink/80">{{ $text }}</p>
+                    <p class="mt-5 line-clamp-3 text-[0.97rem] font-medium leading-relaxed text-ink xl:text-[0.92rem]">{{ $text }}</p>
                 </article>            @endforeach
         </div>
-        <div class="mt-12 text-center"><x-button square variant="primary" size="lg" @click="$store.modal.open()">Get Your Free Quote</x-button></div>
+        <div class="mt-12 text-center"><x-button square variant="cta" size="lg" @click="$store.modal.open()">Get Your Free Quote</x-button></div>
     </div>
 </section>
 {{-- 10. PLAN YOUR TRIP (layout copied from the client's reference): pale band, centred label, heading, intro, three small reassurance points, one button,
