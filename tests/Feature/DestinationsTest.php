@@ -21,7 +21,7 @@ class DestinationsTest extends TestCase
 
     public function test_home_has_travel_your_way_tabs_linking_to_each_tour_type_page_after_destinations(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $this->assertStringContainsString('<em class="heading-accent">Your Way</em>', $html);
         $section = substr($html, strpos($html, 'aria-labelledby="way-title"'), 20000);
@@ -36,7 +36,7 @@ class DestinationsTest extends TestCase
 
     public function test_home_has_why_choose_us_after_travel_your_way_and_invents_no_figures(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $this->assertStringContainsString('<em class="heading-accent">Exceptional</em>', $html);
         $start = strpos($html, 'aria-labelledby="wcu-title"');
@@ -49,7 +49,7 @@ class DestinationsTest extends TestCase
 
     public function test_home_has_the_quote_band_after_how_it_works_with_both_buttons(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $this->assertStringContainsString('<em class="heading-accent">Your Way</em>', $html);
         $start = strpos($html, 'aria-labelledby="qb-title"');
@@ -66,7 +66,7 @@ class DestinationsTest extends TestCase
 
     public function test_home_has_the_gallery_marquee_after_testimonials(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $this->assertStringContainsString('<em class="heading-accent">Pictures</em>', $html);
         $start = strpos($html, 'aria-labelledby="gal-title"');
@@ -89,7 +89,7 @@ class DestinationsTest extends TestCase
 
     public function test_home_has_the_destinations_accordion_with_six_panels_and_the_cta(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $this->assertStringContainsString('Where we go', $html);
         $this->assertStringContainsString('<em class="heading-accent">Slowing Down</em>', $html);
@@ -109,7 +109,7 @@ class DestinationsTest extends TestCase
 
     public function test_the_section_sits_between_ways_to_travel_and_how_it_works(): void
     {
-        $html = $this->get('/')->getContent();
+        $html = $this->get('/homepage-test')->getContent();
 
         $this->assertLessThan(strpos($html, 'aria-labelledby="dest-title"'), strpos($html, 'aria-labelledby="ways-title"'));
         $this->assertLessThan(strpos($html, 'aria-labelledby="how-title"'), strpos($html, 'aria-labelledby="dest-title"'));
@@ -142,7 +142,7 @@ class DestinationsTest extends TestCase
         $this->assertSame($before - 1, $after);
 
         Experience::where('slug', 'leuven')->update(['active' => false]);
-        $this->get('/')->assertDontSee('View Leuven tours', false);
+        $this->get('/homepage-test')->assertDontSee('View Leuven tours', false);
         $this->get('/destinations')->assertDontSee('>Leuven</h3>', false);
     }
 

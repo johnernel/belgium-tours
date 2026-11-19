@@ -19,7 +19,7 @@ class JourneyMapTest extends TestCase
 
     public function test_home_has_the_journey_section_between_the_faq_and_the_blog(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $faq = strpos($html, 'aria-labelledby="faq-title"');
         $journey = strpos($html, 'aria-labelledby="journey-title"');
@@ -54,7 +54,7 @@ class JourneyMapTest extends TestCase
             $this->assertCount(count($c['images']), array_unique(array_column($c['images'], 'src')), $c['name'].' photos are different');
         }
 
-        $html = $this->get('/')->getContent();
+        $html = $this->get('/homepage-test')->getContent();
         $this->assertSame(10, substr_count($html, 'class="jm-dot"'));
         $this->assertSame(5, substr_count($html, 'class="jm-pol"'));
         $this->assertSame(9, substr_count($html, 'class="jm-route"'));

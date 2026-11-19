@@ -12,7 +12,7 @@ use App\Models\TourType;
 
 class HomeController extends Controller
 {
-    /** Design trial of the home page (/homepage-test): same data and content as the real home page, new layout. Not indexed, not in the sitemap. */
+    /** The previous home page design, kept at /homepage-test (noindex, not in the sitemap) so it can be compared or restored. Same data as the home page. */
     public function test()
     {
         return view('pages.home-test', $this->data());

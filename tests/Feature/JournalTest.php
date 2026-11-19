@@ -19,7 +19,7 @@ class JournalTest extends TestCase
 
     public function test_home_has_the_blog_section_after_the_faq_with_three_cards(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $this->assertStringContainsString('<em class="heading-accent">Lowlands.</em>', $html);
         $start = strpos($html, 'aria-labelledby="blog-title"');

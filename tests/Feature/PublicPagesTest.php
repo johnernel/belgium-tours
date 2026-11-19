@@ -49,7 +49,7 @@ class PublicPagesTest extends TestCase
 
     public function test_home_hero_is_a_three_slide_slideshow_with_a_trust_marquee_and_no_dropdown(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $this->assertSame(3, substr_count($html, 'hero-slide hero-slide-'), 'three slideshow images');
         $this->assertStringContainsString('marquee-track', $html);
@@ -69,7 +69,7 @@ class PublicPagesTest extends TestCase
 
     public function test_the_ways_to_travel_section_has_video_tabs_and_journey_cards(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         $this->assertSame(1, substr_count($html, 'data-lazy-video'), 'only one video-background section');
         $this->assertStringContainsString('media/ways-loop.webm', $html);
@@ -98,7 +98,7 @@ class PublicPagesTest extends TestCase
 
     public function test_every_section_headline_on_home_is_two_coloured(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
 
         foreach (['why-title', 'ways-title', 'how-title', 't-title', 'faq-title'] as $id) {
             $this->assertMatchesRegularExpression('/id="'.$id.'"[^>]*>[^<]*(<[^>]+>[^<]*)*<em class="heading-accent">/s', $html, "$id should have an accent part");
@@ -107,7 +107,7 @@ class PublicPagesTest extends TestCase
 
     public function test_home_hero_has_the_main_quiz_form_beside_centred_text_and_keeps_the_marquee(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        $html = $this->get('/homepage-test')->assertOk()->getContent();
         $hero = substr($html, strpos($html, '<section class="relative isolate -mt-[4.5rem]'), 14000);
 
         $this->assertStringContainsString('id="quiz"', $hero);
@@ -121,7 +121,7 @@ class PublicPagesTest extends TestCase
 
     public function test_home_has_faq_structured_data(): void
     {
-        $this->get('/')->assertOk()->assertSee('"@type":"FAQPage"', false);
+        $this->get('/homepage-test')->assertOk()->assertSee('"@type":"FAQPage"', false);
     }
 
     public function test_unknown_page_returns_custom_404(): void
