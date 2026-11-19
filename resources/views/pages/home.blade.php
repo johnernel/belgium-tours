@@ -197,7 +197,7 @@
                     </div>
                     <p x-show="pages > 1" x-cloak class="mt-2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate" aria-live="polite"><span x-text="page + 1"></span> / <span x-text="pages"></span></p>
                     {{-- Phones only: the "View all" link moves from the heading row to below the carousel --}}
-                    <a href="{{ route('tours.show', $t->slug) }}" class="mt-6 flex min-h-12 w-full items-center justify-center gap-2 border-2 border-ink text-sm font-semibold uppercase tracking-[0.14em] hover:bg-ink hover:text-cream sm:hidden">View all packages @icon('arrow-right', 'size-4')<span class="sr-only"> {{ $t->name }}</span></a>
+                    <a href="{{ route('tours.show', $t->slug) }}" class="mx-auto mt-5 flex min-h-10 w-fit items-center justify-center gap-2 border-2 border-ink px-5 text-xs font-semibold uppercase tracking-[0.12em] hover:bg-ink hover:text-cream sm:hidden">View all packages @icon('arrow-right', 'size-4')<span class="sr-only"> {{ $t->name }}</span></a>
                 </div>
             @endif
         @endforeach
