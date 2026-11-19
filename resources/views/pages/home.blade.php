@@ -313,9 +313,9 @@
 
         <div class="mt-12" x-data="pageCarousel()" role="region" aria-roledescription="carousel" aria-label="Traveller testimonials">
             <div x-ref="track" @scroll.passive="update()" @keydown.arrow-left.prevent="prev()" @keydown.arrow-right.prevent="next()" tabindex="0" aria-label="Testimonials, swipe or use the arrows"
-                 class="relative flex snap-x snap-mandatory items-stretch gap-6 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden">
+                 class="relative flex snap-x snap-mandatory items-stretch gap-3 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] motion-reduce:scroll-auto max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-[''] sm:gap-6 [&::-webkit-scrollbar]:hidden">
                 @foreach($testimonials as $t)
-                    <figure class="flex w-full shrink-0 snap-start flex-col rounded-md bg-white/5 p-7 ring-1 ring-white/15 sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]" role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
+                    <figure class="flex w-[calc(100%-2rem)] shrink-0 snap-start flex-col rounded-md bg-white/5 p-7 ring-1 ring-white/15 sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]" role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
                         <div class="flex items-start justify-between gap-4">
                             <svg viewBox="0 0 24 24" class="size-10 text-amber" fill="currentColor" aria-hidden="true"><path d="M7 7h4v4c0 3-1.6 5-4.5 5.5v-2C8 14 8.6 13 8.6 12H7zm8 0h4v4c0 3-1.6 5-4.5 5.5v-2C16 14 16.6 13 16.6 12H15z"/></svg>
                             @if($t->photo)

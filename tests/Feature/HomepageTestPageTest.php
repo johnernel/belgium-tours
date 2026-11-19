@@ -113,4 +113,12 @@ class HomepageTestPageTest extends TestCase
         $this->assertSame(3, substr_count($html, 'max-md:w-[calc(100%-2rem)] max-md:shrink-0 max-md:snap-start'), 'three cards, each leaving a 20px peek');
         $this->assertStringContainsString('md:grid-cols-3', $html, 'the three equal columns from md up are kept');
     }
+
+    public function test_on_phones_the_testimonial_cards_leave_a_20px_peek_of_the_next_card(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('flex w-[calc(100%-2rem)] shrink-0 snap-start flex-col rounded-md bg-white/5', $html, 'testimonial cards are 100% - 2rem wide on phones');
+        $this->assertStringContainsString('sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]', $html, 'tablet and desktop widths are kept');
+        $this->assertStringContainsString('max-sm:after:w-5', $html, 'a trailing spacer lets the last card scroll fully into view');
+    }
 }
