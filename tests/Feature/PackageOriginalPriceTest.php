@@ -72,6 +72,6 @@ class PackageOriginalPriceTest extends TestCase
         $this->put("/admin/packages/{$p->id}", $base + ['price_from' => '', 'original_price' => '1300'])->assertRedirect();
         $this->assertNull($p->fresh()->original_price, 'no strikethrough price without a current price');
 
-        $this->get("/admin/packages/{$p->id}/edit")->assertOk()->assertSee('Original price (crossed out, optional)');
+        $this->get("/admin/packages/{$p->id}/edit")->assertOk()->assertSee('Original price (optional)');
     }
 }
