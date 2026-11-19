@@ -12,10 +12,26 @@ use Illuminate\Support\Facades\Http;
  * Sends every enquiry (with its UTM and click-id values) to a Google Sheet through a small Google Apps Script "web app" that the
  * client creates inside their own spreadsheet (see Admin > Google Sheets and docs/reference/GOOGLE_SHEETS.md). No Google login or
  * API key is stored here: only the web app URL and a shared secret, both kept encrypted. The script appends one row per enquiry and
- * updates the same row if the same enquiry is sent again (retries never create duplicates).
+ * updates the same row if the same enquiry is sent again (retries never create duplicates). Each form has its own tab (see TABS).
  */
 class SheetClient
 {
+    /** Each form gets its own tab (worksheet) in the Google Sheet. Keys are the form_name values; the script creates a tab the first time it is used. */
+    public const TABS = [
+        'hero-quiz' => 'Main Quiz',
+        'modal' => 'Get Quote Popup',
+        'package-quote' => 'Package Quote',
+        'question' => 'Ask a Question',
+        'contact' => 'Contact Form',
+    ];
+
+    public const TEST_TAB = 'Connection Test';
+
+    public static function tabFor(?string $formName): string
+    {
+        return self::TABS[$formName] ?? 'Other Forms';
+    }
+
     /** Column headers, in order. The script creates this header row on the first send. */
     public static function headers(): array
     {
@@ -109,7 +125,7 @@ class SheetClient
     /** Append (or update) the enquiry's row. Throws with a readable message on failure (the job retries). */
     public function send(Enquiry $e): void
     {
-        $this->post($this->row($e));
+        $this->post($this->row($e), self::tabFor($e->form_name));
     }
 
     /** A clearly labelled test row, so the client can see the connection works. */
@@ -123,12 +139,12 @@ class SheetClient
         $row['Last name'] = 'Row (safe to delete)';
         $row['Message'] = 'Sent from Admin > Google Sheets to check the connection.';
         $row['UTM source (last)'] = 'test';
-        $this->post($row);
+        $this->post($row, self::TEST_TAB);
     }
 
-    private function post(array $row): void
+    private function post(array $row, string $tab): void
     {
-        $res = $this->http()->post((string) $this->url(), ['secret' => (string) $this->secret(), 'headers' => self::headers(), 'row' => $row]);
+        $res = $this->http()->post((string) $this->url(), ['secret' => (string) $this->secret(), 'tab' => $tab, 'headers' => self::headers(), 'row' => $row]);
 
         if (! $res->successful()) {
             throw new \RuntimeException('Google answered with error '.$res->status().'. Check that the web app is deployed with access set to "Anyone".');

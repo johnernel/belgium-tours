@@ -7,6 +7,7 @@ Every form submission (quiz, quote popup, package quote, ask-a-question, contact
 - Nothing from Google is stored on the site except the web app URL and the secret, both kept **encrypted** (`sheet_webhook_url`, `sheet_secret` in the settings table; `.env` fallbacks `GOOGLE_SHEET_WEBHOOK_URL`, `GOOGLE_SHEET_SECRET`).
 - `EnquiryService` saves the enquiry, then (after the GoHighLevel sync) calls `SyncEnquiryToSheet::dispatchSync`. A failure never fails the enquiry: it is recorded in `enquiries.sheet_status` / `sheet_error` and a delayed queued retry is added. "Send to sheet" on an enquiry page and "Send past enquiries" (25 per click) in the admin screen cover the rest.
 - The script finds a row by Enquiry ID, so sending the same enquiry again **updates** its row (no duplicates). It writes every cell as plain text, so nothing a visitor types can run as a formula.
+- **One tab per form** (`SheetClient::TABS`): Main Quiz (hero-quiz), Get Quote Popup (modal), Package Quote, Ask a Question, Contact Form; anything else goes to Other Forms; the test row goes to Connection Test. The script creates each tab and its heading row the first time. If the script was deployed before this change, replace it with the current one and redeploy as a new version.
 - Columns: see `SheetClient::headers()`. The IP address, user agent and consent wording are deliberately NOT sent.
 
 ## Set-up steps (client side, about 5 minutes)

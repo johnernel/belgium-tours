@@ -74,6 +74,7 @@
             <li>Come back here, paste the URL in "Web app URL", make sure the Secret key matches, tick "Send enquiries to Google Sheets" and click <strong>Save</strong>.</li>
             <li>Click <strong>Send a test row</strong>. A line marked TEST should appear in your sheet (with the headings above it). Delete that line, then click <strong>Send past enquiries</strong> if you want the older leads too.</li>
         </ol>
+        <p class="text-sm text-slate"><strong>Already set up before the separate tabs?</strong> Replace the script in Code.gs with the one below (keep your secret key on the first line), then redeploy it as a new version (see the next line). Until you do, everything still goes to one tab.</p>
         <p class="text-sm text-slate"><strong>If you change the script later,</strong> use Deploy &gt; Manage deployments &gt; pencil icon &gt; Version: New version &gt; Deploy. The URL stays the same.</p>
 
         <div x-data="{ copied: false }">
@@ -84,7 +85,7 @@
             </div>
 @verbatim
 <textarea id="sh-script" x-ref="script" readonly rows="16" spellcheck="false" class="block w-full rounded-xl border-2 border-slate/30 bg-white p-3 font-mono text-xs leading-relaxed focus:border-ink focus:outline-none">const SECRET = 'PASTE_YOUR_SECRET_KEY_HERE';
-const SHEET_NAME = 'Leads';
+const DEFAULT_TAB = 'Other Forms';
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -94,7 +95,9 @@ function doPost(e) {
     lock.waitLock(20000);
 
     const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+    // One tab per form: the site tells the script which tab to use, and the tab is created the first time.
+    const tabName = String(data.tab || DEFAULT_TAB).replace(/[\[\]\*\/\\\?:]/g, ' ').slice(0, 90);
+    const sheet = ss.getSheetByName(tabName) || ss.insertSheet(tabName);
     const headers = data.headers;
     if (sheet.getLastRow() === 0) {
       sheet.getRange(1, 1, 1, headers.length).setNumberFormat('@').setValues([headers]).setFontWeight('bold');
@@ -132,7 +135,12 @@ function out(obj) {
     </section>
 
     <section class="rounded-2xl bg-paper p-6 shadow-card">
-        <h2 class="text-xl">What goes into each row</h2>
+        <h2 class="text-xl">Which tab each form goes to</h2>
+        <ul class="mt-2 space-y-1 text-sm text-slate">
+            @foreach($tabs as $form => $tab)<li><strong>{{ $tab }}</strong>: {{ $formLabels[$form] ?? $form }}</li>@endforeach
+        </ul>
+        <p class="mt-2 text-sm text-slate">The tabs are created automatically the first time a form is used, each with the same column headings. The test row goes to a tab called {{ $testTab }}; you can delete that tab afterwards.</p>
+        <h2 class="mt-6 text-xl">What goes into each row</h2>
         <p class="mt-2 text-sm text-slate">{{ implode(' · ', $columns) }}.</p>
         <p class="mt-2 text-sm text-slate">The visitor's IP address, browser details and the consent wording are not sent to the sheet (they stay in Enquiries). Anyone you share the sheet with can read the leads, so share it carefully.</p>
     </section>

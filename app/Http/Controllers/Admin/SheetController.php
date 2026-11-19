@@ -34,6 +34,9 @@ class SheetController extends Controller
             'counts' => collect(['synced', 'failed', 'pending', 'skipped'])->mapWithKeys(fn ($s) => [$s => Enquiry::where('sheet_status', $s)->count()])->all(),
             'notSent' => Enquiry::where(fn ($q) => $q->whereNull('sheet_status')->orWhereIn('sheet_status', ['failed', 'pending', 'skipped']))->count(),
             'columns' => SheetClient::headers(),
+            'tabs' => SheetClient::TABS,
+            'testTab' => SheetClient::TEST_TAB,
+            'formLabels' => ['hero-quiz' => 'the main quiz form (home, tour type, destination and other pages)', 'modal' => 'the Get Quote popup form', 'package-quote' => 'the quote form on a package page', 'question' => 'the Ask a Question form', 'contact' => 'the Contact page form'],
         ]);
     }
 

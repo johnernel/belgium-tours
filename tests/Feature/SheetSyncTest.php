@@ -59,6 +59,7 @@ class SheetSyncTest extends TestCase
             $row = $r['row'];
 
             return $r['secret'] === 'secret-key-123456'
+                && $r['tab'] === 'Contact Form'
                 && $r['headers'] === SheetClient::headers()
                 && $row['Email'] === 'ann@example.com'
                 && $row['UTM source (last)'] === 'google'
@@ -69,6 +70,24 @@ class SheetSyncTest extends TestCase
                 && ! array_key_exists('IP', $row);
         });
         $this->assertSame('synced', Enquiry::firstOrFail()->sheet_status);
+    }
+
+    public function test_each_form_goes_to_its_own_tab(): void
+    {
+        $this->assertSame('Main Quiz', SheetClient::tabFor('hero-quiz'));
+        $this->assertSame('Get Quote Popup', SheetClient::tabFor('modal'));
+        $this->assertSame('Package Quote', SheetClient::tabFor('package-quote'));
+        $this->assertSame('Ask a Question', SheetClient::tabFor('question'));
+        $this->assertSame('Contact Form', SheetClient::tabFor('contact'));
+        $this->assertSame('Other Forms', SheetClient::tabFor('something-new'));
+        $this->assertCount(5, array_unique(SheetClient::TABS));
+
+        $this->connect();
+        Http::fake(['www.google.com/recaptcha/*' => Http::response(['success' => true]), 'script.google.com/*' => Http::response(['ok' => true])]);
+        $this->postJson('/enquiry', $this->payload(['form_name' => 'hero-quiz']))->assertOk();
+        $this->postJson('/enquiry', $this->payload(['form_name' => 'modal', 'email' => 'b@example.com']))->assertOk();
+        Http::assertSent(fn (Request $r) => str_starts_with($r->url(), 'https://script.google.com/') && $r['tab'] === 'Main Quiz');
+        Http::assertSent(fn (Request $r) => str_starts_with($r->url(), 'https://script.google.com/') && $r['tab'] === 'Get Quote Popup');
     }
 
     public function test_a_failing_sheet_never_fails_the_enquiry(): void
