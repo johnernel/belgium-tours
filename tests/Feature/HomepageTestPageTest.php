@@ -59,5 +59,11 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('snap-x snap-mandatory', $html);
         $this->assertSame(3, substr_count($html, 'w-[calc(100vw-2rem)]'), 'three cards, each 100vw minus 2rem so the next one peeks');
         $this->assertStringContainsString('aria-label="Choose a card"', $html, 'pagination dots');
+        $this->assertStringContainsString('aria-label="Previous card"', $html, 'previous arrow');
+        $this->assertStringContainsString('aria-label="Next card"', $html, 'next arrow');
+        $this->assertStringContainsString('Our Packages', $html, 'the packages section label');
+        $this->assertStringNotContainsString('Signature journeys', $html);
+        $this->assertStringContainsString('w-[calc(100%-2rem)] shrink-0 snap-start', $html, 'package cards leave a 20px peek on phones');
+        $this->assertStringContainsString('whitespace-nowrap font-display text-xl sm:text-3xl', $html, 'flag headings stay on one line on phones');
     }
 }

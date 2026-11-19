@@ -145,10 +145,17 @@
         @endforeach
     </div>
     {{-- Pagination dots (same pills as the package carousels), phones only --}}
-    <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-2 md:hidden" role="group" aria-label="Choose a card">
-        <template x-for="p in pages" :key="p">
-            <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
-        </template>
+    <div x-show="pages > 1" x-cloak class="mt-6 md:hidden">
+        <div class="flex items-center justify-center gap-4">
+            <button type="button" @click="prev()" :disabled="page === 0" aria-label="Previous card" class="grid size-11 place-items-center rounded-full border-2 border-ink/25 text-ink transition hover:border-ink hover:bg-ink hover:text-cream disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5 rotate-180')</button>
+            <div class="flex items-center gap-2" role="group" aria-label="Choose a card">
+                <template x-for="p in pages" :key="p">
+                    <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                </template>
+            </div>
+            <button type="button" @click="next()" :disabled="page >= pages - 1" aria-label="Next card" class="grid size-11 place-items-center rounded-full border-2 border-ink/25 text-ink transition hover:border-ink hover:bg-ink hover:text-cream disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5')</button>
+        </div>
+        <p class="mt-2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate" aria-live="polite"><span x-text="page + 1"></span> / <span x-text="pages"></span></p>
     </div>
     </div>
 </section>
@@ -156,20 +163,20 @@
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="ht-packages">
     <div class="container-page space-y-16">
         <div class="mx-auto max-w-2xl text-center">
-            @include('partials.ht-eyebrow', ['label' => 'Signature journeys', 'center' => true])
+            @include('partials.ht-eyebrow', ['label' => 'Our Packages', 'center' => true])
             <h2 id="ht-packages" class="mt-5 font-serif text-heading">@heading('Trips for *Every* Traveller')</h2>
         </div>
         @foreach($tourTypes as $t)
             @if($t->packages->isNotEmpty())
                 <div x-data="pageCarousel()" role="region" aria-roledescription="carousel" aria-label="{{ $t->name }} trips">
                     <div class="flex flex-wrap items-end justify-between gap-4 border-b border-ink/15 pb-4">
-                        <h3 class="flex items-center gap-3 font-display text-3xl"><svg viewBox="0 0 15 13" class="h-[1.15rem] w-[1.35rem] shrink-0 rounded-[3px] shadow-sm ring-1 ring-ink/10" role="img" aria-label="Belgium flag"><rect width="5" height="13" fill="#000"/><rect x="5" width="5" height="13" fill="#FAE042"/><rect x="10" width="5" height="13" fill="#ED2939"/></svg><span>{{ $t->name }} Packages</span></h3>
+                        <h3 class="flex items-center gap-3 whitespace-nowrap font-display text-xl sm:text-3xl"><svg viewBox="0 0 15 13" class="h-[1.15rem] w-[1.35rem] shrink-0 rounded-[3px] shadow-sm ring-1 ring-ink/10" role="img" aria-label="Belgium flag"><rect width="5" height="13" fill="#000"/><rect x="5" width="5" height="13" fill="#FAE042"/><rect x="10" width="5" height="13" fill="#ED2939"/></svg><span>{{ $t->name }} Packages</span></h3>
                         <a href="{{ route('tours.show', $t->slug) }}" class="inline-flex min-h-11 items-center gap-2 border-2 border-ink px-5 text-sm font-semibold hover:bg-ink hover:text-cream">View all @icon('arrow-right', 'size-4')</a>
                     </div>
                     <div x-ref="track" @scroll.passive="update()" @keydown.arrow-left.prevent="prev()" @keydown.arrow-right.prevent="next()" tabindex="0" aria-label="{{ $t->name }} packages, swipe or use the arrows"
-                         class="relative mt-8 flex snap-x snap-mandatory items-stretch gap-6 overflow-x-auto scroll-smooth pb-4 [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden">
+                         class="relative mt-8 flex snap-x snap-mandatory items-stretch gap-3 overflow-x-auto scroll-smooth pb-4 max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-[''] sm:gap-6 [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden">
                         @foreach($t->packages as $package)
-                            <div class="flex w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] [&>*]:w-full" role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
+                            <div class="flex w-[calc(100%-2rem)] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] [&>*]:w-full" role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
                                 @include('partials.package-card', ['package' => $package, 'square' => true])
                             </div>
                         @endforeach
