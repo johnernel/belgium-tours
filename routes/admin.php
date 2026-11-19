@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CodeSnippetController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\EnquiryController;
@@ -73,6 +74,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('ghl', [GhlController::class, 'update'])->name('ghl.update');
         Route::post('ghl/test', [GhlController::class, 'test'])->name('ghl.test');
         Route::post('ghl/setup', [GhlController::class, 'setup'])->name('ghl.setup');
+        Route::post('snippets/{snippet}/toggle', [CodeSnippetController::class, 'toggle'])->name('snippets.toggle');
+        Route::resource('snippets', CodeSnippetController::class)->except('show');
         Route::get('sheets', [SheetController::class, 'edit'])->name('sheets.edit');
         Route::put('sheets', [SheetController::class, 'update'])->name('sheets.update');
         Route::post('sheets/test', [SheetController::class, 'test'])->name('sheets.test');

@@ -28,6 +28,7 @@
         ['admin.team.index', 'Team', 'users'],
         ['admin.media.index', 'Media', 'plane'],
         ['admin.settings.edit', 'Settings', 'shield'],
+        ['admin.snippets.index', 'Header & Footer', 'menu'],
         ['admin.ghl.edit', 'GoHighLevel', 'globe'],
         ['admin.sheets.edit', 'Google Sheets', 'wallet'],
         ['admin.recaptcha.edit', 'reCAPTCHA', 'shield'],

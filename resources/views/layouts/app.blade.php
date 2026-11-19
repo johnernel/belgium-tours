@@ -55,8 +55,11 @@
         'sameAs' => array_values(array_filter([$site->facebook, $site->instagram])) ?: null,
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}</script>
     @stack('schema')
+    {{-- Custom code from Admin > Header & Footer, output exactly as saved --}}
+    {!! \App\Support\Snippets::render('head') !!}
 </head>
 <body class="min-h-screen" x-data>
+    {!! \App\Support\Snippets::render('body_start') !!}
     @if($site->gtm)
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $site->gtm }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @endif
@@ -74,5 +77,6 @@
     @include('partials.enquiry-modal')
 
     @stack('scripts')
+    {!! \App\Support\Snippets::render('body_end') !!}
 </body>
 </html>
