@@ -48,4 +48,16 @@ class HomepageTestPageTest extends TestCase
             $this->assertSame(1, substr_count($html, '<h1'), "$url one h1");
         }
     }
+
+    public function test_on_phones_two_sections_are_hidden_and_the_ways_cards_become_a_snap_carousel_with_dots(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertMatchesRegularExpression('~<section class="[^"]*max-md:hidden[^"]*" aria-label="Why travel with us">~', $html, 'feature strip hidden on phones');
+        $this->assertMatchesRegularExpression('~<section class="[^"]*max-md:hidden[^"]*" aria-labelledby="ht-about">~', $html, 'tailor-made section hidden on phones');
+        $this->assertStringContainsString('aria-label="Ways to travel, swipe to see more"', $html);
+        $this->assertStringContainsString('snap-x snap-mandatory', $html);
+        $this->assertSame(3, substr_count($html, 'w-[calc(100vw-2rem)]'), 'three cards, each 100vw minus 2rem so the next one peeks');
+        $this->assertStringContainsString('aria-label="Choose a card"', $html, 'pagination dots');
+    }
 }

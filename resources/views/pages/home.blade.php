@@ -72,7 +72,7 @@
         ['headset', 'Customer Support', 'Dedicated personal support from start to finish.'],
     ];
 @endphp
-<section class="relative z-10 bg-white" aria-label="Why travel with us">
+<section class="relative z-10 bg-white max-md:hidden" aria-label="Why travel with us">
     <div class="container-page grid gap-y-8 py-9 sm:grid-cols-2 xl:grid-cols-4 lg:py-10">
         @foreach($strip as [$ic, $title, $text])
             <div class="flex items-start gap-3 {{ $loop->first ? 'xl:pr-5' : ($loop->last ? 'xl:border-l xl:border-ink/15 xl:pl-5' : 'xl:border-l xl:border-ink/15 xl:px-5') }}">
@@ -86,7 +86,7 @@
     </div>
 </section>
 {{-- 3. ABOUT / TAILOR-MADE: big photo with a small overlapping one, copy and checklist --}}
-<section class="bg-ivory py-16 sm:py-24" aria-labelledby="ht-about">
+<section class="bg-ivory py-16 max-md:hidden sm:py-24" aria-labelledby="ht-about">
     <div class="container-page grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
         <div class="relative pb-10 pr-8 sm:pr-14">
             <div class="relative aspect-[4/5] overflow-hidden shadow-card">
@@ -128,9 +128,11 @@
             <p class="mt-4 text-lg text-slate">{{ $c('ways_sub') ?: 'Choose how you move. We handle everything else.' }}</p>
         </div>
     </div>
-    <div class="mt-12 grid gap-5 md:grid-cols-3">
+    {{-- Phones: a swipeable scroll-snap carousel (one card at a time, the next card peeks 20px in from the right) with dots; from md up: the three equal columns --}}
+    <div class="mt-12" x-data="pageCarousel()">
+    <div x-ref="track" @scroll.passive="update()" tabindex="0" aria-label="Ways to travel, swipe to see more" class="relative flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pr-8 [scrollbar-width:none] motion-reduce:scroll-auto md:grid md:snap-none md:grid-cols-3 md:gap-5 md:overflow-visible md:pr-0 [&::-webkit-scrollbar]:hidden">
         @foreach($tourTypes as $t)
-            <article class="group relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden bg-ink p-6 text-white sm:min-h-[30rem] lg:min-h-[32rem] lg:p-8">
+            <article class="group relative isolate flex w-[calc(100vw-2rem)] shrink-0 snap-start min-h-[26rem] flex-col justify-end overflow-hidden bg-ink p-6 text-white sm:min-h-[30rem] lg:min-h-[32rem] lg:p-8 md:w-auto md:shrink">
                 @if($t->image)<x-photo :base="$t->image" alt="" :widths="[480, 800, 1280, 1600]" sizes="(min-width:768px) 34vw, 100vw" fetchpriority="low" :ratio="[1600, 1067]" class="absolute inset-0 -z-20 size-full transition-transform duration-700 group-hover:scale-105" />@endif
                 <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent"></div>
                 <h3 class="font-display text-3xl font-semibold leading-tight text-white lg:text-[2rem]"><a href="{{ route('tours.show', $t->slug) }}" class="hover:text-amber">{{ $t->name }}</a></h3>
@@ -141,6 +143,13 @@
                 </div>
             </article>
         @endforeach
+    </div>
+    {{-- Pagination dots (same pills as the package carousels), phones only --}}
+    <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-2 md:hidden" role="group" aria-label="Choose a card">
+        <template x-for="p in pages" :key="p">
+            <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+        </template>
+    </div>
     </div>
 </section>
 {{-- 5. PACKAGES: one swipeable carousel per tour type (3 cards per view on desktop, 2 on tablet, 1 on mobile), page indicator, no autoplay --}}
