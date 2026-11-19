@@ -66,4 +66,14 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('w-[calc(100%-2rem)] shrink-0 snap-start', $html, 'package cards leave a 20px peek on phones');
         $this->assertStringContainsString('whitespace-nowrap font-display text-xl sm:text-3xl', $html, 'flag headings stay on one line on phones');
     }
+
+    public function test_on_phones_the_package_card_is_horizontal_and_view_all_moves_below_each_carousel(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('max-sm:flex-row max-sm:rounded-none max-sm:p-0', $html, 'horizontal square card on phones');
+        $this->assertStringContainsString('max-sm:hidden">View all', $html, 'the heading View all is hidden on phones');
+        $this->assertSame(3, substr_count($html, 'View all packages'), 'one View all packages link under each of the three carousels');
+        $this->assertStringContainsString('sm:hidden">View all packages', $html, 'and they only show on phones');
+    }
 }

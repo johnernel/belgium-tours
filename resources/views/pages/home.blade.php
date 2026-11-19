@@ -171,7 +171,7 @@
                 <div x-data="pageCarousel()" role="region" aria-roledescription="carousel" aria-label="{{ $t->name }} trips">
                     <div class="flex flex-wrap items-end justify-between gap-4 border-b border-ink/15 pb-4">
                         <h3 class="flex items-center gap-3 whitespace-nowrap font-display text-xl sm:text-3xl"><svg viewBox="0 0 15 13" class="h-[1.15rem] w-[1.35rem] shrink-0 rounded-[3px] shadow-sm ring-1 ring-ink/10" role="img" aria-label="Belgium flag"><rect width="5" height="13" fill="#000"/><rect x="5" width="5" height="13" fill="#FAE042"/><rect x="10" width="5" height="13" fill="#ED2939"/></svg><span>{{ $t->name }} Packages</span></h3>
-                        <a href="{{ route('tours.show', $t->slug) }}" class="inline-flex min-h-11 items-center gap-2 border-2 border-ink px-5 text-sm font-semibold hover:bg-ink hover:text-cream">View all @icon('arrow-right', 'size-4')</a>
+                        <a href="{{ route('tours.show', $t->slug) }}" class="inline-flex min-h-11 items-center gap-2 border-2 border-ink px-5 text-sm font-semibold hover:bg-ink hover:text-cream max-sm:hidden">View all @icon('arrow-right', 'size-4')</a>
                     </div>
                     <div x-ref="track" @scroll.passive="update()" @keydown.arrow-left.prevent="prev()" @keydown.arrow-right.prevent="next()" tabindex="0" aria-label="{{ $t->name }} packages, swipe or use the arrows"
                          class="relative mt-8 flex snap-x snap-mandatory items-stretch gap-3 overflow-x-auto scroll-smooth pb-4 max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-[''] sm:gap-6 [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden">
@@ -196,6 +196,8 @@
                                 class="grid size-11 place-items-center rounded-full border-2 border-ink/25 text-ink transition hover:border-ink hover:bg-ink hover:text-cream disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5')</button>
                     </div>
                     <p x-show="pages > 1" x-cloak class="mt-2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate" aria-live="polite"><span x-text="page + 1"></span> / <span x-text="pages"></span></p>
+                    {{-- Phones only: the "View all" link moves from the heading row to below the carousel --}}
+                    <a href="{{ route('tours.show', $t->slug) }}" class="mt-6 flex min-h-12 w-full items-center justify-center gap-2 border-2 border-ink text-sm font-semibold uppercase tracking-[0.14em] hover:bg-ink hover:text-cream sm:hidden">View all packages @icon('arrow-right', 'size-4')<span class="sr-only"> {{ $t->name }}</span></a>
                 </div>
             @endif
         @endforeach
