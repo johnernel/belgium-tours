@@ -128,5 +128,6 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('aria-label="Destinations, swipe to see more"', $html);
         $this->assertSame(6, substr_count($html, 'max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start sm:p-6'), 'six destination cards, each leaving a 20px peek');
         $this->assertStringContainsString('sm:gap-6 lg:grid-cols-3', $html, 'the grid from sm up is kept');
+        $this->assertStringContainsString('aria-label="Choose a destination"', $html, 'pagination dots for the phone carousel');
     }
 }
