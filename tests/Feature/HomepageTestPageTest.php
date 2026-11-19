@@ -96,4 +96,13 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('max-sm:mx-auto', $html, 'the amber bar is centred too');
         $this->assertMatchesRegularExpression('~<p class="hero-rise hero-rise-2 mt-7 [^"]*max-sm:hidden~', $html, 'the description paragraph is hidden on phones only');
     }
+
+    public function test_on_phones_the_why_travel_with_us_cards_become_a_snap_carousel_with_dots(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('aria-label="Why travel with us, swipe to see more"', $html);
+        $this->assertSame(4, substr_count($html, 'max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start border') + substr_count($html, 'shadow-[0_8px_22px_-14px_var(--color-mist-deep)] max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start'), 'four cards, each leaving a 20px peek on phones');
+        $this->assertStringContainsString('max-sm:snap-x max-sm:snap-mandatory', $html);
+        $this->assertStringContainsString('sm:grid-cols-2', $html, 'the 2x2 grid from sm up is kept');
+    }
 }

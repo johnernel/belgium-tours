@@ -221,14 +221,23 @@
             <div class="relative min-h-[20rem] overflow-hidden">
                 <x-photo base="images/photos/gravensteen" alt="" :widths="[480, 800, 1280]" sizes="(min-width:1024px) 45vw, 92vw" fetchpriority="low" :ratio="[1600, 1044]" class="absolute inset-0 size-full" />
             </div>
-            <div class="grid gap-4 sm:grid-cols-2">
-                @foreach($wcu as $f)
-                    <div class="border border-mist-deep bg-mist p-6 shadow-[0_8px_22px_-14px_var(--color-mist-deep)]">
-                        <span class="grid size-12 place-items-center rounded-full bg-mint text-teal-deep">@icon($f['icon'], 'size-6')</span>
-                        <h3 class="mt-4 font-display text-xl text-ink">{{ $f['title'] }}</h3>
-                        <p class="mt-2 text-[0.95rem] text-ink/80">{{ $f['text'] }}</p>
-                    </div>
-                @endforeach
+            {{-- Phones: a swipeable scroll-snap carousel (one card at a time, the next card peeks 20px in from the right) with pill dots like the package carousels; from sm up the 2x2 grid is unchanged --}}
+            <div class="min-w-0" x-data="pageCarousel()">
+                <div x-ref="track" @scroll.passive="update()" tabindex="0" aria-label="Why travel with us, swipe to see more"
+                     class="relative grid gap-4 sm:grid-cols-2 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-3 max-sm:overflow-x-auto max-sm:scroll-smooth max-sm:pb-1 max-sm:[scrollbar-width:none] max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-[''] max-sm:motion-reduce:scroll-auto max-sm:[&::-webkit-scrollbar]:hidden">
+                    @foreach($wcu as $f)
+                        <div class="border border-mist-deep bg-mist p-6 shadow-[0_8px_22px_-14px_var(--color-mist-deep)] max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start">
+                            <span class="grid size-12 place-items-center rounded-full bg-mint text-teal-deep">@icon($f['icon'], 'size-6')</span>
+                            <h3 class="mt-4 font-display text-xl text-ink">{{ $f['title'] }}</h3>
+                            <p class="mt-2 text-[0.95rem] text-ink/80">{{ $f['text'] }}</p>
+                        </div>
+                    @endforeach
+                </div>
+                <div x-show="pages > 1" x-cloak class="mt-5 flex items-center justify-center gap-2 sm:hidden" role="group" aria-label="Choose a card">
+                    <template x-for="p in pages" :key="p">
+                        <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                    </template>
+                </div>
             </div>
         </div>
     </div>
