@@ -36,6 +36,7 @@ class PackageOriginalPriceTest extends TestCase
         $this->assertStringContainsString('<s class=', $html);
         $this->assertMatchesRegularExpression('~<s [^>]*>From '.preg_quote(self::EUR, '~').'1,800</s>~u', $html, 'the word From and the old price are struck together');
         $this->assertStringContainsString(self::EUR.'1,500', $html);
+        $this->assertTrue(strpos($html, 'Was from '.self::EUR.'1,800') < strpos($html, self::EUR.'1,500</p>'), 'the crossed-out line comes before (above) the current price');
         $this->assertStringContainsString('Was from '.self::EUR.'1,800', $html);
     }
 
