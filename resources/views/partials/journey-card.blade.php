@@ -43,10 +43,11 @@
     <div class="mt-auto pt-4">
         @if($package->price_from !== null)
             @if($package->original_price !== null && (float) $package->original_price > (float) $package->price_from)
-                {{-- Reduced price: "From" and the original price crossed out, on their own line above the current price --}}
+                {{-- Reduced price: "From" and the original price crossed out on their own line, then the current price with NO separate "From" label --}}
                 <p class="mb-1"><s class="text-sm font-semibold {{ $muted }}" aria-label="Was from {{ $symbol }}{{ number_format((float) $package->original_price) }}">From {{ $symbol }}{{ number_format((float) $package->original_price) }}</s></p>
+            @else
+                <p class="text-[0.65rem] font-semibold uppercase tracking-[0.18em] {{ $muted }}">From</p>
             @endif
-            <p class="text-[0.65rem] font-semibold uppercase tracking-[0.18em] {{ $muted }}">From</p>
             <p class="font-display text-3xl leading-none text-amber">{{ $symbol }}{{ number_format((float) $package->price_from) }}</p>
             <p class="mt-1 text-xs {{ $muted }}">per person</p>        @else
             <p class="font-display text-2xl leading-none text-amber">Price on request</p>

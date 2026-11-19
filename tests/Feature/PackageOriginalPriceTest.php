@@ -38,6 +38,7 @@ class PackageOriginalPriceTest extends TestCase
         $this->assertStringContainsString(self::EUR.'1,500', $html);
         $this->assertTrue(strpos($html, 'Was from '.self::EUR.'1,800') < strpos($html, self::EUR.'1,500</p>'), 'the crossed-out line comes before (above) the current price');
         $this->assertStringContainsString('Was from '.self::EUR.'1,800', $html);
+        $this->assertDoesNotMatchRegularExpression('~uppercase tracking-\[0\.18em\][^>]*>From</p>~', $html, 'no plain From label above the current price on a reduced card');
     }
 
     public function test_no_strikethrough_without_an_original_price_or_when_it_is_not_higher(): void
@@ -46,6 +47,7 @@ class PackageOriginalPriceTest extends TestCase
         $html = $this->get('/packages')->assertOk()->getContent();
         $this->assertStringNotContainsString('<s class=', $html);
         $this->assertStringContainsString(self::EUR.'1,500', $html);
+        $this->assertMatchesRegularExpression('~uppercase tracking-\[0\.18em\][^>]*>From</p>~', $html, 'a normal card keeps its From label');
 
         $this->package(['price_from' => 1500, 'original_price' => 1200]);
         $this->assertStringNotContainsString('<s class=', $this->get('/packages')->getContent());
