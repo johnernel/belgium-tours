@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GhlController;
+use App\Http\Controllers\Admin\SheetController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PageController;
@@ -32,6 +33,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('enquiries/export', [EnquiryController::class, 'export'])->name('enquiries.export');
         Route::post('enquiries/{enquiry}/ghl-retry', [EnquiryController::class, 'retryGhl'])->name('enquiries.ghl-retry');
+        Route::post('enquiries/{enquiry}/sheet-retry', [EnquiryController::class, 'retrySheet'])->name('enquiries.sheet-retry');
         Route::resource('enquiries', EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);
 
         Route::post('packages/{package}/duplicate', [PackageController::class, 'duplicate'])->name('packages.duplicate');
@@ -71,6 +73,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('ghl', [GhlController::class, 'update'])->name('ghl.update');
         Route::post('ghl/test', [GhlController::class, 'test'])->name('ghl.test');
         Route::post('ghl/setup', [GhlController::class, 'setup'])->name('ghl.setup');
+        Route::get('sheets', [SheetController::class, 'edit'])->name('sheets.edit');
+        Route::put('sheets', [SheetController::class, 'update'])->name('sheets.update');
+        Route::post('sheets/test', [SheetController::class, 'test'])->name('sheets.test');
+        Route::post('sheets/backfill', [SheetController::class, 'backfill'])->name('sheets.backfill');
         Route::get('recaptcha', [RecaptchaController::class, 'edit'])->name('recaptcha.edit');
         Route::put('recaptcha', [RecaptchaController::class, 'update'])->name('recaptcha.update');
         Route::post('recaptcha/test', [RecaptchaController::class, 'test'])->name('recaptcha.test');

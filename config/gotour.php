@@ -40,6 +40,12 @@ return [
         'version' => '2021-07-28',
     ],
 
+    // Google Sheets sync: normally set in Admin > Google Sheets (stored encrypted); these .env values are only a fallback.
+    'sheet' => [
+        'url' => env('GOOGLE_SHEET_WEBHOOK_URL'),
+        'secret' => env('GOOGLE_SHEET_SECRET'),
+    ],
+
     // Country dial codes offered in the phone selector: [ISO, name, dial code]
     'countries' => [
         ['US', 'United States', '1'], ['CA', 'Canada', '1'], ['GB', 'United Kingdom', '44'],

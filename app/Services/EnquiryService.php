@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Middleware\CaptureTracking;
 use App\Jobs\SyncEnquiryToGhl;
+use App\Jobs\SyncEnquiryToSheet;
 use App\Mail\EnquiryReceived;
 use App\Models\Enquiry;
 use App\Models\Package;
@@ -58,6 +59,7 @@ class EnquiryService
             'tracking_first' => CaptureTracking::read($request, 'gt_first') ?: null,
             'tracking_last' => CaptureTracking::read($request, 'gt_last') ?: null,
             'ghl_status' => app(GhlClient::class)->enabled() ? 'pending' : 'skipped',
+            'sheet_status' => app(SheetClient::class)->enabled() ? 'pending' : 'skipped',
         ]);
 
         $this->notifyStaff($enquiry);
@@ -71,6 +73,20 @@ class EnquiryService
                 report($e);
                 try {
                     SyncEnquiryToGhl::dispatch($enquiry->id)->delay(now()->addMinutes(2));
+                } catch (\Throwable $q) {
+                    report($q);
+                }
+            }
+        }
+
+        // Google Sheet: same approach, right away, never able to fail the enquiry; a failure is recorded and retried later.
+        if ($enquiry->sheet_status === 'pending') {
+            try {
+                SyncEnquiryToSheet::dispatchSync($enquiry->id);
+            } catch (\Throwable $e) {
+                report($e);
+                try {
+                    SyncEnquiryToSheet::dispatch($enquiry->id)->delay(now()->addMinutes(2));
                 } catch (\Throwable $q) {
                     report($q);
                 }

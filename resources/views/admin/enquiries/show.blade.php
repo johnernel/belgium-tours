@@ -62,6 +62,12 @@
             <form method="POST" action="{{ route('admin.enquiries.ghl-retry', $enquiry) }}" class="mt-3">@csrf<x-button type="submit" size="sm" variant="dark">Retry sync</x-button></form>
         </section>
 
+        <section class="rounded-2xl bg-paper p-5 shadow-card"><h2 class="text-xl">Google Sheet</h2>
+            <p class="mt-2">Status: <strong>{{ $enquiry->sheet_status ?: 'not sent' }}</strong></p>
+            @if($enquiry->sheet_error)<p class="mt-2 rounded-lg bg-red-50 p-2 text-sm text-red-900">{{ $enquiry->sheet_error }}</p>@endif
+            <form method="POST" action="{{ route('admin.enquiries.sheet-retry', $enquiry) }}" class="mt-3">@csrf<x-button type="submit" size="sm" variant="dark">Send to sheet</x-button></form>
+        </section>
+
         <form method="POST" action="{{ route('admin.enquiries.destroy', $enquiry) }}" onsubmit="return confirm('Delete this enquiry permanently? Consent evidence will be lost.')">
             @csrf @method('DELETE')<x-button type="submit" variant="outline" size="sm">Delete enquiry</x-button>
         </form>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SyncEnquiryToGhl;
+use App\Jobs\SyncEnquiryToSheet;
+use App\Services\SheetClient;
 use App\Models\Enquiry;
 use App\Services\GhlClient;
 use Illuminate\Http\Request;
@@ -74,6 +76,26 @@ class EnquiryController extends Controller
         }
 
         return back()->with('status', 'GoHighLevel sync '.($enquiry->fresh()->ghl_status === 'synced' ? 'completed.' : 'queued. Check the status below.'));
+    }
+
+    public function retrySheet(Enquiry $enquiry, SheetClient $sheet)
+    {
+        if (! $sheet->enabled()) {
+            return back()->withErrors(['sheet' => 'Google Sheets is off. Set it up in Admin > Google Sheets first.']);
+        }
+
+        $enquiry->update(['sheet_status' => 'pending', 'sheet_error' => null]);
+        try {
+            SyncEnquiryToSheet::dispatchSync($enquiry->id);
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        $fresh = $enquiry->fresh();
+
+        return $fresh->sheet_status === 'synced'
+            ? back()->with('status', 'Sent to the Google Sheet.')
+            : back()->withErrors(['sheet' => 'The Google Sheet send failed: '.($fresh->sheet_error ?: 'unknown error')]);
     }
 
     public function export(Request $request): StreamedResponse
