@@ -8,7 +8,7 @@
     $inc = implode("\n", $package->inclusions ?? []);
     $exc = implode("\n", $package->exclusions ?? []);
 @endphp
-<form method="POST" enctype="multipart/form-data" class="max-w-4xl space-y-6"
+<form method="POST" enctype="multipart/form-data" class="w-full max-w-none space-y-6"
       action="{{ $package->exists ? route('admin.packages.update', $package) : route('admin.packages.store') }}">
     @csrf
     @if($package->exists)@method('PUT')@endif
@@ -21,12 +21,13 @@
             <x-admin.input name="sort" type="number" label="Order (smaller shows first)" :value="$package->sort" />
             <x-admin.select name="tour_type_id" label="Tour type" :options="$tourTypes" :value="$package->tour_type_id" blank="None" />
             <x-admin.select name="destination_id" label="Region" :options="$destinations" :value="$package->destination_id" blank="None" />
+        </div>
+        {{-- Pricing row: four equal columns (two per row on small screens), nothing wraps or drops out of line --}}
+        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <x-admin.input name="nights" type="number" label="Nights" :value="$package->nights" :required="true" />
-            <div class="grid grid-cols-[1fr_6rem] gap-3">
-                <x-admin.input name="price_from" type="number" step="0.01" label="From price (per person)" :value="$package->price_from" help="Leave blank to show Price on request." />
-                <x-admin.input name="original_price" type="number" step="0.01" label="Original price (crossed out, optional)" :value="$package->original_price" help="Shows From and this price crossed out beside the current price on the package cards. Leave blank for no strikethrough. Must be higher than the From price." />
-                <x-admin.select name="currency" label="Currency" :options="['EUR' => 'EUR', 'USD' => 'USD', 'GBP' => 'GBP']" :value="$package->currency" />
-            </div>
+            <x-admin.input name="price_from" type="number" step="0.01" label="From price (per person)" :value="$package->price_from" help="Blank shows Price on request." />
+            <x-admin.input name="original_price" type="number" step="0.01" label="Original price (optional)" :value="$package->original_price" help="Shown crossed out with From beside the price. Must be higher than the From price." />
+            <x-admin.select name="currency" label="Currency" :options="['EUR' => 'EUR', 'USD' => 'USD', 'GBP' => 'GBP']" :value="$package->currency" />
         </div>
         <div>
             <p class="mb-1 text-sm font-semibold">Destinations this tour visits</p>
