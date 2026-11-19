@@ -157,3 +157,11 @@ h1, h2, h3, h4, .font-display, .font-serif {
 .on-dark.heading-accent {
     color: var(--color-amber);
 }
+
+/* Phones (below 640px): every section heading (the 	ext-heading utility) is about 12% smaller. The line height is a unitless 1.1, so it shrinks with the size. */
+/* Phones: section headings */
+@media (max-width: 639.98px) {
+    :root {
+        --text-heading: 44px;
+    }
+}

@@ -51,7 +51,7 @@
     <div class="container-page relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(9rem+1.5rem)]">
         <div class="lg:pt-24">
             <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card">@icon('star', 'size-4 text-amber-deep') Authentic Trips, Belgian Heart</p>
-            <h1 class="on-dark hero-rise mt-6 font-serif text-5xl font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
+            <h1 class="on-dark hero-rise mt-6 font-serif text-[2.65rem] font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
                 {{ $hl1 }}<br><span class="text-amber">{{ $hl2 }}</span>
             </h1>
             <span class="hero-rise mt-4 block h-0.5 w-24 bg-amber" aria-hidden="true"></span>
@@ -209,9 +209,9 @@
     {{-- Decorative Antwerp skyline (client-supplied image turned into a soft tint), bottom right, behind everything; hidden on phones --}}
     <img src="{{ asset('images/decor/antwerp-skyline.webp') }}" alt="" aria-hidden="true" width="927" height="617" loading="lazy" class="pointer-events-none absolute bottom-0 right-0 -z-10 hidden h-[24rem] w-auto max-w-[60%] select-none opacity-60 md:block lg:h-[28rem]">
     <div class="container-page">
-        <div class="flex flex-wrap items-end justify-between gap-6">
+        <div class="flex flex-wrap items-end justify-between gap-6 max-md:justify-center max-md:text-center">
             <div class="max-w-2xl">
-                @include('partials.ht-eyebrow', ['label' => $c('wcu_eyebrow') ?: 'Why choose us'])
+                @include('partials.ht-eyebrow', ['label' => $c('wcu_eyebrow') ?: 'Why choose us', 'mobileCenter' => true])
                 <h2 id="ht-wcu" class="mt-5 font-serif text-heading">@heading($c('wcu_heading') ?: 'Why Choose *Us*')</h2>
                 @if($c('wcu_sub'))<p class="mt-4 text-lg text-ink/85">{{ $c('wcu_sub') }}</p>@endif
             </div>

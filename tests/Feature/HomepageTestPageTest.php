@@ -76,4 +76,16 @@ class HomepageTestPageTest extends TestCase
         $this->assertSame(3, substr_count($html, 'View all packages'), 'one View all packages link under each of the three carousels');
         $this->assertStringContainsString('sm:hidden">View all packages', $html, 'and they only show on phones');
     }
+
+    public function test_phone_typography_and_the_centred_why_travel_with_us_text(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('max-md:justify-center max-md:text-center', $html, 'the Why Travel With Us block is centred on phones');
+        $this->assertStringContainsString('max-md:items-center max-md:text-center', $html, 'and so is its small label');
+        $this->assertStringContainsString('text-[2.65rem]', $html, 'the hero headline is smaller on phones');
+
+        $css = file_get_contents(base_path('resources/css/brand.css'));
+        $this->assertMatchesRegularExpression('~@media \(max-width: 639\.98px\) \{\s*:root \{\s*--text-heading: 44px;~', $css, 'section headings are 44px on phones');
+        $this->assertStringContainsString('--text-heading: 50px;', $css, 'and still 50px from the sm breakpoint up');
+    }
 }

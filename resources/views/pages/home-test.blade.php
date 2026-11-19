@@ -59,7 +59,7 @@
     {{-- Same layout as the other pages: headline and description centred beside the main quiz form --}}
     <div class="container-page relative z-10 grid w-full flex-1 items-center gap-10 pb-6 pt-[calc(4.5rem+3rem)] sm:pb-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:pt-[calc(4.5rem+2rem)]">
         <div>
-            <h1 class="on-dark hero-rise font-serif font-medium !text-white max-w-[16ch] text-5xl leading-[1.02] sm:text-6xl lg:max-w-[14ch] lg:text-[4.5rem]">@heading($headline)</h1>
+            <h1 class="on-dark hero-rise font-serif font-medium !text-white max-w-[16ch] text-[2.65rem] leading-[1.02] sm:text-6xl lg:max-w-[14ch] lg:text-[4.5rem]">@heading($headline)</h1>
             <p class="hero-rise hero-rise-2 mt-8 max-w-lg text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
         </div>
 
