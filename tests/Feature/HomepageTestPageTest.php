@@ -88,4 +88,12 @@ class HomepageTestPageTest extends TestCase
         $this->assertMatchesRegularExpression('~@media \(max-width: 639\.98px\) \{\s*:root \{\s*--text-heading: 44px;~', $css, 'section headings are 44px on phones');
         $this->assertStringContainsString('--text-heading: 50px;', $css, 'and still 50px from the sm breakpoint up');
     }
+
+    public function test_on_phones_the_hero_text_is_centred_and_the_description_is_hidden(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('lg:pt-24 max-sm:text-center', $html);
+        $this->assertStringContainsString('max-sm:mx-auto', $html, 'the amber bar is centred too');
+        $this->assertMatchesRegularExpression('~<p class="hero-rise hero-rise-2 mt-7 [^"]*max-sm:hidden~', $html, 'the description paragraph is hidden on phones only');
+    }
 }
