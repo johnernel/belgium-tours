@@ -121,4 +121,12 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]', $html, 'tablet and desktop widths are kept');
         $this->assertStringContainsString('max-sm:after:w-5', $html, 'a trailing spacer lets the last card scroll fully into view');
     }
+
+    public function test_on_phones_the_destination_cards_become_a_snap_carousel(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('aria-label="Destinations, swipe to see more"', $html);
+        $this->assertSame(6, substr_count($html, 'max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start sm:p-6'), 'six destination cards, each leaving a 20px peek');
+        $this->assertStringContainsString('sm:gap-6 lg:grid-cols-3', $html, 'the grid from sm up is kept');
+    }
 }

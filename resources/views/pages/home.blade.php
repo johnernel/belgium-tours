@@ -350,9 +350,10 @@
             @include('partials.ht-eyebrow', ['label' => $c('dest_eyebrow') ?: 'Top destinations', 'center' => true])
             <h2 id="ht-dest" class="mt-5 font-serif text-heading">@heading('Discover the *Best of Belgium*')</h2>
         </div>
-        <div class="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
+        {{-- Phones (below sm): a swipeable scroll-snap carousel, one image card at a time with the next card peeking 20px in from the right; from sm up the grid is unchanged --}}
+        <div tabindex="0" aria-label="Destinations, swipe to see more" class="relative mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-3 max-sm:overflow-x-auto max-sm:scroll-smooth max-sm:[scrollbar-width:none] max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-['] max-sm:motion-reduce:scroll-auto max-sm:[&::-webkit-scrollbar]:hidden">
             @foreach($experiences as $e)
-                <a href="{{ route('packages.index', ['experience' => $e->slug]) }}" class="group relative isolate flex aspect-[4/3] items-end overflow-hidden bg-ink p-4 text-white sm:p-6 {{ $loop->first ? 'sm:aspect-[4/3]' : '' }}">
+                <a href="{{ route('packages.index', ['experience' => $e->slug]) }}" class="group relative isolate flex aspect-[4/3] items-end overflow-hidden bg-ink p-4 text-white max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start sm:p-6 {{ $loop->first ? 'sm:aspect-[4/3]' : '' }}">
                     @if($e->image)<x-photo :base="$e->image" :alt="$e->image_alt ?: ''" :widths="[480, 800, 1280]" sizes="(min-width:1024px) 33vw, 50vw" fetchpriority="low" :ratio="[1600, 1067]" class="absolute inset-0 -z-20 size-full transition-transform duration-700 group-hover:scale-105" style="object-position: {{ $e->image_focus ?: '50% 50%' }}" />@endif
                     <span class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></span>
                     <span class="flex w-full items-end justify-between gap-3">
