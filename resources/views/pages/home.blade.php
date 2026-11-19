@@ -26,7 +26,6 @@
         ['car', $c('marquee_3') ?: 'Self drive, chauffeur driven and coach tours'],
         ['bed', $c('marquee_4') ?: 'Hotels, routes and transfers planned for you'],
     ], fn ($t) => filled($t[1])));
-    $badges = array_values(array_filter([$c('badge_1'), $c('badge_2'), $c('badge_3')]));
 
     $nTours = fn ($n) => $n === 1 ? '1 tour' : $n.' tours';
     $why = trim($c('why_heading') ?: 'Every journey, personally crafted.');
@@ -51,19 +50,13 @@
 
     <div class="container-page relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(9rem+1.5rem)]">
         <div class="lg:pt-24">
-            @if($badges)
-                <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card">@icon('star', 'size-4 text-amber-deep') {{ $badges[0] }}</p>
-            @endif
+            <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card">@icon('star', 'size-4 text-amber-deep') Authentic Trips, Belgian Heart</p>
             <h1 class="on-dark hero-rise mt-6 font-serif text-5xl font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
                 {{ $hl1 }}<br><span class="text-amber">{{ $hl2 }}</span>
             </h1>
             <span class="hero-rise mt-4 block h-0.5 w-24 bg-amber" aria-hidden="true"></span>
             <p class="hero-rise hero-rise-2 mt-7 max-w-xl text-lg text-white/90 sm:text-xl">{{ $c('hero_sub') }}</p>
-            @if(count($badges) > 1)
-                <ul class="hero-rise hero-rise-3 mt-9 flex flex-wrap gap-x-8 gap-y-3">
-                    @foreach(array_slice($badges, 1) as $b)<li class="inline-flex items-center gap-2 font-serif text-xl text-white">@icon('check', 'size-5 text-amber') {{ $b }}</li>@endforeach
-                </ul>
-            @endif
+
         </div>
         <div class="hero-rise hero-rise-2 w-full lg:max-w-[32rem] lg:justify-self-end">
             @include('partials.quiz-light')
