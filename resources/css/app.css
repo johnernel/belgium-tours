@@ -168,3 +168,11 @@
     .jm-dot::before { animation: none !important; }
     .jm-pol, .jm-img, .jm-route { transition: none; }
 }
+
+/* Quiz answer icons that are SVG files (icon value "svg:name" = public/images/quiz-icons/name.svg): drawn as a mask so they take the surrounding text colour and stay sharp at any size. */
+.qicon {
+    display: block;
+    background-color: currentColor;
+    -webkit-mask: var(--qi) center / contain no-repeat;
+    mask: var(--qi) center / contain no-repeat;
+}

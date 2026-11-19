@@ -15,7 +15,7 @@ class QuizController extends Controller
     {
         return view('admin.quiz.index', [
             'steps' => QuizStep::with('options')->orderBy('sort')->get(),
-            'icons' => array_combine(array_keys(Icons::all()), array_keys(Icons::all())),
+            'icons' => array_combine(array_keys(Icons::all()), array_keys(Icons::all())) + collect(glob(public_path('images/quiz-icons/*.svg')))->map(fn ($f) => 'svg:'.basename($f, '.svg'))->mapWithKeys(fn ($k) => [$k => $k])->all(),
         ]);
     }
 

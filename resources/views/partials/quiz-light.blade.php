@@ -7,7 +7,7 @@
 
     <div class="min-h-[19rem] p-5 sm:p-7">
         <div x-cloak x-data="quiz(@js($quizSteps), @js($quizPreset ?? []), @js($quizTourType ?? ''))" x-ref="card" tabindex="-1" role="group" aria-labelledby="quiz-title" class="outline-none"
-             x-init="window.quizIcons = @js(\App\Support\Icons::all())">
+             x-init="window.quizIcons = @js(\App\Support\Icons::all()); window.quizIconBase = @js(asset('images/quiz-icons'))">
             <template x-if="!onContact">
                 <div class="text-center">
                     <p class="font-serif text-xl leading-snug text-ink sm:text-2xl" x-text="step.question" aria-live="polite"></p>
@@ -19,7 +19,8 @@
                                         class="group flex min-h-[5.5rem] flex-col items-center justify-center gap-2 border-2 px-2 py-3 text-center text-[0.95rem] font-semibold leading-tight text-ink transition hover:border-amber hover:shadow-card"
                                         :class="isPicked(opt) ? 'border-amber bg-amber/15' : 'border-ink/15 bg-white'">
                                     <span x-show="opt.icon" class="flex size-11 items-center justify-center rounded-full bg-amber/20 text-amber-ink transition group-hover:bg-amber/35" aria-hidden="true">
-                                        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" x-html="(window.quizIcons || {})[opt.icon] || ''"></svg>
+                                        <template x-if="opt.icon && opt.icon.indexOf('svg:') === 0"><span class="qicon size-6" :style="'--qi: url(' + (window.quizIconBase || '/images/quiz-icons') + '/' + opt.icon.slice(4) + '.svg)'"></span></template>
+<template x-if="!(opt.icon && opt.icon.indexOf('svg:') === 0)"><svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" x-html="(window.quizIcons || {})[opt.icon] || ''"></svg></template>
                                     </span>
                                     <span x-text="opt.label"></span>
                                 </button>

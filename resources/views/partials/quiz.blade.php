@@ -9,7 +9,7 @@
 
     <div class="p-5 sm:p-7">
         <div x-cloak x-data="quiz(@js($quizSteps), @js($quizPreset ?? []), @js($quizTourType ?? ''))" x-ref="card" tabindex="-1" role="group" aria-labelledby="quiz-title" class="outline-none"
-             x-init="window.quizIcons = @js(\App\Support\Icons::all())">
+             x-init="window.quizIcons = @js(\App\Support\Icons::all()); window.quizIconBase = @js(asset('images/quiz-icons'))">
             {{-- Question steps --}}
             <template x-if="!onContact">
                 <div>
@@ -22,7 +22,8 @@
                                         class="group flex min-h-[4.5rem] flex-col items-center justify-center gap-2 rounded-xl border px-2 py-3 text-center text-[0.95rem] font-semibold leading-tight text-cream transition hover:border-amber hover:bg-white/15"
                                         :class="isPicked(opt) ? 'border-amber bg-amber/25' : 'border-white/30 bg-white/10'">
                                     <span x-show="opt.icon" class="flex size-11 items-center justify-center rounded-full bg-amber/20 text-amber ring-1 ring-amber/40 transition group-hover:bg-amber/30" aria-hidden="true">
-                                        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" x-html="(window.quizIcons || {})[opt.icon] || ''"></svg>
+                                        <template x-if="opt.icon && opt.icon.indexOf('svg:') === 0"><span class="qicon size-6" :style="'--qi: url(' + (window.quizIconBase || '/images/quiz-icons') + '/' + opt.icon.slice(4) + '.svg)'"></span></template>
+<template x-if="!(opt.icon && opt.icon.indexOf('svg:') === 0)"><svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" x-html="(window.quizIcons || {})[opt.icon] || ''"></svg></template>
                                     </span>
                                     <span x-text="opt.label"></span>
                                 </button>
