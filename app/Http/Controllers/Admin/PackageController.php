@@ -130,6 +130,7 @@ class PackageController extends Controller
             'destination_id' => ['nullable', 'exists:destinations,id'],
             'nights' => ['required', 'integer', 'min:0', 'max:365'],
             'price_from' => ['nullable', 'numeric', 'min:0'],
+            'original_price' => ['nullable', 'numeric', 'min:0', Rule::when($request->filled('price_from'), ['gt:price_from'])],
             'currency' => ['required', 'in:EUR,USD,GBP'],
             'route' => ['nullable', 'string', 'max:160'],
             'summary' => ['nullable', 'string', 'max:600'],
@@ -156,6 +157,7 @@ class PackageController extends Controller
             'existing.*.sort' => ['nullable', 'integer'],
         ], [
             'existing.*.alt.required' => 'Every gallery photo needs a description (alt text).',
+            'original_price.gt' => 'The original price must be higher than the current (From) price, otherwise it would not look like a reduction.',
         ]);
 
         // A new hero photo needs alt text, and so does every new gallery photo.
@@ -175,6 +177,8 @@ class PackageController extends Controller
             'destination_id' => $data['destination_id'] ?? null,
             'nights' => $data['nights'],
             'price_from' => $data['price_from'] ?? null,
+            // The crossed-out price only makes sense next to a current price.
+            'original_price' => filled($data['price_from'] ?? null) ? ($data['original_price'] ?? null) : null,
             'currency' => $data['currency'],
             'route' => $data['route'] ?? null,
             'summary' => $data['summary'] ?? null,

@@ -41,7 +41,14 @@
     <hr class="mt-4 border-white/15">
 
     <div class="mt-auto pt-4">
-        @if($package->price_from !== null)
+        @if($package->price_from !== null && $package->original_price !== null && (float) $package->original_price > (float) $package->price_from)
+            {{-- Reduced price: the current price in amber, with "From" and the original price crossed out beside it --}}
+            <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span class="font-display text-3xl leading-none text-amber">{{ $symbol }}{{ number_format((float) $package->price_from) }}</span>
+                <s class="text-sm font-semibold {{ $muted }}" aria-label="Was from {{ $symbol }}{{ number_format((float) $package->original_price) }}">From {{ $symbol }}{{ number_format((float) $package->original_price) }}</s>
+            </p>
+            <p class="mt-1 text-xs {{ $muted }}">per person</p>
+        @elseif($package->price_from !== null)
             <p class="text-[0.65rem] font-semibold uppercase tracking-[0.18em] {{ $muted }}">From</p>
             <p class="font-display text-3xl leading-none text-amber">{{ $symbol }}{{ number_format((float) $package->price_from) }}</p>
             <p class="mt-1 text-xs {{ $muted }}">per person</p>

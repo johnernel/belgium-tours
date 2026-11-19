@@ -24,6 +24,7 @@
             <x-admin.input name="nights" type="number" label="Nights" :value="$package->nights" :required="true" />
             <div class="grid grid-cols-[1fr_6rem] gap-3">
                 <x-admin.input name="price_from" type="number" step="0.01" label="From price (per person)" :value="$package->price_from" help="Leave blank to show Price on request." />
+                <x-admin.input name="original_price" type="number" step="0.01" label="Original price (crossed out, optional)" :value="$package->original_price" help="Shows From and this price crossed out beside the current price on the package cards. Leave blank for no strikethrough. Must be higher than the From price." />
                 <x-admin.select name="currency" label="Currency" :options="['EUR' => 'EUR', 'USD' => 'USD', 'GBP' => 'GBP']" :value="$package->currency" />
             </div>
         </div>

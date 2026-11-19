@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Package extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'tour_type_id', 'destination_id', 'nights', 'price_from', 'currency', 'route',
+        'title', 'slug', 'tour_type_id', 'destination_id', 'nights', 'price_from', 'original_price', 'currency', 'route',
         'summary', 'description', 'highlights', 'itinerary', 'inclusions', 'exclusions', 'faqs',
         'hero_image', 'hero_image_alt', 'seo_title', 'meta_description', 'social_image',
         'noindex', 'is_published', 'is_featured', 'sort',
@@ -27,6 +27,7 @@ class Package extends Model
             'is_published' => 'boolean',
             'is_featured' => 'boolean',
             'price_from' => 'decimal:2',
+            'original_price' => 'decimal:2',
         ];
     }
 
