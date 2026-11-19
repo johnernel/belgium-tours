@@ -105,4 +105,12 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('max-sm:snap-x max-sm:snap-mandatory', $html);
         $this->assertStringContainsString('sm:grid-cols-2', $html, 'the 2x2 grid from sm up is kept');
     }
+
+    public function test_on_phones_the_stress_free_cards_become_a_snap_carousel_with_dots(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('aria-label="Stress-free travel, swipe to see more"', $html);
+        $this->assertSame(3, substr_count($html, 'max-md:w-[calc(100%-2rem)] max-md:shrink-0 max-md:snap-start'), 'three cards, each leaving a 20px peek');
+        $this->assertStringContainsString('md:grid-cols-3', $html, 'the three equal columns from md up are kept');
+    }
 }
