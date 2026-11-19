@@ -130,4 +130,13 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('sm:gap-6 lg:grid-cols-3', $html, 'the grid from sm up is kept');
         $this->assertStringContainsString('aria-label="Choose a destination"', $html, 'pagination dots for the phone carousel');
     }
+
+    public function test_on_phones_the_payment_cards_become_a_snap_carousel_with_dots(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('aria-label="Payment options, swipe to see more"', $html);
+        $this->assertSame(4, substr_count($html, 'max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start xl:px-4'), 'four cards, each leaving a 20px peek');
+        $this->assertStringContainsString('aria-label="Choose a payment option"', $html, 'pagination dots');
+        $this->assertStringContainsString('sm:grid-cols-2 xl:grid-cols-4', $html, 'the grid from sm up is kept');
+    }
 }
