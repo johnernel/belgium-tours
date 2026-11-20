@@ -20,7 +20,7 @@
                 <li><a class="inline-flex items-center gap-2 hover:text-amber" href="tel:{{ $site->phone ? $site->phone_href : '+10000000000' }}">@icon('phone', 'size-4 text-amber') {{ $site->phone ?: '+1 000-000-0000' }}</a></li>
                 <li><a class="inline-flex items-center gap-2 hover:text-amber" href="mailto:{{ $site->email ?: 'info@gobelgiumtrips.com' }}">@icon('mail', 'size-4 text-amber') {{ $site->email ?: 'info@gobelgiumtrips.com' }}</a></li>
             </ul>
-            <button type="button" @click="$store.modal.open()" class="inline-flex min-h-11 items-center border-2 border-white px-7 font-semibold text-white transition hover:bg-white hover:text-ink">Enquire Now</button>
+            <button type="button" @click="$store.modal.open()" class="inline-flex min-h-8 items-center border border-white px-4 text-sm font-semibold text-white transition hover:bg-white hover:text-ink">Enquire Now</button>
         </div>
     </div>
 
