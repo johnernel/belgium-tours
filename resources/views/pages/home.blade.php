@@ -281,7 +281,7 @@
 {{-- 8. TESTIMONIALS (layout copied from the client's reference): a full-width video block with a play button and a fade into the dark section, the centred label and heading,
      then the testimonials as a carousel (3 cards per view on desktop, 2 tablet, 1 mobile; arrows, dots, swipe, no autoplay). No star ratings: there are none to back them. --}}
 @if($testimonials->isNotEmpty())
-<section x-ignore data-lazy-alpine class="cv-auto on-dark bg-ink text-cream" aria-labelledby="ht-quotes">
+<section x-ignore data-lazy-alpine class="cv-auto on-dark bg-forest text-cream" aria-labelledby="ht-quotes">
     {{-- Video block: starts by itself (muted, looping) when the section scrolls into view and pauses when it leaves; the button pauses or resumes it. Reduced-motion and data-saver visitors get the poster and the play button instead. --}}
     <div class="relative h-[17rem] overflow-hidden sm:h-[26rem] lg:h-[32rem]" x-data="{ playing: false, userPaused: false }"
          x-init="const v = $refs.v; const calm = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData);
@@ -296,7 +296,7 @@
             <source src="{{ asset('media/ways-loop.webm').'?v='.filemtime(public_path('media/ways-loop.webm')) }}" type="video/webm">
             <source src="{{ asset('media/ways-loop.mp4').'?v='.filemtime(public_path('media/ways-loop.mp4')) }}" type="video/mp4">
         </video>
-        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/30"></div>
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest via-ink/25 to-ink/30"></div>
         <button type="button" @click="playing ? ($refs.v.pause(), playing = false, userPaused = true) : ($refs.v.play(), playing = true, userPaused = false)" aria-label="Play video" :aria-label="playing ? 'Pause video' : 'Play video'" :aria-pressed="playing"
                 class="absolute left-1/2 top-[42%] grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow-lift transition duration-300 hover:scale-105 hover:bg-white focus-visible:opacity-100 sm:size-24"
                 :class="playing ? 'opacity-0 hover:opacity-100' : 'opacity-100'">
