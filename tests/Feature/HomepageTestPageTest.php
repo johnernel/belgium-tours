@@ -148,4 +148,15 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('href="mailto:info@gobelgiumtrips.com"', $html);
         $this->assertStringNotContainsString('Free, no-obligation quote. Tailor-made trips across Belgium.', $html);
     }
+
+    public function test_the_home_header_has_no_destinations_or_packages_menu_items(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $header = substr($html, strpos($html, '<header'), strpos($html, '</header>') - strpos($html, '<header'));
+        $this->assertStringNotContainsString('>Destinations</a>', $header);
+        $this->assertStringNotContainsString('>Packages</a>', $header);
+        $this->assertStringContainsString('>Home</a>', $header);
+        $this->assertStringContainsString('>Contact Us</a>', $header);
+        $this->assertStringContainsString('aria-controls="mega-tours-test"', $header, 'the Tour Types mega menu is still there');
+    }
 }

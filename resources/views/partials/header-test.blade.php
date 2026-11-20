@@ -82,8 +82,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            <a href="{{ route('destinations.index') }}" @mouseenter="menu = null" class="{{ $link }}">Destinations</a>
-            <a href="{{ route('packages.index') }}" @mouseenter="menu = null" class="{{ $link }}">Packages</a>
+            </div>
             {{-- About Us mega menu: photo panel on the left, four image cards on the right --}}
             <div @mouseenter="menu = 'about'" @click.outside="menu === 'about' && (menu = null)">
                 <button type="button" class="{{ $link }}" :aria-expanded="menu === 'about'" aria-controls="mega-about-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = 'about' : menu = (menu === 'about' ? null : 'about')">About Us @icon('chevron-down', 'size-4')</button>
@@ -128,8 +127,6 @@
             <li><a href="{{ route('home') }}" class="block px-1 py-3 text-lg font-semibold text-ink">Home</a></li>
             <li class="px-1 pt-2 text-sm font-semibold text-slate">Tour Types</li>
             @foreach($navTypes as $t)<li><a href="{{ route('tours.show', $t->slug) }}" class="block px-4 py-2.5 text-lg font-semibold text-ink">{{ $t->name }}</a></li>@endforeach
-            <li><a href="{{ route('destinations.index') }}" class="block px-1 py-3 text-lg font-semibold text-ink">Destinations</a></li>
-            <li><a href="{{ route('packages.index') }}" class="block px-1 py-3 text-lg font-semibold text-ink">Packages</a></li>
             <li class="px-1 pt-2 text-sm font-semibold text-slate">About Us</li>
             @foreach($aboutLinks as [$l, $u])<li><a href="{{ $u }}" class="block px-4 py-2.5 text-lg font-semibold text-ink">{{ $l }}</a></li>@endforeach
             <li><a href="{{ route('contact') }}" class="block px-1 py-3 text-lg font-semibold text-ink">Contact Us</a></li>
