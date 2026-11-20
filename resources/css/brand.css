@@ -18,7 +18,8 @@
     --color-ref-muted: #666b65; /* short description */
     --color-moss: #405b48; /* "More Info" text */
     --color-moss-line: #a9c7ce; /* "More Info" outline */
-    --color-peach: #ffdbc0; /* thin card border */
+    --color-card: #f7f4ed; /* card background */
+    --color-peach: #ffdbc0; /* thin card border (a real border on all four sides: a ring was clipped by the carousels) */
     --color-peach-soft: #ffddc4; /* divider line inside the card */
     --color-slate: #28352d;
     --color-amber: #ff7518;

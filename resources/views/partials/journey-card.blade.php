@@ -20,7 +20,7 @@
     $nightsLabel = $package->nights > 0 ? $package->nights.' '.($package->nights === 1 ? 'night' : 'nights') : '1 day';
 @endphp
 {{-- Journey card. Frosted glass in the "Three Ways to Travel Belgium" carousel, solid slate everywhere else. --}}
-<article class="journey-card group flex h-full flex-col {{ $square ? 'rounded-none' : 'rounded-[20px]' }} p-3 {{ $body }} shadow-lift ring-1 max-sm:flex-row max-sm:rounded-none max-sm:p-0 sm:overflow-hidden sm:p-0 sm:transition-all sm:duration-300 sm:shadow-none sm:hover:-translate-y-1 {{ $solid ? 'bg-paper ring-peach' : 'bg-ink/55 ring-white/15 backdrop-blur-md' }}">
+<article class="journey-card group flex h-full flex-col {{ $square ? 'rounded-none' : 'rounded-[20px]' }} p-3 {{ $body }} shadow-lift max-sm:flex-row max-sm:rounded-none max-sm:p-0 sm:overflow-hidden sm:p-0 sm:transition-all sm:duration-300 sm:shadow-none sm:hover:-translate-y-1 {{ $solid ? 'border border-solid border-peach bg-card' : 'ring-1 bg-ink/55 ring-white/15 backdrop-blur-md' }}">
     <div class="relative aspect-[4/3] overflow-hidden {{ $square ? 'rounded-none' : 'rounded-[14px]' }} bg-slate sm:aspect-[3/2] sm:rounded-none max-sm:aspect-auto max-sm:w-[38%] max-sm:shrink-0 max-sm:rounded-none">
         @if($package->hero_image)
             <x-photo :base="$package->hero_image" :alt="$package->hero_image_alt ?: $package->title" sizes="(min-width:1024px) 30vw, (min-width:640px) 44vw, 40vw" fetchpriority="low"
