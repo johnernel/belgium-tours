@@ -9,32 +9,30 @@
 
 /* Home page header: transparent with white text at the top, solid bar once scrolled (or when the mobile menu is open).
    Only applies with JavaScript on; without it the solid bar is used everywhere. */
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) {
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) {
     background-color: transparent;
 }
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-link,
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-brand,
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-menu-btn {
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .nav-link,
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .nav-brand,
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .nav-menu-btn {
     color: #fff;
 }
-/* Nav hover: the item fills with a solid light grey-blue pill (copied from the client's reference) with dark text, faded in smoothly. It stays filled while its mega menu is open. Same look over the photo and on the light bar. */
+/* Header hover (client's reference): while the pointer is anywhere on the header, or focus is inside it, the WHOLE bar (logo, links, contact strip) fills with the solid light colour and turns dark (the transparent look above only applies when nothing is hovered). The hovered item gets its own grey-blue pill, which also stays while its mega menu is open. All faded smoothly (the header has transition-colors). */
 .nav-link {
     border-radius: 0.5rem;
     transition: background-color 0.25s ease, color 0.25s ease;
 }
 .nav-link:hover,
-.nav-link[aria-expanded='true'],
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-link:hover,
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-link[aria-expanded='true'] {
+.nav-link[aria-expanded='true'] {
     background-color: var(--color-pill);
     color: var(--color-ink);
 }@media (prefers-reduced-motion: reduce) {
     .nav-link { transition: none; }
 }
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-brand-sub {
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .nav-brand-sub {
     color: rgb(255 255 255 / 0.8);
 }
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-menu-btn:hover {
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .nav-menu-btn:hover {
     background-color: rgb(255 255 255 / 0.12);
 }
 
@@ -42,13 +40,13 @@
 .logo-white {
     display: none;
 }
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .logo-default {
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .logo-default {
     display: none;
 }
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .logo-white {
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .logo-white {
     display: block;
 }
-.js:not(.is-scrolled) .nav-overlay:not(.is-open) .nav-logo-upload {
+.js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .nav-logo-upload {
     filter: brightness(0) invert(1);
 }
 
