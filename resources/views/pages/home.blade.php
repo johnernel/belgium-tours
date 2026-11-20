@@ -90,10 +90,10 @@
     <div class="container-page grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
         <div class="relative pb-10 pr-8 sm:pr-14">
             <div class="relative aspect-[4/5] overflow-hidden shadow-card">
-                <x-photo base="images/photos/flower-carpet" alt="Flower carpet laid out in front of the Brussels Grand Place" :widths="[480, 800, 1280, 1600]" sizes="(min-width:1024px) 520px, 80vw" fetchpriority="low" :ratio="[1600, 1023]" class="absolute inset-0 size-full" />
+                <x-photo base="images/photos/tailor-canal" alt="Brick gabled houses beside a canal, with a cathedral tower behind them at sunset" :widths="[480, 800, 1280, 1600]" sizes="(min-width:1024px) 520px, 80vw" fetchpriority="low" :ratio="[1600, 900]" class="absolute inset-0 size-full" />
             </div>
             <div class="absolute bottom-0 right-0 aspect-square w-2/5 overflow-hidden border-4 border-ivory shadow-lift">
-                <x-photo base="images/photos/gravensteen" alt="The medieval Gravensteen castle in Ghent at sunset" :widths="[480, 800]" sizes="240px" fetchpriority="low" :ratio="[1600, 1044]" class="absolute inset-0 size-full" />
+                <x-photo base="images/photos/tailor-square" alt="Visitors on a sunlit town square below a tall cathedral tower" :widths="[480, 800]" sizes="240px" fetchpriority="low" :ratio="[1600, 900]" class="absolute inset-0 size-full" />
             </div>
         </div>
         <div>

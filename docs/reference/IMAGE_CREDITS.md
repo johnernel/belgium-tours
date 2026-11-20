@@ -48,3 +48,5 @@ The Belgium outline and province borders on the Journey map (`resources/data/bel
 public/images/decor/antwerp-skyline.webp is derived from a faded Antwerp skyline image **supplied by the client** (Onze-Lieve-Vrouwekathedraal tower, guild houses and the Brabo fountain). Its colours were removed and turned into a soft slate-tinted transparency mask, shown at low opacity. **Source and licence are NOT verified**: confirm with the client before this page goes live for good, or replace it.
 
 The home hero photos (public/images/photos/hero-ypres-*, hero-bouillon-*, hero-dinant-*: Ypres Cloth Hall and Menin Gate, Bouillon castle, Dinant) and the favicon were **supplied by the client** (2026-11-20). They look like AI-generated or stock images and their source and licence are NOT verified: confirm with the client before relying on them.
+
+The two photos in the home page Tailor-made section (public/images/photos/tailor-canal-*, tailor-square-*) were supplied by the client (2026-11-20); source and licence are NOT verified, confirm before relying on them.
