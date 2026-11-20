@@ -180,4 +180,19 @@ class HomepageTestPageTest extends TestCase
             $this->assertStringNotContainsString('Takes less than 30 seconds', $html, $url);
         }
     }
+
+    public function test_the_phone_menu_has_the_reference_layout_and_the_header_enquire_button_is_hidden_on_phones(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('max-sm:!hidden lg:hidden', $html, 'the header Enquire Now is hidden below 640px');
+        $nav = substr($html, strpos($html, 'id="mobile-nav-test"'));
+        $nav = substr($nav, 0, strpos($nav, '</nav>'));
+        $this->assertStringContainsString('aria-controls="m-sub-tours"', $nav);
+        $this->assertStringContainsString('aria-controls="m-sub-about"', $nav);
+        $this->assertStringContainsString('All packages', $nav);
+        $this->assertStringContainsString('Get a free quote', $nav);
+        $this->assertStringContainsString('Self Drive', $nav, 'tour type cards');
+        $this->assertStringContainsString('Meet Our Team', $nav, 'about cards');
+        $this->assertStringContainsString('Contact Us', $nav);
+    }
 }

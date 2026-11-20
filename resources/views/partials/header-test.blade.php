@@ -117,20 +117,55 @@
         </nav>
 
         <div class="flex items-center gap-2">
-            <x-button square variant="cta" size="sm" class="hidden sm:inline-flex lg:hidden [.is-scrolled_&]:lg:inline-flex" @click="$store.modal.open()">Enquire Now</x-button>
+            <x-button square variant="cta" size="sm" class="max-sm:!hidden lg:hidden [.is-scrolled_&]:lg:inline-flex" @click="$store.modal.open()">Enquire Now</x-button>
             <button type="button" class="nav-menu-btn grid size-11 place-items-center rounded-full text-ink hover:bg-ink/5 lg:hidden" @click="open = !open" :aria-expanded="open" aria-controls="mobile-nav-test" aria-label="Menu">@icon('menu')</button>
         </div>
     </div>
 
-    <nav id="mobile-nav-test" x-cloak x-show="open" x-transition.opacity class="bg-bar lg:hidden" aria-label="Mobile">
-        <ul class="container-page space-y-1 py-3">
-            <li><a href="{{ route('home') }}" class="block px-1 py-3 text-lg font-semibold text-ink">Home</a></li>
-            <li class="px-1 pt-2 text-sm font-semibold text-slate">Tour Types</li>
-            @foreach($navTypes as $t)<li><a href="{{ route('tours.show', $t->slug) }}" class="block px-4 py-2.5 text-lg font-semibold text-ink">{{ $t->name }}</a></li>@endforeach
-            <li class="px-1 pt-2 text-sm font-semibold text-slate">About Us</li>
-            @foreach($aboutLinks as [$l, $u])<li><a href="{{ $u }}" class="block px-4 py-2.5 text-lg font-semibold text-ink">{{ $l }}</a></li>@endforeach
-            <li><a href="{{ route('contact') }}" class="block px-1 py-3 text-lg font-semibold text-ink">Contact Us</a></li>
-            <li class="pt-2"><x-button square variant="cta" class="w-full" @click="open = false; $store.modal.open()">Enquire Now</x-button></li>
+    {{-- Phone menu (layout copied from the client's reference): big uppercase links with hairline dividers, Tour Types and About Us open into photo cards,
+         an "All packages" button and a full-width quote button. Only one section is open at a time. --}}
+    <nav id="mobile-nav-test" x-cloak x-show="open" x-transition.opacity x-data="{ sub: null }" class="max-h-[calc(100dvh-4.5rem)] overflow-y-auto bg-bar lg:hidden" aria-label="Mobile">
+        <ul class="container-page pb-5 pt-1">
+            <li class="border-b border-ink/10"><a href="{{ route('home') }}" class="flex min-h-12 items-center text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink">Home</a></li>
+
+            <li class="border-b border-ink/10">
+                <button type="button" @click="sub = sub === 'tours' ? null : 'tours'" :aria-expanded="sub === 'tours'" aria-controls="m-sub-tours" class="flex min-h-12 w-full items-center justify-between text-left text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink [&[aria-expanded=true]>svg]:rotate-180">
+                    Tour Types @icon('chevron-down', 'size-5 shrink-0 transition-transform duration-200')
+                </button>
+                <div id="m-sub-tours" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === 'tours' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== 'tours'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
+                    @foreach($navTypes as $t)
+                        <a href="{{ route('tours.show', $t->slug) }}" class="flex items-center gap-4 border border-amber/40 bg-white/60 p-2.5">
+                            <span class="size-[4.5rem] shrink-0 overflow-hidden bg-sky-soft">@if($t->image)<x-photo :base="$t->image" alt="" :widths="[480, 800]" sizes="72px" :ratio="[480, 480]" class="size-full" />@endif</span>
+                            <span class="min-w-0">
+                                <span class="block font-display text-[1.15rem] leading-tight text-ink">{{ $t->name }}</span>
+                                <span class="mt-1 line-clamp-3 block text-[0.85rem] leading-snug text-slate">{{ $t->summary ?: $t->menu_text }}</span>
+                            </span>
+                        </a>
+                    @endforeach
+                    <a href="{{ route('packages.index') }}" class="flex min-h-11 items-center justify-between bg-amber/20 px-4 text-sm font-semibold uppercase tracking-[0.1em] text-amber-ink">All packages @icon('arrow-right', 'size-4')</a>
+                </div></div></div>
+            </li>
+
+            <li class="border-b border-ink/10">
+                <button type="button" @click="sub = sub === 'about' ? null : 'about'" :aria-expanded="sub === 'about'" aria-controls="m-sub-about" class="flex min-h-12 w-full items-center justify-between text-left text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink [&[aria-expanded=true]>svg]:rotate-180">
+                    About Us @icon('chevron-down', 'size-5 shrink-0 transition-transform duration-200')
+                </button>
+                <div id="m-sub-about" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === 'about' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== 'about'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
+                    @foreach($aboutItems as [$label, $url, $img, $text])
+                        <a href="{{ $url }}" class="flex items-center gap-4 border border-amber/40 bg-white/60 p-2.5">
+                            <span class="size-[4.5rem] shrink-0 overflow-hidden bg-sky-soft"><x-photo :base="$img" alt="" :widths="[480, 800]" sizes="72px" :ratio="[480, 480]" class="size-full" /></span>
+                            <span class="min-w-0">
+                                <span class="block font-display text-[1.15rem] leading-tight text-ink">{{ $label }}</span>
+                                <span class="mt-1 line-clamp-3 block text-[0.85rem] leading-snug text-slate">{{ $text }}</span>
+                            </span>
+                        </a>
+                    @endforeach
+                </div></div></div>
+            </li>
+
+            <li class="border-b border-ink/10"><a href="{{ route('contact') }}" class="flex min-h-12 items-center text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink">Contact Us</a></li>
+
+            <li class="pt-4"><x-button square variant="cta" class="w-full uppercase tracking-[0.12em]" @click="open = false; $store.modal.open()">Get a free quote</x-button></li>
         </ul>
     </nav>
 </header>
