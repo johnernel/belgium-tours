@@ -11,7 +11,7 @@
 @section('footer_view', 'partials.footer-test')
 @section('footer_flush', '1')
 @push('preload')
-    <link rel="preload" as="image" href="{{ asset('images/photos/hero-ypres-1280.webp') }}" imagesrcset="{{ asset('images/photos/hero-ypres-480.webp') }} 480w, {{ asset('images/photos/hero-ypres-800.webp') }} 800w, {{ asset('images/photos/hero-ypres-1280.webp') }} 1280w, {{ asset('images/photos/hero-ypres-1600.webp') }} 1600w" imagesizes="(max-width: 1023px) 160vw, 100vw" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('images/photos/hero-ypres-1280.webp') }}" imagesrcset="{{ asset('images/photos/hero-ypres-480.webp') }} 480w, {{ asset('images/photos/hero-ypres-800.webp') }} 800w, {{ asset('images/photos/hero-ypres-1280.webp') }} 1280w, {{ asset('images/photos/hero-ypres-1600.webp') }} 1600w" imagesizes="(max-width: 1023px) 110vw, 100vw" fetchpriority="high">
 @endpush
 
 @section('content')
@@ -41,9 +41,9 @@
 @endphp
 <section class="relative isolate -mt-[4.5rem] flex min-h-[44rem] flex-col overflow-hidden bg-ink text-white lg:-mt-[8rem] lg:min-h-[50rem]">
     <div class="absolute inset-0 z-0 overflow-hidden bg-ink" aria-hidden="true">
-        <x-photo base="images/photos/hero-ypres" alt="" sizes="(max-width: 1023px) 160vw, 100vw" :ratio="[1600, 900]" :eager="true" class="hero-slide hero-slide-1 absolute inset-0 size-full" />
-        <x-photo base="images/photos/hero-bouillon" alt="" sizes="(max-width: 1023px) 160vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
-        <x-photo base="images/photos/hero-dinant" alt="" sizes="(max-width: 1023px) 160vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
+        <x-photo base="images/photos/hero-ypres" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" :eager="true" class="hero-slide hero-slide-1 absolute inset-0 size-full" />
+        <x-photo base="images/photos/hero-bouillon" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
+        <x-photo base="images/photos/hero-dinant" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
     </div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/58 via-ink/27 to-ink/62"></div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/78 via-ink/42 to-ink/10"></div>

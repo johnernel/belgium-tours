@@ -14,6 +14,8 @@
     --color-cta-hover: #30483a; /* hover background of every CTA button (text stays white) */
     --color-frost: #dce9e9; /* "Stress-free travel" cards */
     --color-pill: #e1e6e8; /* nav hover pill */
+    --color-cta: #c94b0e; /* CTA button background: the lightest orange that still gives white text 4.5:1 */
+    --color-amber-text: #d9560a; /* accent words in headings on light backgrounds (3:1 for large text) */
     --color-forest: #30483a; /* testimonials section background (same green as the CTA hover) */
     --color-plum: #4b3542; /* contact strip above the header */
     /* Light package card (copied from the client's reference card) */
@@ -161,11 +163,11 @@ h1, h2, h3, h4, .font-display, .font-serif {
 /* Two-colour headings: the accent part is an italic em (see App\Support\Heading). Slate on light, amber on dark. */
 .heading-accent {
     font-style: italic;
-    color: var(--color-amber);
+    color: var(--color-amber-text);
 }
 /* Amber-toned accent word on cream (amber-ink keeps 4.9:1 contrast): the Journal headings. */
 .heading-amber .heading-accent {
-    color: var(--color-amber);
+    color: var(--color-amber-text);
 }
 .on-dark .heading-accent,
 .on-dark.heading-accent {
@@ -185,7 +187,7 @@ h1, h2, h3, h4, .font-display, .font-serif {
     background: linear-gradient(135deg, #f1e3c9 0%, #eaecdc 100%);
 }
 .quiz-band .heading-accent {
-    color: var(--color-amber);
+    color: var(--color-amber-ink);
 }
 /* The one exception to the light-heading rule: this title sits on the mid-tone slate band, so it is regular weight for legibility. */
 .quiz-band h2 {
