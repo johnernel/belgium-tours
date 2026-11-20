@@ -7,7 +7,7 @@
                 @if($site->logo)
                     <img src="{{ asset($site->logo) }}" alt="{{ $site->brand }}" class="h-12 w-auto brightness-0 invert sm:h-14" width="160" height="40" loading="lazy">
                 @else
-                    <img src="{{ asset('images/logo-white.webp') }}" alt="{{ $site->brand }}" class="h-12 w-auto sm:h-14" width="484" height="152" loading="lazy">
+                    <img src="{{ asset('images/logo-white.webp') }}?v={{ @filemtime(public_path('images/logo-white.webp')) }}" alt="{{ $site->brand }}" class="h-12 w-auto sm:h-14" width="484" height="152" loading="lazy">
                 @endif
             </a>
             @if($site->footer_text)<p class="mt-4 max-w-sm text-cream/85">{{ $site->footer_text }}</p>@endif

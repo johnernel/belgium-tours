@@ -29,8 +29,8 @@
             @if($site->logo)
                 <img src="{{ asset($site->logo) }}" alt="{{ $site->brand }}" class="nav-logo-upload h-10 w-auto lg:h-12" width="160" height="40">
             @else
-                <img src="{{ asset('images/logo.webp') }}" alt="{{ $site->brand }} home" class="logo-default h-11 w-auto sm:h-14 lg:h-[4.25rem]" width="484" height="152">
-                <img src="{{ asset('images/logo-white.webp') }}" alt="" aria-hidden="true" class="logo-white h-11 w-auto sm:h-14 lg:h-[4.25rem]" width="484" height="152">
+                <img src="{{ asset('images/logo.webp') }}?v={{ @filemtime(public_path('images/logo.webp')) }}" alt="{{ $site->brand }} home" class="logo-default h-11 w-auto sm:h-14 lg:h-[4.25rem]" width="484" height="152">
+                <img src="{{ asset('images/logo-white.webp') }}?v={{ @filemtime(public_path('images/logo-white.webp')) }}" alt="" aria-hidden="true" class="logo-white h-11 w-auto sm:h-14 lg:h-[4.25rem]" width="484" height="152">
             @endif
         </a>
         <nav class="ml-auto hidden items-center lg:flex" aria-label="Main">
