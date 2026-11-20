@@ -264,10 +264,10 @@
             <div x-ref="track" @scroll.passive="update()" tabindex="0" aria-label="Stress-free travel, swipe to see more"
                  class="relative grid gap-6 md:grid-cols-3 lg:gap-8 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:gap-3 max-md:overflow-x-auto max-md:scroll-smooth max-md:[scrollbar-width:none] max-md:after:w-5 max-md:after:shrink-0 max-md:after:content-[''] max-md:motion-reduce:scroll-auto max-md:[&::-webkit-scrollbar]:hidden">
                 @foreach($calm as [$ic, $title, $text])
-                    <article class="flex flex-col items-center bg-slate px-8 pb-14 pt-11 text-center text-white max-md:w-[calc(100%-2rem)] max-md:shrink-0 max-md:snap-start">
-                        <span class="grid size-[4.75rem] place-items-center rounded-full bg-white/15 text-aqua-light">@icon($ic, 'size-9')</span>
-                        <h3 class="mt-7 font-display text-xl leading-snug text-white lg:text-[1.35rem]">{{ $title }}</h3>
-                        <p class="mt-4 text-lg leading-relaxed text-white/90">{{ $text }}</p>
+                    <article class="flex flex-col items-center bg-frost px-8 pb-14 pt-11 text-center text-ink max-md:w-[calc(100%-2rem)] max-md:shrink-0 max-md:snap-start">
+                        <span class="grid size-[4.75rem] place-items-center rounded-full bg-white text-teal-deep">@icon($ic, 'size-9')</span>
+                        <h3 class="mt-7 font-display text-xl leading-snug text-ink lg:text-[1.35rem]">{{ $title }}</h3>
+                        <p class="mt-4 text-lg leading-relaxed text-ink">{{ $text }}</p>
                     </article>
                 @endforeach
             </div>
