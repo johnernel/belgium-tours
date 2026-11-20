@@ -99,14 +99,14 @@
                 <section aria-labelledby="ov" class="py-8 lg:py-10">
                     <p class="mb-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-ink"><span class="h-px w-10 bg-amber"></span>The trip</p><h2 id="ov" class="text-heading">@heading('Overview')</h2>
                     @if($package->description)<div class="prose-page mt-4 max-w-3xl">{!! $package->description !!}</div>@endif
-                    <dl class="mt-6 grid gap-4 sm:grid-cols-2">
+                    <ul class="mt-6 grid gap-4 sm:grid-cols-2">
                         @foreach($facts as $f)
-                            <div class="flex items-center gap-4 rounded-2xl border border-ink/10 bg-white p-4">
-                                <span class="grid size-12 shrink-0 place-items-center rounded-full bg-amber/25 text-amber-ink">@icon($f['icon'], 'size-6')</span>
-                                <div class="min-w-0"><dt class="text-xs font-semibold uppercase tracking-[0.18em] text-slate">{{ $f['label'] }}</dt><dd class="font-display text-lg leading-snug text-ink">{{ $f['value'] }}</dd></div>
-                            </div>
+                            <li class="flex items-center gap-4 rounded-2xl border border-ink/10 bg-white p-4">
+                                <span class="grid size-12 shrink-0 place-items-center rounded-full bg-amber/25 text-amber-ink" aria-hidden="true">@icon($f['icon'], 'size-6')</span>
+                                <div class="min-w-0"><span class="block text-xs font-semibold uppercase tracking-[0.18em] text-slate">{{ $f['label'] }}</span><span class="block font-display text-lg leading-snug text-ink">{{ $f['value'] }}</span></div>
+                            </li>
                         @endforeach
-                    </dl>
+                    </ul>
                 </section>
             @endif
 

@@ -20,7 +20,7 @@
 @endphp
 <header class="sticky top-0 z-40 bg-bar transition-colors duration-200 {{ $overlay ? 'nav-overlay' : '' }}" :class="open && 'is-open'" x-data="{ open: false, mega: null }" @keydown.escape.window="open = false; mega = null" @mouseleave="mega = null" @focusout="if (! $el.contains($event.relatedTarget)) mega = null">
     <div class="container-page flex h-[4.5rem] items-center justify-between gap-3">
-        <a href="{{ route('home') }}" class="flex items-center gap-2.5">
+        <a href="{{ route('home') }}" class="flex items-center gap-2.5" aria-label="{{ $site->brand }} home">
             @if($site->logo)
                 {{-- A logo uploaded in Admin > Settings wins; at the top of photo-hero pages it is turned white by CSS --}}
                 <img src="{{ asset($site->logo) }}" alt="{{ $site->brand }}" class="nav-logo-upload h-10 w-auto" width="160" height="40">

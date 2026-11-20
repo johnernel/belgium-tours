@@ -40,7 +40,7 @@
 
     <div class="sm:flex sm:min-w-0 sm:flex-1 sm:flex-col sm:px-6 sm:pb-6 sm:pt-5 max-sm:flex max-sm:min-w-0 max-sm:flex-1 max-sm:flex-col max-sm:px-5 max-sm:py-6">
         {{-- Phones only: "4 nights · route" label above the title, as in the reference --}}
-        <p class="hidden text-[0.7rem] font-semibold uppercase leading-snug tracking-[0.18em] text-amber max-sm:block">{{ $nightsLabel }}@if($package->route) · {{ $package->route }}@endif</p>
+        <p class="hidden text-[0.7rem] font-semibold uppercase leading-snug tracking-[0.18em] text-amber-light max-sm:block">{{ $nightsLabel }}@if($package->route) · {{ $package->route }}@endif</p>
 
         <h{{ $level }} class="mt-5 font-display text-xl leading-snug text-cream sm:order-2 sm:mt-0 sm:text-[1.35rem] sm:leading-tight sm:text-white max-sm:mt-3 max-sm:text-[1.35rem]">{{ $package->title }}</h{{ $level }}>
         {{-- Tablet and desktop only: the short summary from Admin > Packages, at most 2 lines --}}

@@ -148,9 +148,9 @@
     <div x-show="pages > 1" x-cloak class="mt-6 md:hidden">
         <div class="flex items-center justify-center gap-4">
             <button type="button" @click="prev()" :disabled="page === 0" aria-label="Previous card" class="grid size-11 place-items-center rounded-full border-2 border-ink/25 text-ink transition hover:border-ink hover:bg-ink hover:text-cream disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5 rotate-180')</button>
-            <div class="flex items-center gap-2" role="group" aria-label="Choose a card">
+            <div class="flex items-center gap-0" role="group" aria-label="Choose a card">
                 <template x-for="p in pages" :key="p">
-                    <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                    <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
                 </template>
             </div>
             <button type="button" @click="next()" :disabled="page >= pages - 1" aria-label="Next card" class="grid size-11 place-items-center rounded-full border-2 border-ink/25 text-ink transition hover:border-ink hover:bg-ink hover:text-cream disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5')</button>
@@ -186,10 +186,10 @@
                     <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-4">
                         <button type="button" @click="prev()" :disabled="page === 0" aria-label="Previous page"
                                 class="grid size-11 place-items-center rounded-full border-2 border-ink/25 text-ink transition hover:border-ink hover:bg-ink hover:text-cream disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5 rotate-180')</button>
-                        <div class="flex items-center gap-2" role="group" aria-label="Choose a page">
+                        <div class="flex items-center gap-0" role="group" aria-label="Choose a page">
                             <template x-for="p in pages" :key="p">
                                 <button type="button" @click="go(p - 1)" :aria-label="'Page ' + p" :aria-current="page === p - 1 ? 'true' : null"
-                                        class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                                        class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
                             </template>
                         </div>
                         <button type="button" @click="next()" :disabled="page >= pages - 1" aria-label="Next page"
@@ -233,9 +233,9 @@
                         </div>
                     @endforeach
                 </div>
-                <div x-show="pages > 1" x-cloak class="mt-5 flex items-center justify-center gap-2 sm:hidden" role="group" aria-label="Choose a card">
+                <div x-show="pages > 1" x-cloak class="mt-5 flex items-center justify-center gap-0 sm:hidden" role="group" aria-label="Choose a card">
                     <template x-for="p in pages" :key="p">
-                        <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                        <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
                     </template>
                 </div>
             </div>
@@ -271,9 +271,9 @@
                     </article>
                 @endforeach
             </div>
-            <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-2 md:hidden" role="group" aria-label="Choose a card">
+            <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-0 md:hidden" role="group" aria-label="Choose a card">
                 <template x-for="p in pages" :key="p">
-                    <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                    <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
                 </template>
             </div>
         </div>    </div>
@@ -332,9 +332,9 @@
 
             <div x-show="pages > 1" x-cloak class="mt-8 flex items-center justify-center gap-4">
                 <button type="button" @click="prev()" :disabled="page === 0" aria-label="Previous testimonials" class="grid size-11 place-items-center rounded-full border-2 border-white/30 text-cream transition hover:border-amber hover:text-amber disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5 rotate-180')</button>
-                <div class="flex items-center gap-2" role="group" aria-label="Choose a page">
+                <div class="flex items-center gap-0" role="group" aria-label="Choose a page">
                     <template x-for="p in pages" :key="p">
-                        <button type="button" @click="go(p - 1)" :aria-label="'Page ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-white/30 hover:bg-white/60'"></button>
+                        <button type="button" @click="go(p - 1)" :aria-label="'Page ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-white/30 group-hover:bg-white/60'"></span></button>
                     </template>
                 </div>
                 <button type="button" @click="next()" :disabled="page >= pages - 1" aria-label="Next testimonials" class="grid size-11 place-items-center rounded-full border-2 border-white/30 text-cream transition hover:border-amber hover:text-amber disabled:pointer-events-none disabled:opacity-30">@icon('arrow-right', 'size-5')</button>
@@ -365,9 +365,9 @@
             @endforeach
         </div>
         {{-- Pagination dots (phones only), same pills as the package carousels --}}
-        <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-2 sm:hidden" role="group" aria-label="Choose a destination">
+        <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-0 sm:hidden" role="group" aria-label="Choose a destination">
             <template x-for="p in pages" :key="p">
-                <button type="button" @click="go(p - 1)" :aria-label="'Destination ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                <button type="button" @click="go(p - 1)" :aria-label="'Destination ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
             </template>
         </div>
         </div>
@@ -407,9 +407,9 @@
                 </article>
             @endforeach
         </div>
-        <div x-show="pages > 1" x-cloak class="mt-1 flex items-center justify-center gap-2 sm:hidden" role="group" aria-label="Choose a payment option">
+        <div x-show="pages > 1" x-cloak class="mt-1 flex items-center justify-center gap-0 sm:hidden" role="group" aria-label="Choose a payment option">
             <template x-for="p in pages" :key="p">
-                <button type="button" @click="go(p - 1)" :aria-label="'Option ' + p" :aria-current="page === p - 1 ? 'true' : null" class="h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 hover:bg-ink/40'"></button>
+                <button type="button" @click="go(p - 1)" :aria-label="'Option ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
             </template>
         </div>
         </div>

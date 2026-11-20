@@ -25,7 +25,7 @@
     </div>
 
     <div class="container-page flex h-[4.5rem] items-center justify-between gap-3 lg:h-[5.5rem]">
-        <a href="{{ route('home') }}" class="flex items-center">
+        <a href="{{ route('home') }}" class="flex items-center" aria-label="{{ $site->brand }} home">
             @if($site->logo)
                 <img src="{{ asset($site->logo) }}" alt="{{ $site->brand }}" class="nav-logo-upload h-10 w-auto lg:h-12" width="160" height="40">
             @else
