@@ -44,14 +44,19 @@ Only Accessibility was under 95. Performance, Best Practices and SEO were alread
 4. **Touch targets under 24 px:** the carousel pagination dots (home carousels) are now 24 px tall buttons around the same small visible dots, spaced 24 px apart.
 5. **Invalid definition list (package page):** the four overview facts (duration, tour type, route, destination) were a `<dl>` with wrapper divs; they are now a plain `<ul>`.
 
-**After the fixes** (local, `php artisan serve`; Accessibility, Best Practices and SEO do not depend on the server)
+**Performance work (so mobile stays at 95+)**
+- Carousels (`pageCarousel`) measure only when they come near the viewport, and resize handling is rAF-throttled.
+- The nine below-the-fold home sections use `content-visibility: auto` (`.cv-auto`), which cut style/layout time from about 680 to 500 ms.
+- Alpine starts inside those sections just before they scroll into view (`x-ignore data-lazy-alpine`, woken by an IntersectionObserver in `app.js`). Anything that must be accessible before then needs a static attribute (the video play button has a static `aria-label`).
+
+**After the fixes, live** (https://slategrey-chimpanzee-513787.hostingersite.com, median of 3 runs each; Performance / Accessibility / Best Practices / SEO)
 
 | Page | Desktop | Mobile |
 |---|---|---|
-| Home | 91* / 100 / 100 / 100 | 65* / 100 / 100 / 100 |
-| Package | 97* / 100 / 100 / 100 | 78* / 100 / 100 / 100 |
+| Home | 99 / 100 / 100 / 100 | 96 / 100 / 100 / 100 |
+| Package | 99 / 100 / 100 / 100 | 95 / 100 / 100 / 100 |
 
-*Performance from the PHP dev server only (about 1.4 s to first byte, no compression or caching), not representative: the live server scored 96 to 99 on the same pages before these changes, and the fixes add no weight (markup and colour changes only). **Re-run `lighthouse https://<live-url>/ --preset=desktop` and the mobile default after the next deploy and record the live numbers here.**
+Home mobile: LCP 2.6 s, TBT 93 ms. Package mobile: LCP 2.6 s, TBT 134 ms, CLS 0.03 (hero container). Mobile Performance varies from run to run (93 to 97 on the same build), so a single run under 95 is noise; the median is what to compare.
 
 **Not done on purpose (already 95+, small gains)**
 - The root document takes 0.7 to 0.9 s on Hostinger (server response), and the main stylesheet (23 KB) blocks rendering for about 150 ms. Both are fine at today's scores; a CDN or a page cache would be the next step if Performance ever drops below 95.
