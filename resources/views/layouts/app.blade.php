@@ -30,7 +30,7 @@
     <meta name="twitter:description" content="{{ $pageDesc }}">
     <meta name="twitter:image" content="{{ $ogImage }}">
 
-    @if($site->favicon)<link rel="icon" href="{{ asset($site->favicon) }}">@else<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FCB345'/%3E%3Cpath d='M9 21l4-10 3 6 3-8 4 12' fill='none' stroke='%232B2E37' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">@endif
+    @if($site->favicon)<link rel="icon" href="{{ asset($site->favicon) }}">@else<link rel="icon" href="{{ asset('favicon.ico') }}?v=2" sizes="48x48 32x32"><link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32.png') }}?v=2"><link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon-192.png') }}?v=2"><link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}?v=2">@endif
 
     <link rel="preload" href="/fonts/fraunces-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
