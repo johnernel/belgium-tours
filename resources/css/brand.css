@@ -13,6 +13,7 @@
     --color-sky-hover: #e3ede5; /* hover of the round arrow buttons */
     --color-cta-hover: #30483a; /* hover background of every CTA button (text stays white) */
     --color-frost: #dce9e9; /* "Stress-free travel" cards */
+    --color-pill: #e1e6e8; /* nav hover pill */
     --color-forest: #30483a; /* testimonials section background (same green as the CTA hover) */
     --color-plum: #4b3542; /* contact strip above the header */
     /* Light package card (copied from the client's reference card) */
