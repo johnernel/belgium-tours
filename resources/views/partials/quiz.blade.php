@@ -3,7 +3,7 @@
      Layout: frosted-glass panel with a dark title band, small uppercase question labels, glass option pills and a full-width
      button. The final contact step and the no-JS form sit on a light inner panel so the shared enquiry-form stays unchanged. --}}
 <div class="on-dark relative overflow-hidden rounded-[1.75rem] border border-white/25 bg-ink/75 text-cream shadow-lift backdrop-blur-xl" id="quiz">
-    <div class="bg-ink/90 px-5 py-5 sm:px-7 sm:py-6">
+    <div class="bg-slate px-5 py-5 sm:px-7 sm:py-6">
         <h2 id="quiz-title" class="text-center font-serif text-2xl font-light leading-snug text-cream sm:text-[1.75rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
     </div>
 
@@ -70,8 +70,12 @@
             <div class="mt-4 rounded-2xl bg-cream p-4 text-ink"><x-enquiry-form form-name="hero-quiz" id-prefix="ns" :extended="true" :tour-type="$quizTourType ?? null" :package="$quizPackage ?? null" submit-label="Get my free quote" /></div>
         </div>
 
-        <p class="mt-6 flex items-center justify-center gap-2 text-center text-sm text-white">
-            @icon('lock', 'size-4') Takes less than 30 seconds. Your details stay private.
+    </div>
+
+    {{-- Bottom band (same slate as the title band): the reassurance line --}}
+    <div class="bg-slate px-5 py-4 sm:px-7">
+        <p class="flex items-center justify-center gap-2 text-center text-sm text-cream">
+            @icon('lock', 'size-4 text-amber') Takes less than 30 seconds. Your details stay private.
         </p>
     </div>
 </div>

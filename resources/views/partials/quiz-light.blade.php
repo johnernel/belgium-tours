@@ -1,7 +1,7 @@
 {{-- Quiz card for the "Homepage Test" hero. Same steps, behaviour and form as partials/quiz.blade.php (Alpine `quiz`), different layout:
      a solid charcoal title band, a white body with the question centred and light option tiles, and a charcoal footer band with reassurance points. --}}
 <div class="overflow-hidden bg-white text-ink shadow-lift" id="quiz">
-    <div class="bg-ink px-6 py-6 text-center sm:px-8">
+    <div class="bg-slate px-6 py-6 text-center sm:px-8">
         <h2 id="quiz-title" class="on-dark font-serif text-2xl font-normal leading-snug text-cream sm:text-[1.9rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
     </div>
 
@@ -68,11 +68,11 @@
     </div>
 
     {{-- Footer band: reassurance points --}}
-    <div class="bg-ink px-5 py-4 text-center text-cream sm:px-7">
+    <div class="bg-slate px-5 py-4 text-center text-cream sm:px-7">
         <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-sm">
             <li class="inline-flex items-center gap-2">@icon('lock', 'size-4 text-amber') Your details stay private</li>
             <li class="inline-flex items-center gap-2">@icon('circle-check', 'size-4 text-amber') Free, no obligation</li>
         </ul>
-        <p class="mt-1.5 text-xs text-cream/80">Takes less than 30 seconds.</p>
+        <p class="mt-1.5 text-xs text-cream">Takes less than 30 seconds.</p>
     </div>
 </div>
