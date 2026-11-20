@@ -40,14 +40,7 @@
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ $site->gtm }}');</script>
     @endif
 
-    @php($inlineCss = \App\Support\InlineCss::app())
-    @if($inlineCss)
-        {{-- The public stylesheet is inlined so nothing blocks the first paint; the script still loads from the build --}}
-        <style>{!! $inlineCss !!}</style>
-        @vite(['resources/js/app.js'])
-    @else
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',

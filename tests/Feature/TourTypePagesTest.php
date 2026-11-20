@@ -75,7 +75,7 @@ class TourTypePagesTest extends TestCase
 
     public function test_pages_without_a_hero_keep_the_solid_header(): void
     {
-        $this->get('/packages')->assertOk()->assertDontSee('duration-200 nav-overlay'); // the class on the header element (the word also appears inside the inlined stylesheet)
+        $this->get('/packages')->assertOk()->assertDontSee('nav-overlay');
     }
 
     public function test_admin_can_edit_tour_type_page_copy(): void
