@@ -297,7 +297,7 @@
             <source src="{{ asset('media/ways-loop.mp4').'?v='.filemtime(public_path('media/ways-loop.mp4')) }}" type="video/mp4">
         </video>
         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/30"></div>
-        <button type="button" @click="playing ? ($refs.v.pause(), playing = false, userPaused = true) : ($refs.v.play(), playing = true, userPaused = false)" :aria-label="playing ? 'Pause video' : 'Play video'" :aria-pressed="playing"
+        <button type="button" @click="playing ? ($refs.v.pause(), playing = false, userPaused = true) : ($refs.v.play(), playing = true, userPaused = false)" aria-label="Play video" :aria-label="playing ? 'Pause video' : 'Play video'" :aria-pressed="playing"
                 class="absolute left-1/2 top-[42%] grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow-lift transition duration-300 hover:scale-105 hover:bg-white focus-visible:opacity-100 sm:size-24"
                 :class="playing ? 'opacity-0 hover:opacity-100' : 'opacity-100'">
             <svg x-show="!playing" viewBox="0 0 24 24" class="ml-1 size-9" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>

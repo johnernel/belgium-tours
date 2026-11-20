@@ -54,7 +54,7 @@ class HomepageTestPageTest extends TestCase
         $html = $this->get('/')->assertOk()->getContent();
 
         $this->assertMatchesRegularExpression('~<section class="[^"]*max-md:hidden[^"]*" aria-label="Why travel with us">~', $html, 'feature strip hidden on phones');
-        $this->assertMatchesRegularExpression('~<section class="[^"]*max-md:hidden[^"]*" aria-labelledby="ht-about">~', $html, 'tailor-made section hidden on phones');
+        $this->assertMatchesRegularExpression('~<section [^>]*class="[^"]*max-md:hidden[^"]*" aria-labelledby="ht-about">~', $html, 'tailor-made section hidden on phones');
         $this->assertStringContainsString('aria-label="Ways to travel, swipe to see more"', $html);
         $this->assertStringContainsString('snap-x snap-mandatory', $html);
         $this->assertSame(3, substr_count($html, 'w-[calc(100vw-2rem)]'), 'three cards, each 100vw minus 2rem so the next one peeks');
@@ -194,5 +194,13 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('Self Drive', $nav, 'tour type cards');
         $this->assertStringContainsString('Meet Our Team', $nav, 'about cards');
         $this->assertStringContainsString('Contact Us', $nav);
+    }
+
+    public function test_below_the_fold_home_sections_are_lazy_for_alpine_and_skip_layout_until_near(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertGreaterThanOrEqual(8, substr_count($html, 'x-ignore data-lazy-alpine class="cv-auto'), 'sections start Alpine only when they scroll into view');
+        $this->assertStringContainsString('cv-auto', file_get_contents(base_path('resources/css/app.css')), 'content-visibility helper');
+        $this->assertStringContainsString('data-lazy-alpine', file_get_contents(base_path('resources/js/app.js')), 'the lazy start-up code');
     }
 }
