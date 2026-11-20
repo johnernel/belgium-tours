@@ -45,17 +45,17 @@
         <x-photo base="images/photos/brussels-grand-place" alt="" sizes="100vw" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
         <x-photo base="images/photos/gravensteen" alt="" sizes="100vw" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
     </div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/60 via-ink/45 to-ink/85"></div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/80 via-ink/40 to-ink/10"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/45 via-ink/10 to-ink/45"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/72 via-ink/30 to-transparent"></div>
 
     <div class="container-page relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(8rem+1.5rem)]">
         <div class="lg:pt-24 max-sm:text-center">
             <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card">@icon('star', 'size-4 text-amber-deep') Authentic Trips, Belgian Heart</p>
-            <h1 class="on-dark hero-rise mt-6 font-serif text-[2.65rem] font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
+            <h1 class="on-dark hero-rise mt-6 [text-shadow:0_1px_14px_rgb(43_46_55/0.6)] font-serif text-[2.65rem] font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
                 {{ $hl1 }}<br><span class="text-amber">{{ $hl2 }}</span>
             </h1>
             <span class="hero-rise mt-4 block h-0.5 w-24 bg-amber max-sm:mx-auto" aria-hidden="true"></span>
-            <p class="hero-rise hero-rise-2 mt-7 max-w-xl text-lg text-white/90 max-sm:hidden sm:text-xl">{{ $c('hero_sub') }}</p>
+            <p class="hero-rise hero-rise-2 mt-7 max-w-xl text-lg text-white [text-shadow:0_1px_14px_rgb(43_46_55/0.6)] max-sm:hidden sm:text-xl">{{ $c('hero_sub') }}</p>
 
         </div>
         <div class="hero-rise hero-rise-2 w-full lg:max-w-[32rem] lg:justify-self-end">
