@@ -11,7 +11,7 @@
     $aboutLinks = array_map(fn ($i) => [$i[0], $i[1]], $aboutItems);
     $link = 'nav-link relative inline-flex min-h-11 items-center gap-1 px-4 text-base font-medium xl:px-5 text-ink hover:text-ink/70';
 @endphp
-<header class="nav-overlay sticky top-0 z-40 bg-bar transition-colors duration-200" :class="open && 'is-open'" x-data="{ open: false, menu: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
+<header class="nav-overlay sticky top-0 z-40 bg-bar transition-colors duration-200 [&.is-open]:bg-white" :class="open && 'is-open'" x-data="{ open: false, menu: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
     {{-- Contact strip: solid charcoal band, phone and email on the left, outlined "Enquire Now" on the right (hidden once scrolled) --}}
     <div class="hidden bg-slate text-white [.is-scrolled_&]:hidden lg:block">
         <div class="container-page flex h-12 items-center justify-between gap-6">
@@ -124,7 +124,7 @@
 
     {{-- Phone menu (layout copied from the client's reference): big uppercase links with hairline dividers, Tour Types and About Us open into photo cards,
          an "All packages" button and a full-width quote button. Only one section is open at a time. --}}
-    <nav id="mobile-nav-test" x-cloak x-show="open" x-transition.opacity x-data="{ sub: null }" class="max-h-[calc(100dvh-4.5rem)] overflow-y-auto bg-bar lg:hidden" aria-label="Mobile">
+    <nav id="mobile-nav-test" x-cloak x-show="open" x-transition.opacity x-data="{ sub: null }" class="max-h-[calc(100dvh-4.5rem)] overflow-y-auto bg-white lg:hidden" aria-label="Mobile">
         <ul class="container-page pb-5 pt-1">
             <li class="border-b border-ink/10"><a href="{{ route('home') }}" class="flex min-h-12 items-center text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink">Home</a></li>
 
@@ -134,7 +134,7 @@
                 </button>
                 <div id="m-sub-tours" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === 'tours' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== 'tours'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
                     @foreach($navTypes as $t)
-                        <a href="{{ route('tours.show', $t->slug) }}" class="flex items-center gap-4 border border-amber/40 bg-white/60 p-2.5">
+                        <a href="{{ route('tours.show', $t->slug) }}" class="flex items-center gap-4 border border-amber/40 bg-white p-2.5">
                             <span class="size-[4.5rem] shrink-0 overflow-hidden bg-sky-soft">@if($t->image)<x-photo :base="$t->image" alt="" :widths="[480, 800]" sizes="72px" :ratio="[480, 480]" class="size-full" />@endif</span>
                             <span class="min-w-0">
                                 <span class="block font-display text-[1.15rem] leading-tight text-ink">{{ $t->name }}</span>
@@ -152,7 +152,7 @@
                 </button>
                 <div id="m-sub-about" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === 'about' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== 'about'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
                     @foreach($aboutItems as [$label, $url, $img, $text])
-                        <a href="{{ $url }}" class="flex items-center gap-4 border border-amber/40 bg-white/60 p-2.5">
+                        <a href="{{ $url }}" class="flex items-center gap-4 border border-amber/40 bg-white p-2.5">
                             <span class="size-[4.5rem] shrink-0 overflow-hidden bg-sky-soft"><x-photo :base="$img" alt="" :widths="[480, 800]" sizes="72px" :ratio="[480, 480]" class="size-full" /></span>
                             <span class="min-w-0">
                                 <span class="block font-display text-[1.15rem] leading-tight text-ink">{{ $label }}</span>
