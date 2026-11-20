@@ -22,6 +22,7 @@
     --color-mist: #e8f6f8; /* Homepage Test Why Travel With Us section and cards */
     --color-mist-deep: #c3e1e6; /* border and soft shadow on mist cards */
     --color-teal-deep: #2b6b66; /* icon glyphs on the mint circles */
+    --color-amber-light: #ffd48a; /* amber for text on the slate quiz bands (4.2:1) */
     --color-mint: #a9d6d0; /* icon circles in the Homepage Test Why Travel With Us cards */
     --color-aqua-light: #beeef3; /* icons on slate squares (Homepage Test feature strip) */
     --color-ivory: #fffcf1; /* Travel Your Way section background */
@@ -164,4 +165,13 @@ h1, h2, h3, h4, .font-display, .font-serif {
     :root {
         --text-heading: 44px;
     }
+}
+
+/* Quiz title band (slate #58617E): the headline is pure white and its accent word a lighter amber, so both stay clearly readable. */
+.quiz-band .heading-accent {
+    color: var(--color-amber-light);
+}
+/* The one exception to the light-heading rule: this title sits on the mid-tone slate band, so it is regular weight for legibility. */
+.quiz-band h2 {
+    font-weight: 400;
 }
