@@ -62,5 +62,17 @@ Home mobile: LCP 2.6 s, TBT 93 ms. Package mobile: LCP 2.6 s, TBT 134 ms, CLS 0.
 - The root document takes 0.7 to 0.9 s on Hostinger (server response), and the main stylesheet (23 KB) blocks rendering for about 150 ms. Both are fine at today's scores; a CDN or a page cache would be the next step if Performance ever drops below 95.
 - The hero and card photos are slightly larger than their display size on phones (Lighthouse estimates 413 KiB of savings across the page); regenerating a 640 px size would trim it.
 
+## Lighthouse round 2 (2026-11-20, after the new colour palette), live site
+PageSpeed Insights showed Performance 96 / 98 and Accessibility 96 / 96 (mobile / desktop). Lighthouse 13, median of 3 runs on the live site (Performance / Accessibility / Best Practices / SEO).
+
+| Page | Desktop before | Desktop after | Mobile before | Mobile after |
+|---|---|---|---|---|
+| Home | 99 / 96 / 100 / 100 | 99 / **100** / 100 / 100 | 93 / 96 / 100 / 100 | 95 / **100** / 100 / 100 |
+| Package | 100 / 96 / 100 / 100 | 100 / **100** / 100 / 100 | 94 / 96 / 100 / 100 | 96 / **100** / 100 / 100 |
+
+**Accessibility 100 everywhere.** The only failure was colour contrast from the new palette: white text on the bright orange buttons (2.7:1) and the orange italic word in every two-colour heading on light backgrounds (2.2 to 2.7:1). Fixes: `cta` buttons are white on #C94B0E (4.7:1, the lightest orange that passes, hover #30483A unchanged); accent words on LIGHT backgrounds are #D9560A (3:1+, allowed for large text); on dark backgrounds they stay the exact #FF7518; the small quiz title accent uses #B84E00. If the client insists on the exact #FF7518 for buttons, white text cannot pass: dark text (6.4:1) would.
+
+**Performance: desktop 99 to 100, mobile 95 to 97, not 100.** What was done: smaller hero image on phones (`sizes` 110vw, the 800 px file instead of 1280, about 50 KB less). Tried and reverted: inlining the stylesheet in the HTML (it made style and layout time double and the first paint later). What still holds mobile under 100: Largest Contentful Paint is 2.4 to 2.6 s under Lighthouse's simulated slow 4G, of which the server response alone is 0.7 to 1.2 s (shared Hostinger plan, PHP renders every page), then the hero image download and render. Individual mobile runs vary by 5 points (93 to 97) with server speed. Getting to 100 on mobile needs a faster time to first byte: full-page caching or a CDN in front of the site (care needed: pages carry a CSRF token for the forms), or a stronger hosting plan.
+
 ## Measured during the build (mobile, simulated slow 4G)
 See the final build report. Local numbers come from the PHP dev server on a Windows laptop (slow time to first byte, no gzip), so expect the live server to score the same or better.
