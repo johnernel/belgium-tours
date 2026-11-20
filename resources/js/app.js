@@ -630,4 +630,19 @@ Alpine.data('journeyMap', (cities) => ({
     },
 }));
 
+/* Sections marked data-lazy-alpine (below the fold on the home page) carry x-ignore, so Alpine does not set up their carousels while the page loads.
+   They are initialised just before they scroll into view, which splits the start-up work into small pieces (less main-thread blocking). */
+const lazyRoots = document.querySelectorAll('[data-lazy-alpine]');
+const wake = (el) => { el.removeAttribute('x-ignore'); delete el._x_ignore; Alpine.initTree(el); };
+if ('IntersectionObserver' in window && lazyRoots.length) {
+    const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+            if (e.isIntersecting) { io.unobserve(e.target); wake(e.target); }
+        }
+    }, { rootMargin: '900px 0px' });
+    lazyRoots.forEach((el) => io.observe(el));
+} else {
+    lazyRoots.forEach((el) => el.removeAttribute('x-ignore'));
+}
+
 Alpine.start();
