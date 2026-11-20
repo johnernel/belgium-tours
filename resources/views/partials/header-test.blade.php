@@ -14,11 +14,11 @@
 <header class="nav-overlay sticky top-0 z-40 bg-bar transition-colors duration-200" :class="open && 'is-open'" x-data="{ open: false, menu: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
     {{-- Contact strip: solid charcoal band, phone and email on the left, outlined "Enquire Now" on the right (hidden once scrolled) --}}
     <div class="hidden bg-ink text-white [.is-scrolled_&]:hidden lg:block">
-        <div class="container-page flex h-16 items-center justify-between gap-6">
-            <ul class="flex items-center gap-8">
+        <div class="container-page flex h-12 items-center justify-between gap-6">
+            <ul class="flex items-center gap-6 text-sm">
                 {{-- Contact details: the numbers saved in Admin > Settings win; until they are set, the placeholders below are shown --}}
-                <li><a class="inline-flex items-center gap-2.5 hover:text-amber" href="tel:{{ $site->phone ? $site->phone_href : '+10000000000' }}">@icon('phone', 'size-5 text-amber') {{ $site->phone ?: '+1 000-000-0000' }}</a></li>
-                <li><a class="inline-flex items-center gap-2.5 hover:text-amber" href="mailto:{{ $site->email ?: 'info@gobelgiumtrips.com' }}">@icon('mail', 'size-5 text-amber') {{ $site->email ?: 'info@gobelgiumtrips.com' }}</a></li>
+                <li><a class="inline-flex items-center gap-2 hover:text-amber" href="tel:{{ $site->phone ? $site->phone_href : '+10000000000' }}">@icon('phone', 'size-4 text-amber') {{ $site->phone ?: '+1 000-000-0000' }}</a></li>
+                <li><a class="inline-flex items-center gap-2 hover:text-amber" href="mailto:{{ $site->email ?: 'info@gobelgiumtrips.com' }}">@icon('mail', 'size-4 text-amber') {{ $site->email ?: 'info@gobelgiumtrips.com' }}</a></li>
             </ul>
             <button type="button" @click="$store.modal.open()" class="inline-flex min-h-11 items-center border-2 border-white px-7 font-semibold text-white transition hover:bg-white hover:text-ink">Enquire Now</button>
         </div>
