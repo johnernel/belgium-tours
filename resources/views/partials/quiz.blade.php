@@ -3,8 +3,8 @@
      Layout: frosted-glass panel with a dark title band, small uppercase question labels, glass option pills and a full-width
      button. The final contact step and the no-JS form sit on a light inner panel so the shared enquiry-form stays unchanged. --}}
 <div class="on-dark relative overflow-hidden rounded-[1.75rem] border border-white/25 bg-ink/75 text-cream shadow-lift backdrop-blur-xl" id="quiz">
-    <div class="quiz-band bg-slate px-5 py-5 sm:px-7 sm:py-6">
-        <h2 id="quiz-title" class="text-center font-serif text-xl font-medium leading-snug !text-white sm:text-[1.5rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
+    <div class="quiz-band quiz-grad px-5 py-5 sm:px-7 sm:py-6">
+        <h2 id="quiz-title" class="text-center font-serif text-xl font-medium leading-snug !text-ink sm:text-[1.5rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
     </div>
 
     <div class="p-5 sm:p-7">
@@ -73,7 +73,7 @@
     </div>
 
     {{-- Bottom band (same slate as the title band): the reassurance line --}}
-    <div class="bg-slate px-4 py-3.5 sm:px-6">
+    <div class="quiz-grad px-4 py-3.5 sm:px-6">
         @include('partials.quiz-trust')
     </div>
 </div>

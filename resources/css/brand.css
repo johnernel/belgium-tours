@@ -170,8 +170,11 @@ h1, h2, h3, h4, .font-display, .font-serif {
 }
 
 /* Quiz title band (slate #58617E): the headline is pure white and its accent word a lighter amber, so both stay clearly readable. */
+.quiz-grad {
+    background: linear-gradient(135deg, #f1e3c9 0%, #eaecdc 100%);
+}
 .quiz-band .heading-accent {
-    color: var(--color-amber-light);
+    color: var(--color-amber-ink);
 }
 /* The one exception to the light-heading rule: this title sits on the mid-tone slate band, so it is regular weight for legibility. */
 .quiz-band h2 {
