@@ -11,6 +11,8 @@
     // Solid cards sit on #58617E, so the small text is a touch brighter to keep its contrast.
     $muted = $solid ? 'text-cream/90' : 'text-cream/70';
     $square = $square ?? false; // true = no rounded corners (Homepage Test)
+    // Tablet and desktop route line: "SELF DRIVE · Bruges · Ghent" (short tour type name, then the places)
+    $typeLabel = ['self-drive' => 'Self Drive', 'chauffeur-driven' => 'Chauffeur', 'coach-tours' => 'Coach'][$package->tourType?->slug] ?? $package->tourType?->name;
     $nightsLabel = $package->nights > 0 ? $package->nights.' '.($package->nights === 1 ? 'night' : 'nights') : '1 day';
 @endphp
 {{-- Journey card. Frosted glass in the "Three Ways to Travel Belgium" carousel, solid slate everywhere else. --}}
@@ -22,7 +24,7 @@
         @endif
         <span class="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink/50 to-transparent max-sm:hidden" aria-hidden="true"></span>
         <span class="absolute left-3 top-3 rounded-full bg-ink/50 px-3 py-1 text-xs font-semibold text-cream backdrop-blur-md sm:left-4 sm:top-4 max-sm:hidden">{{ $days }} {{ $days === 1 ? 'day' : 'days' }}</span>
-        <span class="absolute right-3 top-3 sm:right-4 sm:top-4 rounded-full {{ $solid ? 'bg-ink/70' : 'bg-sky/30' }} px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-md max-sm:left-0 max-sm:right-auto max-sm:top-3 max-sm:rounded-none max-sm:bg-amber max-sm:px-3 max-sm:py-1.5 max-sm:text-ink max-sm:backdrop-blur-none">{{ $tag }}</span>
+        <span class="absolute right-3 top-3 sm:right-4 sm:top-4 rounded-full {{ $solid ? 'bg-ink/70' : 'bg-sky/30' }} px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-md sm:hidden max-sm:left-0 max-sm:right-auto max-sm:top-3 max-sm:rounded-none max-sm:bg-amber max-sm:px-3 max-sm:py-1.5 max-sm:text-ink max-sm:backdrop-blur-none">{{ $tag }}</span>
 
         {{-- Hover (and keyboard focus): three highlights marked with tiny amber dashes (not on phones) --}}
         @if($highlights)
@@ -40,14 +42,14 @@
         {{-- Phones only: "4 nights · route" label above the title, as in the reference --}}
         <p class="hidden text-[0.7rem] font-semibold uppercase leading-snug tracking-[0.18em] text-amber max-sm:block">{{ $nightsLabel }}@if($package->route) · {{ $package->route }}@endif</p>
 
-        <h{{ $level }} class="mt-5 font-display text-xl leading-snug text-cream sm:order-2 sm:mt-0 sm:min-h-[3.4rem] sm:text-[1.4rem] sm:leading-tight max-sm:mt-3 max-sm:text-[1.35rem]">{{ $package->title }}</h{{ $level }}>
+        <h{{ $level }} class="mt-5 font-display text-xl leading-snug text-cream sm:order-2 sm:mt-0 sm:min-h-[3rem] sm:text-[1.2rem] sm:leading-tight sm:text-white max-sm:mt-3 max-sm:text-[1.35rem]">{{ $package->title }}</h{{ $level }}>
         {{-- Tablet and desktop only: the short summary from Admin > Packages, at most 2 lines --}}
         @if(filled($package->summary))
-            <p class="text-[0.92rem] leading-relaxed {{ $muted }} sm:order-3 sm:mt-1 sm:line-clamp-2 sm:min-h-[2.9rem] max-sm:hidden">{{ $package->summary }}</p>
+            <p class="text-[0.92rem] leading-relaxed {{ $muted }} sm:text-white sm:order-3 sm:mt-1 sm:line-clamp-2 sm:min-h-[2.9rem] max-sm:hidden">{{ $package->summary }}</p>
         @endif
-        @if($package->route)
+        @if($package->route || $typeLabel)
             <p class="mt-2.5 flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.16em] sm:order-1 sm:mb-2 sm:mt-0 sm:text-[0.72rem] sm:tracking-[0.2em] {{ $solid ? 'text-sky-soft' : 'text-sky' }} max-sm:hidden">
-                <span class="h-px w-5 shrink-0 {{ $solid ? 'bg-sky-soft/60' : 'bg-sky/60' }}" aria-hidden="true"></span>{{ $package->route }}
+                <span class="h-px w-5 shrink-0 {{ $solid ? 'bg-sky-soft/60' : 'bg-sky/60' }}" aria-hidden="true"></span>{{ $typeLabel }}@if($typeLabel && $package->route) · @endif{{ $package->route }}
             </p>
         @endif
 

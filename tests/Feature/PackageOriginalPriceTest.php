@@ -90,4 +90,15 @@ class PackageOriginalPriceTest extends TestCase
         $p->update(['summary' => '']);
         $this->assertSame($withSummary - 1, substr_count($this->get('/packages')->getContent(), 'sm:line-clamp-2'), 'a blank summary renders no description element');
     }
+
+    public function test_the_card_route_line_starts_with_the_tour_type_and_the_corner_chip_is_phones_only_and_title_text_is_white(): void
+    {
+        $html = $this->get('/packages')->assertOk()->getContent();
+        $this->assertMatchesRegularExpression('~</span>Self Drive · [^<]+~u', $html);
+        $this->assertMatchesRegularExpression('~</span>Chauffeur · [^<]+~u', $html);
+        $this->assertMatchesRegularExpression('~</span>Coach · [^<]+~u', $html);
+        $this->assertStringContainsString('backdrop-blur-md sm:hidden max-sm:left-0', $html, 'the tour type chip only shows on phones');
+        $this->assertStringContainsString('sm:text-[1.2rem] sm:leading-tight sm:text-white', $html, 'smaller white title');
+        $this->assertStringContainsString('sm:text-white sm:order-3', $html, 'white description');
+    }
 }
