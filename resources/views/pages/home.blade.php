@@ -86,7 +86,7 @@
     </div>
 </section>
 {{-- 3. ABOUT / TAILOR-MADE: big photo with a small overlapping one, copy and checklist --}}
-<section class="bg-ivory py-16 max-md:hidden sm:py-24" aria-labelledby="ht-about">
+<section class="cv-auto bg-ivory py-16 max-md:hidden sm:py-24" aria-labelledby="ht-about">
     <div class="container-page grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
         <div class="relative pb-10 pr-8 sm:pr-14">
             <div class="relative aspect-[4/5] overflow-hidden shadow-card">
@@ -120,7 +120,7 @@
 @php
     $bestFor = ['self-drive' => 'Couples · Families · Independent travellers', 'chauffeur-driven' => 'Couples · Solo travellers · Luxury seekers', 'coach-tours' => 'Solo travellers · Couples · Groups'];
 @endphp
-<section class="bg-white pb-16 pt-16 sm:pb-24 sm:pt-24" aria-labelledby="ht-ways">
+<section class="cv-auto bg-white pb-16 pt-16 sm:pb-24 sm:pt-24" aria-labelledby="ht-ways">
     <div class="container-page">
         <div class="mx-auto max-w-2xl text-center">
             @include('partials.ht-eyebrow', ['label' => $c('ways_eyebrow') ?: 'Choose your journey', 'center' => true])
@@ -160,7 +160,7 @@
     </div>
 </section>
 {{-- 5. PACKAGES: one swipeable carousel per tour type (3 cards per view on desktop, 2 on tablet, 1 on mobile), page indicator, no autoplay --}}
-<section class="bg-ivory py-16 sm:py-24" aria-labelledby="ht-packages">
+<section class="cv-auto bg-ivory py-16 sm:py-24" aria-labelledby="ht-packages">
     <div class="container-page space-y-16">
         <div class="mx-auto max-w-2xl text-center">
             @include('partials.ht-eyebrow', ['label' => 'Our Packages', 'center' => true])
@@ -205,7 +205,7 @@
 </section>
 {{-- 6. WHY CHOOSE US: dusk band, photo plus a 2x2 grid of reasons --}}
 @if($wcu->isNotEmpty())
-<section class="relative isolate overflow-hidden bg-mist py-16 text-ink sm:py-24" aria-labelledby="ht-wcu">
+<section class="cv-auto relative isolate overflow-hidden bg-mist py-16 text-ink sm:py-24" aria-labelledby="ht-wcu">
     {{-- Decorative Antwerp skyline (client-supplied image turned into a soft tint), bottom right, behind everything; hidden on phones --}}
     <img src="{{ asset('images/decor/antwerp-skyline.webp') }}" alt="" aria-hidden="true" width="927" height="617" loading="lazy" class="pointer-events-none absolute bottom-0 right-0 -z-10 hidden h-[24rem] w-auto max-w-[60%] select-none opacity-60 md:block lg:h-[28rem]">
     <div class="container-page">
@@ -252,7 +252,7 @@
         ['compass', 'Travel Your Way', 'Take the wheel on a self-drive adventure, or relax with a private chauffeur or coach tour. Every journey is seamless.'],
     ];
 @endphp
-<section class="bg-white py-16 sm:py-24" aria-labelledby="ht-steps">
+<section class="cv-auto bg-white py-16 sm:py-24" aria-labelledby="ht-steps">
     <div class="container-page">
         <div class="mx-auto max-w-4xl text-center">
             @include('partials.ht-eyebrow', ['label' => 'Stress-free travel', 'center' => true])
@@ -281,7 +281,7 @@
 {{-- 8. TESTIMONIALS (layout copied from the client's reference): a full-width video block with a play button and a fade into the dark section, the centred label and heading,
      then the testimonials as a carousel (3 cards per view on desktop, 2 tablet, 1 mobile; arrows, dots, swipe, no autoplay). No star ratings: there are none to back them. --}}
 @if($testimonials->isNotEmpty())
-<section class="on-dark bg-ink text-cream" aria-labelledby="ht-quotes">
+<section class="cv-auto on-dark bg-ink text-cream" aria-labelledby="ht-quotes">
     {{-- Video block: starts by itself (muted, looping) when the section scrolls into view and pauses when it leaves; the button pauses or resumes it. Reduced-motion and data-saver visitors get the poster and the play button instead. --}}
     <div class="relative h-[17rem] overflow-hidden sm:h-[26rem] lg:h-[32rem]" x-data="{ playing: false, userPaused: false }"
          x-init="const v = $refs.v; const calm = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData);
@@ -344,7 +344,7 @@
 </section>
 @endif
 {{-- 9. DESTINATIONS: photo grid, tour counts come from the database --}}
-<section class="bg-ivory py-16 sm:py-24" aria-labelledby="ht-dest">
+<section class="cv-auto bg-ivory py-16 sm:py-24" aria-labelledby="ht-dest">
     <div class="container-page">
         <div class="mx-auto max-w-2xl text-center">
             @include('partials.ht-eyebrow', ['label' => $c('dest_eyebrow') ?: 'Top destinations', 'center' => true])
@@ -384,7 +384,7 @@
         ['banknote', 'images/photos/bruges-market', 'Flexible Payment Options', 'Multiple secure payment options available to suit every traveller in your whole group.'],
     ];
 @endphp
-<section class="bg-white py-16 sm:py-24" aria-labelledby="ht-pay">
+<section class="cv-auto bg-white py-16 sm:py-24" aria-labelledby="ht-pay">
     <div class="container-page">
         <div class="mx-auto max-w-4xl text-center">
             @include('partials.ht-eyebrow', ['label' => 'Find your style', 'center' => true])
@@ -418,7 +418,7 @@
 </section>
 {{-- 10. PLAN YOUR TRIP (layout copied from the client's reference): pale band, centred label, heading, intro, three small reassurance points, one button,
      and a faded skyline silhouette along the bottom edge (Belgian step gables and belfries instead of mountains) --}}
-<section class="relative isolate overflow-hidden bg-white pb-44 pt-16 sm:pb-52 sm:pt-24" aria-labelledby="ht-plan">
+<section class="cv-auto relative isolate overflow-hidden bg-white pb-44 pt-16 sm:pb-52 sm:pt-24" aria-labelledby="ht-plan">
     <div class="absolute inset-0 -z-20 bg-sky-soft/55" aria-hidden="true"></div>
     <div class="container-page text-center">
         @include('partials.ht-eyebrow', ['label' => 'Craft your trip', 'center' => true])

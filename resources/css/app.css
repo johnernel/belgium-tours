@@ -176,3 +176,9 @@
     -webkit-mask: var(--qi) center / contain no-repeat;
     mask: var(--qi) center / contain no-repeat;
 }
+
+/* Below-the-fold home sections skip layout and paint until they are near the viewport (cuts the first-load style and layout work). The size is a placeholder that the browser remembers once it has rendered the section. */
+.cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+}

@@ -319,9 +319,19 @@ Alpine.data('pageCarousel', () => ({
     pages: 1,
     perView: 1,
 
+    ready: false,
+
+    /* Measuring reads layout, so it waits until the carousel is about to scroll into view instead of running (nine times) while the page loads. */
     init() {
-        this.$nextTick(() => this.measure());
-        window.addEventListener('resize', () => this.measure(), { passive: true });
+        const start = () => { if (this.ready) return; this.ready = true; this.measure(); };
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries) => { if (entries.some((e) => e.isIntersecting)) { io.disconnect(); start(); } }, { rootMargin: '600px 0px' });
+            this.$nextTick(() => io.observe(this.$el));
+        } else {
+            this.$nextTick(start);
+        }
+        let raf = 0;
+        window.addEventListener('resize', () => { if (! this.ready) return; cancelAnimationFrame(raf); raf = requestAnimationFrame(() => this.measure()); }, { passive: true });
     },
     cards() {
         return this.$refs.track ? this.$refs.track.children.length : 0;
@@ -347,6 +357,7 @@ Alpine.data('pageCarousel', () => ({
         this.page = atEnd ? this.pages - 1 : Math.min(this.pages - 1, Math.round(t.scrollLeft / (this.step() * this.perView)));
     },
     go(p) {
+        if (! this.ready) { this.ready = true; this.measure(); }
         const t = this.$refs.track;
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const target = Math.max(0, Math.min(this.pages - 1, p));
