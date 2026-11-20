@@ -159,4 +159,14 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('>Contact Us</a>', $header);
         $this->assertStringContainsString('aria-controls="mega-tours-test"', $header, 'the Tour Types mega menu is still there');
     }
+
+    public function test_three_why_travel_with_us_cards_use_the_clients_svg_icons(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        foreach (['local-expertise', 'tailor-made', 'handpicked-stays'] as $name) {
+            $this->assertStringContainsString("images/why-icons/$name.svg", $html);
+            $this->assertFileExists(public_path("images/why-icons/$name.svg"));
+        }
+        $this->assertStringContainsString('Routes and stops chosen by people', $html, 'card text is unchanged');
+    }
 }

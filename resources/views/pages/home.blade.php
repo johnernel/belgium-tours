@@ -29,7 +29,7 @@
 
     $nTours = fn ($n) => $n === 1 ? '1 tour' : $n.' tours';
     $why = trim($c('why_heading') ?: 'Every journey, personally crafted.');
-    $wcu = collect([1, 2, 3, 4])->map(fn ($n) => ['icon' => ['map-pin', 'compass', 'bed', 'shield'][$n - 1], 'title' => $c("wcu_{$n}_title"), 'text' => $c("wcu_{$n}_text")])->filter(fn ($f) => $f['title']);
+    $wcu = collect([1, 2, 3, 4])->map(fn ($n) => ['icon' => ['svg:local-expertise', 'svg:tailor-made', 'svg:handpicked-stays', 'shield'][$n - 1], 'title' => $c("wcu_{$n}_title"), 'text' => $c("wcu_{$n}_text")])->filter(fn ($f) => $f['title']);
     $steps = collect([1, 2, 3])->map(fn ($n) => ['title' => $c("step_{$n}_title"), 'text' => $c("step_{$n}_text")])->filter(fn ($s) => $s['title']);
     $quotes = $testimonials->take(3);
 @endphp
@@ -227,7 +227,7 @@
                      class="relative grid gap-4 sm:grid-cols-2 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-3 max-sm:overflow-x-auto max-sm:scroll-smooth max-sm:pb-1 max-sm:[scrollbar-width:none] max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-[''] max-sm:motion-reduce:scroll-auto max-sm:[&::-webkit-scrollbar]:hidden">
                     @foreach($wcu as $f)
                         <div class="border border-mist-deep bg-mist p-6 shadow-[0_8px_22px_-14px_var(--color-mist-deep)] max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start">
-                            <span class="grid size-12 place-items-center rounded-full bg-mint text-teal-deep">@icon($f['icon'], 'size-6')</span>
+                            <span class="grid size-12 place-items-center rounded-full bg-mint text-teal-deep">@if(str_starts_with($f['icon'], 'svg:'))<span class="qicon size-7" style="--qi: url({{ asset('images/why-icons/'.substr($f['icon'], 4).'.svg') }})" aria-hidden="true"></span>@else @icon($f['icon'], 'size-6')@endif</span>
                             <h3 class="mt-4 font-display text-xl text-ink">{{ $f['title'] }}</h3>
                             <p class="mt-2 text-[0.95rem] text-ink/80">{{ $f['text'] }}</p>
                         </div>
