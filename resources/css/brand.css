@@ -10,7 +10,9 @@
     --color-cream-deep: #e9ddc9;
     --color-sky: #e3ede5;
     --color-sky-soft: #e3ede5;
-    --color-sky-hover: #e3ede5; /* hover colour of the CTA buttons */
+    --color-sky-hover: #e3ede5; /* hover of the round arrow buttons */
+    --color-cta-hover: #30483a; /* hover background of every CTA button (text stays white) */
+    --color-plum: #4b3542; /* contact strip above the header */
     --color-slate: #28352d;
     --color-amber: #ff7518;
     --color-amber-deep: #e0640f;

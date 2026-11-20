@@ -13,7 +13,7 @@
 @endphp
 <header class="nav-overlay sticky top-0 z-40 bg-bar transition-colors duration-200 [&.is-open]:bg-white" :class="open && 'is-open'" x-data="{ open: false, menu: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
     {{-- Contact strip: solid charcoal band, phone and email on the left, outlined "Enquire Now" on the right (hidden once scrolled) --}}
-    <div class="hidden bg-slate text-white [.is-scrolled_&]:hidden lg:block">
+    <div class="hidden bg-plum text-white [.is-scrolled_&]:hidden lg:block">
         <div class="container-page flex h-12 items-center justify-between gap-6">
             <ul class="flex items-center gap-6 text-sm">
                 {{-- Contact details: the numbers saved in Admin > Settings win; until they are set, the placeholders below are shown --}}

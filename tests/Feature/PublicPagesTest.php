@@ -64,7 +64,7 @@ class PublicPagesTest extends TestCase
         foreach (['Tailor-made in Belgium', 'Every Journey, Personally', 'Bespoke itineraries', 'Handpicked stays', 'Local expert guides', 'Plan My Journey'] as $text) {
             $this->assertStringContainsString($text, $html);
         }
-        $this->assertStringContainsString('bg-amber text-ink hover:bg-sky-hover', $html, 'CTA button style: white text on the deep amber so the contrast passes WCAG AA');
+        $this->assertStringContainsString('bg-amber text-white hover:bg-cta-hover', $html, 'CTA button style: white text, dark green hover');
     }
 
     public function test_the_ways_to_travel_section_has_video_tabs_and_journey_cards(): void

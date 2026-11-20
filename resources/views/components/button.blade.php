@@ -5,7 +5,7 @@
     $variants = [
         'primary' => 'bg-amber text-ink hover:bg-amber-deep',
         // Brand CTA: solid amber, white text, light blue on hover (hover text goes dark so it stays readable).
-        'cta' => 'bg-amber text-ink hover:bg-sky-hover hover:text-ink',
+        'cta' => 'bg-amber text-white hover:bg-cta-hover hover:text-white',
         'dark' => 'bg-ink text-cream hover:bg-slate',
         'sky' => 'bg-sky text-ink hover:bg-sky-soft',
         'outline' => 'border-2 border-ink text-ink hover:bg-ink hover:text-cream',
