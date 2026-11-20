@@ -1,5 +1,5 @@
 @php $footTypes = \App\Models\TourType::active()->get(); @endphp
-<footer class="{{ $__env->hasSection('footer_flush') ? '' : 'mt-24' }} bg-ink text-cream">
+<footer class="{{ $__env->hasSection('footer_flush') ? '' : 'mt-24' }} bg-forest text-cream">
     <div class="container-page grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr] lg:gap-16">
         {{-- Brand: logo, tagline and (when set) contact details --}}
         <div class="sm:col-span-2 lg:col-span-1">
@@ -21,7 +21,7 @@
         </div>
 
         <nav aria-labelledby="foot-explore">
-            <p id="foot-explore" class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-amber"><span class="h-px w-9 bg-amber" aria-hidden="true"></span>Explore</p>
+            <p id="foot-explore" class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-amber-light"><span class="h-px w-9 bg-amber" aria-hidden="true"></span>Explore</p>
             <ul class="mt-6 space-y-1.5 text-lg">
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('packages.index') }}">All packages</a></li>
                 @foreach($footTypes as $t)<li><a class="inline-block py-1 hover:text-amber" href="{{ route('tours.show', $t->slug) }}">{{ $t->name }}</a></li>@endforeach
@@ -31,7 +31,7 @@
         </nav>
 
         <nav aria-labelledby="foot-about">
-            <p id="foot-about" class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-amber"><span class="h-px w-9 bg-amber" aria-hidden="true"></span>About Us</p>
+            <p id="foot-about" class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-amber-light"><span class="h-px w-9 bg-amber" aria-hidden="true"></span>About Us</p>
             <ul class="mt-6 space-y-1.5 text-lg">
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('about') }}">About Us</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('team') }}">Meet Our Team</a></li>

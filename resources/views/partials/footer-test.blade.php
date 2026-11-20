@@ -1,6 +1,6 @@
 {{-- Footer for the "Homepage Test" design: charcoal, four columns, legal bar. Go Belgium logo (white version). --}}
 @php $footTypes = \App\Models\TourType::active()->get(); @endphp
-<footer class="{{ $__env->hasSection('footer_flush') ? '' : 'mt-24' }} bg-ink text-cream">
+<footer class="{{ $__env->hasSection('footer_flush') ? '' : 'mt-24' }} bg-forest text-cream">
     <div class="container-page grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-14">
         <div class="sm:col-span-2 lg:col-span-1">
             <a href="{{ route('home') }}" class="inline-block" aria-label="{{ $site->brand }} home">
@@ -19,14 +19,14 @@
         </div>
 
         <nav aria-labelledby="ft-types">
-            <p id="ft-types" class="text-xs font-semibold uppercase tracking-[0.22em] text-amber">Tour Types</p>
+            <p id="ft-types" class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-light">Tour Types</p>
             <ul class="mt-5 space-y-1.5">
                 @foreach($footTypes as $t)<li><a class="inline-block py-1 hover:text-amber" href="{{ route('tours.show', $t->slug) }}">{{ $t->name }}</a></li>@endforeach
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('packages.index') }}">All packages</a></li>
             </ul>
         </nav>
         <nav aria-labelledby="ft-explore">
-            <p id="ft-explore" class="text-xs font-semibold uppercase tracking-[0.22em] text-amber">Explore</p>
+            <p id="ft-explore" class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-light">Explore</p>
             <ul class="mt-5 space-y-1.5">
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('destinations.index') }}">Destinations</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('journal.index') }}">Travel guides</a></li>
@@ -34,7 +34,7 @@
             </ul>
         </nav>
         <nav aria-labelledby="ft-about">
-            <p id="ft-about" class="text-xs font-semibold uppercase tracking-[0.22em] text-amber">About Us</p>
+            <p id="ft-about" class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-light">About Us</p>
             <ul class="mt-5 space-y-1.5">
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('about') }}">About Us</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('team') }}">Meet Our Team</a></li>
