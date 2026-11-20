@@ -45,8 +45,8 @@
         <x-photo base="images/photos/brussels-grand-place" alt="" sizes="100vw" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
         <x-photo base="images/photos/gravensteen" alt="" sizes="100vw" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
     </div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/45 via-ink/10 to-ink/45"></div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/72 via-ink/30 to-transparent"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/22 to-ink/58"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/76 via-ink/38 to-ink/6"></div>
 
     <div class="container-page relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(8rem+1.5rem)]">
         <div class="lg:pt-24 max-sm:text-center">
