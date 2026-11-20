@@ -139,4 +139,13 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('aria-label="Choose a payment option"', $html, 'pagination dots');
         $this->assertStringContainsString('sm:grid-cols-2 xl:grid-cols-4', $html, 'the grid from sm up is kept');
     }
+
+    public function test_the_header_strip_shows_the_contact_details_instead_of_the_old_tagline(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('href="tel:+10000000000"', $html);
+        $this->assertStringContainsString('+1 000-000-0000', $html);
+        $this->assertStringContainsString('href="mailto:info@gobelgiumtrips.com"', $html);
+        $this->assertStringNotContainsString('Free, no-obligation quote. Tailor-made trips across Belgium.', $html);
+    }
 }
