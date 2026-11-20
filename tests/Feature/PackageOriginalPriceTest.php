@@ -36,9 +36,9 @@ class PackageOriginalPriceTest extends TestCase
         $this->assertStringContainsString('<s class=', $html);
         $this->assertMatchesRegularExpression('~<s [^>]*>From '.preg_quote(self::EUR, '~').'1,800</s>~u', $html, 'the word From and the old price are struck together');
         $this->assertStringContainsString(self::EUR.'1,500', $html);
-        $this->assertTrue(strpos($html, 'Was from '.self::EUR.'1,800') < strpos($html, self::EUR.'1,500</p>'), 'the crossed-out line comes before (above) the current price');
+        $this->assertTrue(strpos($html, 'Was from '.self::EUR.'1,800') < strpos($html, self::EUR.'1,500</span>'), 'the crossed-out price comes before the current price (same line)');
         $this->assertStringContainsString('Was from '.self::EUR.'1,800', $html);
-        $this->assertDoesNotMatchRegularExpression('~uppercase tracking-\[0\.18em\][^>]*>From</p>~', $html, 'no plain From label above the current price on a reduced card');
+        $this->assertDoesNotMatchRegularExpression('~uppercase tracking-\[0\.14em\][^>]*>From</span>~', $html, 'no plain From label above the current price on a reduced card');
     }
 
     public function test_no_strikethrough_without_an_original_price_or_when_it_is_not_higher(): void
@@ -47,7 +47,7 @@ class PackageOriginalPriceTest extends TestCase
         $html = $this->get('/packages')->assertOk()->getContent();
         $this->assertStringNotContainsString('<s class=', $html);
         $this->assertStringContainsString(self::EUR.'1,500', $html);
-        $this->assertMatchesRegularExpression('~uppercase tracking-\[0\.18em\][^>]*>From</p>~', $html, 'a normal card keeps its From label');
+        $this->assertMatchesRegularExpression('~uppercase tracking-\[0\.14em\][^>]*>From</span>~', $html, 'a normal card keeps its From label');
 
         $this->package(['price_from' => 1500, 'original_price' => 1200]);
         $this->assertStringNotContainsString('<s class=', $this->get('/packages')->getContent());
@@ -98,9 +98,9 @@ class PackageOriginalPriceTest extends TestCase
         $this->assertMatchesRegularExpression('~</span>Chauffeur · [^<]+~u', $html);
         $this->assertMatchesRegularExpression('~</span>Coach · [^<]+~u', $html);
         $this->assertStringContainsString('backdrop-blur-md sm:hidden max-sm:left-0', $html, 'the tour type chip only shows on phones');
-        $this->assertStringContainsString('sm:text-[1.35rem] sm:leading-tight sm:text-white', $html, 'white title');
+        $this->assertStringContainsString('text-ref-text sm:order-2 sm:mt-0 sm:text-[1.35rem] sm:leading-tight', $html, 'reference title colour');
         $this->assertStringNotContainsString('sm:min-h-[3rem]', $html, 'no reserved gap under the title');
         $this->assertStringContainsString('sm:shadow-none', $html, 'no drop shadow under the cards from sm up');
-        $this->assertStringContainsString('sm:text-white sm:order-3', $html, 'white description');
+        $this->assertStringContainsString('text-ref-muted sm:order-3', $html, 'reference description colour');
     }
 }

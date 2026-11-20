@@ -13,6 +13,13 @@
     --color-sky-hover: #e3ede5; /* hover of the round arrow buttons */
     --color-cta-hover: #30483a; /* hover background of every CTA button (text stays white) */
     --color-plum: #4b3542; /* contact strip above the header */
+    /* Light package card (copied from the client's reference card) */
+    --color-ref-text: #414641; /* title, labels */
+    --color-ref-muted: #666b65; /* short description */
+    --color-moss: #405b48; /* "More Info" text */
+    --color-moss-line: #a9c7ce; /* "More Info" outline */
+    --color-peach: #ffdbc0; /* thin card border */
+    --color-peach-soft: #ffddc4; /* divider line inside the card */
     --color-slate: #28352d;
     --color-amber: #ff7518;
     --color-amber-deep: #e0640f;
