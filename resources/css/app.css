@@ -17,15 +17,9 @@
 .js:not(.is-scrolled) .nav-overlay:not(.is-open):not(:hover):not(:focus-within) .nav-menu-btn {
     color: #fff;
 }
-/* Header hover (client's reference): while the pointer is anywhere on the header, or focus is inside it, the WHOLE bar (logo, links, contact strip) fills with the solid light colour and turns dark (the transparent look above only applies when nothing is hovered). The hovered item gets its own grey-blue pill, which also stays while its mega menu is open. All faded smoothly (the header has transition-colors). */
+/* Header hover (client's reference): while the pointer is anywhere on the header, or focus is inside it, the WHOLE bar (logo, links, contact strip) fills with the solid light colour and turns dark (the transparent look above only applies when nothing is hovered). The individual items have NO hover background (the grey-blue pill was removed on request). All faded smoothly (the header has transition-colors). */
 .nav-link {
-    border-radius: 0.5rem;
-    transition: background-color 0.25s ease, color 0.25s ease;
-}
-.nav-link:hover,
-.nav-link[aria-expanded='true'] {
-    background-color: var(--color-pill);
-    color: var(--color-ink);
+    transition: color 0.25s ease;
 }@media (prefers-reduced-motion: reduce) {
     .nav-link { transition: none; }
 }
