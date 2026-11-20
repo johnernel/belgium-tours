@@ -215,7 +215,7 @@
                 <h2 id="ht-wcu" class="mt-5 font-serif text-heading">@heading($c('wcu_heading') ?: 'Why Choose *Us*')</h2>
                 @if($c('wcu_sub'))<p class="mt-4 text-lg text-ink/85">{{ $c('wcu_sub') }}</p>@endif
             </div>
-            <x-button square variant="primary" size="lg" icon="arrow-right" @click="$store.modal.open()">Start Your Journey</x-button>
+            <x-button square variant="cta" size="lg" icon="arrow-right" @click="$store.modal.open()">Start Your Journey</x-button>
         </div>
         <div class="mt-12 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
             <div class="relative min-h-[20rem] overflow-hidden">
@@ -226,7 +226,7 @@
                 <div x-ref="track" @scroll.passive="update()" tabindex="0" aria-label="Why travel with us, swipe to see more"
                      class="relative grid gap-4 sm:grid-cols-2 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-3 max-sm:overflow-x-auto max-sm:scroll-smooth max-sm:pb-1 max-sm:[scrollbar-width:none] max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-[''] max-sm:motion-reduce:scroll-auto max-sm:[&::-webkit-scrollbar]:hidden">
                     @foreach($wcu as $f)
-                        <div class="border border-mist-deep bg-mist p-6 shadow-[0_8px_22px_-14px_var(--color-mist-deep)] max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start">
+                        <div class="border border-mist-deep bg-white p-6 shadow-[0_8px_22px_-14px_var(--color-mist-deep)] max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start">
                             <span class="grid size-12 place-items-center rounded-full bg-mint text-teal-deep">@if(str_starts_with($f['icon'], 'svg:'))<span class="qicon size-7" style="--qi: url({{ asset('images/why-icons/'.substr($f['icon'], 4).'.svg') }})" aria-hidden="true"></span>@else @icon($f['icon'], 'size-6')@endif</span>
                             <h3 class="mt-4 font-display text-xl text-ink">{{ $f['title'] }}</h3>
                             <p class="mt-2 text-[0.95rem] text-ink/80">{{ $f['text'] }}</p>
