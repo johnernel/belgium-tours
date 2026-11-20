@@ -16,7 +16,7 @@
     $nightsLabel = $package->nights > 0 ? $package->nights.' '.($package->nights === 1 ? 'night' : 'nights') : '1 day';
 @endphp
 {{-- Journey card. Frosted glass in the "Three Ways to Travel Belgium" carousel, solid slate everywhere else. --}}
-<article class="journey-card group flex h-full flex-col {{ $square ? 'rounded-none' : 'rounded-[20px]' }} p-3 text-cream shadow-lift ring-1 max-sm:flex-row max-sm:rounded-none max-sm:p-0 sm:overflow-hidden sm:p-0 sm:transition-all sm:duration-300 sm:hover:-translate-y-1 sm:hover:shadow-[0_28px_50px_-22px_rgb(0_0_0/0.6)] {{ $solid ? 'bg-slate ring-white/10' : 'bg-ink/55 ring-white/15 backdrop-blur-md' }}">
+<article class="journey-card group flex h-full flex-col {{ $square ? 'rounded-none' : 'rounded-[20px]' }} p-3 text-cream shadow-lift ring-1 max-sm:flex-row max-sm:rounded-none max-sm:p-0 sm:overflow-hidden sm:p-0 sm:transition-all sm:duration-300 sm:shadow-none sm:hover:-translate-y-1 {{ $solid ? 'bg-slate ring-white/10' : 'bg-ink/55 ring-white/15 backdrop-blur-md' }}">
     <div class="relative aspect-[4/3] overflow-hidden {{ $square ? 'rounded-none' : 'rounded-[14px]' }} bg-slate sm:aspect-[3/2] sm:rounded-none max-sm:aspect-auto max-sm:w-[38%] max-sm:shrink-0 max-sm:rounded-none">
         @if($package->hero_image)
             <x-photo :base="$package->hero_image" :alt="$package->hero_image_alt ?: $package->title" sizes="(min-width:1024px) 30vw, (min-width:640px) 44vw, 40vw" fetchpriority="low"
@@ -42,13 +42,13 @@
         {{-- Phones only: "4 nights · route" label above the title, as in the reference --}}
         <p class="hidden text-[0.7rem] font-semibold uppercase leading-snug tracking-[0.18em] text-amber max-sm:block">{{ $nightsLabel }}@if($package->route) · {{ $package->route }}@endif</p>
 
-        <h{{ $level }} class="mt-5 font-display text-xl leading-snug text-cream sm:order-2 sm:mt-0 sm:min-h-[3rem] sm:text-[1.2rem] sm:leading-tight sm:text-white max-sm:mt-3 max-sm:text-[1.35rem]">{{ $package->title }}</h{{ $level }}>
+        <h{{ $level }} class="mt-5 font-display text-xl leading-snug text-cream sm:order-2 sm:mt-0 sm:text-[1.35rem] sm:leading-tight sm:text-white max-sm:mt-3 max-sm:text-[1.35rem]">{{ $package->title }}</h{{ $level }}>
         {{-- Tablet and desktop only: the short summary from Admin > Packages, at most 2 lines --}}
         @if(filled($package->summary))
-            <p class="text-[0.92rem] leading-relaxed {{ $muted }} sm:text-white sm:order-3 sm:mt-1 sm:line-clamp-2 sm:min-h-[2.9rem] max-sm:hidden">{{ $package->summary }}</p>
+            <p class="text-[0.92rem] leading-relaxed {{ $muted }} sm:text-white sm:order-3 sm:mt-2.5 sm:line-clamp-2 sm:min-h-[2.9rem] max-sm:hidden">{{ $package->summary }}</p>
         @endif
         @if($package->route || $typeLabel)
-            <p class="mt-2.5 flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.16em] sm:order-1 sm:mb-2 sm:mt-0 sm:text-[0.72rem] sm:tracking-[0.2em] {{ $solid ? 'text-sky-soft' : 'text-sky' }} max-sm:hidden">
+            <p class="mt-2.5 flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.16em] sm:order-1 sm:mb-2 sm:mt-0 sm:text-[0.62rem] sm:tracking-[0.16em] {{ $solid ? 'text-sky-soft' : 'text-sky' }} max-sm:hidden">
                 <span class="h-px w-5 shrink-0 {{ $solid ? 'bg-sky-soft/60' : 'bg-sky/60' }}" aria-hidden="true"></span>{{ $typeLabel }}@if($typeLabel && $package->route) · @endif{{ $package->route }}
             </p>
         @endif

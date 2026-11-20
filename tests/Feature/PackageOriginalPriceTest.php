@@ -98,7 +98,9 @@ class PackageOriginalPriceTest extends TestCase
         $this->assertMatchesRegularExpression('~</span>Chauffeur · [^<]+~u', $html);
         $this->assertMatchesRegularExpression('~</span>Coach · [^<]+~u', $html);
         $this->assertStringContainsString('backdrop-blur-md sm:hidden max-sm:left-0', $html, 'the tour type chip only shows on phones');
-        $this->assertStringContainsString('sm:text-[1.2rem] sm:leading-tight sm:text-white', $html, 'smaller white title');
+        $this->assertStringContainsString('sm:text-[1.35rem] sm:leading-tight sm:text-white', $html, 'white title');
+        $this->assertStringNotContainsString('sm:min-h-[3rem]', $html, 'no reserved gap under the title');
+        $this->assertStringContainsString('sm:shadow-none', $html, 'no drop shadow under the cards from sm up');
         $this->assertStringContainsString('sm:text-white sm:order-3', $html, 'white description');
     }
 }
