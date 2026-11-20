@@ -4,7 +4,7 @@
      button. The final contact step and the no-JS form sit on a light inner panel so the shared enquiry-form stays unchanged. --}}
 <div class="on-dark relative overflow-hidden rounded-[1.75rem] border border-white/25 bg-ink/75 text-cream shadow-lift backdrop-blur-xl" id="quiz">
     <div class="quiz-band bg-slate px-5 py-5 sm:px-7 sm:py-6">
-        <h2 id="quiz-title" class="text-center font-serif text-2xl font-medium leading-snug !text-white sm:text-[1.75rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
+        <h2 id="quiz-title" class="text-center font-serif text-xl font-medium leading-snug !text-white sm:text-[1.5rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
     </div>
 
     <div class="p-5 sm:p-7">
@@ -73,9 +73,7 @@
     </div>
 
     {{-- Bottom band (same slate as the title band): the reassurance line --}}
-    <div class="bg-slate px-5 py-4 sm:px-7">
-        <p class="flex items-center justify-center gap-2 text-center text-[0.95rem] font-semibold text-white">
-            @icon('lock', 'size-4 shrink-0 text-amber-light') <span>Takes less than 30 seconds. Your details stay private.</span>
-        </p>
+    <div class="bg-slate px-4 py-3.5 sm:px-6">
+        @include('partials.quiz-trust')
     </div>
 </div>

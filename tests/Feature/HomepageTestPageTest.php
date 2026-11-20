@@ -169,4 +169,15 @@ class HomepageTestPageTest extends TestCase
         }
         $this->assertStringContainsString('Routes and stops chosen by people', $html, 'card text is unchanged');
     }
+
+    public function test_the_quiz_bottom_band_has_three_trust_points_and_no_more_thirty_seconds_line(): void
+    {
+        foreach (['/', '/about'] as $url) {
+            $html = $this->get($url)->assertOk()->getContent();
+            $this->assertStringContainsString('Your details stay private', $html, $url);
+            $this->assertStringContainsString('Free, no obligation', $html, $url);
+            $this->assertStringContainsString('No spam, ever', $html, $url);
+            $this->assertStringNotContainsString('Takes less than 30 seconds', $html, $url);
+        }
+    }
 }

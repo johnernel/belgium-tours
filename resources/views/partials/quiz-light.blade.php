@@ -2,7 +2,7 @@
      a solid charcoal title band, a white body with the question centred and light option tiles, and a charcoal footer band with reassurance points. --}}
 <div class="overflow-hidden bg-white text-ink shadow-lift" id="quiz">
     <div class="quiz-band bg-slate px-6 py-6 text-center sm:px-8">
-        <h2 id="quiz-title" class="on-dark font-serif text-2xl font-medium leading-snug !text-white sm:text-[1.9rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
+        <h2 id="quiz-title" class="on-dark font-serif text-xl font-medium leading-snug !text-white sm:text-[1.55rem]">@heading('Belgium, Tailored to You in 30 Seconds')</h2>
     </div>
 
     <div class="min-h-[19rem] p-5 sm:p-7">
@@ -68,11 +68,7 @@
     </div>
 
     {{-- Footer band: reassurance points --}}
-    <div class="bg-slate px-5 py-4 text-center text-white sm:px-7">
-        <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[0.95rem] font-semibold">
-            <li class="inline-flex items-center gap-2">@icon('lock', 'size-4 text-amber-light') Your details stay private</li>
-            <li class="inline-flex items-center gap-2">@icon('circle-check', 'size-4 text-amber-light') Free, no obligation</li>
-        </ul>
-        <p class="mt-1.5 text-sm font-medium text-white">Takes less than 30 seconds.</p>
+    <div class="bg-slate px-4 py-3.5 sm:px-6">
+        @include('partials.quiz-trust')
     </div>
 </div>
