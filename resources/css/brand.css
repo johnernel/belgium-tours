@@ -6,27 +6,27 @@
      ink    = headings, body text, dark sections
    ------------------------------------------------------------------ */
 @theme {
-    --color-cream: #fcf4df;
-    --color-cream-deep: #f6e8c4;
-    --color-sky: #9dd7e2;
-    --color-sky-soft: #d6eef3;
-    --color-sky-hover: #a1dbe6; /* hover colour of the CTA buttons */
-    --color-slate: #58617e;
-    --color-amber: #fcb345;
-    --color-amber-deep: #e89a1c;
-    --color-amber-ink: #9a5b00; /* amber for text on cream (4.9:1) */
-    --color-ink: #2b2e37;
-    --color-paper: #fffdf7;
-    --color-dusk: #565f7c; /* Why Choose Us section background */
-    --color-aqua: #9fdae1; /* Journal category tags */
-    --color-mist: #e8f6f8; /* Homepage Test Why Travel With Us section and cards */
-    --color-mist-deep: #c3e1e6; /* border and soft shadow on mist cards */
-    --color-teal-deep: #2b6b66; /* icon glyphs on the mint circles */
-    --color-amber-light: #ffe3ad; /* amber for text on the slate bands (about 5.3:1) */
-    --color-mint: #a9d6d0; /* icon circles in the Homepage Test Why Travel With Us cards */
-    --color-aqua-light: #beeef3; /* icons on slate squares (Homepage Test feature strip) */
-    --color-ivory: #fffcf1; /* Travel Your Way section background */
-    --color-bar: #f3ecd8; /* sticky navigation bar */
+    --color-cream: #f7f3ea;
+    --color-cream-deep: #e9ddc9;
+    --color-sky: #e3ede5;
+    --color-sky-soft: #e3ede5;
+    --color-sky-hover: #e3ede5; /* hover colour of the CTA buttons */
+    --color-slate: #28352d;
+    --color-amber: #ff7518;
+    --color-amber-deep: #e0640f;
+    --color-amber-ink: #b84e00; /* amber for text on cream (4.9:1) */
+    --color-ink: #111c2b;
+    --color-paper: #fffefa;
+    --color-dusk: #232830; /* Why Choose Us section background */
+    --color-aqua: #e3ede5; /* Journal category tags */
+    --color-mist: #e3ede5; /* Homepage Test Why Travel With Us section and cards */
+    --color-mist-deep: #c9dcce; /* border and soft shadow on mist cards */
+    --color-teal-deep: #3f7775; /* icon glyphs on the mint circles */
+    --color-amber-light: #ff9a55; /* amber for text on the slate bands (about 5.3:1) */
+    --color-mint: #cfe3da; /* icon circles in the Homepage Test Why Travel With Us cards */
+    --color-aqua-light: #e3ede5; /* icons on slate squares (Homepage Test feature strip) */
+    --color-ivory: #fffefa; /* Travel Your Way section background */
+    --color-bar: #f7f3ea; /* sticky navigation bar */
 
     /* Headings and titles: Fraunces (light). Body text, descriptions and buttons: Instrument Sans. */
     --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
@@ -40,8 +40,8 @@
     --radius-card: 1.5rem;
     --radius-pill: 999px;
 
-    --shadow-card: 0 1px 2px rgb(43 46 55 / 0.06), 0 10px 30px -12px rgb(43 46 55 / 0.25);
-    --shadow-lift: 0 2px 4px rgb(43 46 55 / 0.08), 0 20px 40px -16px rgb(43 46 55 / 0.35);
+    --shadow-card: 0 1px 2px rgb(17 28 43 / 0.06), 0 10px 30px -12px rgb(17 28 43 / 0.25);
+    --shadow-lift: 0 2px 4px rgb(17 28 43 / 0.08), 0 20px 40px -16px rgb(17 28 43 / 0.35);
 }
 
 /* Self-hosted fonts, preloaded in the layout. Fraunces and Instrument Sans are both variable fonts. */

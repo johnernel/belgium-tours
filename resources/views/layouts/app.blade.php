@@ -17,7 +17,7 @@
     @if($noindex)<meta name="robots" content="noindex, nofollow">@endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @if($site->recaptcha_key)<meta name="recaptcha-site-key" content="{{ $site->recaptcha_key }}">@endif
-    <meta name="theme-color" content="#FCF4DF">
+    <meta name="theme-color" content="#F7F3EA">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{ $site->brand }}">

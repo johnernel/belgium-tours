@@ -40,8 +40,8 @@
 
                     {{-- Belgium: a soft outer outline, then the provinces in dark brown with a faint grain --}}
                     <g class="jm-land">
-                        <g stroke="rgb(252 244 223 / 0.2)" stroke-width="3.2" stroke-linejoin="round">@foreach($jm['provinces'] as $p)<path d="{{ $p['d'] }}" />@endforeach</g>
-                        <g fill="#2a2320" stroke="rgb(252 244 223 / 0.17)" stroke-width="1.1" stroke-linejoin="round">@foreach($jm['provinces'] as $p)<path d="{{ $p['d'] }}" />@endforeach</g>
+                        <g stroke="rgb(247 243 234 / 0.2)" stroke-width="3.2" stroke-linejoin="round">@foreach($jm['provinces'] as $p)<path d="{{ $p['d'] }}" />@endforeach</g>
+                        <g fill="#1a2230" stroke="rgb(247 243 234 / 0.17)" stroke-width="1.1" stroke-linejoin="round">@foreach($jm['provinces'] as $p)<path d="{{ $p['d'] }}" />@endforeach</g>
                         <g filter="url(#jm-grain)" fill="#fff" opacity="0.28">@foreach($jm['provinces'] as $p)<path d="{{ $p['d'] }}" />@endforeach</g>
                     </g>
 
@@ -53,7 +53,7 @@
                     {{-- Small planes flying the legs in a loop, turned to follow the path --}}
                     @foreach($jm['planes'] as $pl)
                         <g class="jm-plane" aria-hidden="true">
-                            <path d="M7 0 2 -1.9-3.4 -6.6-5 -6.6-3.2 -1.4-6.8-1-8.2-3-9.6-3-8.6 0-9.6 3-8.2 3-6.8 1-3.2 1.4-5 6.6-3.4 6.6 2 1.9Z" transform="scale(1.15)" fill="#fcb345" />
+                            <path d="M7 0 2 -1.9-3.4 -6.6-5 -6.6-3.2 -1.4-6.8-1-8.2-3-9.6-3-8.6 0-9.6 3-8.2 3-6.8 1-3.2 1.4-5 6.6-3.4 6.6 2 1.9Z" transform="scale(1.15)" fill="#ff7518" />
                             <animateMotion dur="{{ $pl['dur'] }}s" begin="{{ $pl['begin'] }}s" repeatCount="indefinite" rotate="auto"><mpath href="#jm-r{{ $pl['route'] }}" /></animateMotion>
                         </g>
                     @endforeach
@@ -61,7 +61,7 @@
                     {{-- Faint tethers from a city to its polaroid --}}
                     @foreach($jm['cities'] as $c2)
                         @if($c2['polaroid'])
-                            <line x1="{{ $c2['px'] }}" y1="{{ $c2['py'] }}" x2="{{ round($c2['polaroid']['x'] / 100 * $vw, 1) }}" y2="{{ round($c2['polaroid']['y'] / 100 * $vh, 1) }}" stroke="rgb(252 244 223 / 0.28)" stroke-width="1.3" stroke-dasharray="2 5" />
+                            <line x1="{{ $c2['px'] }}" y1="{{ $c2['py'] }}" x2="{{ round($c2['polaroid']['x'] / 100 * $vw, 1) }}" y2="{{ round($c2['polaroid']['y'] / 100 * $vh, 1) }}" stroke="rgb(247 243 234 / 0.28)" stroke-width="1.3" stroke-dasharray="2 5" />
                         @endif
                     @endforeach
                 </svg>
