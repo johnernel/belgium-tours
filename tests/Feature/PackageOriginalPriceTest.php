@@ -77,4 +77,17 @@ class PackageOriginalPriceTest extends TestCase
 
         $this->get("/admin/packages/{$p->id}/edit")->assertOk()->assertSee('Original price (optional)');
     }
+
+    public function test_the_card_shows_the_package_summary_under_the_title_clamped_to_two_lines_and_hidden_on_phones(): void
+    {
+        $p = $this->package(['summary' => 'A relaxed few days by hire car between two of Belgium best-preserved medieval cities.']);
+        $html = $this->get('/packages')->assertOk()->getContent();
+        $this->assertStringContainsString('sm:line-clamp-2', $html);
+        $this->assertStringContainsString('max-sm:hidden">'.$p->summary, $html, 'hidden on phones, shown from sm up');
+        $this->assertLessThan(strpos($html, $p->summary), strpos($html, '>'.$p->title.'</h'), 'the summary comes after the title');
+
+        $withSummary = substr_count($html, 'sm:line-clamp-2');
+        $p->update(['summary' => '']);
+        $this->assertSame($withSummary - 1, substr_count($this->get('/packages')->getContent(), 'sm:line-clamp-2'), 'a blank summary renders no description element');
+    }
 }

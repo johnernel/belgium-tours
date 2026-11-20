@@ -41,15 +41,19 @@
         <p class="hidden text-[0.7rem] font-semibold uppercase leading-snug tracking-[0.18em] text-amber max-sm:block">{{ $nightsLabel }}@if($package->route) · {{ $package->route }}@endif</p>
 
         <h{{ $level }} class="mt-5 font-display text-xl leading-snug text-cream sm:order-2 sm:mt-0 sm:min-h-[3.4rem] sm:text-[1.4rem] sm:leading-tight max-sm:mt-3 max-sm:text-[1.35rem]">{{ $package->title }}</h{{ $level }}>
+        {{-- Tablet and desktop only: the short summary from Admin > Packages, at most 2 lines --}}
+        @if(filled($package->summary))
+            <p class="text-[0.92rem] leading-relaxed {{ $muted }} sm:order-3 sm:mt-1 sm:line-clamp-2 sm:min-h-[2.9rem] max-sm:hidden">{{ $package->summary }}</p>
+        @endif
         @if($package->route)
             <p class="mt-2.5 flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.16em] sm:order-1 sm:mb-2 sm:mt-0 sm:text-[0.72rem] sm:tracking-[0.2em] {{ $solid ? 'text-sky-soft' : 'text-sky' }} max-sm:hidden">
                 <span class="h-px w-5 shrink-0 {{ $solid ? 'bg-sky-soft/60' : 'bg-sky/60' }}" aria-hidden="true"></span>{{ $package->route }}
             </p>
         @endif
 
-        <hr class="mt-4 border-white/10 sm:order-3 sm:mt-4 max-sm:hidden">
+        <hr class="mt-4 border-white/10 sm:order-4 sm:mt-4 max-sm:hidden">
 
-        <div class="mt-auto pt-4 sm:order-4 sm:pt-5 max-sm:pt-4">
+        <div class="mt-auto pt-4 sm:order-5 sm:pt-5 max-sm:pt-4">
             @if($package->price_from !== null)
                 @if($package->original_price !== null && (float) $package->original_price > (float) $package->price_from)
                     {{-- Reduced price: "From" and the original price crossed out on their own line, then the current price with NO separate "From" label --}}
