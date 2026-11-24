@@ -45,8 +45,8 @@
         <x-photo base="images/photos/hero-bouillon" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
         <x-photo base="images/photos/hero-dinant" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
     </div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/58 via-ink/27 to-ink/62"></div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/78 via-ink/42 to-ink/10"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/40 via-ink/18 to-ink/45"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/58 via-ink/28 to-ink/8"></div>
 
     <div class="container-page relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(8rem+1.5rem)]">
         <div class="lg:pt-24 max-sm:text-center">
