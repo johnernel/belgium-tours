@@ -246,36 +246,84 @@
 {{-- 7. STRESS-FREE TRAVEL (layout copied from the client's reference, wording rewritten for Belgium): centred label, heading and one-line intro, then three equal square-cornered cards, each with a round icon, a bold title and a centred description --}}
 @php
     $calm = [
-        ['users', 'Every Detail. Already Handled.', 'Our Belgium specialists plan every detail: hand-picked stays, ideal pacing and local stops, so nothing is left to chance.'],
-        ['search', 'Local access. Real moments.', 'Our local connections open doors beyond the tourist routes: insider tips, quiet corners and the true heart of Belgium, hassle-free.'],
-        ['compass', 'Travel Your Way', 'Take the wheel on a self-drive adventure, or relax with a private chauffeur or coach tour. Every journey is seamless.'],
+        ['detail', 'Every Detail. Already Handled.', 'Our Belgium specialists plan every detail: hand-picked stays, ideal pacing and local stops, so nothing is left to chance.'],
+        ['local', 'Local access. Real moments.', 'Our local connections open doors beyond the tourist routes: insider tips, quiet corners and the true heart of Belgium, hassle-free.'],
+        ['travel', 'Travel Your Way', 'Take the wheel on a self-drive adventure, or relax with a private chauffeur or coach tour. Every journey is seamless.'],
     ];
 @endphp
-<section x-ignore data-lazy-alpine class="cv-auto bg-white py-16 sm:py-24" aria-labelledby="ht-steps">
+<section x-ignore data-lazy-alpine class="on-dark relative isolate overflow-hidden bg-ink py-16 text-white sm:py-24" aria-labelledby="ht-steps">
+    {{-- Photo background under a dark wash (layout copied from the client's reference): label, heading and intro centred, three frosted glass cards, a hairline, then one button --}}
+    {{-- Fixed background (background-attachment: fixed): stays put while the page scrolls. No cv-auto on this section, because content-visibility contains fixed layers. iOS Safari ignores fixed and scrolls it normally. --}}
+    <div class="absolute inset-0 -z-20 bg-ink bg-cover bg-fixed bg-center" style="background-image: url('{{ asset('images/photos/ghent-graslei-1600.webp') }}')" aria-hidden="true"></div>
+    <div class="absolute inset-0 -z-10 bg-ink/55" aria-hidden="true"></div>
     <div class="container-page">
         <div class="mx-auto max-w-4xl text-center">
-            @include('partials.ht-eyebrow', ['label' => 'Stress-free travel', 'center' => true])
-            <h2 id="ht-steps" class="mt-5 font-serif text-heading">@heading('Discover Belgium the *Stress-Free* Way')</h2>
-            <p class="mx-auto mt-5 max-w-3xl text-lg text-ink">We take care of every detail so you can simply show up, enjoy the canals and cobbled squares, and let Belgium do the rest.</p>
+            @include('partials.ht-eyebrow', ['label' => 'Stress-free travel', 'center' => true, 'dark' => true])
+            <h2 id="ht-steps" class="mt-5 font-serif text-heading !text-white">@heading('Discover Belgium the *Stress-Free* Way')</h2>
+            <p class="mx-auto mt-5 max-w-3xl text-lg text-white/90">We take care of every detail so you can simply show up, enjoy the canals and cobbled squares, and let Belgium do the rest.</p>
         </div>
-        {{-- Phones and small tablets (below md): a swipeable scroll-snap carousel, one card at a time with the next card peeking 20px in from the right, and pill dots like the package carousels; from md up the 3 equal columns are unchanged --}}
-        <div class="mt-14 min-w-0" x-data="pageCarousel()">
+        {{-- Phones and small tablets (below md): a swipeable scroll-snap carousel, one card at a time with the next card peeking 20px in from the right, and pill dots; from md up the 3 equal columns --}}
+        <div class="mt-12 min-w-0" x-data="pageCarousel()">
             <div x-ref="track" @scroll.passive="update()" tabindex="0" aria-label="Stress-free travel, swipe to see more"
-                 class="relative grid gap-6 md:grid-cols-3 lg:gap-8 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:gap-3 max-md:overflow-x-auto max-md:scroll-smooth max-md:[scrollbar-width:none] max-md:after:w-5 max-md:after:shrink-0 max-md:after:content-[''] max-md:motion-reduce:scroll-auto max-md:[&::-webkit-scrollbar]:hidden">
+                 class="relative grid gap-5 md:grid-cols-3 lg:gap-6 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:gap-3 max-md:overflow-x-auto max-md:scroll-smooth max-md:[scrollbar-width:none] max-md:after:w-5 max-md:after:shrink-0 max-md:after:content-[''] max-md:motion-reduce:scroll-auto max-md:[&::-webkit-scrollbar]:hidden">
                 @foreach($calm as [$ic, $title, $text])
-                    <article class="flex flex-col items-center bg-frost px-8 pb-14 pt-11 text-center text-ink max-md:w-[calc(100%-2rem)] max-md:shrink-0 max-md:snap-start">
-                        <span class="grid size-[4.75rem] place-items-center rounded-full bg-white text-teal-deep">@icon($ic, 'size-9')</span>
-                        <h3 class="mt-7 font-display text-xl leading-snug text-ink lg:text-[1.35rem]">{{ $title }}</h3>
-                        <p class="mt-4 text-lg leading-relaxed text-ink">{{ $text }}</p>
+                    <article class="flex flex-col items-center border border-white/25 bg-white/10 px-7 pb-10 pt-9 text-center backdrop-blur-md max-md:w-[calc(100%-2rem)] max-md:shrink-0 max-md:snap-start">
+                        <span class="grid size-16 place-items-center rounded-full bg-mint text-teal-deep"><span class="qicon size-9" style="--qi: url({{ asset('images/calm-icons/'.$ic.'.svg') }})" aria-hidden="true"></span></span>
+                        <h3 class="mt-6 font-display text-xl leading-snug text-white lg:text-[1.35rem]">{{ $title }}</h3>
+                        <p class="mt-3 text-base leading-relaxed text-white/90">{{ $text }}</p>
                     </article>
                 @endforeach
             </div>
             <div x-show="pages > 1" x-cloak class="mt-6 flex items-center justify-center gap-0 md:hidden" role="group" aria-label="Choose a card">
                 <template x-for="p in pages" :key="p">
-                    <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
+                    <button type="button" @click="go(p - 1)" :aria-label="'Card ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-white/30 group-hover:bg-white/60'"></span></button>
                 </template>
             </div>
-        </div>    </div>
+        </div>
+        <div class="mt-12 border-t border-white/25 pt-10 text-center"><x-button square variant="cta" size="lg" @click="$store.modal.open()">Get a Free Quote</x-button></div>
+    </div>
+</section>
+{{-- 9b. FIND YOUR STYLE: simple, secure payments (layout copied from the client's reference, wording rewritten for Belgium): centred label, heading and two-line intro,
+     four equal square cards (round dark icon, two-line title, centred text), one centred button underneath. The payment wording is placeholder copy until the client confirms how payments work. --}}
+@php
+    $pay = [
+        ['smartphone', 'images/photos/countryside', 'No More Payment Headaches', 'Let each traveller pay securely online, with no more chasing or managing group payments.'],
+        ['shield', 'images/photos/liege-guillemins', 'Secure & Convenient', 'Fast, safe and hassle-free transactions so you can book with complete confidence.'],
+        ['bookmark', 'images/photos/bruges-belfry', 'Instant Booking Confirmation', 'Once your group is finalised, booking is confirmed immediately, with no back and forth.'],
+        ['banknote', 'images/photos/bruges-market', 'Flexible Payment Options', 'Multiple secure payment options available to suit every traveller in your whole group.'],
+    ];
+@endphp
+<section x-ignore data-lazy-alpine class="cv-auto bg-white py-16 sm:py-24" aria-labelledby="ht-pay">
+    <div class="container-page">
+        <div class="mx-auto max-w-4xl text-center">
+            @include('partials.ht-eyebrow', ['label' => 'Find your style', 'center' => true])
+            <h2 id="ht-pay" class="mt-5 font-serif text-heading">@heading('Simple, Secure Payments, No *Worries Ever*')</h2>
+            <p class="mx-auto mt-5 max-w-3xl text-lg text-ink">Whether you are travelling with friends, family or colleagues, our flexible group payment options make booking your Belgium trip simple, straightforward and completely hassle-free for everyone involved.</p>
+        </div>
+        {{-- Phones (below sm): a swipeable scroll-snap carousel, one card at a time with the next card peeking 20px in from the right, and pill dots like the package carousels; from sm up the 2 / 4 column grid is unchanged --}}
+        <div class="mt-12 min-w-0" x-data="pageCarousel()">
+        <div x-ref="track" @scroll.passive="update()" tabindex="0" aria-label="Payment options, swipe to see more" class="relative grid gap-6 sm:grid-cols-2 xl:grid-cols-4 xl:gap-8 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-3 max-sm:overflow-x-auto max-sm:scroll-smooth max-sm:pb-6 max-sm:[scrollbar-width:none] max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-['] max-sm:motion-reduce:scroll-auto max-sm:[&::-webkit-scrollbar]:hidden">
+            @foreach($pay as [$ic, $img, $title, $text])
+                {{-- Card copied from the client's reference: rounded corners and a big soft shadow, a white round icon with an amber ring, serif title, centred text, and a faded photo that fades in from the middle of the card down. The white wash over the photo keeps the text readable. --}}
+                <article class="relative isolate flex min-h-[22rem] flex-col items-center overflow-hidden rounded-lg bg-white px-5 pb-10 pt-9 text-center shadow-lift max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start xl:px-4">
+                    <div class="absolute inset-x-0 bottom-0 -z-20 h-[80%] opacity-35 [mask-image:linear-gradient(to_bottom,transparent,black_45%)]" aria-hidden="true">
+                        <x-photo :base="$img" alt="" :widths="[480, 800]" sizes="(min-width:1024px) 25vw, 90vw" fetchpriority="low" :ratio="[1600, 1067]" class="size-full" />
+                    </div>
+                    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white/75 to-white/80" aria-hidden="true"></div>
+                    <span class="grid size-20 place-items-center rounded-full border-2 border-amber bg-white text-slate shadow-card [&_svg]:![stroke-width:1.25]">@icon($ic, 'size-9')</span>
+                    <h3 class="mt-7 max-w-[12rem] font-display text-[1.4rem] font-semibold leading-tight text-ink">{{ $title }}</h3>
+                    <p class="mt-5 line-clamp-3 text-[0.97rem] font-medium leading-relaxed text-ink xl:text-[0.92rem]">{{ $text }}</p>
+                </article>
+            @endforeach
+        </div>
+        <div x-show="pages > 1" x-cloak class="mt-1 flex items-center justify-center gap-0 sm:hidden" role="group" aria-label="Choose a payment option">
+            <template x-for="p in pages" :key="p">
+                <button type="button" @click="go(p - 1)" :aria-label="'Option ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
+            </template>
+        </div>
+        </div>
+        <div class="mt-12 text-center"><x-button square variant="cta" size="lg" @click="$store.modal.open()">Get Your Free Quote</x-button></div>
+    </div>
 </section>
 {{-- 8. TESTIMONIALS (layout copied from the client's reference): a full-width video block with a play button and a fade into the dark section, the centred label and heading,
      then the testimonials as a carousel (3 cards per view on desktop, 2 tablet, 1 mobile; arrows, dots, swipe, no autoplay). No star ratings: there are none to back them. --}}
@@ -373,51 +421,9 @@
     </div>
 </section>
 
-{{-- 9b. FIND YOUR STYLE: simple, secure payments (layout copied from the client's reference, wording rewritten for Belgium): centred label, heading and two-line intro,
-     four equal square cards (round dark icon, two-line title, centred text), one centred button underneath. The payment wording is placeholder copy until the client confirms how payments work. --}}
-@php
-    $pay = [
-        ['smartphone', 'images/photos/countryside', 'No More Payment Headaches', 'Let each traveller pay securely online, with no more chasing or managing group payments.'],
-        ['shield', 'images/photos/liege-guillemins', 'Secure & Convenient', 'Fast, safe and hassle-free transactions so you can book with complete confidence.'],
-        ['bookmark', 'images/photos/bruges-belfry', 'Instant Booking Confirmation', 'Once your group is finalised, booking is confirmed immediately, with no back and forth.'],
-        ['banknote', 'images/photos/bruges-market', 'Flexible Payment Options', 'Multiple secure payment options available to suit every traveller in your whole group.'],
-    ];
-@endphp
-<section x-ignore data-lazy-alpine class="cv-auto bg-white py-16 sm:py-24" aria-labelledby="ht-pay">
-    <div class="container-page">
-        <div class="mx-auto max-w-4xl text-center">
-            @include('partials.ht-eyebrow', ['label' => 'Find your style', 'center' => true])
-            <h2 id="ht-pay" class="mt-5 font-serif text-heading">@heading('Simple, Secure Payments, No *Worries Ever*')</h2>
-            <p class="mx-auto mt-5 max-w-3xl text-lg text-ink">Whether you are travelling with friends, family or colleagues, our flexible group payment options make booking your Belgium trip simple, straightforward and completely hassle-free for everyone involved.</p>
-        </div>
-        {{-- Phones (below sm): a swipeable scroll-snap carousel, one card at a time with the next card peeking 20px in from the right, and pill dots like the package carousels; from sm up the 2 / 4 column grid is unchanged --}}
-        <div class="mt-12 min-w-0" x-data="pageCarousel()">
-        <div x-ref="track" @scroll.passive="update()" tabindex="0" aria-label="Payment options, swipe to see more" class="relative grid gap-6 sm:grid-cols-2 xl:grid-cols-4 xl:gap-8 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-3 max-sm:overflow-x-auto max-sm:scroll-smooth max-sm:pb-6 max-sm:[scrollbar-width:none] max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-['] max-sm:motion-reduce:scroll-auto max-sm:[&::-webkit-scrollbar]:hidden">
-            @foreach($pay as [$ic, $img, $title, $text])
-                {{-- Card copied from the client's reference: rounded corners and a big soft shadow, a white round icon with an amber ring, serif title, centred text, and a faded photo that fades in from the middle of the card down. The white wash over the photo keeps the text readable. --}}
-                <article class="relative isolate flex min-h-[22rem] flex-col items-center overflow-hidden rounded-lg bg-white px-5 pb-10 pt-9 text-center shadow-lift max-sm:w-[calc(100%-2rem)] max-sm:shrink-0 max-sm:snap-start xl:px-4">
-                    <div class="absolute inset-x-0 bottom-0 -z-20 h-[80%] opacity-35 [mask-image:linear-gradient(to_bottom,transparent,black_45%)]" aria-hidden="true">
-                        <x-photo :base="$img" alt="" :widths="[480, 800]" sizes="(min-width:1024px) 25vw, 90vw" fetchpriority="low" :ratio="[1600, 1067]" class="size-full" />
-                    </div>
-                    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white/75 to-white/80" aria-hidden="true"></div>
-                    <span class="grid size-20 place-items-center rounded-full border-2 border-amber bg-white text-slate shadow-card [&_svg]:![stroke-width:1.25]">@icon($ic, 'size-9')</span>
-                    <h3 class="mt-7 max-w-[12rem] font-display text-[1.4rem] font-semibold leading-tight text-ink">{{ $title }}</h3>
-                    <p class="mt-5 line-clamp-3 text-[0.97rem] font-medium leading-relaxed text-ink xl:text-[0.92rem]">{{ $text }}</p>
-                </article>
-            @endforeach
-        </div>
-        <div x-show="pages > 1" x-cloak class="mt-1 flex items-center justify-center gap-0 sm:hidden" role="group" aria-label="Choose a payment option">
-            <template x-for="p in pages" :key="p">
-                <button type="button" @click="go(p - 1)" :aria-label="'Option ' + p" :aria-current="page === p - 1 ? 'true' : null" class="group grid h-6 place-items-center" :class="page === p - 1 ? 'w-14' : 'w-6'"><span class="block h-2 rounded-full transition-all duration-300" :class="page === p - 1 ? 'w-12 bg-amber' : 'w-2.5 bg-ink/20 group-hover:bg-ink/40'"></span></button>
-            </template>
-        </div>
-        </div>
-        <div class="mt-12 text-center"><x-button square variant="cta" size="lg" @click="$store.modal.open()">Get Your Free Quote</x-button></div>
-    </div>
-</section>
 {{-- 10. PLAN YOUR TRIP (layout copied from the client's reference): pale band, centred label, heading, intro, three small reassurance points, one button,
      and a faded skyline silhouette along the bottom edge (Belgian step gables and belfries instead of mountains) --}}
-<section x-ignore data-lazy-alpine class="cv-auto relative isolate overflow-hidden bg-white pb-44 pt-16 sm:pb-52 sm:pt-24" aria-labelledby="ht-plan">
+<section x-ignore data-lazy-alpine class="cv-auto relative isolate overflow-hidden bg-white py-16 sm:py-24" aria-labelledby="ht-plan">
     <div class="absolute inset-0 -z-20 bg-sky-soft/55" aria-hidden="true"></div>
     <div class="container-page text-center">
         @include('partials.ht-eyebrow', ['label' => 'Craft your trip', 'center' => true])
