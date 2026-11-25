@@ -3,6 +3,7 @@
 @section('title', 'Belgium Tour Packages | '.$site->brand)
 @section('description', 'Browse self drive, chauffeur driven and coach tour packages in Belgium. Every trip can be tailored. Request a free quote.')
 @if($activeType || $activeDestination || $activeExperience || $activePlace)@section('canonical', route('packages.index'))@endif
+@section('footer_flush', '1') {{-- the FAQ band is the last section, so the footer sits right under it --}}
 
 @push('schema')
     <script type="application/ld+json">{!! json_encode([
