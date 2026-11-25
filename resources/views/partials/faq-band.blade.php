@@ -10,9 +10,8 @@
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="{{ $titleId }}">
     <div class="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div class="max-sm:text-center">
-            <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate max-sm:justify-center">
-                <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $eyebrow }}
-            </p>
+            {{-- Same label + diamond divider as the other section headings; left on tablet and desktop, centered on phones --}}
+            @include('partials.ht-eyebrow', ['label' => $eyebrow, 'mobileCenter' => true])
             <h2 id="{{ $titleId }}" class="mt-5 text-heading">@heading($heading)</h2>
             @if(!empty($body))<div class="prose-page mt-6">{!! $body !!}</div>@endif
 
