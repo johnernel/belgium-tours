@@ -9,15 +9,15 @@
 @endphp
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="{{ $titleId }}">
     <div class="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <div>
-            <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
+        <div class="max-sm:text-center">
+            <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate max-sm:justify-center">
                 <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $eyebrow }}
             </p>
             <h2 id="{{ $titleId }}" class="mt-5 text-heading">@heading($heading)</h2>
             @if(!empty($body))<div class="prose-page mt-6">{!! $body !!}</div>@endif
 
-            {{-- Help card: pale sage panel with an orange top bar, a round icon, dark text and two square buttons (no dark background) --}}
-            <div class="mt-8 overflow-hidden bg-sky text-ink shadow-card">
+            {{-- Help card (hidden on phones; the heading is centered there): pale sage panel with an orange top bar, a round icon, dark text and two square buttons (no dark background) --}}
+            <div class="mt-8 overflow-hidden bg-sky text-ink shadow-card max-sm:hidden">
                 <div class="h-1 bg-amber" aria-hidden="true"></div>
                 <div class="p-6 sm:p-8">
                     <span class="grid size-14 place-items-center rounded-full bg-white text-teal-deep shadow-card">@icon('headset', 'size-7')</span>
