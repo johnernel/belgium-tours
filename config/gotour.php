@@ -46,15 +46,16 @@ return [
         'secret' => env('GOOGLE_SHEET_SECRET'),
     ],
 
-    // Country dial codes offered in the phone selector: [ISO, name, dial code]
+    // Country dial codes offered in the phone selector: [ISO, name, dial code, fewest digits, most digits AFTER the dial code (without a leading trunk 0)].
+    // The phone field checks the digit count against the selected country in the browser and again on the server.
     'countries' => [
-        ['US', 'United States', '1'], ['CA', 'Canada', '1'], ['GB', 'United Kingdom', '44'],
-        ['IE', 'Ireland', '353'], ['AU', 'Australia', '61'], ['NZ', 'New Zealand', '64'],
-        ['BE', 'Belgium', '32'], ['NL', 'Netherlands', '31'], ['FR', 'France', '33'],
-        ['DE', 'Germany', '49'], ['ES', 'Spain', '34'], ['IT', 'Italy', '39'],
-        ['CH', 'Switzerland', '41'], ['AT', 'Austria', '43'], ['SE', 'Sweden', '46'],
-        ['NO', 'Norway', '47'], ['DK', 'Denmark', '45'], ['ZA', 'South Africa', '27'],
-        ['IN', 'India', '91'], ['SG', 'Singapore', '65'], ['AE', 'United Arab Emirates', '971'],
-        ['BR', 'Brazil', '55'], ['MX', 'Mexico', '52'], ['JP', 'Japan', '81'],
+        ['US', 'United States', '1', 10, 10], ['CA', 'Canada', '1', 10, 10], ['GB', 'United Kingdom', '44', 10, 10],
+        ['IE', 'Ireland', '353', 8, 9], ['AU', 'Australia', '61', 9, 9], ['NZ', 'New Zealand', '64', 8, 10],
+        ['BE', 'Belgium', '32', 8, 9], ['NL', 'Netherlands', '31', 9, 9], ['FR', 'France', '33', 9, 9],
+        ['DE', 'Germany', '49', 10, 11], ['ES', 'Spain', '34', 9, 9], ['IT', 'Italy', '39', 9, 10],
+        ['CH', 'Switzerland', '41', 9, 9], ['AT', 'Austria', '43', 10, 12], ['SE', 'Sweden', '46', 7, 10],
+        ['NO', 'Norway', '47', 8, 8], ['DK', 'Denmark', '45', 8, 8], ['ZA', 'South Africa', '27', 9, 9],
+        ['IN', 'India', '91', 10, 10], ['SG', 'Singapore', '65', 8, 8], ['AE', 'United Arab Emirates', '971', 9, 9],
+        ['BR', 'Brazil', '55', 10, 11], ['MX', 'Mexico', '52', 10, 10], ['JP', 'Japan', '81', 10, 10],
     ],
 ];

@@ -66,7 +66,114 @@ Alpine.data('enquiryForm', (config = {}) => ({
     captchaOk: false,
     consent: false,
 
+    /* ---- Phone field: the dial code is locked at the start, digits only, length checked per country ---- */
+    country: config.country || 'US',
+    countries: config.countries || {},
+    nat: '', // the digits typed after the dial code
+
+    meta() {
+        return this.countries[this.country] || { dial: '1', min: 5, max: 14 };
+    },
+    prefix() {
+        return '+' + this.meta().dial + ' ';
+    },
+    /* Everything but digits is dropped; a pasted or autofilled "+44 7700 900123" or "(212) 555-1234" is understood, and a leading trunk 0 is removed (except for +1). */
+    parsePhone(raw) {
+        const meta = this.meta();
+        const digits = String(raw || '').replace(/\D/g, '');
+        let nat;
+        if (String(raw).startsWith(this.prefix())) {
+            nat = String(raw).slice(this.prefix().length).replace(/\D/g, '');
+        } else if (String(raw).trim().startsWith('+')) {
+            // a full international number: use its own country when we know it, otherwise cut off the selected dial code
+            const own = Object.entries(this.countries).sort((a, b) => b[1].dial.length - a[1].dial.length).find(([, c]) => digits.startsWith(c.dial));
+            if (own && own[1].dial !== meta.dial) {
+                this.country = own[0];
+                nat = digits.slice(own[1].dial.length);
+            } else {
+                nat = digits.startsWith(meta.dial) ? digits.slice(meta.dial.length) : digits;
+            }
+        } else {
+            nat = digits.length > meta.max && digits.startsWith(meta.dial) ? digits.slice(meta.dial.length) : digits;
+        }
+        if (this.meta().dial !== '1') nat = nat.replace(/^0+/, '');
+        return nat.slice(0, this.meta().max);
+    },
+    setPhone(nat) {
+        this.nat = nat;
+        this.$refs.phone.value = this.prefix() + nat;
+    },
+    phoneMessage() {
+        const m = this.meta();
+        return m.min === m.max ? `Please enter a valid ${m.min}-digit phone number.` : `Please enter a valid phone number (${m.min} to ${m.max} digits).`;
+    },
+    phoneValid() {
+        const n = this.nat.length;
+        return n >= this.meta().min && n <= this.meta().max;
+    },
+    initPhone() {
+        if (!this.$refs.phone) return;
+        this.setPhone(this.parsePhone(this.$refs.phone.value));
+        // a new country replaces the old dial code (it never stacks) and keeps the digits already typed
+        this.$watch('country', () => {
+            this.setPhone(this.nat.replace(/^0+/, '').slice(0, this.meta().max));
+            if (this.errors.phone) this.errors = { ...this.errors, phone: [] };
+        });
+    },
+    onPhoneInput() {
+        const el = this.$refs.phone;
+        const raw = el.value;
+        const before = raw.slice(0, el.selectionStart);
+        // digits to the left of the caret (not counting the dial code), so the caret keeps its place in the number while editing
+        const digitsBefore = (before.startsWith(this.prefix()) ? before.slice(this.prefix().length) : before).replace(/\D/g, '').length;
+        this.setPhone(this.parsePhone(raw));
+        if (document.activeElement === el) {
+            const pos = this.prefix().length + Math.min(digitsBefore, this.nat.length);
+            el.setSelectionRange(pos, pos);
+        }
+        if (this.errors.phone?.length && this.phoneValid()) this.errors = { ...this.errors, phone: [] };
+    },
+    onPhonePaste(e) {
+        const pasted = (e.clipboardData || window.clipboardData).getData('text');
+        const el = this.$refs.phone;
+        const sel = this.prefix().length;
+        const start = Math.max(el.selectionStart, sel);
+        const end = Math.max(el.selectionEnd, sel);
+        const joined = el.value.slice(0, start) + pasted + el.value.slice(end);
+        // pasting a whole international number replaces everything, otherwise the digits are added where the cursor is
+        this.setPhone(String(pasted).trim().startsWith('+') ? this.parsePhone(pasted) : this.parsePhone(this.prefix() + joined.slice(sel).replace(/\D/g, '')));
+        el.setSelectionRange(el.value.length, el.value.length);
+        this.onPhoneInput();
+    },
+    onPhoneKeydown(e) {
+        const el = this.$refs.phone;
+        const p = this.prefix().length;
+        const s = el.selectionStart, t = el.selectionEnd;
+        if (e.key === 'Backspace') {
+            if (s === t && s <= p) return e.preventDefault();
+            if (s !== t && s < p) el.setSelectionRange(p, Math.max(p, t));
+        } else if (e.key === 'Delete') {
+            if (s < p) return e.preventDefault();
+        } else if (e.key === 'Home') {
+            e.preventDefault();
+            el.setSelectionRange(p, p);
+        } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+            if (!/\d/.test(e.key)) return e.preventDefault();
+            if (s < p) el.setSelectionRange(p, Math.max(p, t));
+        }
+    },
+    phoneCaret() {
+        const el = this.$refs.phone;
+        const p = this.prefix().length;
+        setTimeout(() => { if (el.selectionStart < p) el.setSelectionRange(p, Math.max(p, el.selectionEnd)); }, 0);
+    },
+    phoneBlur() {
+        // show the inline error as soon as the visitor leaves the field with a wrong length
+        if (!this.phoneValid()) this.errors = { ...this.errors, phone: [this.phoneMessage()] };
+    },
+
     init() {
+        this.initPhone();
         if (config.captcha === 'now') {
             // The quiz contact step only appears after the visitor has already engaged.
             this.$nextTick(() => this.mountCaptcha());
@@ -95,6 +202,13 @@ Alpine.data('enquiryForm', (config = {}) => ({
         this.errors = {};
         this.generalError = '';
 
+        // The number has to be complete before anything is sent (and before the quiz moves on): exactly the digits the selected country needs.
+        if (!this.phoneValid()) {
+            this.errors = { phone: [this.phoneMessage()] };
+            this.$refs.phone.focus();
+            return;
+        }
+
         this.mountCaptcha();
         if (!this.consent) {
             this.errors = { consent: ['Please check the box to agree before sending.'] };
@@ -109,6 +223,8 @@ Alpine.data('enquiryForm', (config = {}) => ({
         this.submitting = true;
         const fd = new FormData(this.$refs.form);
         fd.set('page_url', window.location.href);
+        // the full international number, no spaces (the server strips the dial code again and stores +1XXXXXXXXXX for GoHighLevel); the field name stays "phone"
+        fd.set('phone', '+' + this.meta().dial + this.nat);
 
         try {
             const res = await fetch(this.$refs.form.action, {

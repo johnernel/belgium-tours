@@ -13,7 +13,7 @@
     $siteKey = $site->recaptcha_key ?? null;
 @endphp
 <form method="POST" action="{{ route('enquiry.store') }}" novalidate
-      x-data="enquiryForm({ formName: '{{ $formName }}', captcha: '{{ $mode === 'quiz' ? 'now' : ($mode === 'modal' ? 'modal' : 'touch') }}' })" x-ref="form" @submit.prevent="submit()"
+      x-data="enquiryForm({ formName: '{{ $formName }}', captcha: '{{ $mode === 'quiz' ? 'now' : ($mode === 'modal' ? 'modal' : 'touch') }}', country: '{{ old('country', 'US') }}', countries: {{ \Illuminate\Support\Js::from(collect($countries)->mapWithKeys(fn ($c) => [$c[0] => ['dial' => $c[2], 'min' => $c[3], 'max' => $c[4]]])) }} })" x-ref="form" @submit.prevent="submit()"
       class="space-y-4" aria-label="Inquiry form">
     @csrf
     <input type="hidden" name="form_name" @if($mode === 'modal') x-bind:value="$store.modal.mode === 'question' ? 'question' : '{{ $formName }}'" @endif value="{{ $formName }}">
@@ -47,14 +47,15 @@
     <div>
         <label for="{{ $id('phone') }}" class="mb-1.5 block text-sm font-semibold">Phone <span aria-hidden="true">*</span></label>
         <div class="flex gap-2">
-            <select name="country" aria-label="Country code" autocomplete="country"
+            <select name="country" aria-label="Country code" autocomplete="country" x-model="country"
                     class="min-h-11 w-[8.5rem] shrink-0 rounded-xl border-2 border-slate/30 bg-white px-2 py-2.5 text-base focus:border-ink focus:outline-none">
                 @foreach($countries as [$iso, $name, $dial])
                     <option value="{{ $iso }}" @selected(old('country', 'US') === $iso)>{{ $iso }} +{{ $dial }}</option>
                 @endforeach
             </select>
-            <input id="{{ $id('phone') }}" name="phone" type="tel" inputmode="tel" required autocomplete="tel-national"
+            <input id="{{ $id('phone') }}" name="phone" type="tel" inputmode="tel" required autocomplete="tel" x-ref="phone"
                    value="{{ old('phone') }}" placeholder="Phone number"
+                   @input="onPhoneInput()" @keydown="onPhoneKeydown($event)" @paste.prevent="onPhonePaste($event)" @focus="phoneCaret()" @click="phoneCaret()" @blur="phoneBlur()"
                    x-bind:aria-invalid="fieldError('phone') ? 'true' : 'false'"
                    class="block min-h-11 w-full min-w-0 rounded-xl border-2 border-slate/30 bg-white px-3.5 py-2.5 text-base placeholder:text-slate/60 focus:border-ink focus:outline-none">
         </div>
