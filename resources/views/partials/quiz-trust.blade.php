@@ -1,5 +1,5 @@
-{{-- The three trust indicators in the quiz's slate bottom band: one line, evenly spaced, small, regular weight. --}}
-<ul class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-[0.65rem] font-normal text-ink sm:text-xs">
+{{-- The three trust indicators in the quiz's slate bottom band: one line, evenly spaced, small, regular weight. On phones the text size follows the screen width (about 10px at 390px, 9px at 360px) so the three points always fit on ONE line down to 350px wide; narrower than that they wrap. --}}
+<ul class="flex flex-nowrap items-center justify-between gap-x-1 gap-y-1 text-[clamp(8.8px,calc((100vw-120px)*0.0385),10.4px)] font-normal text-ink max-[350px]:flex-wrap max-[350px]:gap-x-3 sm:flex-wrap sm:gap-x-2 sm:text-xs">
     <li class="inline-flex items-center gap-1 whitespace-nowrap sm:gap-1.5">@icon('lock', 'size-3 shrink-0 text-amber-ink sm:size-3.5') Your details stay private</li>
     <li class="inline-flex items-center gap-1 whitespace-nowrap sm:gap-1.5">@icon('circle-check', 'size-3 shrink-0 text-amber-ink sm:size-3.5') Free, no obligation</li>
     <li class="inline-flex items-center gap-1 whitespace-nowrap sm:gap-1.5">@icon('shield', 'size-3 shrink-0 text-amber-ink sm:size-3.5') No spam, ever</li>
