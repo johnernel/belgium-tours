@@ -176,7 +176,8 @@
 </div></div>
 
 @if($related->isNotEmpty())
-    <section class="py-8"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
+    {{-- Top space = bottom space: the bottom is this section's pb-8 (2rem) plus the footer's mt-24 (6rem) = 8rem, so the top is pt-32 (8rem) --}}
+    <section class="pb-8 pt-32"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">@foreach($related as $package)@include('partials.package-card', ['package' => $package])@endforeach</div>
     </div></section>
 @endif
