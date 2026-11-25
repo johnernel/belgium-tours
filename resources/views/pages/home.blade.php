@@ -47,7 +47,7 @@
     </div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/41 to-ink/33"></div>
 
-    <div class="container-page relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(8rem+1.5rem)]">
+    <div class="container-wide relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(8rem+1.5rem)]">
         <div class="lg:pt-24 max-sm:text-center">
             <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card">@icon('star', 'size-4 text-amber-deep') Authentic Trips, Belgian Heart</p>
             <h1 class="on-dark hero-rise mt-6 [text-shadow:0_2px_4px_rgb(0_0_0/0.45),0_4px_24px_rgb(0_0_0/0.5)] font-serif text-[2.65rem] font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
@@ -72,7 +72,7 @@
     ];
 @endphp
 <section class="relative z-10 bg-white max-md:hidden" aria-label="Why travel with us">
-    <div class="container-page grid gap-y-8 py-9 sm:grid-cols-2 xl:grid-cols-4 lg:py-10">
+    <div class="container-wide grid gap-y-8 py-9 sm:grid-cols-2 xl:grid-cols-4 lg:py-10">
         @foreach($strip as [$ic, $title, $text])
             <div class="flex items-start gap-3 {{ $loop->first ? 'xl:pr-5' : ($loop->last ? 'xl:border-l xl:border-ink/15 xl:pl-5' : 'xl:border-l xl:border-ink/15 xl:px-5') }}">
                 <span class="grid size-12 shrink-0 place-items-center bg-slate text-aqua-light">@icon($ic, 'size-6')</span>
@@ -86,7 +86,7 @@
 </section>
 {{-- 3. ABOUT / TAILOR-MADE: big photo with a small overlapping one, copy and checklist --}}
 <section x-ignore data-lazy-alpine class="cv-auto bg-ivory py-16 max-md:hidden sm:py-24" aria-labelledby="ht-about">
-    <div class="container-page grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+    <div class="container-wide grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
         <div class="relative pb-10 pr-8 sm:pr-14">
             <div class="relative aspect-[4/5] overflow-hidden shadow-card">
                 <x-photo base="images/photos/tailor-canal" alt="Brick gabled houses beside a canal, with a cathedral tower behind them at sunset" :widths="[480, 800, 1280, 1600]" sizes="(min-width:1024px) 520px, 80vw" fetchpriority="low" :ratio="[1600, 900]" class="absolute inset-0 size-full" />
@@ -121,10 +121,10 @@
 @endphp
 <section x-ignore data-lazy-alpine class="cv-auto bg-white pb-16 pt-16 sm:pb-24 sm:pt-24" aria-labelledby="ht-ways">
     <div class="container-page">
-        <div class="mx-auto max-w-2xl text-center">
+        <div class="mx-auto max-w-4xl text-center">
             @include('partials.ht-eyebrow', ['label' => $c('ways_eyebrow') ?: 'Choose your journey', 'center' => true])
-            <h2 id="ht-ways" class="mt-5 font-serif text-heading">@heading($c('ways_heading') ?: 'Three Ways to *Travel* Belgium')</h2>
-            <p class="mt-4 text-lg text-slate">{{ $c('ways_sub') ?: 'Choose how you move. We handle everything else.' }}</p>
+            <h2 id="ht-ways" class="mt-5 font-serif text-heading md:whitespace-nowrap">@heading($c('ways_heading') ?: 'Three Ways to *Travel* Belgium')</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-lg text-slate">{{ $c('ways_sub') ?: 'Choose how you move. We handle everything else.' }}</p>
         </div>
     </div>
     {{-- Phones: a swipeable scroll-snap carousel (one card at a time, the next card peeks 20px in from the right) with dots; from md up: the three equal columns --}}
@@ -160,7 +160,7 @@
 </section>
 {{-- 5. PACKAGES: one swipeable carousel per tour type (3 cards per view on desktop, 2 on tablet, 1 on mobile), page indicator, no autoplay --}}
 <section x-ignore data-lazy-alpine class="cv-auto bg-ivory py-16 sm:py-24" aria-labelledby="ht-packages">
-    <div class="container-page space-y-16">
+    <div class="container-wide space-y-16">
         <div class="mx-auto max-w-2xl text-center">
             @include('partials.ht-eyebrow', ['label' => 'Our Packages', 'center' => true])
             <h2 id="ht-packages" class="mt-5 font-serif text-heading">@heading('Trips for *Every* Traveller')</h2>
@@ -207,7 +207,7 @@
 <section x-ignore data-lazy-alpine class="cv-auto relative isolate overflow-hidden bg-mist py-16 text-ink sm:py-24" aria-labelledby="ht-wcu">
     {{-- Decorative Antwerp skyline (client-supplied image turned into a soft tint), bottom right, behind everything; hidden on phones --}}
     <img src="{{ asset('images/decor/antwerp-skyline.webp') }}" alt="" aria-hidden="true" width="927" height="617" loading="lazy" class="pointer-events-none absolute bottom-0 right-0 -z-10 hidden h-[24rem] w-auto max-w-[60%] select-none opacity-60 md:block lg:h-[28rem]">
-    <div class="container-page">
+    <div class="container-wide">
         <div class="flex flex-wrap items-end justify-between gap-6 max-md:justify-center max-md:text-center">
             <div class="max-w-2xl">
                 @include('partials.ht-eyebrow', ['label' => $c('wcu_eyebrow') ?: 'Why choose us', 'mobileCenter' => true])
@@ -256,7 +256,7 @@
     {{-- Fixed background (background-attachment: fixed): stays put while the page scrolls. No cv-auto on this section, because content-visibility contains fixed layers. iOS Safari ignores fixed and scrolls it normally. --}}
     <div class="absolute inset-0 -z-20 bg-ink bg-cover bg-fixed bg-center" style="background-image: url('{{ asset('images/photos/ghent-graslei-1600.webp') }}')" aria-hidden="true"></div>
     <div class="absolute inset-0 -z-10 bg-ink/55" aria-hidden="true"></div>
-    <div class="container-page">
+    <div class="container-wide">
         <div class="mx-auto max-w-4xl text-center">
             @include('partials.ht-eyebrow', ['label' => 'Stress-free travel', 'center' => true, 'dark' => true])
             <h2 id="ht-steps" class="mt-5 font-serif text-heading !text-white">@heading('Discover Belgium the *Stress-Free* Way')</h2>
@@ -294,7 +294,7 @@
     ];
 @endphp
 <section x-ignore data-lazy-alpine class="cv-auto bg-white py-16 sm:py-24" aria-labelledby="ht-pay">
-    <div class="container-page">
+    <div class="container-wide">
         <div class="mx-auto max-w-4xl text-center">
             @include('partials.ht-eyebrow', ['label' => 'Find your style', 'center' => true])
             <h2 id="ht-pay" class="mt-5 font-serif text-heading">@heading('Simple, Secure Payments, No *Worries Ever*')</h2>
@@ -354,7 +354,7 @@
 
     {{-- Decorative waffle hearts (client image, cream hearts on white): multiplied into the sage background so the white drops out, low opacity, edges feathered with a radial mask so it reads as part of the background --}}
     <div class="pointer-events-none absolute inset-x-0 bottom-0 top-[14rem] bg-cover bg-center mix-blend-multiply opacity-80 [mask-image:radial-gradient(ellipse_at_center,#000_60%,transparent_90%)] sm:top-[26rem]" style="background-image: url('{{ asset('images/decor/waffle-hearts.webp') }}')" aria-hidden="true"></div>
-    <div class="container-page relative pb-16 sm:pb-24">
+    <div class="container-wide relative pb-16 sm:pb-24">
         <div class="-mt-10 text-center sm:-mt-14">
             @include('partials.ht-eyebrow', ['label' => $c('testimonials_eyebrow') ?: 'Testimonials', 'center' => true])
             <h2 id="ht-quotes" class="mt-5 font-serif text-heading">@heading($c('testimonials_heading') ?: 'What Our Guests *Say*')</h2>
@@ -394,7 +394,7 @@
 @endif
 {{-- 9. DESTINATIONS: photo grid, tour counts come from the database --}}
 <section x-ignore data-lazy-alpine class="cv-auto bg-ivory py-16 sm:py-24" aria-labelledby="ht-dest">
-    <div class="container-page">
+    <div class="container-wide">
         <div class="mx-auto max-w-2xl text-center">
             @include('partials.ht-eyebrow', ['label' => $c('dest_eyebrow') ?: 'Top destinations', 'center' => true])
             <h2 id="ht-dest" class="mt-5 font-serif text-heading">@heading('Discover the *Best of Belgium*')</h2>
@@ -427,7 +427,7 @@
      and a faded skyline silhouette along the bottom edge (Belgian step gables and belfries instead of mountains) --}}
 <section x-ignore data-lazy-alpine class="cv-auto relative isolate overflow-hidden bg-white py-16 sm:py-24" aria-labelledby="ht-plan">
     <div class="absolute inset-0 -z-20 bg-sky-soft/55" aria-hidden="true"></div>
-    <div class="container-page text-center">
+    <div class="container-wide text-center">
         @include('partials.ht-eyebrow', ['label' => 'Craft your trip', 'center' => true])
         <h2 id="ht-plan" class="mt-5 font-serif text-heading">@heading('Plan Your Belgium Trip')</h2>
         <p class="mx-auto mt-5 max-w-2xl text-lg text-ink">Let Belgium's stories become yours. Our team of local experts is ready to craft something extraordinary, built entirely around you.</p>

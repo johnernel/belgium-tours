@@ -54,7 +54,7 @@
                                             @endif
                                             <span class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" aria-hidden="true"></span>
                                             <span class="absolute inset-x-4 bottom-3 flex items-end justify-between gap-3">
-                                                <span id="mega-{{ $t->slug }}" class="font-serif text-2xl leading-tight text-white">{{ $t->name }}</span>
+                                                <span id="mega-{{ $t->slug }}" class="heading-face font-serif text-2xl leading-tight text-white">{{ $t->name }}</span>
                                                 <span class="mb-1 grid size-8 shrink-0 place-items-center rounded-full bg-aqua text-ink transition group-hover:bg-white" aria-hidden="true">@icon('arrow-right', 'size-4')</span>
                                             </span>
                                         </a>
@@ -117,7 +117,7 @@
                                 <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-white">
                                     <span class="h-px w-10 bg-amber" aria-hidden="true"></span>Get to know us
                                 </p>
-                                <p class="mt-4 font-serif text-3xl font-light leading-tight text-white">@heading('Plan *With Peace of Mind*')</p>
+                                <p class="heading-face mt-4 font-serif text-3xl font-light leading-tight text-white">@heading('Plan *With Peace of Mind*')</p>
                                 <p class="mt-4 text-[0.95rem] leading-relaxed text-white/95">Learn about our team, read what travellers say and find the answers that make your Belgium trip smooth and stress-free.</p>
                             </div>
 
@@ -130,7 +130,7 @@
                                                 <x-photo :base="$img" alt="" sizes="(min-width:1280px) 18vw, 40vw" fetchpriority="low" :ratio="[1600, 1200]" class="size-full transition-transform duration-500 group-hover:scale-105" />
                                             </span>
                                             <span class="flex flex-1 flex-col p-5">
-                                                <span class="font-serif text-xl leading-tight">{{ $label }}</span>
+                                                <span class="heading-face font-serif text-xl leading-tight">{{ $label }}</span>
                                                 <span class="mt-2 text-sm leading-relaxed text-slate">{{ $text }}</span>
                                                 <span class="mt-auto inline-flex items-center gap-2 pt-4 text-xs font-semibold uppercase tracking-[0.16em] text-amber-ink">Learn more @icon('arrow-right', 'size-3.5 transition-transform group-hover:translate-x-1')</span>
                                             </span>

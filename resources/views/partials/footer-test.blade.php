@@ -1,7 +1,7 @@
 {{-- Footer for the "Homepage Test" design: charcoal, four columns, legal bar. Go Belgium logo (white version). --}}
 @php $footTypes = \App\Models\TourType::active()->get(); @endphp
 <footer class="{{ $__env->hasSection('footer_flush') ? '' : 'mt-24' }} bg-forest text-cream">
-    <div class="container-page grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-14">
+    <div class="container-wide grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-14">
         <div class="sm:col-span-2 lg:col-span-1">
             <a href="{{ route('home') }}" class="inline-block" aria-label="{{ $site->brand }} home">
                 @if($site->logo)
@@ -45,7 +45,7 @@
     </div>
 
     <div class="border-t border-cream/15">
-        <div class="container-page flex flex-col gap-3 py-6 text-[0.95rem] text-cream/85 lg:flex-row lg:items-center lg:justify-between">
+        <div class="container-wide flex flex-col gap-3 py-6 text-[0.95rem] text-cream/85 lg:flex-row lg:items-center lg:justify-between">
             <p>&copy; {{ date('Y') }} {{ $site->company }}. All rights reserved.</p>
             <nav aria-label="Legal" class="flex flex-wrap gap-x-6 gap-y-1">
                 <a class="underline underline-offset-4 hover:text-amber" href="{{ route('terms') }}">Terms and Conditions</a>

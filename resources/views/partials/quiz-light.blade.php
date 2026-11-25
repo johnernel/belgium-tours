@@ -10,7 +10,7 @@
              x-init="window.quizIcons = @js(\App\Support\Icons::all()); window.quizIconBase = @js(asset('images/quiz-icons'))">
             <template x-if="!onContact">
                 <div class="text-center">
-                    <p class="font-serif text-xl leading-snug text-ink sm:text-2xl" x-text="step.question" aria-live="polite"></p>
+                    <p class="font-serif text-base leading-snug text-ink sm:text-lg" x-text="step.question" aria-live="polite"></p>
 
                     <template x-if="step.type === 'tiles'">
                         <div class="mt-5 grid gap-3" :class="step.options.length === 3 ? 'grid-cols-3' : 'grid-cols-2'">
@@ -46,14 +46,14 @@
 
             <template x-if="onContact">
                 <div>
-                    <p class="text-center font-serif text-xl text-ink sm:text-2xl">Where should we send your quote?</p>
+                    <p class="text-center font-serif text-base text-ink sm:text-lg">Where should we send your quote?</p>
                     <details class="mt-3 border border-ink/15 bg-cream/60 px-3 py-2 text-sm">
                         <summary class="cursor-pointer font-semibold">Your answers</summary>
                         <ul class="mt-2 space-y-1 text-slate">
                             <template x-for="row in summary" :key="row.q"><li><span x-text="row.q"></span> <strong class="text-ink" x-text="row.a"></strong></li></template>
                         </ul>
                     </details>
-                    <div class="mt-4 bg-cream p-4 text-ink [&_button]:!rounded-none [&_input]:!rounded-none [&_select]:!rounded-none [&_textarea]:!rounded-none">
+                    <div class="mt-4 bg-cream p-4 text-ink [&_button]:!rounded-none [&_input]:!rounded-none [&_select]:!rounded-none [&_textarea]:!rounded-none [&_label.text-sm]:!text-xs">
                         <x-enquiry-form form-name="hero-quiz" mode="quiz" id-prefix="q" :package="$quizPackage ?? null" submit-label="Get my free quote" />
                     </div>
                     <button type="button" @click="back()" class="mt-3 min-h-11 text-sm font-semibold text-slate underline underline-offset-4 hover:text-ink">Back</button>
@@ -63,7 +63,7 @@
 
         <div class="no-js-only">
             <p class="mt-3">Tell us about your trip and we will send a free quote.</p>
-            <div class="mt-4 bg-cream p-4 text-ink [&_button]:!rounded-none [&_input]:!rounded-none [&_select]:!rounded-none [&_textarea]:!rounded-none"><x-enquiry-form form-name="hero-quiz" id-prefix="ns" :extended="true" :tour-type="$quizTourType ?? null" :package="$quizPackage ?? null" submit-label="Get my free quote" /></div>
+            <div class="mt-4 bg-cream p-4 text-ink [&_button]:!rounded-none [&_input]:!rounded-none [&_select]:!rounded-none [&_textarea]:!rounded-none [&_label.text-sm]:!text-xs"><x-enquiry-form form-name="hero-quiz" id-prefix="ns" :extended="true" :tour-type="$quizTourType ?? null" :package="$quizPackage ?? null" submit-label="Get my free quote" /></div>
         </div>
     </div>
 

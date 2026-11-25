@@ -43,11 +43,10 @@
     --color-ivory: #fffefa; /* Travel Your Way section background */
     --color-bar: #f7f3ea; /* sticky navigation bar */
 
-    /* Headings and titles: Fraunces (light). Body text, descriptions and buttons: Instrument Sans. */
-    --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
-    --font-serif: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
-    --font-sans: 'Instrument Sans Variable', 'Instrument Sans', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
-
+    /* Headings and titles (H1-H6): Bodoni Moda. Everything else (body text, descriptions, eyebrows, buttons): Manrope. */
+    --font-display: 'Bodoni Moda Variable', 'Bodoni Moda', Georgia, 'Times New Roman', serif;
+    --font-serif: 'Bodoni Moda Variable', 'Bodoni Moda', Georgia, 'Times New Roman', serif;
+    --font-sans: 'Manrope Variable', 'Manrope', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
     /* Every page and section heading is this size (hero headlines keep their own). Use the text-heading class. */
     --text-heading: 50px;
     --text-heading--line-height: 1.1;
@@ -59,31 +58,30 @@
     --shadow-lift: 0 2px 4px rgb(17 28 43 / 0.08), 0 20px 40px -16px rgb(17 28 43 / 0.35);
 }
 
-/* Self-hosted fonts, preloaded in the layout. Fraunces and Instrument Sans are both variable fonts. */
+/* Self-hosted fonts, preloaded in the layout. Bodoni Moda (weights 400-900, optical size) and Manrope (weights 200-800) are variable fonts. */
 @font-face {
-    font-family: 'Fraunces Variable';
+    font-family: 'Bodoni Moda Variable';
     font-style: normal;
     font-display: swap;
-    font-weight: 100 900;
-    src: url('/fonts/fraunces-latin-opsz-normal.woff2') format('woff2-variations');
+    font-weight: 400 900;
+    src: url('/fonts/bodoni-moda-latin-opsz-normal.woff2') format('woff2-variations');
 }
 
 @font-face {
-    font-family: 'Fraunces Variable';
+    font-family: 'Bodoni Moda Variable';
     font-style: italic;
     font-display: swap;
-    font-weight: 100 900;
-    src: url('/fonts/fraunces-latin-opsz-italic.woff2') format('woff2-variations');
+    font-weight: 400 900;
+    src: url('/fonts/bodoni-moda-latin-opsz-italic.woff2') format('woff2-variations');
 }
 
 @font-face {
-    font-family: 'Instrument Sans Variable';
+    font-family: 'Manrope Variable';
     font-style: normal;
     font-display: swap;
-    font-weight: 400 700;
-    src: url('/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');
+    font-weight: 200 800;
+    src: url('/fonts/manrope-latin-wght-normal.woff2') format('woff2-variations');
 }
-
 @layer base {
     html {
         scroll-behavior: smooth;
@@ -94,6 +92,10 @@
         @apply bg-cream font-sans text-ink antialiased;
         font-size: 1.0625rem;
         line-height: 1.65;
+    }
+
+    h5, h6 {
+        font-family: var(--font-display);
     }
 
     h1, h2, h3, h4 {
@@ -129,6 +131,9 @@
     .container-page {
         @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
     }
+    .container-wide {
+        @apply mx-auto w-full max-w-[calc(1390px+4rem)] px-4 sm:px-6 lg:px-8;
+    }
 
     .prose-page {
         @apply max-w-3xl;
@@ -154,12 +159,32 @@
     to { opacity: 1; transform: none; }
 }
 
-/* All headings and titles are light. Unlayered, so it wins over any font-semibold/font-medium utility. */
-h1, h2, h3, h4, .font-display, .font-serif {
-    font-weight: 300;
+/* Headings (H1-H6) are semibold (600). Unlayered, so it wins over any font-semibold/font-light utility; h2.font-display etc. outrank the bare utility. The .font-display/.font-serif utilities on NON-heading elements keep their old light weight (they are Manrope now). */
+h1, h2, h3, h4, h5, h6,
+:is(h1, h2, h3, h4, h5, h6).font-display,
+:is(h1, h2, h3, h4, h5, h6).font-serif {
+    font-weight: 600;
+    /* Bodoni Moda's optical-size axis thins the hairlines more and more as the text gets bigger, which made big headings hard to read. Fixed at a low optical size = sturdier hairlines. */
+    font-optical-sizing: none;
+}
+.font-display, .font-serif {
     font-synthesis-weight: none;
 }
+:where(.font-display, .font-serif):not(h1, h2, h3, h4, h5, h6) {
+    font-weight: 300;
+}
 
+/* Headline-style titles that are not real heading tags (the mega menu tile names and panel titles): same face and weight as the headings. Opt in with the heading-face class; size comes from the element's own utilities. */
+.heading-face {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-optical-sizing: none;
+}
+
+/* Bodoni Moda is for headings only (H1-H6). The .font-display / .font-serif utilities are also used on a few non-heading elements (prices, quotes, card and menu names, step numbers); those stay in Manrope. Unlayered so it wins over the utilities. */
+:where(.font-display, .font-serif):not(h1, h2, h3, h4, h5, h6):not(:is(h1, h2, h3, h4, h5, h6) *) {
+    font-family: var(--font-sans);
+}
 /* Two-colour headings: the accent part is an italic em (see App\Support\Heading). Slate on light, amber on dark. */
 .heading-accent {
     font-style: italic;
@@ -188,8 +213,4 @@ h1, h2, h3, h4, .font-display, .font-serif {
 }
 .quiz-band .heading-accent {
     color: var(--color-amber-ink);
-}
-/* The one exception to the light-heading rule: this title sits on the mid-tone slate band, so it is regular weight for legibility. */
-.quiz-band h2 {
-    font-weight: 400;
 }
