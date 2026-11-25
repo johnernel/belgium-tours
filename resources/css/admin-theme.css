@@ -1,21 +1,21 @@
 /* ------------------------------------------------------------------
-   Admin look: deep-navy sidebar with a white active pill, light grey canvas, white rounded cards, soft borders and a
-   blue accent. VISUAL ONLY: it restyles the existing markup (scoped to .admin-ui / .admin-login) and changes no
+   Admin look: forest-green sidebar (the home footer colour) with a white active pill, warm cream canvas, white rounded cards, soft cream borders and
+   the home page orange as the accent. Colours are the home page tokens in brand.css. VISUAL ONLY: it restyles the existing markup (scoped to .admin-ui / .admin-login) and changes no
    structure, wording or behaviour. Loaded by admin.css only, so the public site is not affected.
    ------------------------------------------------------------------ */
 .admin-ui,
 .admin-login {
-    --a-bg: #f3f5fa;
+    --a-bg: var(--color-cream); /* #f7f3ea, the home page canvas */
     --a-card: #ffffff;
-    --a-border: #e4e8f1;
-    --a-border-strong: #d3d9e8;
-    --a-text: #58617e; /* the website slate */
-    --a-muted: #58617e;
-    --a-primary: #2f6df6;
-    --a-primary-hover: #1f56d8;
-    --a-primary-soft: #e9f0ff;
-    --a-navy: #0a1240;
-    --a-shadow: 0 1px 2px rgb(16 24 64 / 0.05), 0 8px 24px rgb(16 24 64 / 0.05);
+    --a-border: var(--color-cream-deep); /* #e9ddc9 */
+    --a-border-strong: #d9caae;
+    --a-text: var(--color-slate); /* #28352d, the website's text green */
+    --a-muted: var(--color-ref-muted); /* #666b65 */
+    --a-primary: var(--color-cta); /* #c94b0e, the home buttons */
+    --a-primary-hover: var(--color-cta-hover); /* #30483a */
+    --a-primary-soft: var(--color-sky); /* #e3ede5, sage */
+    --a-navy: var(--color-ink); /* #111c2b */
+    --a-shadow: 0 1px 2px rgb(17 28 43 / 0.05), 0 8px 24px rgb(17 28 43 / 0.05);
 }
 
 .admin-ui,
@@ -26,7 +26,7 @@
     -webkit-font-smoothing: antialiased;
 }
 
-/* Typography: Fraunces for the titles and the tabs, Instrument Sans for field titles and all other text */
+/* Typography: Bodoni Moda for the titles and the tabs, Manrope for field titles and all other text */
 .admin-ui h1, .admin-ui h2, .admin-ui h3, .admin-ui h4,
 .admin-login h1, .admin-login h2,
 .admin-ui .font-display, .admin-login .font-display {
@@ -46,16 +46,16 @@
 /* ---------- Sidebar ---------- */
 .admin-sidebar {
     position: fixed;
-    background: linear-gradient(180deg, var(--color-ink) 0%, #262932 60%, #1f222a 100%);
+    background: linear-gradient(180deg, var(--color-forest) 0%, #2a4033 60%, #243729 100%);
     color: var(--color-cream);
     overflow-y: auto;
     padding: 1.25rem 1rem 1.5rem;
 }
 @media (min-width: 1024px) {
-    .admin-sidebar { position: sticky; top: 0; height: 100vh; flex-shrink: 0; box-shadow: 8px 0 30px rgb(43 46 55 / 0.22); }
+    .admin-sidebar { position: sticky; top: 0; height: 100vh; flex-shrink: 0; box-shadow: 8px 0 30px rgb(17 28 43 / 0.22); }
 }
 /* the off-canvas menu on small screens only casts a shadow while it is open */
-.admin-sidebar[class*="!translate-x-0"] { box-shadow: 8px 0 30px rgb(43 46 55 / 0.4); }
+.admin-sidebar[class*="!translate-x-0"] { box-shadow: 8px 0 30px rgb(17 28 43 / 0.4); }
 .admin-sidebar::after {
     content: '';
     position: absolute;
@@ -91,8 +91,8 @@
     width: 2.25rem;
     height: 2.25rem;
     border-radius: 0.75rem;
-    background: linear-gradient(135deg, #ffd08a, var(--color-amber));
-    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35), 0 6px 14px rgb(252 179 69 / 0.35);
+    background: linear-gradient(135deg, var(--color-amber-light), var(--color-amber));
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35), 0 6px 14px rgb(255 117 24 / 0.35);
 }
 .admin-sidebar > a:first-child > span { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(252 244 223 / 0.6); font-weight: 600; }
 
@@ -114,7 +114,7 @@
     color: var(--color-ink);
     box-shadow: 0 6px 16px rgb(0 0 0 / 0.28);
 }
-.admin-sidebar nav a.is-active svg { color: #e89a1c; }
+.admin-sidebar nav a.is-active svg { color: var(--color-amber-deep); }
 .admin-sidebar > a:last-child { font-family: var(--font-sans); margin-top: 1.5rem; display: inline-flex; align-items: center; padding: 0.5rem 0.8rem; color: rgb(252 244 223 / 0.7); text-decoration: none; font-weight: 600; }
 .admin-sidebar > a:last-child:hover { color: #fff; }
 
@@ -123,7 +123,7 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgb(255 255 255 / 0.88);
+    background: rgb(247 243 234 / 0.9);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--a-border);
@@ -141,7 +141,7 @@
     padding: 0 1rem;
     transition: background-color 0.15s, border-color 0.15s, color 0.15s;
 }
-.admin-topbar form button:hover { background: #fcb345; border-color: #fcb345; color: var(--color-ink); }
+.admin-topbar form button:hover { background: var(--color-forest); border-color: var(--color-forest); color: #fff; }
 .admin-topbar > div > span { color: var(--a-muted); background: var(--a-bg); border: 1px solid var(--a-border); border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.8rem; }
 
 /* ---------- Cards, panels, tables ---------- */
@@ -158,7 +158,7 @@
 .admin-ui .divide-y > * + *, .admin-ui .divide-ink\/10 > * + * { border-color: var(--a-border); }
 
 .admin-ui table { border-collapse: separate; border-spacing: 0; }
-.admin-ui thead { background: #f7f9fd; }
+.admin-ui thead { background: #f1f5ef; }
 .admin-ui thead th {
     font-size: 0.72rem;
     font-weight: 650;
@@ -171,7 +171,7 @@
 }
 .admin-ui tbody td { padding: 0.85rem 1rem; }
 .admin-ui tbody tr { transition: background-color 0.12s; }
-.admin-ui tbody tr:hover { background: #f8faff; }
+.admin-ui tbody tr:hover { background: #f8f5ee; }
 .admin-ui tbody td, .admin-ui tbody th { border-color: var(--a-border); }
 .admin-ui .overflow-x-auto.bg-paper { padding: 0; overflow-y: hidden; }
 
@@ -186,8 +186,8 @@
 .admin-ui main button.underline:hover { text-decoration: underline; text-underline-offset: 3px; }
 .admin-ui main button.underline.text-red-800, .admin-ui main button.underline.text-red-900 { color: #c8342b; }
 
-.admin-ui .bg-amber { background: #fcb345; color: var(--color-ink); }
-.admin-ui .hover\:bg-amber-deep:hover, .admin-ui .hover\:bg-sky-hover:hover { background: #f0a02f; color: var(--color-ink); }
+.admin-ui .bg-amber { background: var(--color-cta); color: #fff; }
+.admin-ui .hover\:bg-amber-deep:hover, .admin-ui .hover\:bg-sky-hover:hover { background: var(--color-forest); color: #fff; }
 .admin-ui .bg-ink.text-cream, .admin-ui .bg-ink.text-white { background: var(--a-navy); color: #fff; }
 .admin-ui button.rounded-full, .admin-ui a.rounded-full { border-radius: 0.7rem; }
 .admin-ui a.bg-amber.rounded-2xl {
@@ -199,9 +199,9 @@
     text-align: left;
     transition: border-color 0.15s, transform 0.15s, color 0.15s;
 }
-.admin-ui a.bg-amber.rounded-2xl:hover { background: var(--a-card); color: var(--color-ink); border-color: #fcb345; transform: translateY(-1px); }
+.admin-ui a.bg-amber.rounded-2xl:hover { background: var(--a-card); color: var(--color-ink); border-color: var(--color-amber); transform: translateY(-1px); }
 .admin-ui .border-2.border-ink { border-width: 1px; border-color: var(--a-border-strong); color: var(--a-text); }
-.admin-ui .border-2.border-ink:hover { background: #fcb345; border-color: #fcb345; color: var(--color-ink); }
+.admin-ui .border-2.border-ink:hover { background: var(--color-forest); border-color: var(--color-forest); color: #fff; }
 
 /* ---------- Forms ---------- */
 .admin-ui label { color: var(--a-text); }
@@ -213,42 +213,42 @@
     border-radius: 0.65rem;
     background: #fff;
     color: var(--a-text);
-    box-shadow: 0 1px 1px rgb(16 24 64 / 0.03);
+    box-shadow: 0 1px 1px rgb(17 28 43 / 0.03);
     transition: border-color 0.15s, box-shadow 0.15s;
 }
 .admin-ui input:focus, .admin-ui select:focus, .admin-ui textarea:focus, .admin-login input:focus {
     border-color: var(--a-primary);
     outline: none;
-    box-shadow: 0 0 0 3px rgb(47 109 246 / 0.18);
+    box-shadow: 0 0 0 3px rgb(255 117 24 / 0.22);
 }
 .admin-ui input[type='checkbox'], .admin-ui input[type='radio'] { accent-color: var(--a-primary); }
 .admin-ui input[type='file'] { font-size: 0.85rem; color: var(--a-muted); }
-.admin-ui .border-dashed { border-color: var(--a-border-strong); border-radius: 0.9rem; background: #fafbfe; }
+.admin-ui .border-dashed { border-color: var(--a-border-strong); border-radius: 0.9rem; background: #fbf8f1; }
 
 /* rich text editor */
 .admin-ui trix-editor { min-height: 12rem; background: #fff; border-radius: 0.65rem; border: 1px solid var(--a-border-strong); padding: 0.75rem 0.9rem; }
-.admin-ui trix-editor:focus { border-color: var(--a-primary); box-shadow: 0 0 0 3px rgb(47 109 246 / 0.18); outline: none; }
+.admin-ui trix-editor:focus { border-color: var(--a-primary); box-shadow: 0 0 0 3px rgb(255 117 24 / 0.22); outline: none; }
 .admin-ui trix-toolbar .trix-button-group { border-radius: 0.5rem; border-color: var(--a-border-strong); }
 .admin-ui trix-toolbar .trix-button-group--file-tools { display: none; }
 
 /* ---------- Messages and badges ---------- */
-.admin-ui [role='status'].bg-sky-soft { background: #eaf7ee; color: #155f33; border: 1px solid #c6e9d2; border-radius: 0.8rem; }
+.admin-ui [role='status'].bg-sky-soft { background: var(--color-sky); color: var(--color-forest); border: 1px solid var(--color-mist-deep); border-radius: 0.8rem; }
 .admin-ui [role='alert'].bg-red-50 { border: 1px solid #f3c9c5; border-radius: 0.8rem; }
-.admin-ui .bg-amber\/30 { background: #fff6dc; border: 1px solid #f4e2a8; color: #5c4400; }
-.admin-ui span.bg-sky-soft { background: var(--a-primary-soft); color: #1d46b8; }
-.admin-ui .bg-cream, .admin-ui .bg-cream-deep { background: #f1f4fb; }
+.admin-ui .bg-amber\/30 { background: #fff0e2; border: 1px solid var(--color-peach); color: #7a3a0a; }
+.admin-ui span.bg-sky-soft { background: var(--a-primary-soft); color: var(--color-forest); }
+.admin-ui .bg-cream, .admin-ui .bg-cream-deep { background: #f1ebde; }
 .admin-ui details { border-radius: 0.9rem; }
 
 /* ---------- Login ---------- */
 .admin-login {
-    /* one website colour (the charcoal ink used by the footer and the admin sidebar), lighter at the top left and deeper at the bottom */
-    background: radial-gradient(1100px 600px at 12% -10%, #4a4f60 0%, transparent 62%), linear-gradient(160deg, var(--color-ink) 0%, #262932 55%, #1c1f26 100%);
+    /* the home footer green (the same colour as the admin sidebar), lighter at the top left and deeper at the bottom */
+    background: radial-gradient(1100px 600px at 12% -10%, #4f6f5c 0%, transparent 62%), linear-gradient(160deg, var(--color-forest) 0%, #27392f 55%, #1d2a22 100%);
 }
-.admin-login main { border: 0; box-shadow: 0 30px 80px rgb(5 10 40 / 0.45); }
+.admin-login main { border: 0; box-shadow: 0 30px 80px rgb(10 20 15 / 0.45); }
 .admin-login h1 { font-size: 1.7rem; }
-.admin-login .bg-amber { background: #fcb345; color: var(--color-ink); border-radius: 0.7rem; }
-.admin-login .bg-amber:hover { background: #f0a02f; }
+.admin-login .bg-amber { background: var(--color-cta); color: #fff; border-radius: 0.7rem; }
+.admin-login .bg-amber:hover { background: var(--color-forest); }
 
-/* secondary (aqua) buttons follow the admin palette */
-.admin-ui .bg-sky { background: var(--a-primary-soft); color: #1d46b8; border: 1px solid #cddcff; }
-.admin-ui .bg-sky:hover, .admin-ui .hover\:bg-sky-soft:hover { background: #dbe7ff; color: #1639a0; }
+/* secondary (sage) buttons follow the admin palette */
+.admin-ui .bg-sky { background: var(--a-primary-soft); color: var(--color-forest); border: 1px solid var(--color-mist-deep); }
+.admin-ui .bg-sky:hover, .admin-ui .hover\:bg-sky-soft:hover { background: #d3e4d9; color: var(--color-forest); }
