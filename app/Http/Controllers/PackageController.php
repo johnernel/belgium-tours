@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Destination;
+use App\Models\Faq;
 use App\Models\Package;
+use App\Models\Page;
+use App\Models\Testimonial;
 use App\Models\QuizStep;
 use App\Models\TourType;
 use App\Support\PlaceImages;
@@ -34,6 +37,10 @@ class PackageController extends Controller
             'activePlace' => $place,
             'activeType' => $type,
             'activeDestination' => $destination,
+            // Bands shown under the cards: testimonials (heading copy from the home page record), the FAQ list
+            'testimonials' => Testimonial::active()->get(),
+            'home' => Page::bySlug('home') ?? new Page(['title' => 'Home', 'content' => []]),
+            'faqs' => Faq::active()->get(),
         ]);
     }
 

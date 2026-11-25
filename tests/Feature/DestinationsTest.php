@@ -153,7 +153,7 @@ class DestinationsTest extends TestCase
 
         $html = $this->get('/packages?experience=bruges')->assertOk()->getContent();
 
-        $this->assertSame($expected, substr_count($html, '<article'));
+        $this->assertSame($expected, substr_count($html, 'class="pkg-card group"'), 'one package card per matching trip (the bands under the cards use <article> too)');
         $this->assertStringNotContainsString('Brussels &amp; Leuven Weekend Drive', $html);
     }
 

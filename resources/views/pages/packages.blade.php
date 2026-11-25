@@ -12,6 +12,15 @@
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Packages', 'item' => route('packages.index')],
         ],
     ], JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
+    @if($faqs->isNotEmpty())
+        <script type="application/ld+json">{!! json_encode([
+            '@context' => 'https://schema.org', '@type' => 'FAQPage',
+            'mainEntity' => $faqs->map(fn ($f) => [
+                '@type' => 'Question', 'name' => $f->question,
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f->answer],
+            ])->values(),
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}</script>
+    @endif
 @endpush
 
 @section('content')
@@ -59,4 +68,10 @@
         @endif
     </div>
 </section>
+
+{{-- Bands under the package cards, in this order (shared partials, the same ones as on the home page): stress-free travel, simple secure payments, testimonials, then the FAQs --}}
+@include('partials.page-stress-free')
+@include('partials.page-payments')
+@include('partials.page-testimonials')
+@include('partials.faq-band', ['faqs' => $faqs, 'heading' => 'Frequently Asked *Questions*', 'titleId' => 'pkg-faq-title', 'name' => 'faq-packages', 'eyebrow' => 'FAQs'])
 @endsection
