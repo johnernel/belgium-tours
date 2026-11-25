@@ -50,19 +50,16 @@
 
 {{-- OTHER WAYS TO TRAVEL --}}
 @if($others->isNotEmpty())
-<section class="bg-cream-deep/60 py-14 sm:py-16" aria-labelledby="others-title">
-    <div class="container-page">
+<section class="bg-white py-16 sm:py-24" aria-labelledby="others-title">
+    <div class="container-wide">
         <h2 id="others-title" class="text-heading">@heading('Other ways to see Belgium')</h2>
-        <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+        {{-- Photo cards like the home "Three Ways to Travel" cards (shared partial): two across from sm up, stacked on phones --}}
+        <div class="mt-10 grid gap-5 sm:grid-cols-2">
             @foreach($others as $o)
-                <li class="rounded-2xl bg-paper p-5 shadow-card">
-                    <h3 class="text-xl"><a href="{{ route('tours.show', $o->slug) }}" class="underline decoration-amber decoration-2 underline-offset-4">{{ $o->name }}</a></h3>
-                    <p class="mt-2 text-slate">{{ $o->summary }}</p>
-                </li>
+                @include('partials.tour-type-card', ['t' => $o])
             @endforeach
-        </ul>
-    </div>
-</section>
+        </div>
+    </div></section>
 @endif
 
 {{-- FINAL CTA --}}

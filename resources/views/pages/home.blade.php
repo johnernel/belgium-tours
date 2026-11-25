@@ -118,9 +118,6 @@
 
 {{-- 4. CHOOSE YOUR JOURNEY (card layout copied from the client's reference): heading block, then a full-width, edge-to-edge row of three equal photo cards.
      Each card: title, one-line tagline, a small uppercase "Best for" line and an outlined square "Get quote" button, all bottom-left over the photo. --}}
-@php
-    $bestFor = ['self-drive' => 'Couples · Families · Independent travelers', 'chauffeur-driven' => 'Couples · Solo travelers · Luxury seekers', 'coach-tours' => 'Solo travelers · Couples · Groups'];
-@endphp
 <section x-ignore data-lazy-alpine class="cv-auto bg-white pb-16 pt-16 sm:pb-24 sm:pt-24" aria-labelledby="ht-ways">
     <div class="container-page">
         <div class="mx-auto max-w-4xl text-center">
@@ -133,16 +130,7 @@
     <div class="mt-12" x-data="pageCarousel()">
     <div x-ref="track" @scroll.passive="update()" tabindex="0" aria-label="Ways to travel, swipe to see more" class="relative flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pr-8 [scrollbar-width:none] motion-reduce:scroll-auto md:grid md:snap-none md:grid-cols-3 md:gap-5 md:overflow-visible md:pr-0 [&::-webkit-scrollbar]:hidden">
         @foreach($tourTypes as $t)
-            <article class="group relative isolate flex w-[calc(100vw-2rem)] shrink-0 snap-start min-h-[26rem] flex-col justify-end overflow-hidden bg-ink p-6 text-white sm:min-h-[30rem] lg:min-h-[32rem] lg:p-8 md:w-auto md:shrink">
-                @if($t->image)<x-photo :base="$t->image" alt="" :widths="[480, 800, 1280, 1600]" sizes="(min-width:768px) 34vw, 100vw" fetchpriority="low" :ratio="[1600, 1067]" class="absolute inset-0 -z-20 size-full transition-transform duration-700 group-hover:scale-105" />@endif
-                <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent"></div>
-                <h3 class="font-display text-3xl font-semibold leading-tight text-white lg:text-[2rem]"><a href="{{ route('tours.show', $t->slug) }}" class="hover:text-amber">{{ $t->name }}</a></h3>
-                @if($t->menu_text)<p class="mt-1 text-[0.95rem] text-white">{{ $t->menu_text }}</p>@endif
-                @if(isset($bestFor[$t->slug]))<p class="mt-5 text-xs font-medium uppercase tracking-[0.08em] text-white/85"><span class="text-white/70">Best for</span> · {{ $bestFor[$t->slug] }}</p>@endif
-                <div class="mt-4">
-                    <button type="button" @click="$store.modal.open({ tourType: {{ \Illuminate\Support\Js::from($t->name) }} })" class="inline-flex min-h-11 items-center border border-white px-6 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-ink">Get Quote</button>
-                </div>
-            </article>
+            @include('partials.tour-type-card', ['t' => $t, 'cls' => 'w-[calc(100vw-2rem)] shrink-0 snap-start md:w-auto md:shrink'])
         @endforeach
     </div>
     {{-- Pagination dots (same pills as the package carousels), phones only --}}
