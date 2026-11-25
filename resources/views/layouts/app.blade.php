@@ -1,6 +1,7 @@
 @php
-    $pageTitle = trim($__env->yieldContent('title')) ?: $site->brand;
-    $pageDesc = trim($__env->yieldContent('description')) ?: $site->meta_description;
+    // @section('title', ...) already escapes its text, and {{ }} below escapes again, which showed a literal "&amp;" in the tab title: decode first so it is escaped exactly once.
+    $pageTitle = html_entity_decode(trim($__env->yieldContent('title')), ENT_QUOTES | ENT_HTML5) ?: $site->brand;
+    $pageDesc = html_entity_decode(trim($__env->yieldContent('description')), ENT_QUOTES | ENT_HTML5) ?: $site->meta_description;
     $canonical = trim($__env->yieldContent('canonical')) ?: url()->current();
     $ogImage = trim($__env->yieldContent('og_image')) ?: ($site->social_image ? asset($site->social_image) : asset('images/photos/bruges-canal-1600.webp'));
     $noindex = trim($__env->yieldContent('noindex')) === '1';
