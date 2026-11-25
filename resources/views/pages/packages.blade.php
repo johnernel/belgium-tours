@@ -29,7 +29,7 @@
 @section('content')
 {{-- Photo hero with the main quiz form, the same as the other pages. Its headline is this page's one h1. --}}
 @include('partials.quiz-hero', [
-    'heroTitle' => 'Belgium Tour *Packages*',
+    'heroTitle' => 'Belgium Trip *Packages*',
     'heroText' => 'Sample trips to start from. Every one can be changed to suit your dates, pace and budget.',
     'heroImage' => 'images/photos/bruges-canal',
     'heroAlt' => 'A canal in Bruges lined with old brick houses',
