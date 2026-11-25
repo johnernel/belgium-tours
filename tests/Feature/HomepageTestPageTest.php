@@ -30,7 +30,7 @@ class HomepageTestPageTest extends TestCase
     public function test_the_main_home_page_has_the_redesigned_layout_and_is_indexable(): void
     {
         $this->get('/')->assertOk()
-            ->assertSee('Enquire Now')
+            ->assertSee('Inquire Now')
             ->assertSee('Why travel with us', false)
             ->assertSee('Find your style', false)
             ->assertSee('mega-tours-test', false)

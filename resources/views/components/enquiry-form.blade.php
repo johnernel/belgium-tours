@@ -14,7 +14,7 @@
 @endphp
 <form method="POST" action="{{ route('enquiry.store') }}" novalidate
       x-data="enquiryForm({ formName: '{{ $formName }}', captcha: '{{ $mode === 'quiz' ? 'now' : ($mode === 'modal' ? 'modal' : 'touch') }}' })" x-ref="form" @submit.prevent="submit()"
-      class="space-y-4" aria-label="Enquiry form">
+      class="space-y-4" aria-label="Inquiry form">
     @csrf
     <input type="hidden" name="form_name" @if($mode === 'modal') x-bind:value="$store.modal.mode === 'question' ? 'question' : '{{ $formName }}'" @endif value="{{ $formName }}">
     <input type="hidden" name="page_url" value="{{ url()->current() }}">
@@ -71,7 +71,7 @@
                 <label for="{{ $id('season') }}" class="mb-1.5 block text-sm font-semibold">Time of year</label>
                 <select id="{{ $id('season') }}" name="season" class="min-h-11 w-full rounded-xl border-2 border-slate/30 bg-white px-3 py-2.5 text-base focus:border-ink focus:outline-none">
                     <option value="">Not sure</option>
-                    @foreach(['Spring', 'Summer', 'Autumn', 'Winter'] as $s)<option>{{ $s }}</option>@endforeach
+                    @foreach(['Spring', 'Summer', 'Fall', 'Winter'] as $s)<option>{{ $s }}</option>@endforeach
                 </select>
             </div>
             <div>
@@ -130,5 +130,5 @@
     <div x-show="!done">
         <x-button type="submit" size="lg" class="w-full" x-bind:disabled="submitting" x-text="submitting ? 'Sending…' : '{{ $submitLabel }}'">{{ $submitLabel }}</x-button>
     </div>
-    <p x-cloak x-show="done" role="status" class="rounded-xl bg-sky-soft p-4 text-center font-display text-lg font-medium">Thank you! Your enquiry is on its way…</p>
+    <p x-cloak x-show="done" role="status" class="rounded-xl bg-sky-soft p-4 text-center font-display text-lg font-medium">Thank you! Your inquiry is on its way…</p>
 </form>

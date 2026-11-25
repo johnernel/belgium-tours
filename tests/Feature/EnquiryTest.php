@@ -144,7 +144,7 @@ class EnquiryTest extends TestCase
 
         $this->assertMatchesRegularExpression('/<input id="c-consent"[^>]*type="checkbox"(?![^>]*checked)[^>]*>/', $html);
         foreach ([
-            'provided by Go Belgium Tours. By providing my phone number, I consent to receive SMS messages from Go Belgium Tours regarding my enquiry, booking updates, itinerary updates, reminders, and customer support. Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.',
+            'provided by Go Belgium Tours. By providing my phone number, I consent to receive SMS messages from Go Belgium Tours regarding my inquiry, booking updates, itinerary updates, reminders, and customer support. Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.',
             'target="_blank"',
         ] as $needle) {
             $this->assertStringContainsString($needle, $html);

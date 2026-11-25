@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <body style="font-family:Arial,sans-serif;color:#111C2B;line-height:1.5">
-<h2 style="margin:0 0 12px">New enquiry from {{ $enquiry->fullName() }}</h2>
+<h2 style="margin:0 0 12px">New inquiry from {{ $enquiry->fullName() }}</h2>
 <table cellpadding="6" style="border-collapse:collapse">
     <tr><td><strong>Form</strong></td><td>{{ $enquiry->form_name }}</td></tr>
     <tr><td><strong>Email</strong></td><td>{{ $enquiry->email }}</td></tr>

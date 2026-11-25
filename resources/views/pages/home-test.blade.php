@@ -71,7 +71,7 @@
     {{-- The trust-indicator marquee stays at the bottom of the hero --}}
     <div class="container-page relative z-10 pb-6 sm:pb-8">
         {{-- Trust indicators --}}
-        <div class="marquee hero-rise hero-rise-3 overflow-hidden rounded-full bg-ink/45 py-3.5 ring-1 ring-white/20 backdrop-blur-md" role="region" aria-label="Why travellers trust us">
+        <div class="marquee hero-rise hero-rise-3 overflow-hidden rounded-full bg-ink/45 py-3.5 ring-1 ring-white/20 backdrop-blur-md" role="region" aria-label="Why travelers trust us">
             <div class="marquee-track">
                 @foreach([false, true] as $copy)
                     <ul class="flex shrink-0 items-center gap-x-10 pr-10" @if($copy) aria-hidden="true" @endif>

@@ -21,10 +21,10 @@ class QuizSeeder extends Seeder
             ]],
             ['season', 'What time of year do you want to travel?', 'tiles', [
                 ['Spring', 'spring', 'svg:spring'], ['Summer', 'summer', 'svg:summer'],
-                ['Autumn', 'autumn', 'svg:autumn'], ['Winter', 'winter', 'svg:winter'],
+                ['Fall', 'autumn', 'svg:autumn'], ['Winter', 'winter', 'svg:winter'],
             ]],
-            ['travel_style', 'What is your favourite way to see a new country?', 'tiles', [
-                ['By coach with other travellers', 'coach', 'svg:coach'], ['Driving myself', 'self-drive', 'svg:driving-myself'],
+            ['travel_style', 'What is your favorite way to see a new country?', 'tiles', [
+                ['By coach with other travelers', 'coach', 'svg:coach'], ['Driving myself', 'self-drive', 'svg:driving-myself'],
                 ['With a guide driving', 'chauffeur', 'svg:with-a-guide'], ["Don't know yet", 'unsure', 'svg:dont-know-yet'],
             ]],
             ['group_size', 'How many people are in your group?', 'select', array_map(

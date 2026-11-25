@@ -11,12 +11,12 @@
 return [
     // Bump this whenever the Terms, Privacy or consent wording changes.
     // It is stored with every enquiry as chargeback evidence.
-    'terms_version' => '2026-11-15-v1',
+    'terms_version' => '2026-11-30-v1',
 
     // Exact consent wording. {company} is replaced by the legal company name,
     // the two [[...]] markers become links that open in a new tab.
     'consent_template' => 'I agree to the [[Terms and Conditions]] and [[Privacy Policy]] provided by {company}. '
-        .'By providing my phone number, I consent to receive SMS messages from {company} regarding my enquiry, '
+        .'By providing my phone number, I consent to receive SMS messages from {company} regarding my inquiry, '
         .'booking updates, itinerary updates, reminders, and customer support. Message and data rates may apply. '
         .'Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.',
 

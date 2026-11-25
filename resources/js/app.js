@@ -97,12 +97,12 @@ Alpine.data('enquiryForm', (config = {}) => ({
 
         this.mountCaptcha();
         if (!this.consent) {
-            this.errors = { consent: ['Please tick the box to agree before sending.'] };
+            this.errors = { consent: ['Please check the box to agree before sending.'] };
             this.$refs.consent?.focus();
             return;
         }
         if (GoCaptcha.siteKey && !GoCaptcha.response(this.$refs.captcha)) {
-            this.errors = { 'g-recaptcha-response': ['Please tick "I\'m not a robot".'] };
+            this.errors = { 'g-recaptcha-response': ['Please check "I\'m not a robot".'] };
             return;
         }
 
@@ -136,7 +136,7 @@ Alpine.data('enquiryForm', (config = {}) => ({
                 GoCaptcha.reset(this.$refs.captcha);
             }
         } catch (e) {
-            this.generalError = 'We could not send your enquiry. Check your connection and try again.';
+            this.generalError = 'We could not send your inquiry. Check your connection and try again.';
         } finally {
             this.submitting = false;
         }

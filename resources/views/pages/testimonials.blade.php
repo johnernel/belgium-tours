@@ -17,8 +17,8 @@
 
 @section('content')
 @include('partials.quiz-hero', [
-    'heroTitle' => $page->block('hero_headline', 'What Travellers *Say About Us*'),
-    'heroText' => $page->block('hero_sub', 'Read what other travellers say about their Belgium trips.'),
+    'heroTitle' => $page->block('hero_headline', 'What Travelers *Say About Us*'),
+    'heroText' => $page->block('hero_sub', 'Read what other travelers say about their Belgium trips.'),
     'heroImage' => $page->block('hero_image', 'images/photos/ghent-graslei'),
     'heroAlt' => $page->block('hero_image_alt', ''),
     'crumb' => 'Testimonials',
@@ -29,7 +29,7 @@
         <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
             <span class="h-px w-10 bg-amber" aria-hidden="true"></span>Kind words
         </p>
-        <h2 id="tp-title" class="mt-5 max-w-2xl text-heading">@heading('Stories From Our Travellers')</h2>
+        <h2 id="tp-title" class="mt-5 max-w-2xl text-heading">@heading('Stories From Our Travelers')</h2>
         @if($page->body)<div class="prose-page mt-6 max-w-2xl">{!! $page->body !!}</div>@endif
 
         @if($testimonials->contains(fn ($t) => $t->is_placeholder))
@@ -37,7 +37,7 @@
         @endif
 
         @if($testimonials->isEmpty())
-            <p class="mt-10 text-lg text-slate">Traveller reviews are coming soon.</p>
+            <p class="mt-10 text-lg text-slate">Traveler reviews are coming soon.</p>
         @else
             <ul class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 @foreach($testimonials as $t)

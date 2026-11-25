@@ -12,7 +12,7 @@ class SettingsSeeder extends Seeder
         $defaults = [
             'brand_name' => 'Go Belgium Tours',
             'legal_company_name' => 'Go Belgium Tours',
-            'tagline' => 'Belgium tours and tailor-made European holidays',
+            'tagline' => 'Belgium tours and tailor-made European vacations',
             // Left blank on purpose until the client confirms them (see CONTENT_TO_CONFIRM.md).
             'phone' => '',
             'email' => '',
@@ -25,7 +25,7 @@ class SettingsSeeder extends Seeder
             'recaptcha_secret_key' => '',
             'footer_text' => 'Self drive, chauffeur driven and coach tours of Belgium, planned around you.',
             'quote_discount_text' => 'save on your trip',
-            'default_meta_description' => 'Belgium tours and tailor-made European holidays: self drive, chauffeur driven and coach tours. Get a free, no-obligation quote.',
+            'default_meta_description' => 'Belgium tours and tailor-made European vacations: self drive, chauffeur driven and coach tours. Get a free, no-obligation quote.',
             'logo' => '',
             'favicon' => '',
             'default_social_image' => '',

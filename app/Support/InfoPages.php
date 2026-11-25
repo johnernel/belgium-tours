@@ -26,12 +26,12 @@ class InfoPages
             ],
             'testimonials' => [
                 'title' => 'Testimonials',
-                'seo_title' => 'Traveller Testimonials | Go Belgium Tours',
-                'meta' => 'Read what travellers say about their Belgium trips with Go Belgium Tours.',
+                'seo_title' => 'Traveler Testimonials | Go Belgium Tours',
+                'meta' => 'Read what travelers say about their Belgium trips with Go Belgium Tours.',
                 'noindex' => false,
                 'content' => [
-                    'hero_headline' => 'What Travellers *Say About Us*',
-                    'hero_sub' => 'Read what other travellers say about their Belgium trips.',
+                    'hero_headline' => 'What Travelers *Say About Us*',
+                    'hero_sub' => 'Read what other travelers say about their Belgium trips.',
                     'hero_image' => 'images/photos/ghent-graslei',
                     'hero_image_alt' => 'Visitors relaxing beside the canal at Graslei in Ghent',
                 ],

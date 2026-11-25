@@ -38,7 +38,7 @@ class InfoPagesTest extends TestCase
 
     public function test_each_new_page_is_a_photo_hero_with_the_main_quiz_form(): void
     {
-        foreach (['team' => 'Meet Our', 'testimonials' => 'What Travellers', 'faqs' => 'Frequently Asked'] as $route => $h1) {
+        foreach (['team' => 'Meet Our', 'testimonials' => 'What Travelers', 'faqs' => 'Frequently Asked'] as $route => $h1) {
             $html = $this->get(route($route))->assertOk()->getContent();
 
             $this->assertStringContainsString('id="quiz"', $html, "$route has the quiz");
@@ -71,7 +71,7 @@ class InfoPagesTest extends TestCase
             $last = $pos;
         }
         $text = strip_tags($html);
-        foreach (['Every Journey, Personally Crafted.', 'Travel Your Way', 'Quietly Exceptional Service.', 'What Travellers Say', 'Stories from the Lowlands.'] as $heading) {
+        foreach (['Every Journey, Personally Crafted.', 'Travel Your Way', 'Quietly Exceptional Service.', 'What Travelers Say', 'Stories from the Lowlands.'] as $heading) {
             $this->assertStringContainsString($heading, $text);
         }
         $this->assertLessThan(strpos($html, 'id="photo-credits"'), $last, 'the photo credits stay at the bottom');

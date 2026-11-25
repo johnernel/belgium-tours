@@ -5,7 +5,7 @@
     $aboutItems = [
         ['About Us', route('about'), 'images/photos/bruges-belfry', 'Who we are and how we plan your Belgium trip.'],
         ['Meet Our Team', route('team'), 'images/photos/countryside', 'The people who plan and look after your journey.'],
-        ['Testimonials', route('testimonials'), 'images/photos/ghent-graslei', 'Read what other travellers say about their trips.'],
+        ['Testimonials', route('testimonials'), 'images/photos/ghent-graslei', 'Read what other travelers say about their trips.'],
         ['FAQs', route('faqs'), 'images/photos/city-leuven', 'Quick answers to the questions we hear most.'],
     ];
     $aboutLinks = array_map(fn ($i) => [$i[0], $i[1]], $aboutItems);
@@ -14,7 +14,7 @@
     $overlay = $__env->hasSection('hero');
 @endphp
 <header class="{{ $overlay ? 'nav-overlay ' : '' }}sticky top-0 z-40 bg-bar transition-colors duration-200 [&.is-open]:bg-white" :class="open && 'is-open'" x-data="{ open: false, menu: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
-    {{-- Contact strip: solid charcoal band, phone and email on the left, outlined "Enquire Now" on the right (hidden once scrolled) --}}
+    {{-- Contact strip: solid charcoal band, phone and email on the left, outlined "Inquire Now" on the right (hidden once scrolled) --}}
     <div class="hidden border-b border-ink/10 bg-cream text-ink [.is-scrolled_&]:hidden lg:block">
         <div class="container-wide flex h-12 items-center justify-between gap-6">
             <ul class="flex items-center gap-6 text-sm">
@@ -22,7 +22,7 @@
                 <li><a class="inline-flex items-center gap-2 hover:text-amber" href="tel:{{ $site->phone ? $site->phone_href : '+10000000000' }}">@icon('phone', 'size-4 text-amber') {{ $site->phone ?: '+1 000-000-0000' }}</a></li>
                 <li><a class="inline-flex items-center gap-2 hover:text-amber" href="mailto:{{ $site->email ?: 'info@gobelgiumtrips.com' }}">@icon('mail', 'size-4 text-amber') {{ $site->email ?: 'info@gobelgiumtrips.com' }}</a></li>
             </ul>
-            <button type="button" @click="$store.modal.open()" class="inline-flex min-h-8 items-center border border-ink px-4 text-sm font-semibold text-ink transition hover:bg-ink hover:text-white">Enquire Now</button>
+            <button type="button" @click="$store.modal.open()" class="inline-flex min-h-8 items-center border border-ink px-4 text-sm font-semibold text-ink transition hover:bg-ink hover:text-white">Inquire Now</button>
         </div>
     </div>
 
@@ -96,7 +96,7 @@
                                 <span class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/25" aria-hidden="true"></span>
                                 <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-white"><span class="h-px w-10 bg-amber" aria-hidden="true"></span>Get to know us</p>
                                 <p class="heading-face mt-4 font-serif text-3xl font-light leading-tight text-white">@heading('Plan *With Peace of Mind*')</p>
-                                <p class="mt-4 text-[0.95rem] leading-relaxed text-white/95">Learn about our team, read what travellers say and find the answers that make your Belgium trip smooth and stress-free.</p>
+                                <p class="mt-4 text-[0.95rem] leading-relaxed text-white/95">Learn about our team, read what travelers say and find the answers that make your Belgium trip smooth and stress-free.</p>
                             </div>
                             <ul class="grid gap-5 p-6 sm:grid-cols-2 xl:grid-cols-4 xl:p-8">
                                 @foreach($aboutItems as [$label, $url, $img, $text])
@@ -119,7 +119,7 @@
         </nav>
 
         <div class="flex items-center gap-2">
-            <x-button square variant="cta" size="sm" class="max-sm:!hidden lg:hidden [.is-scrolled_&]:lg:inline-flex" @click="$store.modal.open()">Enquire Now</x-button>
+            <x-button square variant="cta" size="sm" class="max-sm:!hidden lg:hidden [.is-scrolled_&]:lg:inline-flex" @click="$store.modal.open()">Inquire Now</x-button>
             <button type="button" class="nav-menu-btn grid size-11 place-items-center rounded-full text-ink hover:bg-ink/5 lg:hidden" @click="open = !open" :aria-expanded="open" aria-controls="mobile-nav-test" aria-label="Menu">@icon('menu')</button>
         </div>
     </div>

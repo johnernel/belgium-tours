@@ -61,8 +61,8 @@ class EnquiryRequest extends FormRequest
             'phone.required' => 'Please enter your phone number.',
             'phone.digits_between' => 'Please enter a valid phone number (numbers only, without the country code).',
             'country.required' => 'Please choose your country code.',
-            'consent.accepted' => 'Please tick the box to agree before sending.',
-            'g-recaptcha-response.required' => 'Please tick "I\'m not a robot".',
+            'consent.accepted' => 'Please check the box to agree before sending.',
+            'g-recaptcha-response.required' => 'Please check "I\'m not a robot".',
         ];
     }
 
@@ -70,7 +70,7 @@ class EnquiryRequest extends FormRequest
     {
         $validator->after(function ($v) {
             if ($v->errors()->isEmpty() && ! app(Recaptcha::class)->verify($this->input('g-recaptcha-response'), $this->ip())) {
-                $v->errors()->add('g-recaptcha-response', 'We could not confirm you are human. Please tick the box and try again.');
+                $v->errors()->add('g-recaptcha-response', 'We could not confirm you are human. Please check the box and try again.');
             }
         });
     }

@@ -30,7 +30,7 @@ class PackageSeeder extends Seeder
         $rows = [
             // Self-Drive
             ['Bruges & Ghent Medieval Escape', 'self-drive', $be, 4, 'Bruges · Ghent', 'bruges-canal', 'A canal lined with brick houses and the Belfry tower in Bruges',
-                'A relaxed few days by hire car between two of Belgium\'s best-preserved medieval cities.',
+                'A relaxed few days by rental car between two of Belgium\'s best-preserved medieval cities.',
                 ['Canal-side Bruges old town', 'Ghent\'s castle and waterways', 'Hotels and route planned for you']],
             ['Flanders Fields Heritage Drive', 'self-drive', $be, 3, 'Ypres · Passchendaele', 'countryside', 'A tree-lined country road through Flemish farmland',
                 'Drive the quiet roads of the Flanders battlefields at your own pace, with memorials and museums mapped out.',
@@ -40,7 +40,7 @@ class PackageSeeder extends Seeder
                 ['River valleys and forest roads', 'Small-town stays', 'Scenic route planned for you']],
             ['Antwerp & Mechelen City Drive', 'self-drive', $be, 3, 'Antwerp · Mechelen', 'bruges-belfry', 'A belfry tower rising above a Belgian old town',
                 'Two historic Flemish cities an easy drive apart, with parking and stays arranged.',
-                ['Historic city centres', 'Easy short drives', 'Parking and hotels arranged']],
+                ['Historic city centers', 'Easy short drives', 'Parking and hotels arranged']],
             ['Brussels & Leuven Weekend Drive', 'self-drive', $be, 3, 'Brussels · Leuven', 'flower-carpet', 'A flower carpet in front of the Brussels Grand Place',
                 'A short drive-yourself break combining the capital with a lively university town.',
                 ['Brussels Grand-Place', 'Leuven\'s old town hall square', 'Flexible, self-guided days']],
@@ -64,7 +64,7 @@ class PackageSeeder extends Seeder
 
             // Coach Tour
             ['Belgium Highlights in 7 Days', 'coach-tours', $be, 7, 'Brussels · Bruges · Ghent · Antwerp', 'ghent-graslei', 'Visitors beside the canal at Graslei in Ghent',
-                'A guided small-group tour of Belgium\'s main cities with hotels and transport organised.',
+                'A guided small-group tour of Belgium\'s main cities with hotels and transport organized.',
                 ['Guided small-group travel', 'Four great cities', 'No driving, no planning']],
             ['Chocolate & Beer Trail', 'coach-tours', $be, 5, 'Brussels · Bruges · Leuven', 'flower-carpet', 'A flower carpet in front of the Brussels Grand Place',
                 'Belgium\'s two famous exports, with tastings along a guided coach route.',

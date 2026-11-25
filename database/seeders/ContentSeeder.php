@@ -20,9 +20,9 @@ class ContentSeeder extends Seeder
         $types = [
             ['Self Drive', 'self-drive', 'Your own pace, your own route. We book the hotels, plan the roads and send you off with everything in hand.',
                 'Self drive Belgium, at your own pace',
-                'A hire car, hotels and a route planned for you. Stop where you like and stay as long as you like, with everything arranged before you go.',
+                'A rental car, hotels and a route planned for you. Stop where you like and stay as long as you like, with everything arranged before you go.',
                 'Self Drive Tours of Belgium | Go Belgium Tours',
-                'Plan a self drive holiday in Belgium: hotels, routes and a hire car arranged for you. Explore Bruges, Ghent and Brussels at your own pace. Free quote.'],
+                'Plan a self drive vacation in Belgium: hotels, routes and a rental car arranged for you. Explore Bruges, Ghent and Brussels at your own pace. Free quote.'],
             ['Chauffeur Driven', 'chauffeur-driven', 'Sit back while a private driver-guide handles the roads, the parking and the stories behind each stop.',
                 'Belgium with a private driver-guide',
                 'Sit back while your driver handles the roads and the parking, and tells you the stories behind each stop. Private, flexible and planned around your group.',
@@ -30,9 +30,9 @@ class ContentSeeder extends Seeder
                 'See Belgium with a private driver-guide: no driving, no parking, just the best of Bruges, Ghent, Brussels and the Ardennes. Request a free quote.'],
             ['Coach Tours', 'coach-tours', 'Small-group touring with a guide, ready-made company and no driving. Simple to book, easy to enjoy.',
                 'Belgium by small-group coach',
-                'Join a guided small-group tour with hotels and transport organised. No driving and no planning, with easy company along the way.',
+                'Join a guided small-group tour with hotels and transport organized. No driving and no planning, with easy company along the way.',
                 'Small-Group Coach Tours of Belgium | Go Belgium Tours',
-                'Guided small-group coach tours of Belgium with hotels and transport organised. No driving, no planning. Get a free quote.'],
+                'Guided small-group coach tours of Belgium with hotels and transport organized. No driving, no planning. Get a free quote.'],
         ];
         $tabLabels = ['self-drive' => 'Self-Drive', 'chauffeur-driven' => 'Chauffeur', 'coach-tours' => 'Coach Tour'];
         $images = [
@@ -61,9 +61,9 @@ class ContentSeeder extends Seeder
 
         $pages = [
             'home' => [
-                'title' => 'Belgium Tours & Tailor-Made European Holidays',
+                'title' => 'Belgium Tours & Tailor-Made European Vacations',
                 'seo_title' => 'Belgium Tours: Self Drive, Chauffeur Driven & Coach | Go Belgium Tours',
-                'meta' => 'Plan your Belgium holiday with local experts. Self drive, chauffeur driven and coach tours of Bruges, Ghent, Brussels and beyond. Free quote in minutes.',
+                'meta' => 'Plan your Belgium vacation with local experts. Self drive, chauffeur driven and coach tours of Bruges, Ghent, Brussels and beyond. Free quote in minutes.',
                 'content' => [
                     'hero_tagline' => 'Belgium tours, tailor-made',
                     'marquee_1' => 'Free, no-obligation quote',
@@ -76,7 +76,7 @@ class ContentSeeder extends Seeder
                     'why_heading' => 'Every journey, personally crafted.',
                     'why_sub' => 'We are a small Bruges studio of six. We plan a handful of journeys each month, so every morning, every table and every guide is chosen for you rather than for a group.',
                     'why_1_title' => 'Bespoke itineraries',
-                    'why_1_text' => 'Built from a conversation, not a catalogue.',
+                    'why_1_text' => 'Built from a conversation, not a catalog.',
                     'why_2_title' => 'Handpicked stays',
                     'why_2_text' => 'Small hotels, townhouses and country houses we know by name.',
                     'why_3_title' => 'Local expert guides',
@@ -135,7 +135,7 @@ class ContentSeeder extends Seeder
                     'step_3_title' => 'Book and go',
                     'step_3_text' => 'Happy with it? We confirm everything and you travel with your documents ready.',
                     'testimonials_eyebrow' => 'Kind words',
-                    'testimonials_heading' => 'What travellers say',
+                    'testimonials_heading' => 'What travelers say',
                     'faq_eyebrow' => 'FAQ',
                     'faq_heading' => 'Questions, answered',
                     'faq_card_title' => 'Still have questions?',
@@ -154,7 +154,7 @@ class ContentSeeder extends Seeder
                 'seo_title' => 'About Go Belgium Tours',
                 'meta' => 'Meet the team behind Go Belgium Tours and see how we plan self drive, chauffeur driven and coach tours of Belgium.',
                 'content' => ['hero_sub' => 'How we plan self drive, chauffeur driven and coach tours of Belgium.'],
-                'body' => '<p>Go Belgium Tours plans holidays in Belgium and tailor-made trips across Europe. We offer three ways to travel: self drive, chauffeur driven and small-group coach tours.</p><p>[CONFIRM: company story, team, years in business and any accreditations. Replace this paragraph with real details.]</p><h2>What we do</h2><p>We listen to how you like to travel, then build the trip: hotels, routes, transfers and the extras that make it feel local. You get one quote and one point of contact.</p>',
+                'body' => '<p>Go Belgium Tours plans vacations in Belgium and tailor-made trips across Europe. We offer three ways to travel: self drive, chauffeur driven and small-group coach tours.</p><p>[CONFIRM: company story, team, years in business and any accreditations. Replace this paragraph with real details.]</p><h2>What we do</h2><p>We listen to how you like to travel, then build the trip: hotels, routes, transfers and the extras that make it feel local. You get one quote and one point of contact.</p>',
             ],
             'contact' => [
                 'title' => 'Contact Us',
@@ -175,14 +175,14 @@ class ContentSeeder extends Seeder
             'terms' => [
                 'title' => 'Terms and Conditions',
                 'seo_title' => 'Terms and Conditions',
-                'meta' => 'The terms and conditions that apply when you enquire or book with Go Belgium Tours.',
-                'body' => "<p><strong>Starter template only. Have it reviewed by a qualified professional before launch.</strong></p><h2>1. About these terms</h2><p>These terms apply to enquiries and bookings made with $company. By sending an enquiry you agree to them.</p><h2>2. Enquiries and quotes</h2><p>A quote is not a booking. Prices and availability are confirmed in writing and may change until you pay a deposit. [CONFIRM: quote validity period]</p><h2>3. Payments and cancellations</h2><p>[CONFIRM: deposit, final payment and cancellation terms]</p><h2>4. SMS and email messages</h2><p>If you give us your phone number and agree, we may send SMS messages about your enquiry, booking updates, itinerary updates, reminders and customer support. Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.</p><h2>5. Liability</h2><p>[CONFIRM: liability, force majeure and insurance wording]</p><h2>6. Contact</h2><p>Questions about these terms? Use the details on our contact page.</p>",
+                'meta' => 'The terms and conditions that apply when you inquire or book with Go Belgium Tours.',
+                'body' => "<p><strong>Starter template only. Have it reviewed by a qualified professional before launch.</strong></p><h2>1. About these terms</h2><p>These terms apply to inquiries and bookings made with $company. By sending an inquiry you agree to them.</p><h2>2. Inquiries and quotes</h2><p>A quote is not a booking. Prices and availability are confirmed in writing and may change until you pay a deposit. [CONFIRM: quote validity period]</p><h2>3. Payments and cancellations</h2><p>[CONFIRM: deposit, final payment and cancellation terms]</p><h2>4. SMS and email messages</h2><p>If you give us your phone number and agree, we may send SMS messages about your inquiry, booking updates, itinerary updates, reminders and customer support. Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.</p><h2>5. Liability</h2><p>[CONFIRM: liability, force majeure and insurance wording]</p><h2>6. Contact</h2><p>Questions about these terms? Use the details on our contact page.</p>",
             ],
             'privacy' => [
                 'title' => 'Privacy Policy',
                 'seo_title' => 'Privacy Policy',
                 'meta' => 'How Go Belgium Tours collects, uses and protects your personal information.',
-                'body' => "<p><strong>Starter template only. Have it reviewed by a qualified professional before launch.</strong></p><h2>What we collect</h2><p>When you send an enquiry, $company collects your name, email address, phone number, travel preferences and anything you write to us. We also record technical information such as your IP address, browser, the page you used and the advertising or referral source that brought you here.</p><h2>Why we collect it</h2><p>To reply to your enquiry, prepare quotes, manage bookings, send the messages you agreed to, and measure our advertising.</p><h2>Who we share it with</h2><p>Service providers that help us run the business, such as our email, customer-relationship and analytics tools. [CONFIRM: full list of providers and countries]</p><h2>Your choices</h2><p>You can ask us to access, correct or delete your information, or to stop contacting you, at any time. Reply STOP to any SMS to unsubscribe.</p><h2>Cookies</h2><p>We use cookies to remember how you arrived on the site and, if enabled, for analytics and advertising measurement. [CONFIRM: cookie banner requirement for target markets]</p><h2>Contact</h2><p>[CONFIRM: privacy contact email and postal address]</p>",
+                'body' => "<p><strong>Starter template only. Have it reviewed by a qualified professional before launch.</strong></p><h2>What we collect</h2><p>When you send an inquiry, $company collects your name, email address, phone number, travel preferences and anything you write to us. We also record technical information such as your IP address, browser, the page you used and the advertising or referral source that brought you here.</p><h2>Why we collect it</h2><p>To reply to your inquiry, prepare quotes, manage bookings, send the messages you agreed to, and measure our advertising.</p><h2>Who we share it with</h2><p>Service providers that help us run the business, such as our email, customer-relationship and analytics tools. [CONFIRM: full list of providers and countries]</p><h2>Your choices</h2><p>You can ask us to access, correct or delete your information, or to stop contacting you, at any time. Reply STOP to any SMS to unsubscribe.</p><h2>Cookies</h2><p>We use cookies to remember how you arrived on the site and, if enabled, for analytics and advertising measurement. [CONFIRM: cookie banner requirement for target markets]</p><h2>Contact</h2><p>[CONFIRM: privacy contact email and postal address]</p>",
             ],
         ];
 
@@ -204,7 +204,7 @@ class ContentSeeder extends Seeder
         }
         foreach ([1, 2, 3] as $i) {
             Testimonial::create([
-                'name' => '[PLACEHOLDER: traveller name]',
+                'name' => '[PLACEHOLDER: traveler name]',
                 'location' => '[PLACEHOLDER: home town]',
                 'quote' => '[PLACEHOLDER REVIEW '.$i.': replace with a real, permitted customer review before launch.]',
                 'is_placeholder' => true,
@@ -250,9 +250,9 @@ class ContentSeeder extends Seeder
         }
         $faqs = [
             ['How does the free quote work?', 'Answer a few quick questions or fill in the short form. We build a trip around your answers and send you a quote with no obligation to book.'],
-            ['What is the difference between self drive, chauffeur driven and coach tours?', 'Self drive gives you a hire car and a planned route. Chauffeur driven adds a private driver-guide. Coach tours are small-group trips with a guide, where you do not drive.'],
+            ['What is the difference between self drive, chauffeur driven and coach tours?', 'Self drive gives you a rental car and a planned route. Chauffeur driven adds a private driver-guide. Coach tours are small-group trips with a guide, where you do not drive.'],
             ['Can you change an itinerary to suit us?', 'Yes. Every sample trip on this site is a starting point. Tell us your dates, pace and interests and we will adjust it.'],
-            ['When is the best time to visit Belgium?', 'Spring and early autumn are popular for mild weather and fewer crowds. Summer is lively and winter has Christmas markets. We can advise on your dates.'],
+            ['When is the best time to visit Belgium?', 'Spring and early fall are popular for mild weather and fewer crowds. Summer is lively and winter has Christmas markets. We can advise on your dates.'],
             ['What is included in the price?', 'Each quote lists exactly what is included, such as hotels, transfers and tickets. [CONFIRM: standard inclusions and exclusions]'],
             ['Do I need to book flights first?', 'No. You can request a quote before booking flights. We will help you time your arrival and departure around the itinerary.'],
         ];

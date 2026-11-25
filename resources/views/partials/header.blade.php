@@ -5,7 +5,7 @@
     $aboutItems = [
         ['About Us', route('about'), 'images/photos/bruges-belfry', 'Who we are and how we plan your Belgium trip.'],
         ['Meet Our Team', route('team'), 'images/photos/countryside', 'The people who plan and look after your journey.'],
-        ['Testimonials', route('testimonials'), 'images/photos/ghent-graslei', 'Read what other travellers say about their trips.'],
+        ['Testimonials', route('testimonials'), 'images/photos/ghent-graslei', 'Read what other travelers say about their trips.'],
         ['FAQs', route('faqs'), 'images/photos/city-leuven', 'Quick answers to the questions we hear most.'],
     ];
     $aboutActive = request()->routeIs('about', 'team', 'testimonials', 'faqs');
@@ -118,7 +118,7 @@
                                     <span class="h-px w-10 bg-amber" aria-hidden="true"></span>Get to know us
                                 </p>
                                 <p class="heading-face mt-4 font-serif text-3xl font-light leading-tight text-white">@heading('Plan *With Peace of Mind*')</p>
-                                <p class="mt-4 text-[0.95rem] leading-relaxed text-white/95">Learn about our team, read what travellers say and find the answers that make your Belgium trip smooth and stress-free.</p>
+                                <p class="mt-4 text-[0.95rem] leading-relaxed text-white/95">Learn about our team, read what travelers say and find the answers that make your Belgium trip smooth and stress-free.</p>
                             </div>
 
                             {{-- Right: the four pages --}}

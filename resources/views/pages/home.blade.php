@@ -119,7 +119,7 @@
 {{-- 4. CHOOSE YOUR JOURNEY (card layout copied from the client's reference): heading block, then a full-width, edge-to-edge row of three equal photo cards.
      Each card: title, one-line tagline, a small uppercase "Best for" line and an outlined square "Get quote" button, all bottom-left over the photo. --}}
 @php
-    $bestFor = ['self-drive' => 'Couples · Families · Independent travellers', 'chauffeur-driven' => 'Couples · Solo travellers · Luxury seekers', 'coach-tours' => 'Solo travellers · Couples · Groups'];
+    $bestFor = ['self-drive' => 'Couples · Families · Independent travelers', 'chauffeur-driven' => 'Couples · Solo travelers · Luxury seekers', 'coach-tours' => 'Solo travelers · Couples · Groups'];
 @endphp
 <section x-ignore data-lazy-alpine class="cv-auto bg-white pb-16 pt-16 sm:pb-24 sm:pt-24" aria-labelledby="ht-ways">
     <div class="container-page">
@@ -165,7 +165,7 @@
     <div class="container-wide space-y-16">
         <div class="mx-auto max-w-2xl text-center">
             @include('partials.ht-eyebrow', ['label' => 'Our Packages', 'center' => true])
-            <h2 id="ht-packages" class="mt-5 font-serif text-heading">@heading('Trips for *Every* Traveller')</h2>
+            <h2 id="ht-packages" class="mt-5 font-serif text-heading">@heading('Trips for *Every* Traveler')</h2>
         </div>
         @foreach($tourTypes as $t)
             @if($t->packages->isNotEmpty())
@@ -289,10 +289,10 @@
      four equal square cards (round dark icon, two-line title, centred text), one centred button underneath. The payment wording is placeholder copy until the client confirms how payments work. --}}
 @php
     $pay = [
-        ['smartphone', 'images/photos/countryside', 'No More Payment Headaches', 'Let each traveller pay securely online, with no more chasing or managing group payments.'],
+        ['smartphone', 'images/photos/countryside', 'No More Payment Headaches', 'Let each traveler pay securely online, with no more chasing or managing group payments.'],
         ['shield', 'images/photos/liege-guillemins', 'Secure & Convenient', 'Fast, safe and hassle-free transactions so you can book with complete confidence.'],
         ['bookmark', 'images/photos/bruges-belfry', 'Instant Booking Confirmation', 'Once your group is finalised, booking is confirmed immediately, with no back and forth.'],
-        ['banknote', 'images/photos/bruges-market', 'Flexible Payment Options', 'Multiple secure payment options available to suit every traveller in your whole group.'],
+        ['banknote', 'images/photos/bruges-market', 'Flexible Payment Options', 'Multiple secure payment options available to suit every traveler in your whole group.'],
     ];
 @endphp
 <section x-ignore data-lazy-alpine class="cv-auto bg-white py-16 sm:py-24" aria-labelledby="ht-pay">
@@ -300,7 +300,7 @@
         <div class="mx-auto max-w-4xl text-center">
             @include('partials.ht-eyebrow', ['label' => 'Find your style', 'center' => true])
             <h2 id="ht-pay" class="mt-5 font-serif text-heading">@heading('Simple, Secure Payments, No *Worries Ever*')</h2>
-            <p class="mx-auto mt-5 max-w-3xl text-lg text-ink">Whether you are travelling with friends, family or colleagues, our flexible group payment options make booking your Belgium trip simple, straightforward and completely hassle-free for everyone involved.</p>
+            <p class="mx-auto mt-5 max-w-3xl text-lg text-ink">Whether you are traveling with friends, family or colleagues, our flexible group payment options make booking your Belgium trip simple, straightforward and completely hassle-free for everyone involved.</p>
         </div>
         {{-- Phones (below sm): a swipeable scroll-snap carousel, one card at a time with the next card peeking 20px in from the right, and pill dots like the package carousels; from sm up the 2 / 4 column grid is unchanged --}}
         <div class="mt-12 min-w-0" x-data="pageCarousel()">
@@ -362,7 +362,7 @@
             <h2 id="ht-quotes" class="mt-5 font-serif text-heading">@heading($c('testimonials_heading') ?: 'What Our Guests *Say*')</h2>
         </div>
 
-        <div class="mt-12" x-data="pageCarousel()" role="region" aria-roledescription="carousel" aria-label="Traveller testimonials">
+        <div class="mt-12" x-data="pageCarousel()" role="region" aria-roledescription="carousel" aria-label="Traveler testimonials">
             <div x-ref="track" @scroll.passive="update()" @keydown.arrow-left.prevent="prev()" @keydown.arrow-right.prevent="next()" tabindex="0" aria-label="Testimonials, swipe or use the arrows"
                  class="relative flex snap-x snap-mandatory items-stretch gap-3 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] motion-reduce:scroll-auto max-sm:after:w-5 max-sm:after:shrink-0 max-sm:after:content-[''] sm:gap-6 [&::-webkit-scrollbar]:hidden">
                 @foreach($testimonials as $t)

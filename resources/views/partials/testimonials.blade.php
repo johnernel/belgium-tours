@@ -6,9 +6,9 @@
             <p class="flex items-center justify-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
                 <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $c('testimonials_eyebrow') ?: 'Kind words' }}
             </p>
-            <h2 id="t-title" class="mt-5 text-heading">@heading($c('testimonials_heading') ?: 'What travellers *say*')</h2>
+            <h2 id="t-title" class="mt-5 text-heading">@heading($c('testimonials_heading') ?: 'What travelers *say*')</h2>
 
-            <div class="mx-auto mt-10 max-w-5xl" role="region" aria-roledescription="carousel" aria-label="Traveller reviews"
+            <div class="mx-auto mt-10 max-w-5xl" role="region" aria-roledescription="carousel" aria-label="Traveler reviews"
                  @keydown.left.prevent="prev()" @keydown.right.prevent="next()"
                  @mouseenter="hold = true" @mouseleave="hold = false" @focusin="hold = true" @focusout="hold = false">
                 <span class="mx-auto flex size-14 items-center justify-center rounded-full bg-amber/25 font-serif text-6xl leading-none text-amber-ink" aria-hidden="true"><span class="translate-y-2.5">&ldquo;</span></span>
