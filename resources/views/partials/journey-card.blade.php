@@ -53,7 +53,7 @@
                         <span class="pkg-card__from">From</span>
                     @endif
                     <span class="pkg-card__amount">{{ $symbol }}{{ number_format((float) $package->price_from) }}</span>
-                    <span class="pkg-card__per">per person</span>
+                    <span class="pkg-card__per">pp</span>
                 </div>
             @else
                 <div class="pkg-card__price pkg-card__price--stack">

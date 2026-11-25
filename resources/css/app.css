@@ -324,8 +324,8 @@
     border-top: 1px solid var(--color-peach-soft);
     padding: 1.1rem 0 var(--pkg-pad);
 }
-/* price block: the small From / crossed-out old price on its own line, then the amount with "per person" beside it, so the button always fits on the right */
-.pkg-card__price { display: grid; grid-template-columns: auto auto; justify-content: start; align-items: baseline; gap: 0.1rem 0.5rem; }
+/* price block: the small From / crossed-out old price on its own line, then the amount with "pp" beside it, so the button always fits on the right */
+.pkg-card__price { display: grid; grid-template-columns: auto auto; justify-content: start; align-items: baseline; gap: 0.1rem 0.5rem; min-width: 0; }
 .pkg-card__price > .pkg-card__from,
 .pkg-card__price > .pkg-card__was { grid-column: 1 / -1; }
 .pkg-card__price--stack { grid-template-columns: auto; gap: 0.2rem; }
@@ -353,6 +353,14 @@
 .pkg-card__cta:hover { background-color: var(--color-cta-hover); }
 .pkg-card__cta:focus-visible,
 .pkg-card__more:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+/* Phones: price on the left and the Get a Quote button on the right, on the SAME row (the button keeps its size, the price text may wrap). Narrower than 350px there is no room, so they stack. */
+@media (max-width: 639.98px) {
+    .pkg-card__foot { flex-wrap: nowrap; }
+    .pkg-card__cta { flex-shrink: 0; padding: 0 1.1rem; }
+}
+@media (max-width: 349.98px) {
+    .pkg-card__foot { flex-wrap: wrap; }
+}
 @media (prefers-reduced-motion: reduce) {
     .pkg-card, .pkg-card__img, .pkg-card__hover { transition: none; }
     .pkg-card:hover { transform: none; }

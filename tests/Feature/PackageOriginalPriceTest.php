@@ -48,6 +48,8 @@ class PackageOriginalPriceTest extends TestCase
         $this->assertStringNotContainsString('<s class=', $html);
         $this->assertStringContainsString(self::EUR.'1,500', $html);
         $this->assertStringContainsString('<span class="pkg-card__from">From</span>', $html, 'a normal card keeps its From label');
+        $this->assertStringContainsString('<span class="pkg-card__per">pp</span>', $html, 'the per-person label is the short "pp"');
+        $this->assertStringNotContainsString('>per person<', $html);
 
         $this->package(['price_from' => 1500, 'original_price' => 1200]);
         $this->assertStringNotContainsString('<s class=', $this->get('/packages')->getContent());
