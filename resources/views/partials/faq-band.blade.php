@@ -5,14 +5,16 @@
     $heading = $heading ?? 'Questions, Answered';
     $titleId = $titleId ?? 'fp-title';
     $name = $name ?? 'faq-page';
-    $eyebrow = $eyebrow ?? 'FAQ';
+    $eyebrow = array_key_exists('eyebrow', get_defined_vars()) ? $eyebrow : 'FAQ'; // pass eyebrow => null (or '') to leave the small label out
 @endphp
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="{{ $titleId }}">
     <div class="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div class="max-sm:text-center">
-            {{-- Same label + diamond divider as the other section headings; left on tablet and desktop, centered on phones --}}
-            @include('partials.ht-eyebrow', ['label' => $eyebrow, 'mobileCenter' => true])
-            <h2 id="{{ $titleId }}" class="mt-5 text-heading">@heading($heading)</h2>
+            @if(filled($eyebrow))
+                {{-- Same label + diamond divider as the other section headings; left on tablet and desktop, centered on phones --}}
+                @include('partials.ht-eyebrow', ['label' => $eyebrow, 'mobileCenter' => true])
+            @endif
+            <h2 id="{{ $titleId }}" class="@if(filled($eyebrow))mt-5 @endif text-heading">@heading($heading)</h2>
             @if(!empty($body))<div class="prose-page mt-6">{!! $body !!}</div>@endif
 
             {{-- Help card (hidden on phones; the heading is centered there): pale sage panel with an orange top bar, a round icon, dark text and two square buttons (no dark background) --}}

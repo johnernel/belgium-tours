@@ -82,5 +82,5 @@
 @include('partials.page-stress-free')
 @include('partials.page-payments')
 @include('partials.page-testimonials')
-@include('partials.faq-band', ['faqs' => $faqs, 'heading' => 'Frequently Asked *Questions*', 'titleId' => 'pkg-faq-title', 'name' => 'faq-packages', 'eyebrow' => 'FAQs'])
+@include('partials.faq-band', ['faqs' => $faqs, 'heading' => 'Frequently Asked *Questions*', 'titleId' => 'pkg-faq-title', 'name' => 'faq-packages', 'eyebrow' => null])
 @endsection
