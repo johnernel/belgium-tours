@@ -46,7 +46,6 @@
 @endpush
 @include('partials.quiz-hero', [
     'heroTitle' => $package->title,
-    'heroTitleClass' => 'max-w-[20ch] text-[2rem] leading-[1.05] sm:text-5xl lg:max-w-[18ch] lg:text-6xl',
     'heroText' => (string) $package->summary,
     'heroImage' => $package->hero_image ?: 'images/photos/bruges-market',
     'heroAlt' => $package->hero_image ? ($package->hero_image_alt ?: $package->title) : '',

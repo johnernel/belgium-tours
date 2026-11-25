@@ -85,9 +85,20 @@
     33%  { opacity: 1; }
     41%, 100% { opacity: 0; transform: scale(1.14) translate(var(--kb-x), var(--kb-y)); }
 }
+/* Other pages' hero: ONE photo with the same slow zoom and drift as the home slideshow (no fade, it stays visible). */
+.hero-single {
+    will-change: transform;
+    transform-origin: 50% 50%;
+    animation: hero-zoom 18s ease-in-out infinite alternate;
+}
+@keyframes hero-zoom {
+    from { transform: scale(1) translate(0, 0); }
+    to   { transform: scale(1.14) translate(-2.5%, -1.5%); }
+}
 @media (prefers-reduced-motion: reduce) {
     .hero-slide { animation: none; will-change: auto; }
     .hero-slide-1 { opacity: 1; }
+    .hero-single { animation: none; will-change: auto; }
 }
 
 /* ------------------------------------------------------------------
@@ -371,3 +382,4 @@
 html:not(.js) .hero-slide { animation: none; }
 html:not(.js) .hero-slide-1 { opacity: 1; }
 html:not(.js) .hero-slide-2, html:not(.js) .hero-slide-3 { display: none; }
+html:not(.js) .hero-single { animation: none; }
