@@ -50,3 +50,7 @@ public/images/decor/antwerp-skyline.webp is derived from a faded Antwerp skyline
 The home hero photos (public/images/photos/hero-ypres-*, hero-bouillon-*, hero-dinant-*: Ypres Cloth Hall and Menin Gate, Bouillon castle, Dinant) and the favicon were **supplied by the client** (2026-11-20). They look like AI-generated or stock images and their source and licence are NOT verified: confirm with the client before relying on them.
 
 The two photos in the home page Tailor-made section (public/images/photos/tailor-canal-*, tailor-square-*) were supplied by the client (2026-11-20); source and licence are NOT verified, confirm before relying on them.
+
+## Home hero slideshow (2026-11-25)
+- public/images/photos/hero-dinant-quay-*, hero-antwerp-markt-*, hero-bruges-markt-*: three 1920x1080 photos supplied by the client (Dinant with the Citadel and the Meuse, Antwerp Grote Markt, Bruges Markt). Author, source and licence NOT yet confirmed (the images look AI-generated or heavily edited, so check the tool's terms and that the landmarks are accurate before launch).
+

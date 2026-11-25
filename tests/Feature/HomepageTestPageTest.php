@@ -67,11 +67,12 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('whitespace-nowrap font-display text-xl sm:text-3xl', $html, 'flag headings stay on one line on phones');
     }
 
-    public function test_on_phones_the_package_card_is_horizontal_and_view_all_moves_below_each_carousel(): void
+    public function test_package_cards_share_one_layout_and_view_all_moves_below_each_carousel_on_phones(): void
     {
         $html = $this->get('/')->assertOk()->getContent();
 
-        $this->assertStringContainsString('max-sm:flex-row max-sm:rounded-none max-sm:p-0', $html, 'horizontal square card on phones');
+        $this->assertStringContainsString('class="pkg-card group"', $html, 'every package card uses the one shared card');
+        $this->assertStringNotContainsString('max-sm:flex-row', $html, 'no separate phone layout for the card');
         $this->assertStringContainsString('max-sm:hidden">View all', $html, 'the heading View all is hidden on phones');
         $this->assertSame(3, substr_count($html, 'View all packages'), 'one View all packages link under each of the three carousels');
         $this->assertStringContainsString('sm:hidden">View all packages', $html, 'and they only show on phones');
@@ -93,8 +94,8 @@ class HomepageTestPageTest extends TestCase
     {
         $html = $this->get('/')->assertOk()->getContent();
         $this->assertStringContainsString('lg:pt-24 max-sm:text-center', $html);
-        $this->assertStringContainsString('max-sm:mx-auto', $html, 'the amber bar is centred too');
-        $this->assertMatchesRegularExpression('~<p class="hero-rise hero-rise-2 mt-7 [^"]*max-sm:hidden~', $html, 'the description paragraph is hidden on phones only');
+        $this->assertStringContainsString('max-sm:-translate-x-1/2', $html, 'the orange underline under the headline is centred too');
+        $this->assertMatchesRegularExpression('~<p class="hero-rise hero-rise-2 mt-9 [^"]*max-sm:hidden~', $html, 'the description paragraph is hidden on phones only');
     }
 
     public function test_on_phones_the_why_travel_with_us_cards_become_a_snap_carousel_with_dots(): void

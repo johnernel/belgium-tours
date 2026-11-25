@@ -80,7 +80,7 @@ class PublicPagesTest extends TestCase
             $this->assertMatchesRegularExpression('/role="tab"[^>]*>[\s\S]{0,1500}'.preg_quote($tab, '/').'/', $html);
         }
         $this->assertSame(3, substr_count($html, 'role="tabpanel" aria-labelledby="tab-'));
-        $this->assertSame(15, substr_count($html, 'journey-card group'), 'five journeys per tab');
+        $this->assertSame(15, substr_count($html, 'pkg-card group'), 'five journeys per tab');
         foreach (['Bruges & Ghent Medieval Escape', 'Brussels Art Nouveau & Chocolate Day', 'Belgium Highlights in 7 Days'] as $title) {
             $this->assertStringContainsString(e($title), $html);
         }

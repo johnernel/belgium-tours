@@ -80,7 +80,7 @@ class JourneyMapTest extends TestCase
     {
         foreach (JourneyMap::data()['cities'] as $c) {
             $page = $this->get($c['url'])->assertOk()->getContent();
-            $this->assertSame($c['count'], substr_count($page, 'class="journey-card'), "{$c['name']}: count and filtered list agree");
+            $this->assertSame($c['count'], substr_count($page, 'class="pkg-card group"'), "{$c['name']}: count and filtered list agree");
             $this->assertStringContainsString('Showing trips that visit', $page);
         }
     }
@@ -91,7 +91,7 @@ class JourneyMapTest extends TestCase
         Package::create(['title' => 'Secret Dinant weekend', 'slug' => 'secret-dinant', 'tour_type_id' => $type->id, 'nights' => 2, 'is_published' => false]);
 
         $before = Package::published()->mentioning('Dinant')->count();
-        $this->assertSame($before, substr_count($this->get('/packages?place=Dinant')->getContent(), 'class="journey-card'));
+        $this->assertSame($before, substr_count($this->get('/packages?place=Dinant')->getContent(), 'class="pkg-card group"'));
         $this->get('/packages?place=Dinant')->assertDontSee('Secret Dinant weekend');
         $this->assertSame(Package::published()->count(), Package::published()->mentioning('%')->count(), 'a bare wildcard is stripped, so it filters nothing');
         $this->get('/packages?place='.str_repeat('x', 200))->assertOk();

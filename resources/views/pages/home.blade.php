@@ -11,7 +11,7 @@
 @section('footer_view', 'partials.footer-test')
 @section('footer_flush', '1')
 @push('preload')
-    <link rel="preload" as="image" href="{{ asset('images/photos/hero-ypres-1280.webp') }}" imagesrcset="{{ asset('images/photos/hero-ypres-480.webp') }} 480w, {{ asset('images/photos/hero-ypres-800.webp') }} 800w, {{ asset('images/photos/hero-ypres-1280.webp') }} 1280w, {{ asset('images/photos/hero-ypres-1600.webp') }} 1600w" imagesizes="(max-width: 1023px) 110vw, 100vw" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('images/photos/hero-dinant-quay-1280.webp') }}" imagesrcset="{{ asset('images/photos/hero-dinant-quay-480.webp') }} 480w, {{ asset('images/photos/hero-dinant-quay-800.webp') }} 800w, {{ asset('images/photos/hero-dinant-quay-1280.webp') }} 1280w, {{ asset('images/photos/hero-dinant-quay-1600.webp') }} 1600w" imagesizes="(max-width: 1023px) 110vw, 100vw" fetchpriority="high">
 @endpush
 
 @section('content')
@@ -41,20 +41,22 @@
 @endphp
 <section class="relative isolate -mt-[4.5rem] flex min-h-[44rem] flex-col overflow-hidden bg-ink text-white lg:-mt-[8rem] lg:min-h-[50rem]">
     <div class="absolute inset-0 z-0 overflow-hidden bg-ink" aria-hidden="true">
-        <x-photo base="images/photos/hero-ypres" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" :eager="true" class="hero-slide hero-slide-1 absolute inset-0 size-full" />
-        <x-photo base="images/photos/hero-bouillon" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
-        <x-photo base="images/photos/hero-dinant" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
+        <x-photo base="images/photos/hero-dinant-quay" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" :eager="true" class="hero-slide hero-slide-1 absolute inset-0 size-full" />
+        <x-photo base="images/photos/hero-antwerp-markt" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
+        <x-photo base="images/photos/hero-bruges-markt" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
     </div>
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/41 to-ink/33"></div>
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/33 to-ink/26"></div>
 
     <div class="container-wide relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(8rem+1.5rem)]">
         <div class="lg:pt-24 max-sm:text-center">
             <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card">@icon('star', 'size-4 text-amber-deep') Authentic Trips, Belgian Heart</p>
             <h1 class="on-dark hero-rise mt-6 [text-shadow:0_2px_4px_rgb(0_0_0/0.45),0_4px_24px_rgb(0_0_0/0.5)] font-serif text-[2.65rem] font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
-                {{ $hl1 }}<br><span class="text-amber">{{ $hl2 }}</span>
+                {{ $hl1 }}<br><span class="relative inline-block text-white">{{ $hl2 }}
+                    {{-- Brush-style underline under the second line: a slightly rising stroke (about 6-8px at its thickest) that is thickest at the left and tapers to a point on the right, in the exact orange #FF7518 (the amber token) --}}
+                    <svg viewBox="0 0 300 14" preserveAspectRatio="none" class="pointer-events-none absolute left-0 top-full -mt-1 h-3 w-full text-amber max-sm:left-1/2 max-sm:w-[72%] max-sm:-translate-x-1/2 sm:h-3.5 lg:-mt-0.5 lg:h-4" fill="currentColor" aria-hidden="true"><path d="M1 6.5C70 3 190 1 299 1.4 193 4.6 78 10.6 1 13Z"/></svg>
+                </span>
             </h1>
-            <span class="hero-rise mt-4 block h-0.5 w-24 bg-amber max-sm:mx-auto" aria-hidden="true"></span>
-            <p class="hero-rise hero-rise-2 mt-7 max-w-xl text-lg text-white [text-shadow:0_2px_4px_rgb(0_0_0/0.45),0_4px_24px_rgb(0_0_0/0.5)] max-sm:hidden sm:text-xl">{{ $c('hero_sub') }}</p>
+            <p class="hero-rise hero-rise-2 mt-9 max-w-xl text-lg text-white [text-shadow:0_2px_4px_rgb(0_0_0/0.45),0_4px_24px_rgb(0_0_0/0.5)] max-sm:hidden sm:text-xl">{{ $c('hero_sub') }}</p>
 
         </div>
         <div class="hero-rise hero-rise-2 w-full lg:max-w-[32rem] lg:justify-self-end">
