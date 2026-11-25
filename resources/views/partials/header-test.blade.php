@@ -40,7 +40,7 @@
             {{-- Tour Types mega menu: full-width panel anchored to the sticky header; one tile per tour type with its featured trips --}}
             <div @mouseenter="menu = 'tours'" @click.outside="menu === 'tours' && (menu = null)">
                 <button type="button" class="{{ $link }}" :aria-expanded="menu === 'tours'" aria-controls="mega-tours-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = 'tours' : menu = (menu === 'tours' ? null : 'tours')">Tour Types @icon('chevron-down', 'size-4')</button>
-                <div id="mega-tours-test" x-cloak x-show="menu === 'tours'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50">
+                <div id="mega-tours-test" x-cloak x-show="menu === 'tours'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50 [&_*]:!rounded-none">
                     <div class="border-t border-ink/10 bg-paper text-ink shadow-lift">
                         <div class="container-wide grid gap-x-10 gap-y-6 py-7 lg:grid-cols-3">
                             @foreach($navTypes as $t)
@@ -88,7 +88,7 @@
             {{-- About Us mega menu: photo panel on the left, four image cards on the right --}}
             <div @mouseenter="menu = 'about'" @click.outside="menu === 'about' && (menu = null)">
                 <button type="button" class="{{ $link }}" :aria-expanded="menu === 'about'" aria-controls="mega-about-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = 'about' : menu = (menu === 'about' ? null : 'about')">About Us @icon('chevron-down', 'size-4')</button>
-                <div id="mega-about-test" x-cloak x-show="menu === 'about'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50">
+                <div id="mega-about-test" x-cloak x-show="menu === 'about'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50 [&_*]:!rounded-none">
                     <div class="border-t border-ink/10 bg-cream text-ink shadow-lift">
                         <div class="grid lg:grid-cols-[20rem_1fr] xl:grid-cols-[24rem_1fr]">
                             <div class="on-dark relative isolate flex min-h-[20rem] flex-col justify-end overflow-hidden bg-ink p-8 text-white">
