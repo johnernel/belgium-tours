@@ -20,10 +20,10 @@ class MegaMenuTest extends TestCase
     private function menu(): string
     {
         $html = $this->get('/packages')->assertOk()->getContent();
-        $start = strpos($html, 'id="mega-tours"');
+        $start = strpos($html, 'id="mega-tours-test"');
         $this->assertNotFalse($start, 'the mega menu is in the header');
 
-        return substr($html, $start, strpos($html, 'id="mobile-nav"', $start) - $start);
+        return substr($html, $start, strpos($html, 'id="mobile-nav-test"', $start) - $start);
     }
 
     public function test_tour_types_menu_has_a_column_per_tour_type_with_a_one_line_blurb_image_and_two_featured_trips(): void

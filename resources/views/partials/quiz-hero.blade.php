@@ -3,7 +3,7 @@
     Include with: heroTitle (supports *accent* markers), heroText, heroImage (photo base path), heroAlt, crumb (breadcrumb label),
     plus the quiz variables quizSteps / quizPreset / quizTourType from the controller. Optional: crumbMid [url, label] (a link between Home and the crumb), heroTitleClass (headline size classes), quizPackage (a Package the enquiry is about), and content pushed to the 'hero-extra' stack (shown under the text). The page must set @section('hero').
 --}}
-<section class="relative isolate -mt-[4.5rem] flex min-h-[40rem] items-center overflow-hidden bg-ink pt-[4.5rem] text-white lg:min-h-[44rem]">
+<section class="relative isolate -mt-[4.5rem] flex min-h-[40rem] items-center overflow-hidden bg-ink pt-[4.5rem] text-white lg:-mt-[8rem] lg:min-h-[47.5rem] lg:pt-[8rem]">
     @if(!empty($heroImage))
         <x-photo :base="$heroImage" :alt="$heroAlt ?? ''" sizes="100vw" :eager="true" class="absolute inset-0 z-0 size-full" />
     @endif

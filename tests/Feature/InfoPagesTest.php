@@ -22,9 +22,9 @@ class InfoPagesTest extends TestCase
     public function test_the_about_us_menu_has_four_cards_that_link_to_their_pages(): void
     {
         $html = $this->get('/packages')->assertOk()->getContent();
-        $start = strpos($html, 'id="mega-about"');
+        $start = strpos($html, 'id="mega-about-test"');
         $this->assertNotFalse($start);
-        $menu = substr($html, $start, strpos($html, 'id="mobile-nav"', $start) - $start);
+        $menu = substr($html, $start, strpos($html, 'id="mobile-nav-test"', $start) - $start);
 
         $this->assertStringContainsString('Plan', $menu);
         foreach (['about' => 'About Us', 'team' => 'Meet Our Team', 'testimonials' => 'Testimonials', 'faqs' => 'FAQs'] as $route => $label) {

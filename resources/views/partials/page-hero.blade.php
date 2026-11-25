@@ -6,7 +6,7 @@
     'crumb' => null,         // optional breadcrumb label shown above the heading
 ])
 {{-- Photo hero for inner pages. Slides under the transparent header (pages that use it set @section('hero')). --}}
-<section class="relative isolate -mt-[4.5rem] flex min-h-[26rem] items-end overflow-hidden bg-ink text-white lg:min-h-[30rem]">
+<section class="relative isolate -mt-[4.5rem] flex min-h-[26rem] items-end overflow-hidden bg-ink text-white lg:-mt-[8rem] lg:min-h-[33.5rem]">
     <x-photo :base="$image" :alt="$alt" sizes="100vw" :eager="true" class="absolute inset-0 z-0 size-full" />
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/55 via-ink/40 to-ink/85"></div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-r from-ink/70 via-ink/25 to-transparent"></div>

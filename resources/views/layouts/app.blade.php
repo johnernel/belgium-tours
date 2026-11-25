@@ -66,8 +66,8 @@
 
     <a href="#main" class="sr-only z-[100] rounded-full bg-ink px-4 py-2 text-cream focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
 
-    {{-- A page may swap the header/footer (the "Homepage Test" design does) with @section('header_view', '...') --}}
-    @include(trim($__env->yieldContent('header_view')) ?: 'partials.header')
+    {{-- Every page uses the home page header (partials/header-test). A page may still swap the header/footer with @section('header_view', '...') --}}
+    @include(trim($__env->yieldContent('header_view')) ?: 'partials.header-test')
 
     <main id="main">
         @yield('content')

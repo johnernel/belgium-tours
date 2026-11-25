@@ -10,8 +10,10 @@
     ];
     $aboutLinks = array_map(fn ($i) => [$i[0], $i[1]], $aboutItems);
     $link = 'nav-link relative inline-flex min-h-11 items-center gap-1 px-4 text-base font-medium xl:px-5 text-ink hover:text-ink/70';
+    // Pages with a photo hero (@section('hero')) start transparent with white text; all other pages get the solid bar from the start.
+    $overlay = $__env->hasSection('hero');
 @endphp
-<header class="nav-overlay sticky top-0 z-40 bg-bar transition-colors duration-200 [&.is-open]:bg-white" :class="open && 'is-open'" x-data="{ open: false, menu: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
+<header class="{{ $overlay ? 'nav-overlay ' : '' }}sticky top-0 z-40 bg-bar transition-colors duration-200 [&.is-open]:bg-white" :class="open && 'is-open'" x-data="{ open: false, menu: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
     {{-- Contact strip: solid charcoal band, phone and email on the left, outlined "Enquire Now" on the right (hidden once scrolled) --}}
     <div class="hidden border-b border-ink/10 bg-cream text-ink [.is-scrolled_&]:hidden lg:block">
         <div class="container-wide flex h-12 items-center justify-between gap-6">
