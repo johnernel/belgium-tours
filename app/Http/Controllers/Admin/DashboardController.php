@@ -3,22 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Enquiry;
 use App\Models\Package;
-use App\Services\GhlClient;
+use App\Services\DashboardStats;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function __invoke(GhlClient $ghl)
+    public function __invoke(Request $request)
     {
+        $days = DashboardStats::period($request->query('days'));
+        $stats = new DashboardStats($days);
+
         return view('admin.dashboard', [
-            'weekCount' => Enquiry::where('created_at', '>=', now()->subDays(7))->count(),
-            'newCount' => Enquiry::where('status', 'new')->count(),
-            'totalCount' => Enquiry::count(),
-            'recent' => Enquiry::latest()->take(8)->get(),
+            'days' => $days,
+            'summary' => $stats->summary(),
+            'chart' => $stats->perDay(),
+            'pipeline' => $stats->pipeline(),
+            'sources' => $stats->sources(),
+            'campaigns' => $stats->campaigns(),
+            'forms' => $stats->forms(),
+            'journeys' => $stats->journeys(),
+            'recent' => $stats->recent(),
+            'waiting' => $stats->waiting(),
+            'failed' => $stats->failedSyncs(),
+            'health' => $stats->health(),
             'publishedPackages' => Package::published()->count(),
-            'ghlOn' => $ghl->enabled(),
-            'ghlFailed' => Enquiry::where('ghl_status', 'failed')->count(),
         ]);
     }
 }
