@@ -55,7 +55,7 @@
             </select>
             <input id="{{ $id('phone') }}" name="phone" type="tel" inputmode="tel" required autocomplete="tel" x-ref="phone"
                    value="{{ old('phone') }}" placeholder="Phone number"
-                   @input="onPhoneInput()" @keydown="onPhoneKeydown($event)" @paste.prevent="onPhonePaste($event)" @focus="phoneCaret()" @click="phoneCaret()" @blur="phoneBlur()"
+                   @input="onPhoneInput()" @keydown="onPhoneKeydown($event)" @focus="phoneCaret()" @click="phoneCaret()" @blur="phoneBlur()"
                    x-bind:aria-invalid="fieldError('phone') ? 'true' : 'false'"
                    class="block min-h-11 w-full min-w-0 rounded-xl border-2 border-slate/30 bg-white px-3.5 py-2.5 text-base placeholder:text-slate/60 focus:border-ink focus:outline-none">
         </div>

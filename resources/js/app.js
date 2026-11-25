@@ -83,7 +83,10 @@ Alpine.data('enquiryForm', (config = {}) => ({
         const digits = String(raw || '').replace(/\D/g, '');
         let nat;
         if (String(raw).startsWith(this.prefix())) {
-            nat = String(raw).slice(this.prefix().length).replace(/\D/g, '');
+            const rest = String(raw).slice(this.prefix().length);
+            // a whole international number pasted after the locked code ("+1 +44 7700 900123"): read it as its own number
+            if (rest.trim().startsWith('+')) return this.parsePhone(rest);
+            nat = rest.replace(/\D/g, '');
         } else if (String(raw).trim().startsWith('+')) {
             // a full international number: use its own country when we know it, otherwise cut off the selected dial code
             const own = Object.entries(this.countries).sort((a, b) => b[1].dial.length - a[1].dial.length).find(([, c]) => digits.startsWith(c.dial));
@@ -133,18 +136,7 @@ Alpine.data('enquiryForm', (config = {}) => ({
         }
         if (this.errors.phone?.length && this.phoneValid()) this.errors = { ...this.errors, phone: [] };
     },
-    onPhonePaste(e) {
-        const pasted = (e.clipboardData || window.clipboardData).getData('text');
-        const el = this.$refs.phone;
-        const sel = this.prefix().length;
-        const start = Math.max(el.selectionStart, sel);
-        const end = Math.max(el.selectionEnd, sel);
-        const joined = el.value.slice(0, start) + pasted + el.value.slice(end);
-        // pasting a whole international number replaces everything, otherwise the digits are added where the cursor is
-        this.setPhone(String(pasted).trim().startsWith('+') ? this.parsePhone(pasted) : this.parsePhone(this.prefix() + joined.slice(sel).replace(/\D/g, '')));
-        el.setSelectionRange(el.value.length, el.value.length);
-        this.onPhoneInput();
-    },
+    /* Paste is not blocked (Lighthouse flags paste-preventing inputs): the pasted text lands in the field and onPhoneInput() cleans it up like any other input. */
     onPhoneKeydown(e) {
         const el = this.$refs.phone;
         const p = this.prefix().length;
