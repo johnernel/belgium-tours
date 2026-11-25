@@ -117,7 +117,7 @@ class HomepageTestPageTest extends TestCase
     public function test_on_phones_the_testimonial_cards_leave_a_20px_peek_of_the_next_card(): void
     {
         $html = $this->get('/')->assertOk()->getContent();
-        $this->assertStringContainsString('flex w-[calc(100%-2rem)] shrink-0 snap-start flex-col rounded-md bg-white/5', $html, 'testimonial cards are 100% - 2rem wide on phones');
+        $this->assertStringContainsString('flex w-[calc(100%-2rem)] shrink-0 snap-start flex-col rounded-md bg-white p-7', $html, 'testimonial cards are 100% - 2rem wide on phones');
         $this->assertStringContainsString('sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]', $html, 'tablet and desktop widths are kept');
         $this->assertStringContainsString('max-sm:after:w-5', $html, 'a trailing spacer lets the last card scroll fully into view');
     }
