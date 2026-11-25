@@ -358,3 +358,8 @@
     .pkg-card:hover { transform: none; }
     .pkg-card:hover .pkg-card__img { transform: none; }
 }
+
+/* Without JavaScript the hero shows its first photo only (slides 2 and 3 are filled in by app.js after the page has loaded). */
+html:not(.js) .hero-slide { animation: none; }
+html:not(.js) .hero-slide-1 { opacity: 1; }
+html:not(.js) .hero-slide-2, html:not(.js) .hero-slide-3 { display: none; }

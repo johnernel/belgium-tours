@@ -32,7 +32,7 @@
 
     @if($site->favicon)<link rel="icon" href="{{ asset($site->favicon) }}">@else<link rel="icon" href="{{ asset('favicon.ico') }}?v=2" sizes="48x48 32x32"><link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32.png') }}?v=2"><link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon-192.png') }}?v=2"><link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}?v=2">@endif
 
-    <link rel="preload" href="/fonts/bodoni-moda-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/bodoni-moda-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     @stack('preload')
 

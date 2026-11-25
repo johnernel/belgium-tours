@@ -74,5 +74,29 @@ PageSpeed Insights showed Performance 96 / 98 and Accessibility 96 / 96 (mobile 
 
 **Performance: desktop 99 to 100, mobile 95 to 97, not 100.** What was done: smaller hero image on phones (`sizes` 110vw, the 800 px file instead of 1280, about 50 KB less). Tried and reverted: inlining the stylesheet in the HTML (it made style and layout time double and the first paint later). What still holds mobile under 100: Largest Contentful Paint is 2.4 to 2.6 s under Lighthouse's simulated slow 4G, of which the server response alone is 0.7 to 1.2 s (shared Hostinger plan, PHP renders every page), then the hero image download and render. Individual mobile runs vary by 5 points (93 to 97) with server speed. Getting to 100 on mobile needs a faster time to first byte: full-page caching or a CDN in front of the site (care needed: pages carry a CSRF token for the forms), or a stronger hosting plan.
 
+## Lighthouse round 3: performance work after the redesign (2026-11-25)
+PageSpeed Insights (live site) showed Performance 96 / Accessibility 100 / Best Practices 100 / SEO 100 on mobile and desktop. Performance was the only category below 100.
+
+**Could not test the live site from this machine.** The new host (Hostinger, domain gobelgiumtrips.com) now shows automated browsers a "Checking your browser... Just a moment" bot check (HTTP 403 with a JavaScript challenge, cookie `hcdn`). Lighthouse and headless Chrome from the dev laptop get that page instead of the site, so no live Lighthouse run was possible; passing the challenge would mean bypassing the host's bot protection, which was deliberately not done. PageSpeed Insights itself is not blocked (it gave the 96 scores). **After deploying, re-run PageSpeed Insights and note the new scores here.**
+
+**Method used instead.** Lighthouse 13 against the local copy, through a small proxy (`scratchpad/lh/proxy.mjs`, not in the repo) that adds Brotli and the production cache headers, median of 3 runs, mobile = Lighthouse default (Moto G, slow 4G), desktop = desktop preset. The local PHP dev server needs about 1.2 s for the HTML, so the ABSOLUTE scores are lower than PSI's and only the BEFORE / AFTER difference is meaningful. Accessibility, Best Practices and SEO were 100 on all four runs before and after.
+
+| Page / device | Performance before | Performance after | LCP before | LCP after |
+|---|---|---|---|---|
+| Home, desktop | 97 | 97 | 1.1 s | 0.8 s |
+| Home, mobile | 71 | 78 | 3.7 s | 2.8 s |
+| Package, desktop | 99 | 99 | 0.8 s | 0.8 s |
+| Package, mobile | 94 | 94 | 3.0 s | 2.8 s |
+
+**What the audit found and what was done (bytes that compete with the first paint on a slow phone connection):**
+1. **Below-the-fold downloads on first load.** The fixed-background photo of "Stress-Free Travel" (210 KB), the testimonials video poster (61 KB) and the waffle-hearts overlay (49 KB) were all requested while the page loaded. Now they are set by Alpine when their section wakes up about 900 px before it scrolls in (`:style` / `:poster` on elements inside the `data-lazy-alpine` sections); the fixed photo also uses the 1280 px file (142 KB) instead of 1600 px.
+2. **Hero slideshow photos 2 and 3 (about 130 KB) loaded together with photo 1.** `<x-photo :defer="true">` renders `data-defer-src/srcset` and `app.js` fills them in 1.2 s after the page has loaded and gone idle. Without JavaScript the hero shows its first photo only (CSS in `app.css`).
+3. **Hero photos re-encoded** from the client originals at WebP quality 68 (800 px file 66 KB to 46 KB, 1600 px 196 KB to 137 KB); they still look sharp under the overlay.
+4. **Fonts: 42 KB less.** Bodoni Moda now uses the weight-only files (25 + 30 KB) instead of the optical-size files (45 + 52 KB). The headings already use `font-optical-sizing: none`, so the glyphs are identical (measured: same text widths).
+
+**Still open (not fixable in the theme code, or needs a decision):**
+- **Server response time.** The HTML takes 0.7 to 1.2 s on the shared plan because PHP renders every page and session and tracking cookies stop any page caching. Full-page caching or a CDN in front (pages carry a CSRF token and `gt_first/gt_last` cookies, so it needs a design decision) or a faster hosting plan is the only way to remove it. This is what keeps mobile at 95 to 97 rather than 100.
+- **JavaScript and layout work on the home page.** Total blocking time on mobile is still the largest local metric: Alpine plus the page's components cost about 350 ms of script and about 500 ms of style and layout at Lighthouse's 4x CPU slowdown. Splitting `app.js` per page or dropping Alpine for the static sections would be the next step.
+- **Render-blocking stylesheet** (21 KB Brotli, 125 KB raw). Inlining it was tried before and made mobile worse; trimming unused utilities (about 17 KB unused) is a small possible gain.
 ## Measured during the build (mobile, simulated slow 4G)
 See the final build report. Local numbers come from the PHP dev server on a Windows laptop (slow time to first byte, no gzip), so expect the live server to score the same or better.

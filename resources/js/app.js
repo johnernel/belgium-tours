@@ -645,4 +645,13 @@ if ('IntersectionObserver' in window && lazyRoots.length) {
     lazyRoots.forEach((el) => el.removeAttribute('x-ignore'));
 }
 
+/* Photos marked data-defer-src (the hero slideshow's 2nd and 3rd photo) are only requested once the page has loaded and gone idle,
+   so they do not compete with the first photo, the stylesheet and the fonts for bandwidth while the page is painting. */
+const deferredPhotos = document.querySelectorAll('img[data-defer-srcset]');
+if (deferredPhotos.length) {
+    const loadDeferred = () => deferredPhotos.forEach((img) => { img.srcset = img.dataset.deferSrcset; img.src = img.dataset.deferSrc; });
+    const kick = () => setTimeout(() => ('requestIdleCallback' in window ? requestIdleCallback(loadDeferred, { timeout: 3000 }) : loadDeferred()), 1200);
+    document.readyState === 'complete' ? kick() : window.addEventListener('load', kick, { once: true });
+}
+
 Alpine.start();

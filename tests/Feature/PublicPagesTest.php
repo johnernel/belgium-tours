@@ -57,6 +57,18 @@ class PublicPagesTest extends TestCase
         $this->assertStringNotContainsString('hero-way', $html);
     }
 
+    public function test_first_load_does_not_request_below_the_fold_decoration_or_the_other_hero_photos(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertSame(2, substr_count($html, 'data-defer-srcset='), 'hero photos 2 and 3 are filled in by app.js after the page has loaded');
+        $this->assertSame(1, preg_match_all('~<img\s+src="[^"]*hero-[a-z-]+-800\.webp~', $html), 'only the first hero photo has a real src');
+        $this->assertStringNotContainsString('style="background-image', $html, 'decorative backgrounds are set by Alpine when their section wakes up');
+        $this->assertStringNotContainsString(' poster="', $html, 'the video poster is bound lazily');
+        $this->assertStringContainsString(":poster=\"'", $html);
+        $this->assertStringContainsString('bodoni-moda-latin-wght-normal.woff2', $html, 'the weight-only Bodoni file is preloaded');
+    }
+
     public function test_the_tailor_made_section_shows_its_copy_and_the_cta_style(): void
     {
         $html = $this->get('/')->assertOk()->getContent();

@@ -42,8 +42,8 @@
 <section class="relative isolate -mt-[4.5rem] flex min-h-[44rem] flex-col overflow-hidden bg-ink text-white lg:-mt-[8rem] lg:min-h-[50rem]">
     <div class="absolute inset-0 z-0 overflow-hidden bg-ink" aria-hidden="true">
         <x-photo base="images/photos/hero-dinant-quay" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" :eager="true" class="hero-slide hero-slide-1 absolute inset-0 size-full" />
-        <x-photo base="images/photos/hero-antwerp-markt" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
-        <x-photo base="images/photos/hero-bruges-markt" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
+        <x-photo base="images/photos/hero-antwerp-markt" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" :defer="true" class="hero-slide hero-slide-2 absolute inset-0 size-full" />
+        <x-photo base="images/photos/hero-bruges-markt" alt="" sizes="(max-width: 1023px) 110vw, 100vw" :ratio="[1600, 900]" fetchpriority="low" :defer="true" class="hero-slide hero-slide-3 absolute inset-0 size-full" />
     </div>
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/33 to-ink/26"></div>
 
@@ -256,7 +256,7 @@
 <section x-ignore data-lazy-alpine class="on-dark relative isolate overflow-hidden bg-ink py-16 text-white sm:py-24" aria-labelledby="ht-steps">
     {{-- Photo background under a dark wash (layout copied from the client's reference): label, heading and intro centred, three frosted glass cards, a hairline, then one button --}}
     {{-- Fixed background (background-attachment: fixed): stays put while the page scrolls. No cv-auto on this section, because content-visibility contains fixed layers. iOS Safari ignores fixed and scrolls it normally. --}}
-    <div class="absolute inset-0 -z-20 bg-ink bg-cover bg-fixed bg-center" style="background-image: url('{{ asset('images/photos/ghent-graslei-1600.webp') }}')" aria-hidden="true"></div>
+    <div x-data :style="{ backgroundImage: 'url({{ asset('images/photos/ghent-graslei-1280.webp') }})' }" class="absolute inset-0 -z-20 bg-ink bg-cover bg-fixed bg-center" aria-hidden="true"></div>
     <div class="absolute inset-0 -z-10 bg-ink/55" aria-hidden="true"></div>
     <div class="container-wide">
         <div class="mx-auto max-w-4xl text-center">
@@ -341,7 +341,7 @@
                      }, { threshold: 0.35 }).observe($el);
                  }">
         <video x-ref="v" class="absolute inset-0 size-full object-cover" muted loop playsinline preload="none" tabindex="-1" aria-label="Belgium travel footage"
-               poster="{{ asset('media/ways-poster.webp').'?v='.filemtime(public_path('media/ways-poster.webp')) }}">
+               :poster="'{{ asset('media/ways-poster.webp').'?v='.filemtime(public_path('media/ways-poster.webp')) }}'">
             <source src="{{ asset('media/ways-loop.webm').'?v='.filemtime(public_path('media/ways-loop.webm')) }}" type="video/webm">
             <source src="{{ asset('media/ways-loop.mp4').'?v='.filemtime(public_path('media/ways-loop.mp4')) }}" type="video/mp4">
         </video>
@@ -355,7 +355,7 @@
     </div>
 
     {{-- Decorative waffle hearts (client image, cream hearts on white): multiplied into the sage background so the white drops out, low opacity, edges feathered with a radial mask so it reads as part of the background --}}
-    <div class="pointer-events-none absolute inset-x-0 bottom-0 top-[14rem] bg-cover bg-center mix-blend-multiply opacity-80 [mask-image:radial-gradient(ellipse_at_center,#000_60%,transparent_90%)] sm:top-[26rem]" style="background-image: url('{{ asset('images/decor/waffle-hearts.webp') }}')" aria-hidden="true"></div>
+    <div x-data :style="{ backgroundImage: 'url({{ asset('images/decor/waffle-hearts.webp') }})' }" class="pointer-events-none absolute inset-x-0 bottom-0 top-[14rem] bg-cover bg-center mix-blend-multiply opacity-80 [mask-image:radial-gradient(ellipse_at_center,#000_60%,transparent_90%)] sm:top-[26rem]" aria-hidden="true"></div>
     <div class="container-wide relative pb-16 sm:pb-24">
         <div class="-mt-10 text-center sm:-mt-14">
             @include('partials.ht-eyebrow', ['label' => $c('testimonials_eyebrow') ?: 'Testimonials', 'center' => true])
