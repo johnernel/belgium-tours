@@ -24,13 +24,21 @@
     @endif
 @endpush
 
+@section('hero', '1')
+
 @section('content')
+{{-- Photo hero with the main quiz form, the same as the other pages. Its headline is this page's one h1. --}}
+@include('partials.quiz-hero', [
+    'heroTitle' => 'Belgium Tour *Packages*',
+    'heroText' => 'Sample trips to start from. Every one can be changed to suit your dates, pace and budget.',
+    'heroImage' => 'images/photos/bruges-canal',
+    'heroAlt' => 'A canal in Bruges lined with old brick houses',
+    'crumb' => 'Packages',
+])
+
 <section class="py-12 sm:py-16">
     <div class="container-page">
-        <nav aria-label="Breadcrumb" class="mb-4 text-sm text-slate"><a href="{{ route('home') }}" class="underline">Home</a> / Packages</nav>
-        <x-section-heading tag="h1" title="Belgium tour packages" sub="Sample trips to start from. Every one can be changed to suit your dates, pace and budget." />
-
-        <form method="GET" action="{{ route('packages.index') }}" class="mt-8 flex flex-wrap items-end gap-3" aria-label="Filter packages">
+        <form method="GET" action="{{ route('packages.index') }}" class="flex flex-wrap items-end gap-3" aria-label="Filter packages">
             <div>
                 <label for="flt-type" class="mb-1 block text-sm font-semibold">Tour type</label>
                 <select id="flt-type" name="type" class="min-h-11 rounded-xl border-2 border-slate/30 bg-white px-3 focus:border-ink focus:outline-none">

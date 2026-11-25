@@ -37,6 +37,10 @@ class PackageController extends Controller
             'activePlace' => $place,
             'activeType' => $type,
             'activeDestination' => $destination,
+            // The photo hero's main quiz form (no pre-answered step on the list page)
+            'quizSteps' => QuizStep::forQuiz(),
+            'quizPreset' => [],
+            'quizTourType' => '',
             // Bands shown under the cards: testimonials (heading copy from the home page record), the FAQ list
             'testimonials' => Testimonial::active()->get(),
             'home' => Page::bySlug('home') ?? new Page(['title' => 'Home', 'content' => []]),

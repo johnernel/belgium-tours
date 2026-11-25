@@ -16,14 +16,19 @@
             <h2 id="{{ $titleId }}" class="mt-5 text-heading">@heading($heading)</h2>
             @if(!empty($body))<div class="prose-page mt-6">{!! $body !!}</div>@endif
 
-            <div class="on-dark mt-8 rounded-3xl bg-dusk p-6 text-cream sm:p-7">
-                <h3 class="font-serif text-2xl font-normal text-cream">Still have questions?</h3>
-                <p class="mt-2 max-w-sm text-[0.95rem] leading-relaxed text-cream/90">We are here to help with any queries. Reach out and get clear answers directly from our team.</p>
-                <div class="mt-5 flex flex-wrap gap-3">
-                    @if($site->phone)
-                        <x-button variant="light" size="sm" :href="'tel:'.$site->phone_href">@icon('phone', 'size-4') Call us</x-button>
-                    @endif
-                    <x-button variant="cta" size="sm" icon="arrow-right" @click="$store.modal.open()">Get Quote Now</x-button>
+            {{-- Help card: pale sage panel with an orange top bar, a round icon, dark text and two square buttons (no dark background) --}}
+            <div class="mt-8 overflow-hidden bg-sky text-ink shadow-card">
+                <div class="h-1 bg-amber" aria-hidden="true"></div>
+                <div class="p-6 sm:p-8">
+                    <span class="grid size-14 place-items-center rounded-full bg-white text-teal-deep shadow-card">@icon('headset', 'size-7')</span>
+                    <h3 class="mt-5 font-serif text-2xl text-ink sm:text-[1.75rem]">Still have questions?</h3>
+                    <p class="mt-3 max-w-sm text-[0.97rem] leading-relaxed text-ink/80">We are here to help with any queries. Reach out and get clear answers directly from our team.</p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <x-button square variant="cta" size="md" icon="arrow-right" @click="$store.modal.open()">Get Quote Now</x-button>
+                        @if($site->phone)
+                            <x-button square variant="dark" size="md" :href="'tel:'.$site->phone_href">@icon('phone', 'size-4') Call us</x-button>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
