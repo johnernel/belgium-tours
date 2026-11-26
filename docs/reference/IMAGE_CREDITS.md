@@ -54,3 +54,7 @@ The two photos in the home page Tailor-made section (public/images/photos/tailor
 ## Home hero slideshow (2026-11-25)
 - public/images/photos/hero-dinant-quay-*, hero-antwerp-markt-*, hero-bruges-markt-*: three 1920x1080 photos supplied by the client (Dinant with the Citadel and the Meuse, Antwerp Grote Markt, Bruges Markt). Author, source and licence NOT yet confirmed (the images look AI-generated or heavily edited, so check the tool's terms and that the landmarks are accurate before launch).
 
+
+## Tour type closing band drawing (2026-11-26)
+- `public/images/decor/belgium-outline.webp`: a pen sketch of a Belgian town hall and belfry supplied by the client (file `112.png`), processed so only the strokes remain (transparent background, dark green). Source, author and licence NOT yet confirmed.
+

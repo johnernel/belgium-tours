@@ -63,25 +63,9 @@
     </div></section>
 @endif
 
-{{-- FINAL CTA: solid cream band (#F7F3EA), centered label with hairlines, two-colour heading, short divider, text and two buttons; a faint outlined drawing of a Belgian belfry and step-gable houses in the bottom right corner --}}
+{{-- FINAL CTA: solid cream band (#F7F3EA), centered label with hairlines, two-colour heading, short divider, text and two buttons; the client's outlined drawing of a Belgian town hall and belfry (public/images/decor/belgium-outline.webp: transparent background, so it blends with the cream) faint in the bottom right corner --}}
 <section class="relative isolate overflow-hidden bg-cream py-24 text-center sm:py-32" aria-labelledby="cta-title">
-    <svg viewBox="0 0 720 260" preserveAspectRatio="xMaxYMax meet" class="pointer-events-none absolute bottom-0 right-0 -z-10 h-auto w-[min(40rem,100%)] text-teal-deep opacity-[0.16] [mask-image:linear-gradient(to_right,transparent,#000_38%)] max-sm:opacity-[0.1]" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-        {{-- a thin arc behind the skyline --}}
-        <path d="M718 6C640 28 566 86 522 154" stroke-width="0.9"/>
-        {{-- belfry: tower, spire and windows --}}
-        <path d="M52 260V110L74 8l22 102v150M52 110h44M63 62h22M58 92h32M74 8v102"/>
-        <path d="M62 196v-30a12 12 0 0 1 24 0v30M62 148v-22a12 12 0 0 1 24 0v22"/>
-        {{-- two step-gable houses --}}
-        <path d="M112 260V172h12v-20h14v-20h14v-20h14v20h14v20h14v20h12v88"/>
-        <path d="M216 260V152h12v-18h14v-18h14v-18h14v18h14v18h14v18h12v108"/>
-        @for($i = 0; $i < 3; $i++)<path d="M{{ 130 + $i * 28 }} 214h10v28h-10zM{{ 234 + $i * 28 }} 196h10v30h-10z"/>@endfor
-        {{-- long town hall: roof, dormers, windows and arches --}}
-        <path d="M334 260V152l20-30h262l20 30v108M334 152h302"/>
-        @for($i = 0; $i < 5; $i++)<path d="M{{ 372 + $i * 54 }} 122l14-28 14 28M{{ 376 + $i * 54 }} 122v-4h20v4"/>@endfor
-        @for($i = 0; $i < 9; $i++)<path d="M{{ 352 + $i * 30 }} 168h14v24h-14zM{{ 352 + $i * 30 }} 214v-14a7 7 0 0 1 14 0v14"/>@endfor
-        {{-- a smaller tower on the right --}}
-        <path d="M656 260V142l18-74 18 74v118M656 142h36"/>
-    </svg>
+    <img src="{{ asset('images/decor/belgium-outline.webp') }}" alt="" width="1500" height="1000" loading="lazy" decoding="async" class="pointer-events-none absolute bottom-0 right-0 -z-10 h-auto w-[min(32rem,100%)] opacity-[0.38] [mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_top,transparent,#000_8%)] [mask-composite:intersect] [-webkit-mask-composite:source-in] max-sm:opacity-[0.22]" aria-hidden="true">
     <div class="container-page">
         <p class="flex items-center justify-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-amber-ink">
             <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $type->name }}<span class="h-px w-10 bg-amber" aria-hidden="true"></span>
