@@ -49,7 +49,7 @@
 
     <div class="container-wide relative z-10 grid w-full flex-1 items-end gap-10 pb-12 pt-[calc(4.5rem+2.5rem)] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-[calc(8rem+1.5rem)]">
         <div class="lg:pt-24 max-sm:text-center">
-            <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card">@icon('star', 'size-4 text-amber-deep') Authentic Trips, Belgian Heart</p>
+            <p class="hero-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card max-sm:hidden">@icon('star', 'size-4 text-amber-deep') Authentic Trips, Belgian Heart</p>
             <h1 class="on-dark hero-rise mt-6 [text-shadow:0_2px_4px_rgb(0_0_0/0.45),0_4px_24px_rgb(0_0_0/0.5)] font-serif text-[2.65rem] font-medium leading-[1.05] !text-white sm:text-6xl lg:text-[4.25rem]">
                 {{ $hl1 }}<br><span class="relative inline-block text-white">{{ $hl2 }}
                     {{-- Brush-style underline under the second line: a slightly rising stroke (about 6-8px at its thickest) that is thickest at the left and tapers to a point on the right, in the exact orange #FF7518 (the amber token) --}}
