@@ -3,6 +3,7 @@
 @section('title', $page->seo_title ?: 'Destinations | '.$site->brand)
 @section('description', (string) ($page->meta_description ?? ''))
 @section('hero', '1')
+@section('footer_flush', '1')
 @if($page->noindex)@section('noindex', '1')@endif
 
 @push('schema')
@@ -26,7 +27,7 @@
 
 {{-- Layout copied from the client's reference: a gapless grid of full-bleed photo tiles (3 across on desktop), each with a dark wash and the text at the bottom left:
      small uppercase line, name, hairline, short line, "Discover" link. The whole tile is one link. --}}
-<section class="pb-16 pt-10 sm:pb-24 sm:pt-14" aria-labelledby="all-dest-title">
+<section class="pb-10 pt-16 sm:pb-12 sm:pt-24" aria-labelledby="all-dest-title">
     <div class="container-wide">
         <h2 id="all-dest-title" class="sr-only">All our destinations</h2>
 
