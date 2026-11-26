@@ -116,4 +116,46 @@ class DestinationAndStylePagesTest extends TestCase
         $this->put("/admin/experiences/{$d->id}", ['name' => 'Bruges', 'slug' => 'bruges', 'description' => 'Short line.', 'intro' => 'A fresh intro for Bruges.', 'sort' => 1, 'active' => '1'])->assertRedirect();
         $this->get('/destinations/bruges')->assertSee('A fresh intro for Bruges.');
     }
+
+    public function test_the_edit_screens_have_a_tours_list_that_sets_the_links_and_the_tours_column(): void
+    {
+        $this->actingAs(AdminUser::firstOrFail());
+        $a = Package::orderBy('id')->first();
+        $b = Package::orderBy('id')->skip(1)->first();
+
+        foreach ([['travel-styles', TravelStyle::where('slug', 'food-chocolate')->firstOrFail(), 'travelStyles'], ['experiences', Experience::where('slug', 'leuven')->firstOrFail(), 'experiences']] as [$screen, $record, $relation]) {
+            // (the previous loop ended with a refused save, whose submitted values the next page would show once, so look at the list first)
+            $this->get("/admin/$screen")->assertOk();
+            // the list is on the edit screen with the current links ticked
+            $html = $this->get("/admin/$screen/{$record->id}/edit")->assertOk()->assertSee('Tours')->getContent();
+            $this->assertStringContainsString('name="package_ids[]"', $html);
+            $this->assertStringContainsString('name="package_ids_present"', $html);
+            foreach ($record->packages as $linked) {
+                $this->assertMatchesRegularExpression('~value="'.$linked->id.'"[^>]*checked~', $html, "{$linked->title} is ticked");
+            }
+
+            $base = ['name' => $record->name, 'slug' => $record->slug, 'sort' => $record->sort, 'active' => '1', 'package_ids_present' => '1'];
+
+            // tick exactly two tours: the links and the Tours column follow
+            $this->put("/admin/$screen/{$record->id}", $base + ['package_ids' => [$a->id, $b->id]])->assertSessionHasNoErrors();
+            $this->assertEqualsCanonicalizing([$a->id, $b->id], $record->fresh()->packages()->pluck('packages.id')->all());
+            $this->assertMatchesRegularExpression('~'.preg_quote(e($record->name), '~').'</td>\s*<td class="p-3">2</td>~', $this->get("/admin/$screen")->assertOk()->getContent(), 'the Tours column shows 2');
+
+            // a save from a form that did not carry the list leaves the links alone
+            $this->put("/admin/$screen/{$record->id}", ['name' => $record->name, 'slug' => $record->slug, 'sort' => $record->sort, 'active' => '1'])->assertSessionHasNoErrors();
+            $this->assertSame(2, $record->fresh()->packages()->count());
+
+            // unticking everything on the list clears the links
+            $this->put("/admin/$screen/{$record->id}", $base)->assertSessionHasNoErrors();
+            $this->assertSame(0, $record->fresh()->packages()->count());
+
+            // a tour that does not exist is refused
+            $this->put("/admin/$screen/{$record->id}", $base + ['package_ids' => [999999]])->assertSessionHasErrors('package_ids.0');
+        }
+
+        // the same list when adding a new one
+        $this->get('/admin/travel-styles/create')->assertOk()->assertSee('name="package_ids[]"', false);
+        $this->post('/admin/travel-styles', ['name' => 'Romantic Escapes', 'sort' => 9, 'active' => '1', 'package_ids_present' => '1', 'package_ids' => [$a->id]])->assertRedirect('/admin/travel-styles');
+        $this->assertSame([$a->id], TravelStyle::where('slug', 'romantic-escapes')->firstOrFail()->packages()->pluck('packages.id')->all());
+    }
 }

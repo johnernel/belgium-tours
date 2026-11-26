@@ -15,6 +15,21 @@
             @case('rich')<x-admin.rich :name="$n" :label="$f['label']" :value="$record->{$n}" />@break
             @case('number')<x-admin.input :name="$n" type="number" :label="$f['label']" :value="$record->{$n}" />@break
             @case('checkbox')<x-admin.check :name="$n" :label="$f['label']" :checked="(bool) $record->{$n}" />@break
+            @case('relation')
+                {{-- A list of tick boxes for a many-to-many link (e.g. the tours of a destination). The hidden marker tells the controller this list was on the form, so a save from somewhere else never wipes the links. --}}
+                @php $chosen = array_map('intval', (array) old($n, $record->exists ? $record->{$f['relation']}()->pluck($f['relation'].'.id')->all() : [])); @endphp
+                <fieldset>
+                    <legend class="mb-1 text-sm font-semibold">{{ $f['label'] }}</legend>
+                    @if(!empty($f['help']))<p class="mb-2 text-sm text-slate">{{ $f['help'] }}</p>@endif
+                    <input type="hidden" name="{{ $n }}_present" value="1">
+                    <div class="grid max-h-80 gap-x-6 overflow-y-auto sm:grid-cols-2">
+                        @foreach($f['options']() as $id => $label)
+                            <label class="inline-flex min-h-11 items-center gap-2"><input type="checkbox" name="{{ $n }}[]" value="{{ $id }}" class="size-5 accent-ink" @checked(in_array($id, $chosen, true))> <span>{{ $label }}</span></label>
+                        @endforeach
+                    </div>
+                    @error($n)<p class="mt-1 text-sm font-semibold text-red-800">{{ $message }}</p>@enderror
+                </fieldset>
+            @break
             @case('image')
                 <div class="space-y-2 rounded-xl border-2 border-dashed border-slate/30 p-4">
                     <p class="text-sm font-semibold">{{ $f['label'] }}</p>

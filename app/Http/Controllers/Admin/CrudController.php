@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 /**
  * Small list/create/edit/delete screens driven by a field config.
  * Subclasses set $model, $routeBase and return config() + rules().
- * Field types: text, textarea, rich, number, checkbox, image.
+ * Field types: text, textarea, rich, number, checkbox, image, relation (a tick-box list that syncs a many-to-many: needs 'relation' = the method name and 'options' = a closure returning id => label).
  */
 abstract class CrudController extends Controller
 {
@@ -109,6 +109,10 @@ abstract class CrudController extends Controller
 
                 continue;
             }
+            if ($f['type'] === 'relation') {
+                unset($data[$name]); // a link list, not a column: synced after the record is saved
+                continue;
+            }
             if ($f['type'] === 'rich' && array_key_exists($name, $data)) {
                 $data[$name] = Html::clean($data[$name]);
             }
@@ -123,5 +127,12 @@ abstract class CrudController extends Controller
         }
 
         $record->fill($data)->save();
+
+        // Many-to-many link lists ("Tours"): replaced by exactly what is ticked, but only when the list was on the submitted form.
+        foreach ($this->config()['fields'] as $f) {
+            if ($f['type'] === 'relation' && $request->boolean($f['name'].'_present')) {
+                $record->{$f['relation']}()->sync(array_map('intval', (array) $request->input($f['name'], [])));
+            }
+        }
     }
 }
