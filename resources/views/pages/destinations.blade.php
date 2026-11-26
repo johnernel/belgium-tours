@@ -27,7 +27,7 @@
 
 {{-- Layout copied from the client's reference: a gapless grid of full-bleed photo tiles (3 across on desktop), each with a dark wash and the text at the bottom left:
      small uppercase line, name, hairline, short line, "Discover" link. The whole tile is one link. --}}
-<section class="pb-10 pt-16 sm:pb-12 sm:pt-24" aria-labelledby="all-dest-title">
+<section class="py-[90px]" aria-labelledby="all-dest-title">
     <div class="container-wide">
         <h2 id="all-dest-title" class="sr-only">All our destinations</h2>
 
