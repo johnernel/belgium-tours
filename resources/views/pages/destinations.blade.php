@@ -58,4 +58,6 @@
         @endif
     </div>
 </section>
+
+@include('partials.closing-band', ['label' => 'Your Belgium trip', 'heading' => 'Not sure which *destination* suits you?', 'modalType' => ''])
 @endsection
