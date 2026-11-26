@@ -34,10 +34,10 @@
 
 {{-- TRIPS OF THIS TYPE --}}
 <section class="py-16 sm:py-20" aria-labelledby="trips-title">
-    <div class="container-page">
+    <div class="container-wide"> {{-- boxed at 1390px --}}
         <div class="flex flex-wrap items-end justify-between gap-4">
             <x-section-heading id="trips-title" :title="$type->name.' trips'" sub="Sample trips to start from. Every one can be changed to fit your dates, pace and budget." />
-            <x-button :href="route('packages.index', ['type' => $type->slug])" variant="outline" icon="arrow-right">Filter all packages</x-button>
+            <x-button square :href="route('packages.index', ['type' => $type->slug])" variant="outline" icon="arrow-right" class="hover:!border-cta-hover hover:!bg-cta-hover hover:!text-white">Filter all packages</x-button>
         </div>
         @if($packages->isEmpty())
             <p class="mt-10 rounded-2xl bg-paper p-6 shadow-card">We are adding {{ strtolower($type->name) }} trips. In the meantime <button type="button" class="font-semibold underline" @click="$store.modal.open({ tourType: @js($type->name) })">tell us what you have in mind</button> and we will plan one for you.</p>
