@@ -36,12 +36,13 @@
 @section('content')
 {{-- Same photo hero as the other pages: headline and trip facts on the left, the main quiz form on the right. The enquiry stays linked to this package. --}}
 @push('hero-extra')
-    <ul class="hero-rise hero-rise-2 mt-6 flex flex-wrap gap-2 text-sm font-bold text-ink">
+    {{-- The trip chips and the price are hidden on phones (below 640px), visible from sm up --}}
+    <ul class="hero-rise hero-rise-2 mt-6 flex flex-wrap gap-2 text-sm font-bold text-ink max-sm:hidden">
         <li class="rounded-full bg-amber px-3 py-1.5">{{ $package->nights > 0 ? $package->nights.' nights' : '1 day' }}</li>
         @if($package->tourType)<li class="rounded-full bg-sky px-3 py-1.5">{{ $package->tourType->name }}</li>@endif
         @if($package->destination)<li class="rounded-full bg-cream px-3 py-1.5">{{ $package->destination->name }}</li>@endif
     </ul>
-    <div class="hero-rise hero-rise-2 mt-6">
+    <div class="hero-rise hero-rise-2 mt-6 max-sm:hidden">
         <p><span class="font-serif text-3xl text-amber">{{ $package->priceLabel() }}</span> <span class="block text-sm text-white/85">per person, based on the trip as described</span></p>
     </div>
 @endpush
@@ -51,6 +52,7 @@
     'heroImage' => $package->hero_image ?: 'images/photos/bruges-market',
     'heroAlt' => $package->hero_image ? ($package->hero_image_alt ?: $package->title) : '',
     'crumb' => $package->title,
+    'hideCrumbOnPhones' => true,
     'crumbMid' => [route('packages.index'), 'Packages'],
 ])
 
