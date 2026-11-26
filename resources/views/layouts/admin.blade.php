@@ -20,6 +20,7 @@
         ['admin.tour-types.index', 'Tour types', 'car'],
         ['admin.destinations.index', 'Regions', 'globe'],
         ['admin.experiences.index', 'Destinations', 'map-pin'],
+        ['admin.travel-styles.index', 'Travel styles', 'compass'],
         ['admin.quiz.index', 'Quiz', 'help'],
         ['admin.pages.index', 'Pages', 'calendar'],
         ['admin.testimonials.index', 'Testimonials', 'star'],

@@ -29,6 +29,7 @@
             <p id="ft-explore" class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-light">Explore</p>
             <ul class="mt-5 space-y-1.5">
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('destinations.index') }}">Destinations</a></li>
+            <li><a class="inline-block py-1 hover:text-amber" href="{{ route('travel-styles.index') }}">Travel styles</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('journal.index') }}">Travel guides</a></li>
                 <li><a class="inline-block py-1 hover:text-amber" href="{{ route('contact') }}">Contact</a></li>
             </ul>

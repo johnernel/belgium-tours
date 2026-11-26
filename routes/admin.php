@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\ExperienceController;
+use App\Http\Controllers\Admin\TravelStyleController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GhlController;
 use App\Http\Controllers\Admin\SheetController;
@@ -46,6 +47,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('tour-types', TourTypeController::class)->except('show')->parameters(['tour-types' => 'tourType']);
         Route::resource('destinations', DestinationController::class)->except('show');
         Route::resource('experiences', ExperienceController::class)->except('show');
+        Route::resource('travel-styles', TravelStyleController::class)->except('show')->parameters(['travel-styles' => 'travelStyle']);
 
         Route::get('quiz', [QuizController::class, 'index'])->name('quiz.index');
         Route::post('quiz/steps', [QuizController::class, 'storeStep'])->name('quiz.steps.store');

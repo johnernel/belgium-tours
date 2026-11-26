@@ -37,6 +37,14 @@
                 @endforeach
             </div>
         </div>
+        <div>
+            <p class="mb-1 text-sm font-semibold">Travel styles this tour fits</p>
+            <div class="flex flex-wrap gap-x-6 gap-y-1">
+                @foreach($travelStyles as $id => $label)
+                    <label class="inline-flex min-h-11 items-center gap-2"><input type="checkbox" name="travel_style_ids[]" value="{{ $id }}" class="size-5 accent-ink" @checked(in_array($id, old('travel_style_ids', $package->exists ? $package->travelStyles->pluck('id')->all() : [])))> {{ $label }}</label>
+                @endforeach
+            </div>
+        </div>
         <x-admin.input name="route" label="Route (cities, shown on the journey card)" :value="$package->route" help="Separate places with a middle dot, e.g. Bruges · Ghent" />
         <x-admin.textarea name="summary" label="Short summary (shown on cards)" :value="$package->summary" :rows="3" />
         <div class="flex flex-wrap gap-x-8">

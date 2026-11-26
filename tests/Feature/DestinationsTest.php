@@ -128,9 +128,9 @@ class DestinationsTest extends TestCase
         $this->assertSame(6, substr_count($html, 'class="group flex w-full flex-col'), 'a card for every destination');
 
         foreach (Experience::withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get() as $e) {
-            $this->assertStringContainsString('>'.e($e->name).'</h3>', $html);
+            $this->assertStringContainsString('>'.e($e->name).'</a></h3>', $html);
             $this->assertStringContainsString($e->packages_count === 1 ? '1 tour<' : $e->packages_count.' tours<', $html);
-            $this->assertStringContainsString('href="'.route('packages.index', ['experience' => $e->slug]).'"', $html);
+            $this->assertStringContainsString('href="'.route('destinations.show', $e->slug).'"', $html, 'every card links to the destination page');
         }
     }
 
@@ -175,7 +175,7 @@ class DestinationsTest extends TestCase
         $new = Experience::where('slug', 'mechelen')->firstOrFail();
         $this->assertSame('40% 30%', $new->image_focus);
         $this->get("/admin/experiences/{$new->id}/edit")->assertOk();
-        $this->get('/destinations')->assertSee('>Mechelen</h3>', false);
+        $this->get('/destinations')->assertSee('>Mechelen</a></h3>', false);
 
         $package = Package::firstOrFail();
         $this->put("/admin/packages/{$package->id}", [

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             QuizSeeder::class,
             PackageSeeder::class,
             ExperienceSeeder::class,
+            TravelStyleSeeder::class,
         ]);
     }
 }

@@ -13,6 +13,7 @@ class SitemapController extends Controller
             [route('home'), now()],
             [route('packages.index'), now()],
             [route('destinations.index'), now()],
+            [route('travel-styles.index'), now()],
             [route('journal.index'), now()],
             [route('faqs'), now()],
         ];
@@ -27,6 +28,13 @@ class SitemapController extends Controller
 
         foreach (\App\Models\TourType::active()->get() as $t) {
             $urls[] = [route('tours.show', $t->slug), $t->updated_at];
+        }
+
+        foreach (\App\Models\Experience::active()->get() as $d) {
+            $urls[] = [route('destinations.show', $d->slug), $d->updated_at];
+        }
+        foreach (\App\Models\TravelStyle::active()->get() as $s) {
+            $urls[] = [route('travel-styles.show', $s->slug), $s->updated_at];
         }
 
         foreach (\App\Models\Post::published()->where('is_placeholder', false)->get() as $post) {

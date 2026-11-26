@@ -9,7 +9,10 @@
         ['FAQs', route('faqs'), 'images/photos/city-leuven', 'Quick answers to the questions we hear most.'],
     ];
     $aboutLinks = array_map(fn ($i) => [$i[0], $i[1]], $aboutItems);
-    $link = 'nav-link relative inline-flex min-h-11 items-center gap-1 px-4 text-base font-medium xl:px-5 text-ink hover:text-ink/70';
+    // The Destinations and Travel Styles menus: every active destination / travel style, each with its published trip count.
+    $navDestinations = \App\Models\Experience::active()->withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get();
+    $navStyles = \App\Models\TravelStyle::active()->withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get();
+    $link = 'nav-link relative inline-flex min-h-11 items-center gap-1 px-2.5 text-[0.95rem] font-medium min-[1100px]:px-3.5 min-[1100px]:text-base xl:px-4 2xl:px-5 text-ink hover:text-ink/70';
     // Pages with a photo hero (@section('hero')) start transparent with white text; all other pages get the solid bar from the start.
     $overlay = $__env->hasSection('hero');
 @endphp
@@ -85,6 +88,36 @@
                     </div>
                 </div>
             </div>
+            {{-- Destinations and Travel Styles mega menus: full-width panels with one photo tile per place / style (each links to its own page), a "view all" link and a quote strip --}}
+            @foreach([['destinations', 'Destinations', $navDestinations, 'destinations.show', 'destinations.index', 'Pick a place to see its page and the trips that visit it.'], ['styles', 'Travel Styles', $navStyles, 'travel-styles.show', 'travel-styles.index', 'Pick a style to see the trips built around it.']] as [$key, $title, $navItems, $showRoute, $indexRoute, $blurb])
+                <div @mouseenter="menu = '{{ $key }}'" @click.outside="menu === '{{ $key }}' && (menu = null)">
+                    <button type="button" class="{{ $link }}" :aria-expanded="menu === '{{ $key }}'" aria-controls="mega-{{ $key }}-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = '{{ $key }}' : menu = (menu === '{{ $key }}' ? null : '{{ $key }}')">{{ $title }} @icon('chevron-down', 'size-4')</button>
+                    <div id="mega-{{ $key }}-test" x-cloak x-show="menu === '{{ $key }}'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50 [&_*]:!rounded-none">
+                        <div class="border-t border-ink/10 bg-paper text-ink shadow-lift">
+                            <ul class="container-wide grid grid-cols-2 gap-4 py-7 lg:grid-cols-3 xl:grid-cols-6">
+                                @foreach($navItems as $it)
+                                    <li>
+                                        <a href="{{ route($showRoute, $it->slug) }}" class="group relative block aspect-[4/3] overflow-hidden bg-slate" @click="menu = null">
+                                            @if($it->image)<x-photo :base="$it->image" alt="" sizes="(min-width:1280px) 14vw, 30vw" fetchpriority="low" :ratio="[1600, 1200]" class="size-full transition-transform duration-500 group-hover:scale-105" style="object-position: {{ $it->image_focus ?: '50% 50%' }}" />@endif
+                                            <span class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" aria-hidden="true"></span>
+                                            <span class="absolute inset-x-3 bottom-3">
+                                                <span class="heading-face block font-serif text-lg leading-tight text-white">{{ $it->name }}</span>
+                                                <span class="mt-0.5 block text-xs text-white/90">{{ $it->packages_count === 1 ? '1 tour' : $it->packages_count.' tours' }}</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <div class="border-t border-ink/10 bg-cream">
+                                <div class="container-wide flex flex-wrap items-center justify-between gap-4 py-3">
+                                    <p class="text-sm text-ink">{{ $blurb }} <a href="{{ route($indexRoute) }}" class="font-semibold underline decoration-amber decoration-2 underline-offset-4 hover:text-amber-ink" @click="menu = null">View all {{ strtolower($title) }}</a></p>
+                                    <x-button square variant="cta" size="sm" @click="menu = null; $store.modal.open()">Get a free quote</x-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
             {{-- About Us mega menu: photo panel on the left, four image cards on the right --}}
             <div @mouseenter="menu = 'about'" @click.outside="menu === 'about' && (menu = null)">
                 <button type="button" class="{{ $link }}" :aria-expanded="menu === 'about'" aria-controls="mega-about-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = 'about' : menu = (menu === 'about' ? null : 'about')">About Us @icon('chevron-down', 'size-4')</button>
@@ -148,6 +181,25 @@
                 </div></div></div>
             </li>
 
+            @foreach([['destinations', 'Destinations', $navDestinations, 'destinations.show', 'destinations.index'], ['styles', 'Travel Styles', $navStyles, 'travel-styles.show', 'travel-styles.index']] as [$key, $title, $navItems, $showRoute, $indexRoute])
+                <li class="border-b border-ink/10">
+                    <button type="button" @click="sub = sub === '{{ $key }}' ? null : '{{ $key }}'" :aria-expanded="sub === '{{ $key }}'" aria-controls="m-sub-{{ $key }}" class="flex min-h-12 w-full items-center justify-between text-left text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink [&[aria-expanded=true]>svg]:rotate-180">
+                        {{ $title }} @icon('chevron-down', 'size-5 shrink-0 transition-transform duration-200')
+                    </button>
+                    <div id="m-sub-{{ $key }}" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === '{{ $key }}' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== '{{ $key }}'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
+                        @foreach($navItems as $it)
+                            <a href="{{ route($showRoute, $it->slug) }}" class="flex items-center gap-4 border border-amber/40 bg-white p-2.5">
+                                <span class="size-[4.5rem] shrink-0 overflow-hidden bg-sky-soft">@if($it->image)<x-photo :base="$it->image" alt="" :widths="[480, 800]" sizes="72px" :ratio="[480, 480]" class="size-full" style="object-position: {{ $it->image_focus ?: '50% 50%' }}" />@endif</span>
+                                <span class="min-w-0">
+                                    <span class="heading-face block font-display text-[1.15rem] leading-tight text-ink">{{ $it->name }}</span>
+                                    <span class="mt-1 line-clamp-3 block text-[0.85rem] leading-snug text-slate">{{ $it->description }}</span>
+                                </span>
+                            </a>
+                        @endforeach
+                        <a href="{{ route($indexRoute) }}" class="flex min-h-11 items-center justify-between bg-amber/20 px-4 text-sm font-semibold uppercase tracking-[0.1em] text-amber-ink">All {{ strtolower($title) }} @icon('arrow-right', 'size-4')</a>
+                    </div></div></div>
+                </li>
+            @endforeach
             <li class="border-b border-ink/10">
                 <button type="button" @click="sub = sub === 'about' ? null : 'about'" :aria-expanded="sub === 'about'" aria-controls="m-sub-about" class="flex min-h-12 w-full items-center justify-between text-left text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink [&[aria-expanded=true]>svg]:rotate-180">
                     About Us @icon('chevron-down', 'size-5 shrink-0 transition-transform duration-200')

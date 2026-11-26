@@ -101,6 +101,7 @@ class PackageController extends Controller
             'tourTypes' => TourType::orderBy('sort')->pluck('name', 'id')->all(),
             'destinations' => Destination::orderBy('sort')->pluck('name', 'id')->all(),
             'experiences' => \App\Models\Experience::orderBy('sort')->pluck('name', 'id')->all(),
+            'travelStyles' => \App\Models\TravelStyle::orderBy('sort')->pluck('name', 'id')->all(),
         ];
     }
 
@@ -151,6 +152,8 @@ class PackageController extends Controller
             'meta_description' => ['nullable', 'string', 'max:320'],
             'experience_ids' => ['nullable', 'array'],
             'experience_ids.*' => ['integer', 'exists:experiences,id'],
+            'travel_style_ids' => ['nullable', 'array'],
+            'travel_style_ids.*' => ['integer', 'exists:travel_styles,id'],
             'new_images.*.file' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
             'new_images.*.alt' => ['nullable', 'string', 'max:200'],
             'existing.*.alt' => ['required', 'string', 'max:200'],
@@ -206,6 +209,7 @@ class PackageController extends Controller
         }
         $package->save();
         $package->experiences()->sync($request->input('experience_ids', []));
+        $package->travelStyles()->sync($request->input('travel_style_ids', []));
 
         foreach ((array) $request->input('existing', []) as $id => $row) {
             $package->images()->whereKey($id)->update(['alt' => $row['alt'], 'sort' => (int) ($row['sort'] ?? 0)]);

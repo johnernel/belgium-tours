@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /** A destination (Bruges, Ghent, ...): one accordion panel on the home page and one card on the Destinations page. Visitors only see the word "Destinations". */
 class Experience extends Model
 {
-    protected $fillable = ['name', 'slug', 'description', 'image', 'image_alt', 'image_focus', 'sort', 'active'];
+    protected $fillable = ['name', 'slug', 'description', 'intro', 'image', 'image_alt', 'image_focus', 'seo_title', 'meta_description', 'sort', 'active'];
 
     protected function casts(): array
     {

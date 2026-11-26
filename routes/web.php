@@ -21,6 +21,9 @@ Route::get('/packages', [PackageController::class, 'index'])->name('packages.ind
 Route::get('/packages/{slug}', [PackageController::class, 'show'])->name('packages.show');
 Route::get('/tours/{slug}', [TourTypeController::class, 'show'])->name('tours.show');
 Route::get('/destinations', [DestinationsController::class, 'index'])->name('destinations.index');
+Route::get('/destinations/{slug}', [DestinationsController::class, 'show'])->name('destinations.show');
+Route::get('/travel-styles', [\App\Http\Controllers\TravelStylesController::class, 'index'])->name('travel-styles.index');
+Route::get('/travel-styles/{slug}', [\App\Http\Controllers\TravelStylesController::class, 'show'])->name('travel-styles.show');
 Route::get('/journal', [\App\Http\Controllers\JournalController::class, 'index'])->name('journal.index');
 Route::get('/journal/{slug}', [\App\Http\Controllers\JournalController::class, 'show'])->name('journal.show');
 Route::get('/about', [PageController::class, 'about'])->name('about');

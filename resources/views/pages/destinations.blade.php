@@ -43,9 +43,9 @@
                             </div>
                             <div class="flex flex-1 flex-col p-6">
                                 <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate">{{ $e->packages_count === 1 ? '1 tour' : $e->packages_count.' tours' }}</p>
-                                <h3 class="mt-2 text-3xl">{{ $e->name }}</h3>
-                                <a href="{{ route('packages.index', ['experience' => $e->slug]) }}" class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-amber decoration-2 underline-offset-4 hover:text-slate">
-                                    View tours<span class="sr-only"> in {{ $e->name }}</span> @icon('arrow-right', 'size-4')
+                                <h3 class="mt-2 text-3xl"><a href="{{ route('destinations.show', $e->slug) }}" class="hover:text-amber-ink">{{ $e->name }}</a></h3>
+                                <a href="{{ route('destinations.show', $e->slug) }}" class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-amber decoration-2 underline-offset-4 hover:text-slate">
+                                    Explore {{ $e->name }}<span class="sr-only"> and its tours</span> @icon('arrow-right', 'size-4')
                                 </a>
                             </div>
                         </article>
