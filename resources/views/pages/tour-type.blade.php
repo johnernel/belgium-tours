@@ -63,22 +63,35 @@
     </div></section>
 @endif
 
-{{-- FINAL CTA: a full-width photo band (this tour type's photo under a dark overlay), centered label with hairlines, two-colour heading, short divider, text and two buttons --}}
-<section class="on-dark relative isolate overflow-hidden bg-ink py-24 text-center text-white sm:py-32" aria-labelledby="cta-title">
-    @if($type->image)
-        <div class="absolute inset-0 -z-20" aria-hidden="true"><x-photo :base="$type->image" alt="" sizes="100vw" fetchpriority="low" :ratio="[1600, 1067]" class="size-full" /></div>
-    @endif
-    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-ink/60 via-ink/55 to-ink/75" aria-hidden="true"></div>
+{{-- FINAL CTA: solid cream band (#F7F3EA), centered label with hairlines, two-colour heading, short divider, text and two buttons; a faint outlined drawing of a Belgian belfry and step-gable houses in the bottom right corner --}}
+<section class="relative isolate overflow-hidden bg-cream py-24 text-center sm:py-32" aria-labelledby="cta-title">
+    <svg viewBox="0 0 720 260" preserveAspectRatio="xMaxYMax meet" class="pointer-events-none absolute bottom-0 right-0 -z-10 h-auto w-[min(40rem,100%)] text-teal-deep opacity-[0.16] [mask-image:linear-gradient(to_right,transparent,#000_38%)] max-sm:opacity-[0.1]" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+        {{-- a thin arc behind the skyline --}}
+        <path d="M718 6C640 28 566 86 522 154" stroke-width="0.9"/>
+        {{-- belfry: tower, spire and windows --}}
+        <path d="M52 260V110L74 8l22 102v150M52 110h44M63 62h22M58 92h32M74 8v102"/>
+        <path d="M62 196v-30a12 12 0 0 1 24 0v30M62 148v-22a12 12 0 0 1 24 0v22"/>
+        {{-- two step-gable houses --}}
+        <path d="M112 260V172h12v-20h14v-20h14v-20h14v20h14v20h14v20h12v88"/>
+        <path d="M216 260V152h12v-18h14v-18h14v-18h14v18h14v18h14v18h12v108"/>
+        @for($i = 0; $i < 3; $i++)<path d="M{{ 130 + $i * 28 }} 214h10v28h-10zM{{ 234 + $i * 28 }} 196h10v30h-10z"/>@endfor
+        {{-- long town hall: roof, dormers, windows and arches --}}
+        <path d="M334 260V152l20-30h262l20 30v108M334 152h302"/>
+        @for($i = 0; $i < 5; $i++)<path d="M{{ 372 + $i * 54 }} 122l14-28 14 28M{{ 376 + $i * 54 }} 122v-4h20v4"/>@endfor
+        @for($i = 0; $i < 9; $i++)<path d="M{{ 352 + $i * 30 }} 168h14v24h-14zM{{ 352 + $i * 30 }} 214v-14a7 7 0 0 1 14 0v14"/>@endfor
+        {{-- a smaller tower on the right --}}
+        <path d="M656 260V142l18-74 18 74v118M656 142h36"/>
+    </svg>
     <div class="container-page">
-        <p class="flex items-center justify-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-amber-light">
-            <span class="h-px w-10 bg-amber-light/70" aria-hidden="true"></span>{{ $type->name }}<span class="h-px w-10 bg-amber-light/70" aria-hidden="true"></span>
+        <p class="flex items-center justify-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-amber-ink">
+            <span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $type->name }}<span class="h-px w-10 bg-amber" aria-hidden="true"></span>
         </p>
-        <h2 id="cta-title" class="mx-auto mt-6 max-w-3xl text-[2.25rem] leading-[1.1] !text-white [text-shadow:0_2px_4px_rgb(0_0_0/0.45),0_4px_24px_rgb(0_0_0/0.5)] sm:text-heading">@heading('Ready for *'.strtolower($type->name).' in Belgium?*')</h2>
+        <h2 id="cta-title" class="mx-auto mt-6 max-w-3xl text-[2.25rem] leading-[1.1] sm:text-heading">@heading('Ready for *'.strtolower($type->name).' in Belgium?*')</h2>
         <span class="mx-auto mt-6 block h-0.5 w-12 bg-amber" aria-hidden="true"></span>
-        <p class="mx-auto mt-6 max-w-xl text-lg text-white [text-shadow:0_1px_10px_rgb(0_0_0/0.5)]">Tell us when you want to go and who is coming. We will send a free quote.</p>
+        <p class="mx-auto mt-6 max-w-xl text-lg text-ink/85">Tell us when you want to go and who is coming. We will send a free quote.</p>
         <div class="mt-9 flex flex-wrap justify-center gap-4">
             <x-button square size="lg" variant="cta" icon="arrow-right" @click="$store.modal.open({ tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Get a free quote</x-button>
-            <x-button square size="lg" variant="light" @click="$store.modal.open({ mode: 'question', tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Ask us a question</x-button>
+            <x-button square size="lg" variant="outline" @click="$store.modal.open({ mode: 'question', tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Ask us a question</x-button>
         </div>
     </div>
 </section>@endsection
