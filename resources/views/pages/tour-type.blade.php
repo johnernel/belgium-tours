@@ -3,6 +3,7 @@
 @section('title', $type->seo_title ?: $type->name.' tours of Belgium | '.$site->brand)
 @section('description', $type->meta_description ?: \Illuminate\Support\Str::limit(strip_tags((string) ($type->intro ?: $type->summary)), 155))
 @section('hero', '1')
+@section('footer_flush', '1') {{-- the last section is a full-width photo band, so the footer sits right under it --}}
 @if($type->image)@section('og_image', asset($type->image.'-1600.webp'))@endif
 
 @push('preload')
@@ -62,17 +63,22 @@
     </div></section>
 @endif
 
-{{-- FINAL CTA --}}
-<section class="pt-16 sm:pt-20" aria-labelledby="cta-title">
+{{-- FINAL CTA: a full-width photo band (this tour type's photo under a dark overlay), centered label with hairlines, two-colour heading, short divider, text and two buttons --}}
+<section class="on-dark relative isolate overflow-hidden bg-ink py-24 text-center text-white sm:py-32" aria-labelledby="cta-title">
+    @if($type->image)
+        <div class="absolute inset-0 -z-20" aria-hidden="true"><x-photo :base="$type->image" alt="" sizes="100vw" fetchpriority="low" :ratio="[1600, 1067]" class="size-full" /></div>
+    @endif
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-ink/60 via-ink/55 to-ink/75" aria-hidden="true"></div>
     <div class="container-page">
-        <div class="rounded-[2rem] bg-slate px-6 py-12 text-center text-white sm:px-12">
-            <h2 id="cta-title" class="on-dark text-heading !text-white">@heading('Ready for '.strtolower($type->name).' in Belgium?')</h2>
-            <p class="mx-auto mt-3 max-w-xl text-lg text-white/90">Tell us when you want to go and who is coming. We will send a free quote.</p>
-            <div class="mt-7 flex flex-wrap justify-center gap-3">
-                <x-button size="lg" @click="$store.modal.open({ tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Get a free quote</x-button>
-                <x-button size="lg" variant="light" @click="$store.modal.open({ mode: 'question', tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Ask us a question</x-button>
-            </div>
+        <p class="flex items-center justify-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-amber-light">
+            <span class="h-px w-10 bg-amber-light/70" aria-hidden="true"></span>{{ $type->name }}<span class="h-px w-10 bg-amber-light/70" aria-hidden="true"></span>
+        </p>
+        <h2 id="cta-title" class="mx-auto mt-6 max-w-3xl text-[2.25rem] leading-[1.1] !text-white [text-shadow:0_2px_4px_rgb(0_0_0/0.45),0_4px_24px_rgb(0_0_0/0.5)] sm:text-heading">@heading('Ready for *'.strtolower($type->name).' in Belgium?*')</h2>
+        <span class="mx-auto mt-6 block h-0.5 w-12 bg-amber" aria-hidden="true"></span>
+        <p class="mx-auto mt-6 max-w-xl text-lg text-white [text-shadow:0_1px_10px_rgb(0_0_0/0.5)]">Tell us when you want to go and who is coming. We will send a free quote.</p>
+        <div class="mt-9 flex flex-wrap justify-center gap-4">
+            <x-button square size="lg" variant="cta" icon="arrow-right" @click="$store.modal.open({ tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Get a free quote</x-button>
+            <x-button square size="lg" variant="light" @click="$store.modal.open({ mode: 'question', tourType: {{ \Illuminate\Support\Js::from($type->name) }} })">Ask us a question</x-button>
         </div>
     </div>
-</section>
-@endsection
+</section>@endsection
