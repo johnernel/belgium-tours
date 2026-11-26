@@ -20,24 +20,48 @@ class DestinationAndStylePagesTest extends TestCase
         $this->seed();
     }
 
-    public function test_the_header_menus_link_every_destination_and_every_travel_style(): void
+    public function test_the_header_menus_show_the_first_four_destinations_and_styles_and_link_to_all_of_them(): void
     {
         $html = $this->get('/packages')->assertOk()->getContent();
 
         $this->assertStringContainsString('aria-controls="mega-destinations-test"', $html);
         $this->assertStringContainsString('aria-controls="mega-styles-test"', $html);
+        $menu = fn (string $id) => substr($html, strpos($html, 'id="'.$id.'"'), 12000);
+
         $this->assertGreaterThanOrEqual(6, Experience::active()->count());
-        foreach (Experience::active()->get() as $d) {
-            $this->assertStringContainsString('href="'.route('destinations.show', $d->slug).'"', $html, "{$d->name} is in the menu");
+        $destMenu = $menu('mega-destinations-test');
+        $this->assertSame(4, substr_count(substr($destMenu, 0, strpos($destMenu, 'Plan your journey')), '/destinations/'), 'four destination cards');
+        foreach (Experience::active()->take(4)->get() as $d) {
+            $this->assertStringContainsString('href="'.route('destinations.show', $d->slug).'"', $destMenu, "{$d->name} is in the menu");
         }
+        $this->assertStringNotContainsString('href="'.route('destinations.show', Experience::active()->get()[4]->slug).'"', $destMenu, 'the fifth is only reachable through "view all"');
+
         $this->assertGreaterThanOrEqual(6, TravelStyle::active()->count());
-        foreach (TravelStyle::active()->get() as $s) {
-            $this->assertStringContainsString('href="'.route('travel-styles.show', $s->slug).'"', $html, "{$s->name} is in the menu");
+        $styleMenu = $menu('mega-styles-test');
+        $this->assertSame(4, substr_count(substr($styleMenu, 0, strpos($styleMenu, 'Tailor your journey')), '/travel-styles/'), 'four travel style cards, same layout as the destinations');
+        foreach (TravelStyle::active()->take(4)->get() as $s) {
+            $this->assertStringContainsString('href="'.route('travel-styles.show', $s->slug).'"', $styleMenu, "{$s->name} is in the menu");
         }
         $this->assertStringContainsString('href="'.route('destinations.index').'"', $html);
         $this->assertStringContainsString('href="'.route('travel-styles.index').'"', $html);
+
+        // the overview pages list every one
+        $this->get('/destinations')->assertOk()->assertSee(Experience::active()->get()[5]->name);
+        foreach (TravelStyle::active()->get() as $s) {
+            $this->get('/travel-styles')->assertSee('href="'.route('travel-styles.show', $s->slug).'"', false);
+        }
     }
 
+    public function test_the_menu_strip_button_is_the_orange_cta_and_nothing_sits_behind_it(): void
+    {
+        $html = $this->get('/packages')->assertOk()->getContent();
+        foreach (['mega-destinations-test', 'mega-styles-test'] as $id) {
+            $start = strpos($html, 'id="'.$id.'"');
+            $menu = substr($html, $start, strpos($html, 'Get a free quote', $start) > 0 && $id === 'mega-destinations-test' ? strpos($html, 'Get a free quote', $start) - $start + 20 : strpos($html, 'Plan your trip', $start) - $start + 20);
+            $this->assertStringContainsString('bg-cta text-white hover:bg-cta-hover', $menu, 'orange #C94B0E, green #30483A on hover');
+            $this->assertStringNotContainsString('-scale-x-100', $menu, 'the mirrored sketch behind the button is gone');
+        }
+    }
     public function test_every_destination_has_its_own_page_with_the_quiz_its_trips_and_a_closing_band(): void
     {
         foreach (Experience::active()->get() as $d) {
@@ -100,7 +124,7 @@ class DestinationAndStylePagesTest extends TestCase
         $new = TravelStyle::where('slug', 'family-trips')->firstOrFail();
         $this->get("/admin/travel-styles/{$new->id}/edit")->assertOk();
         $this->get('/travel-styles/family-trips')->assertOk()->assertSee('Slow days with something for everyone.');
-        $this->get('/packages')->assertSee('href="'.route('travel-styles.show', 'family-trips').'"', false);
+        $this->get('/travel-styles')->assertSee('href="'.route('travel-styles.show', 'family-trips').'"', false);
 
         $package = Package::firstOrFail();
         $this->put("/admin/packages/{$package->id}", [
