@@ -62,7 +62,7 @@ class ContentSeeder extends Seeder
         $pages = [
             'home' => [
                 'title' => 'Belgium Tours & Tailor-Made European Vacations',
-                'seo_title' => 'Belgium Tours: Self Drive, Chauffeur Driven & Coach | Go Belgium Trips',
+                'seo_title' => 'Go Belgium Trips: Self Drive, Chauffeur Driven & Coach Tours',
                 'meta' => 'Plan your Belgium vacation with local experts. Self drive, chauffeur driven and coach tours of Bruges, Ghent, Brussels and beyond. Free quote in minutes.',
                 'content' => [
                     'hero_tagline' => 'Belgium tours, tailor-made',
