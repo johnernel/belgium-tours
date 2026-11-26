@@ -176,7 +176,7 @@
 </div></div>
 
 @if($related->isNotEmpty())
-    <section class="pb-24 pt-32"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
+    <section class="bg-white pb-24 pt-32"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">@foreach($related as $package)@include('partials.package-card', ['package' => $package])@endforeach</div>
     </div></section>
 @endif
