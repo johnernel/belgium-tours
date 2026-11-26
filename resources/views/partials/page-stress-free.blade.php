@@ -10,7 +10,7 @@
 <section x-ignore data-lazy-alpine class="on-dark relative isolate overflow-hidden bg-ink py-16 text-white sm:py-24" aria-labelledby="ht-steps">
     {{-- Photo background under a dark wash (layout copied from the client's reference): label, heading and intro centred, three frosted glass cards, a hairline, then one button --}}
     {{-- Fixed background (background-attachment: fixed): stays put while the page scrolls. No cv-auto on this section, because content-visibility contains fixed layers. iOS Safari ignores fixed and scrolls it normally. --}}
-    <div x-data :style="{ backgroundImage: 'url({{ asset('images/photos/ghent-graslei-1280.webp') }})' }" class="absolute inset-0 -z-20 bg-ink bg-cover bg-fixed bg-center" aria-hidden="true"></div>
+    <div x-data :style="{ backgroundImage: 'url({{ asset('images/photos/stress-free-namur-1280.webp') }})' }" class="absolute inset-0 -z-20 bg-ink bg-cover bg-fixed bg-center" aria-hidden="true"></div>
     <div class="absolute inset-0 -z-10 bg-ink/55" aria-hidden="true"></div>
     <div class="container-wide">
         <div class="mx-auto max-w-4xl text-center">

@@ -58,3 +58,7 @@ The two photos in the home page Tailor-made section (public/images/photos/tailor
 ## Tour type closing band drawing (2026-11-26)
 - `public/images/decor/belgium-outline.webp`: a pen sketch of a Belgian town hall and belfry supplied by the client (file `112.png`), processed so only the strokes remain (transparent background, dark green). Source, author and licence NOT yet confirmed.
 
+
+## Stress-free travel band background (2026-12-02)
+- `public/images/photos/stress-free-namur-800/1280/1600.webp`: a 1920x1080 aerial photo of a fortified hill town above a river (looks like the Citadel of Namur) supplied by the client. It looks AI-generated or edited. Author, source and licence NOT yet confirmed (check the tool's terms and that the place is accurate before launch). Used as the fixed background of the Stress-free travel band (home and Packages page).
+
