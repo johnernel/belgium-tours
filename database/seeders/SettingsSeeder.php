@@ -10,7 +10,7 @@ class SettingsSeeder extends Seeder
     public function run(): void
     {
         $defaults = [
-            'brand_name' => 'Go Belgium Tours',
+            'brand_name' => 'Go Belgium Trips',
             'legal_company_name' => 'Go Belgium Tours',
             'tagline' => 'Belgium tours and tailor-made European vacations',
             // Left blank on purpose until the client confirms them (see CONTENT_TO_CONFIRM.md).

@@ -21,17 +21,17 @@ class ContentSeeder extends Seeder
             ['Self Drive', 'self-drive', 'Your own pace, your own route. We book the hotels, plan the roads and send you off with everything in hand.',
                 'Self drive Belgium, at your own pace',
                 'A rental car, hotels and a route planned for you. Stop where you like and stay as long as you like, with everything arranged before you go.',
-                'Self Drive Tours of Belgium | Go Belgium Tours',
+                'Self Drive Tours of Belgium | Go Belgium Trips',
                 'Plan a self drive vacation in Belgium: hotels, routes and a rental car arranged for you. Explore Bruges, Ghent and Brussels at your own pace. Free quote.'],
             ['Chauffeur Driven', 'chauffeur-driven', 'Sit back while a private driver-guide handles the roads, the parking and the stories behind each stop.',
                 'Belgium with a private driver-guide',
                 'Sit back while your driver handles the roads and the parking, and tells you the stories behind each stop. Private, flexible and planned around your group.',
-                'Chauffeur Driven Tours of Belgium | Go Belgium Tours',
+                'Chauffeur Driven Tours of Belgium | Go Belgium Trips',
                 'See Belgium with a private driver-guide: no driving, no parking, just the best of Bruges, Ghent, Brussels and the Ardennes. Request a free quote.'],
             ['Coach Tours', 'coach-tours', 'Small-group touring with a guide, ready-made company and no driving. Simple to book, easy to enjoy.',
                 'Belgium by small-group coach',
                 'Join a guided small-group tour with hotels and transport organized. No driving and no planning, with easy company along the way.',
-                'Small-Group Coach Tours of Belgium | Go Belgium Tours',
+                'Small-Group Coach Tours of Belgium | Go Belgium Trips',
                 'Guided small-group coach tours of Belgium with hotels and transport organized. No driving, no planning. Get a free quote.'],
         ];
         $tabLabels = ['self-drive' => 'Self-Drive', 'chauffeur-driven' => 'Chauffeur', 'coach-tours' => 'Coach Tour'];
@@ -62,7 +62,7 @@ class ContentSeeder extends Seeder
         $pages = [
             'home' => [
                 'title' => 'Belgium Tours & Tailor-Made European Vacations',
-                'seo_title' => 'Belgium Tours: Self Drive, Chauffeur Driven & Coach | Go Belgium Tours',
+                'seo_title' => 'Belgium Tours: Self Drive, Chauffeur Driven & Coach | Go Belgium Trips',
                 'meta' => 'Plan your Belgium vacation with local experts. Self drive, chauffeur driven and coach tours of Bruges, Ghent, Brussels and beyond. Free quote in minutes.',
                 'content' => [
                     'hero_tagline' => 'Belgium tours, tailor-made',
@@ -151,21 +151,21 @@ class ContentSeeder extends Seeder
             ],
             'about' => [
                 'title' => 'About Us',
-                'seo_title' => 'About Go Belgium Tours',
-                'meta' => 'Meet the team behind Go Belgium Tours and see how we plan self drive, chauffeur driven and coach tours of Belgium.',
+                'seo_title' => 'About Go Belgium Trips',
+                'meta' => 'Meet the team behind Go Belgium Trips and see how we plan self drive, chauffeur driven and coach tours of Belgium.',
                 'content' => ['hero_sub' => 'How we plan self drive, chauffeur driven and coach tours of Belgium.'],
-                'body' => '<p>Go Belgium Tours plans vacations in Belgium and tailor-made trips across Europe. We offer three ways to travel: self drive, chauffeur driven and small-group coach tours.</p><p>[CONFIRM: company story, team, years in business and any accreditations. Replace this paragraph with real details.]</p><h2>What we do</h2><p>We listen to how you like to travel, then build the trip: hotels, routes, transfers and the extras that make it feel local. You get one quote and one point of contact.</p>',
+                'body' => '<p>Go Belgium Trips plans vacations in Belgium and tailor-made trips across Europe. We offer three ways to travel: self drive, chauffeur driven and small-group coach tours.</p><p>[CONFIRM: company story, team, years in business and any accreditations. Replace this paragraph with real details.]</p><h2>What we do</h2><p>We listen to how you like to travel, then build the trip: hotels, routes, transfers and the extras that make it feel local. You get one quote and one point of contact.</p>',
             ],
             'contact' => [
                 'title' => 'Contact Us',
-                'seo_title' => 'Contact Go Belgium Tours',
+                'seo_title' => 'Contact Go Belgium Trips',
                 'meta' => 'Ask a question or request a free Belgium tour quote. Send your details and we will get back to you.',
                 'content' => ['hero_sub' => 'Ask a question or request a free quote. We reply as soon as we can.'],
                 'body' => '<p>Questions about a trip or ready for a quote? Send us a message and we will reply as soon as we can.</p>',
             ],
             'destinations' => [
                 'title' => 'Destinations',
-                'seo_title' => 'Belgium Destinations: Bruges, Ghent, Brussels and More | Go Belgium Tours',
+                'seo_title' => 'Belgium Destinations: Bruges, Ghent, Brussels and More | Go Belgium Trips',
                 'meta' => 'Bruges, Ghent, Brussels, Antwerp, Leuven and the Ardennes. Pick a place and see the Belgium tours that go there.',
                 'content' => [
                     'hero_headline' => 'Destinations worth *slowing down* for',
@@ -175,13 +175,13 @@ class ContentSeeder extends Seeder
             'terms' => [
                 'title' => 'Terms and Conditions',
                 'seo_title' => 'Terms and Conditions',
-                'meta' => 'The terms and conditions that apply when you inquire or book with Go Belgium Tours.',
+                'meta' => 'The terms and conditions that apply when you inquire or book with Go Belgium Trips.',
                 'body' => "<p><strong>Starter template only. Have it reviewed by a qualified professional before launch.</strong></p><h2>1. About these terms</h2><p>These terms apply to inquiries and bookings made with $company. By sending an inquiry you agree to them.</p><h2>2. Inquiries and quotes</h2><p>A quote is not a booking. Prices and availability are confirmed in writing and may change until you pay a deposit. [CONFIRM: quote validity period]</p><h2>3. Payments and cancellations</h2><p>[CONFIRM: deposit, final payment and cancellation terms]</p><h2>4. SMS and email messages</h2><p>If you give us your phone number and agree, we may send SMS messages about your inquiry, booking updates, itinerary updates, reminders and customer support. Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.</p><h2>5. Liability</h2><p>[CONFIRM: liability, force majeure and insurance wording]</p><h2>6. Contact</h2><p>Questions about these terms? Use the details on our contact page.</p>",
             ],
             'privacy' => [
                 'title' => 'Privacy Policy',
                 'seo_title' => 'Privacy Policy',
-                'meta' => 'How Go Belgium Tours collects, uses and protects your personal information.',
+                'meta' => 'How Go Belgium Trips collects, uses and protects your personal information.',
                 'body' => "<p><strong>Starter template only. Have it reviewed by a qualified professional before launch.</strong></p><h2>What we collect</h2><p>When you send an inquiry, $company collects your name, email address, phone number, travel preferences and anything you write to us. We also record technical information such as your IP address, browser, the page you used and the advertising or referral source that brought you here.</p><h2>Why we collect it</h2><p>To reply to your inquiry, prepare quotes, manage bookings, send the messages you agreed to, and measure our advertising.</p><h2>Who we share it with</h2><p>Service providers that help us run the business, such as our email, customer-relationship and analytics tools. [CONFIRM: full list of providers and countries]</p><h2>Your choices</h2><p>You can ask us to access, correct or delete your information, or to stop contacting you, at any time. Reply STOP to any SMS to unsubscribe.</p><h2>Cookies</h2><p>We use cookies to remember how you arrived on the site and, if enabled, for analytics and advertising measurement. [CONFIRM: cookie banner requirement for target markets]</p><h2>Contact</h2><p>[CONFIRM: privacy contact email and postal address]</p>",
             ],
         ];

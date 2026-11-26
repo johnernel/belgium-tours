@@ -14,7 +14,7 @@ class InfoPages
         return [
             'team' => [
                 'title' => 'Meet Our Team',
-                'seo_title' => 'Meet Our Team | Go Belgium Tours',
+                'seo_title' => 'Meet Our Team | Go Belgium Trips',
                 'meta' => 'Meet the people who plan your Belgium trip and look after you along the way.',
                 'noindex' => true, // sample team until real people are added
                 'content' => [
@@ -26,8 +26,8 @@ class InfoPages
             ],
             'testimonials' => [
                 'title' => 'Testimonials',
-                'seo_title' => 'Traveler Testimonials | Go Belgium Tours',
-                'meta' => 'Read what travelers say about their Belgium trips with Go Belgium Tours.',
+                'seo_title' => 'Traveler Testimonials | Go Belgium Trips',
+                'meta' => 'Read what travelers say about their Belgium trips with Go Belgium Trips.',
                 'noindex' => false,
                 'content' => [
                     'hero_headline' => 'What Travelers *Say About Us*',
@@ -38,7 +38,7 @@ class InfoPages
             ],
             'faqs' => [
                 'title' => 'FAQs',
-                'seo_title' => 'Frequently Asked Questions | Go Belgium Tours',
+                'seo_title' => 'Frequently Asked Questions | Go Belgium Trips',
                 'meta' => 'Answers to common questions about quotes, tours and planning your Belgium trip.',
                 'noindex' => false,
                 'content' => [
