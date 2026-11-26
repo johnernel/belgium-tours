@@ -27,14 +27,14 @@
 
 {{-- Layout copied from the client's reference: a gapless grid of full-bleed photo tiles (3 across on desktop), each with a dark wash and the text at the bottom left:
      small uppercase line, name, hairline, short line, "Discover" link. The whole tile is one link. --}}
-<section class="py-[90px]" aria-labelledby="all-dest-title">
+<section class="bg-white py-[90px]" aria-labelledby="all-dest-title">
     <div class="container-wide">
         <h2 id="all-dest-title" class="sr-only">All our destinations</h2>
 
         @if($experiences->isEmpty())
             <p class="bg-paper p-6 shadow-card">Destinations are coming soon. <a href="{{ route('packages.index') }}" class="font-semibold underline">Browse all packages</a> in the meantime.</p>
         @else
-            <ul class="grid gap-[2px] bg-cream sm:grid-cols-2 lg:grid-cols-3">
+            <ul class="grid gap-[2px] bg-white sm:grid-cols-2 lg:grid-cols-3">
                 @foreach($experiences as $e)
                     <li class="flex">
                         <article class="group relative isolate flex aspect-[16/15] w-full flex-col justify-end overflow-hidden bg-ink text-white">

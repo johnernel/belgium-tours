@@ -25,14 +25,14 @@
 ])
 
 {{-- Same tile grid as the Destinations page (see pages/destinations.blade.php) --}}
-<section class="py-[90px]" aria-labelledby="all-styles-title">
+<section class="bg-white py-[90px]" aria-labelledby="all-styles-title">
     <div class="container-wide">
         <h2 id="all-styles-title" class="sr-only">All Our Travel Styles</h2>
 
         @if($styles->isEmpty())
             <p class="bg-paper p-6 shadow-card">Travel styles are coming soon. <a href="{{ route('packages.index') }}" class="font-semibold underline">Browse all packages</a> in the meantime.</p>
         @else
-            <ul class="grid gap-[2px] bg-cream sm:grid-cols-2 lg:grid-cols-3">
+            <ul class="grid gap-[2px] bg-white sm:grid-cols-2 lg:grid-cols-3">
                 @foreach($styles as $s)
                     <li class="flex">
                         <article class="group relative isolate flex aspect-[16/15] w-full flex-col justify-end overflow-hidden bg-ink text-white">
