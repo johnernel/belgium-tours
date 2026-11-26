@@ -11,7 +11,7 @@
 return [
     // Bump this whenever the Terms, Privacy or consent wording changes.
     // It is stored with every enquiry as chargeback evidence.
-    'terms_version' => '2026-11-30-v1',
+    'terms_version' => '2026-12-02-v1',
 
     // Exact consent wording. {company} is replaced by the legal company name,
     // the two [[...]] markers become links that open in a new tab.
