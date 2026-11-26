@@ -154,25 +154,38 @@
 
         {{-- Sticky booking card --}}
         <aside class="lg:sticky lg:top-28" aria-label="Book this trip">
-            <div class="bg-sky p-6 text-ink shadow-card sm:p-7">
-                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/70">{{ $amount ? 'From' : 'Price' }}</p>
-                @if($amount)
-                    <p class="mt-1"><span class="font-display text-4xl text-amber-ink">{{ $amount }}</span> <span class="text-sm text-ink/80">per person</span></p>
-                @else
-                    <p class="mt-1 font-display text-3xl text-amber-ink">Price on request</p>
-                @endif
-                <ul class="mt-5 space-y-3 border-t border-ink/15 pt-5 text-sm">
-                    <li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber-ink">@icon('calendar', 'size-4')</span>{{ $duration }}</li>
-                    @if($package->tourType)<li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber-ink">@icon('compass', 'size-4')</span>{{ $package->tourType->name }}</li>@endif
-                    @if($package->destination)<li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber-ink">@icon('map-pin', 'size-4')</span>{{ $package->destination->name }}</li>@endif
-                </ul>
-                <div class="mt-6 grid gap-3">
-                    <x-button square variant="cta" size="md" class="w-full" @click="$store.modal.open({{ $quoteJs }})">Get a Quote</x-button>
-                    <x-button square :href="route('packages.index')" variant="outline" size="md" class="w-full">See Other Packages</x-button>
+            {{-- Booking card: the trip photo with the price over it, an orange bar, fact tiles, two buttons and reassurance ticks. Sage (#E3EDE5), square, soft lift. --}}
+            <div class="overflow-hidden bg-sky text-ink shadow-lift">
+                <div class="relative isolate flex aspect-[16/10] flex-col justify-end overflow-hidden bg-ink p-5 text-white">
+                    <x-photo :base="$package->hero_image ?: 'images/photos/bruges-market'" alt="" sizes="(min-width:1280px) 24rem, (min-width:1024px) 21rem, 92vw" class="absolute inset-0 -z-20 size-full" />
+                    <span class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-ink/35 to-ink/5" aria-hidden="true"></span>
+                    <span class="absolute left-0 top-5 bg-amber px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-ink">{{ $duration }}</span>
+                    <p class="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/85">{{ $amount ? 'From' : 'Your trip' }}</p>
+                    @if($amount)
+                        <p class="mt-1 leading-none"><span class="font-display text-4xl text-white">{{ $amount }}</span> <span class="text-sm text-white/85">per person</span></p>
+                    @else
+                        <p class="mt-1 font-display text-3xl leading-none text-white">Price on request</p>
+                        <p class="mt-1.5 text-sm text-white/85">Tailored to your dates</p>
+                    @endif
                 </div>
-                <p class="mt-4 text-center text-xs text-ink/70">Free to request. No payment needed.</p>
-            </div>
-        </aside>
+                <div class="h-1 bg-amber" aria-hidden="true"></div>
+
+                <div class="p-5 sm:p-6">
+                    <ul class="grid gap-2.5 text-sm">
+                        <li class="flex items-center gap-3 bg-white p-3"><span class="grid size-9 shrink-0 place-items-center bg-amber/20 text-amber-ink">@icon('calendar', 'size-5')</span><span><span class="block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-slate">Duration</span><span class="block font-semibold">{{ $duration }}</span></span></li>
+                        @if($package->tourType)<li class="flex items-center gap-3 bg-white p-3"><span class="grid size-9 shrink-0 place-items-center bg-amber/20 text-amber-ink">@icon('compass', 'size-5')</span><span><span class="block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-slate">Travel style</span><span class="block font-semibold">{{ $package->tourType->name }}</span></span></li>@endif
+                        @if($package->destination)<li class="flex items-center gap-3 bg-white p-3"><span class="grid size-9 shrink-0 place-items-center bg-amber/20 text-amber-ink">@icon('map-pin', 'size-5')</span><span><span class="block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-slate">Destination</span><span class="block font-semibold">{{ $package->destination->name }}</span></span></li>@endif
+                    </ul>
+                    <div class="mt-5 grid gap-3">
+                        <x-button square variant="cta" size="lg" icon="arrow-right" class="w-full" @click="$store.modal.open({{ $quoteJs }})">Get a Quote</x-button>
+                        <x-button square :href="route('packages.index')" variant="outline" size="md" class="w-full">See Other Packages</x-button>
+                    </div>
+                    <ul class="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-1.5 text-xs text-ink/80">
+                        <li class="flex items-center gap-1.5"><span class="grid size-4 place-items-center bg-amber-ink text-white">@icon('check', 'size-3')</span>Free to request</li>
+                        <li class="flex items-center gap-1.5"><span class="grid size-4 place-items-center bg-amber-ink text-white">@icon('check', 'size-3')</span>No payment needed</li>
+                    </ul>
+                </div>
+            </div>        </aside>
     </div>
 </div></div>
 
