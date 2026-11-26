@@ -3,6 +3,7 @@
 @section('title', $package->seo_title ?: $package->title.' | '.$site->brand)
 @section('description', $package->meta_description ?: \Illuminate\Support\Str::limit(strip_tags((string) $package->summary), 155))
 @section('hero', '1')
+@section('footer_flush', '1')
 @if($package->noindex)@section('noindex', '1')@endif
 @if($package->social_image)@section('og_image', asset($package->social_image))@elseif($package->hero_image)@section('og_image', asset($package->hero_image.'-1600.webp'))@endif
 
@@ -175,9 +176,11 @@
 </div></div>
 
 @if($related->isNotEmpty())
-    {{-- Top space = bottom space: the bottom is this section's pb-8 (2rem) plus the footer's mt-24 (6rem) = 8rem, so the top is pt-32 (8rem) --}}
-    <section class="pb-8 pt-32"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
+    <section class="pb-24 pt-32"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">@foreach($related as $package)@include('partials.package-card', ['package' => $package])@endforeach</div>
     </div></section>
 @endif
+
+@php $bandType = $package->tourType?->name; @endphp
+@include('partials.closing-band', ['label' => $bandType ?: 'Your Belgium trip', 'heading' => 'Ready for *'.($bandType ? $bandType.' in Belgium' : 'Belgium').'?*', 'modalType' => (string) $bandType])
 @endsection
