@@ -125,7 +125,7 @@ class DestinationsTest extends TestCase
         $this->assertStringContainsString('class="heading-accent"', $html);
         $this->assertStringContainsString('<link rel="canonical"', $html);
         $this->assertStringContainsString('BreadcrumbList', $html);
-        $this->assertSame(6, substr_count($html, 'class="group flex w-full flex-col'), 'a card for every destination');
+        $this->assertSame(6, substr_count($html, 'class="group relative isolate flex aspect-[16/15]'), 'a card for every destination');
 
         foreach (Experience::withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get() as $e) {
             $this->assertStringContainsString('>'.e($e->name).'</a></h3>', $html);
