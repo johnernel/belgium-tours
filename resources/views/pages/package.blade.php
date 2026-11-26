@@ -85,6 +85,7 @@
 @endphp
 
 {{-- Everything under the hero: 1390px wide (container-wide) and every corner square (the [&_*] rule zeroes the radius of all descendants) --}}
+<div class="bg-white [&_*]:!rounded-none"><div class="container-wide py-8 lg:py-10">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_24rem] xl:gap-14">
         {{-- Main column: every section has the same top and bottom padding --}}
         <div class="min-w-0">
