@@ -84,7 +84,7 @@
     $quoteJs = \Illuminate\Support\Js::from(['packageId' => (string) $package->id, 'packageName' => $package->title, 'tourType' => $package->tourType?->name]);
 @endphp
 
-<div class="bg-white"><div class="container-page py-8 lg:py-10">
+{{-- Everything under the hero: 1390px wide (container-wide) and every corner square (the [&_*] rule zeroes the radius of all descendants) --}}
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_24rem] xl:gap-14">
         {{-- Main column: every section has the same top and bottom padding --}}
         <div class="min-w-0">
@@ -153,30 +153,30 @@
 
         {{-- Sticky booking card --}}
         <aside class="lg:sticky lg:top-28" aria-label="Book this trip">
-            <div class="rounded-[20px] bg-ink p-6 text-cream shadow-card sm:p-7">
-                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-cream/70">{{ $amount ? 'From' : 'Price' }}</p>
+            <div class="bg-sky p-6 text-ink shadow-card sm:p-7">
+                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/70">{{ $amount ? 'From' : 'Price' }}</p>
                 @if($amount)
-                    <p class="mt-1"><span class="font-display text-4xl text-amber">{{ $amount }}</span> <span class="text-sm text-cream/80">per person</span></p>
+                    <p class="mt-1"><span class="font-display text-4xl text-amber-ink">{{ $amount }}</span> <span class="text-sm text-ink/80">per person</span></p>
                 @else
-                    <p class="mt-1 font-display text-3xl text-amber">Price on request</p>
+                    <p class="mt-1 font-display text-3xl text-amber-ink">Price on request</p>
                 @endif
-                <ul class="mt-5 space-y-3 border-t border-cream/15 pt-5 text-sm">
-                    <li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber">@icon('calendar', 'size-4')</span>{{ $duration }}</li>
-                    @if($package->tourType)<li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber">@icon('compass', 'size-4')</span>{{ $package->tourType->name }}</li>@endif
-                    @if($package->destination)<li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber">@icon('map-pin', 'size-4')</span>{{ $package->destination->name }}</li>@endif
+                <ul class="mt-5 space-y-3 border-t border-ink/15 pt-5 text-sm">
+                    <li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber-ink">@icon('calendar', 'size-4')</span>{{ $duration }}</li>
+                    @if($package->tourType)<li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber-ink">@icon('compass', 'size-4')</span>{{ $package->tourType->name }}</li>@endif
+                    @if($package->destination)<li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/20 text-amber-ink">@icon('map-pin', 'size-4')</span>{{ $package->destination->name }}</li>@endif
                 </ul>
                 <div class="mt-6 grid gap-3">
-                    <x-button variant="primary" size="md" class="w-full" @click="$store.modal.open({{ $quoteJs }})">Get a Quote</x-button>
-                    <x-button :href="route('packages.index')" variant="light" size="md" class="w-full">See Other Packages</x-button>
+                    <x-button square variant="cta" size="md" class="w-full" @click="$store.modal.open({{ $quoteJs }})">Get a Quote</x-button>
+                    <x-button square :href="route('packages.index')" variant="outline" size="md" class="w-full">See Other Packages</x-button>
                 </div>
-                <p class="mt-4 text-center text-xs text-cream/70">Free to request. No payment needed.</p>
+                <p class="mt-4 text-center text-xs text-ink/70">Free to request. No payment needed.</p>
             </div>
         </aside>
     </div>
 </div></div>
 
 @if($related->isNotEmpty())
-    <section class="bg-white pb-24 pt-32"><div class="container-page"><h2 class="text-heading">@heading('You might also like')</h2>
+    <section class="bg-white pb-24 pt-32 [&_*]:!rounded-none"><div class="container-wide"><h2 class="text-heading">@heading('You might also like')</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">@foreach($related as $package)@include('partials.package-card', ['package' => $package])@endforeach</div>
     </div></section>
 @endif
