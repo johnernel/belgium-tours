@@ -28,18 +28,6 @@
     'crumb' => $style->name,
 ])
 
-{{-- ABOUT THE STYLE --}}
-<section class="bg-white py-16 sm:py-24" aria-labelledby="style-about-title">
-    <div class="container-page text-center">
-        <div class="mx-auto max-w-3xl">
-            @include('partials.ht-eyebrow', ['label' => 'Travel style', 'center' => true])
-            <h2 id="style-about-title" class="mt-5 text-heading">@heading('Belgium for *'.\Illuminate\Support\Str::lower($style->name).'*')</h2>
-            <p class="mt-6 text-lg leading-relaxed text-ink/90">{{ $style->intro ?: $style->description }}</p>
-            <div class="mt-8"><x-button square variant="cta" size="lg" icon="arrow-right" @click="$store.modal.open()">Get a free quote</x-button></div>
-        </div>
-    </div>
-</section>
-
 {{-- TRIPS OF THIS STYLE --}}
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="style-trips-title">
     <div class="container-wide">

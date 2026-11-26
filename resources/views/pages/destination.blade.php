@@ -28,18 +28,6 @@
     'crumb' => $destination->name,
 ])
 
-{{-- ABOUT THE PLACE --}}
-<section class="bg-white py-16 sm:py-24" aria-labelledby="dest-about-title">
-    <div class="container-page text-center">
-        <div class="mx-auto max-w-3xl">
-            @include('partials.ht-eyebrow', ['label' => 'About '.$destination->name, 'center' => true])
-            <h2 id="dest-about-title" class="mt-5 text-heading">@heading('Discover *'.$destination->name.'*')</h2>
-            <p class="mt-6 text-lg leading-relaxed text-ink/90">{{ $destination->intro ?: $destination->description }}</p>
-            <div class="mt-8"><x-button square variant="cta" size="lg" icon="arrow-right" @click="$store.modal.open()">Get a free quote</x-button></div>
-        </div>
-    </div>
-</section>
-
 {{-- TRIPS THAT VISIT IT --}}
 <section class="bg-ivory py-16 sm:py-24" aria-labelledby="dest-trips-title">
     <div class="container-wide">

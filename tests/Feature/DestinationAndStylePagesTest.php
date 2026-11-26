@@ -85,7 +85,7 @@ class DestinationAndStylePagesTest extends TestCase
 
             $this->assertSame(1, substr_count($html, '<h1'));
             $this->assertStringContainsString('id="quiz"', $html);
-            $this->assertStringContainsString(e($s->intro), $html, 'the intro paragraph');
+            $this->assertStringNotContainsString('style-about-title', $html, 'the intro block under the hero was removed');
             $this->assertSame($s->packages()->published()->count(), substr_count($html, 'class="pkg-card group"'));
             $this->assertStringContainsString('aria-label="Other travel styles"', $html);
         }
@@ -123,7 +123,7 @@ class DestinationAndStylePagesTest extends TestCase
         $this->post('/admin/travel-styles', ['name' => 'Family Trips', 'description' => 'Easy days for all ages.', 'intro' => 'Slow days with something for everyone.', 'sort' => 9, 'active' => '1'])->assertRedirect('/admin/travel-styles');
         $new = TravelStyle::where('slug', 'family-trips')->firstOrFail();
         $this->get("/admin/travel-styles/{$new->id}/edit")->assertOk();
-        $this->get('/travel-styles/family-trips')->assertOk()->assertSee('Slow days with something for everyone.');
+        $this->get('/travel-styles/family-trips')->assertOk()->assertSee('Family Trips');
         $this->get('/travel-styles')->assertSee('href="'.route('travel-styles.show', 'family-trips').'"', false);
 
         $package = Package::firstOrFail();
