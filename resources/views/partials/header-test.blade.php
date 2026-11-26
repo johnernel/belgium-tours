@@ -88,30 +88,70 @@
                     </div>
                 </div>
             </div>
-            {{-- Destinations and Travel Styles mega menus: full-width panels with one photo tile per place / style (each links to its own page), a "view all" link and a quote strip --}}
-            @foreach([['destinations', 'Destinations', $navDestinations, 'destinations.show', 'destinations.index', 'Pick a place to see its page and the trips that visit it.'], ['styles', 'Travel Styles', $navStyles, 'travel-styles.show', 'travel-styles.index', 'Pick a style to see the trips built around it.']] as [$key, $title, $navItems, $showRoute, $indexRoute, $blurb])
+            {{-- Destinations and Travel Styles mega menus (layout copied from the client's references): a warm cream panel with an intro column on the left
+                 (label, two-colour heading, text, "view all" link) and the places or styles on the right, then a slim strip with a compass, an italic line and a green button.
+                 Destinations = a row of portrait photo cards with a short line and an orange arrow. Travel Styles = a 3 x 2 grid of photo tiles with an icon, the name and an arrow.
+                 Every card links to its own page. (No <section> elements in here: the menu tests count those.) --}}
+            @php
+                $styleIcons = ['medieval-cities' => 'castle', 'art-architecture' => 'palette', 'food-chocolate' => 'utensils', 'beer-abbeys' => 'beer', 'history-heritage' => 'landmark', 'nature-countryside' => 'leaf'];
+                $megas = [
+                    ['destinations', 'Destinations', $navDestinations, 'destinations.show', 'destinations.index', 'Explore Belgium', 'Explore Our *Destinations*', 'From historic cities to quiet river valleys: pick a place to see its page and the trips that visit it.', 'View all destinations', 'Plan your journey through Belgium.', 'Get a free quote'],
+                    ['styles', 'Travel Styles', $navStyles, 'travel-styles.show', 'travel-styles.index', 'Travel Styles', 'Find Your *Travel Style*', 'Pick the kind of trip you want and see the journeys built around it.', 'Explore all styles', 'Tailor your journey through Belgium.', 'Plan your trip'],
+                ];
+            @endphp
+            @foreach($megas as [$key, $title, $navItems, $showRoute, $indexRoute, $eyebrow, $heading, $blurb, $viewAll, $stripText, $stripButton])
                 <div @mouseenter="menu = '{{ $key }}'" @click.outside="menu === '{{ $key }}' && (menu = null)">
                     <button type="button" class="{{ $link }}" :aria-expanded="menu === '{{ $key }}'" aria-controls="mega-{{ $key }}-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = '{{ $key }}' : menu = (menu === '{{ $key }}' ? null : '{{ $key }}')">{{ $title }} @icon('chevron-down', 'size-4')</button>
                     <div id="mega-{{ $key }}-test" x-cloak x-show="menu === '{{ $key }}'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50 [&_*]:!rounded-none">
-                        <div class="border-t border-ink/10 bg-paper text-ink shadow-lift">
-                            <ul class="container-wide grid grid-cols-2 gap-4 py-7 lg:grid-cols-3 xl:grid-cols-6">
-                                @foreach($navItems as $it)
-                                    <li>
-                                        <a href="{{ route($showRoute, $it->slug) }}" class="group relative block aspect-[4/3] overflow-hidden bg-slate" @click="menu = null">
-                                            @if($it->image)<x-photo :base="$it->image" alt="" sizes="(min-width:1280px) 14vw, 30vw" fetchpriority="low" :ratio="[1600, 1200]" class="size-full transition-transform duration-500 group-hover:scale-105" style="object-position: {{ $it->image_focus ?: '50% 50%' }}" />@endif
-                                            <span class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" aria-hidden="true"></span>
-                                            <span class="absolute inset-x-3 bottom-3">
-                                                <span class="heading-face block font-serif text-lg leading-tight text-white">{{ $it->name }}</span>
-                                                <span class="mt-0.5 block text-xs text-white/90">{{ $it->packages_count === 1 ? '1 tour' : $it->packages_count.' tours' }}</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <div class="border-t border-ink/10 bg-cream">
-                                <div class="container-wide flex flex-wrap items-center justify-between gap-4 py-3">
-                                    <p class="text-sm text-ink">{{ $blurb }} <a href="{{ route($indexRoute) }}" class="font-semibold underline decoration-amber decoration-2 underline-offset-4 hover:text-amber-ink" @click="menu = null">View all {{ strtolower($title) }}</a></p>
-                                    <x-button square variant="cta" size="sm" @click="menu = null; $store.modal.open()">Get a free quote</x-button>
+                        <div class="relative isolate overflow-hidden border-t border-ink/10 bg-cream text-ink shadow-lift">
+                            {{-- faint outlined sketch of Belgian buildings: bottom left, and mirrored at the bottom right --}}
+                            <img src="{{ asset('images/decor/belgium-outline.webp') }}" alt="" width="1500" height="1000" loading="lazy" decoding="async" class="pointer-events-none absolute -bottom-6 -left-10 -z-10 hidden h-auto w-[26rem] opacity-[0.3] [mask-image:linear-gradient(to_top,#000_40%,transparent)] lg:block" aria-hidden="true">
+                            <img src="{{ asset('images/decor/belgium-outline.webp') }}" alt="" width="1500" height="1000" loading="lazy" decoding="async" class="pointer-events-none absolute -bottom-4 -right-16 -z-10 hidden h-auto w-[30rem] -scale-x-100 opacity-[0.22] [mask-image:linear-gradient(to_top,#000_30%,transparent)] xl:block" aria-hidden="true">
+
+                            <div class="container-wide grid gap-8 py-8 lg:grid-cols-[16rem_1fr] xl:grid-cols-[19rem_1fr] xl:gap-12">
+                                <div class="flex flex-col">
+                                    <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-ink"><span class="h-px w-10 bg-amber" aria-hidden="true"></span>{{ $eyebrow }}</p>
+                                    <p class="heading-face mt-5 font-serif text-[2.1rem] leading-[1.1] text-ink">@heading($heading)</p>
+                                    <p class="mt-5 max-w-xs text-[0.95rem] leading-relaxed text-ink/85">{{ $blurb }}</p>
+                                    <a href="{{ route($indexRoute) }}" class="group mt-6 inline-flex items-center gap-4 self-start text-sm font-semibold text-ink hover:text-amber-ink" @click="menu = null"><span class="border-b-2 border-amber pb-1">{{ $viewAll }}</span>@icon('arrow-right', 'size-5 text-amber transition-transform group-hover:translate-x-1')</a>
+                                </div>
+
+                                @if($key === 'destinations')
+                                    <ul class="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))]">
+                                        @foreach($navItems as $it)
+                                            <li>
+                                                <a href="{{ route($showRoute, $it->slug) }}" class="group block" @click="menu = null">
+                                                    <span class="block aspect-[4/3] overflow-hidden bg-sky-soft min-[1400px]:aspect-[3/4]">@if($it->image)<x-photo :base="$it->image" alt="" sizes="(min-width:1280px) 12vw, 22vw" fetchpriority="low" :ratio="[1600, 1200]" class="size-full transition-transform duration-500 group-hover:scale-105" style="object-position: {{ $it->image_focus ?: '50% 50%' }}" />@endif</span>
+                                                    <span class="heading-face mt-3 block font-serif text-xl leading-tight">{{ $it->name }}</span>
+                                                    <span class="mt-1 hidden text-sm leading-snug text-slate min-[1400px]:line-clamp-2 min-[1400px]:block">{{ $it->description }}</span>
+                                                    <span class="mt-2 block text-xs text-slate min-[1400px]:hidden">{{ $it->packages_count === 1 ? '1 tour' : $it->packages_count.' tours' }}</span>
+                                                    <span class="mt-3 inline-block text-amber" aria-hidden="true">@icon('arrow-right', 'size-5 transition-transform group-hover:translate-x-1')</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <ul class="grid grid-cols-2 gap-4 lg:grid-cols-3">
+                                        @foreach($navItems as $it)
+                                            <li>
+                                                <a href="{{ route($showRoute, $it->slug) }}" class="group relative isolate flex aspect-[16/9] flex-col justify-end overflow-hidden bg-ink p-4 text-white" @click="menu = null">
+                                                    @if($it->image)<x-photo :base="$it->image" alt="" sizes="(min-width:1280px) 20vw, 30vw" fetchpriority="low" :ratio="[1600, 900]" class="absolute inset-0 -z-20 size-full transition-transform duration-500 group-hover:scale-105" style="object-position: {{ $it->image_focus ?: '50% 50%' }}" />@endif
+                                                    <span class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-ink/35 to-ink/10" aria-hidden="true"></span>
+                                                    @icon($styleIcons[$it->slug] ?? 'compass', 'size-8 text-white')
+                                                    <span class="mt-2 flex items-center gap-2"><span class="heading-face font-serif text-xl leading-tight text-white">{{ $it->name }}</span>@icon('arrow-right', 'size-4 shrink-0 text-white transition-transform group-hover:translate-x-1')</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+
+                            <div class="border-t border-ink/10">
+                                <div class="container-wide flex flex-wrap items-center gap-x-6 gap-y-3 py-4">
+                                    @icon('compass', 'size-7 shrink-0 text-ink')
+                                    <p class="font-serif text-lg italic text-ink">{{ $stripText }}</p>
+                                    <span class="mx-auto hidden h-8 w-px bg-ink/20 sm:block" aria-hidden="true"></span>
+                                    <x-button square variant="dark" size="sm" icon="arrow-right" class="!bg-cta-hover hover:!bg-ink" @click="menu = null; $store.modal.open()">{{ $stripButton }}</x-button>
                                 </div>
                             </div>
                         </div>
