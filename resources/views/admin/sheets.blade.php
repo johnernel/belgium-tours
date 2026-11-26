@@ -74,7 +74,7 @@
             <li>Come back here, paste the URL in "Web app URL", make sure the Secret key matches, tick "Send enquiries to Google Sheets" and click <strong>Save</strong>.</li>
             <li>Click <strong>Send a test row</strong>. A line marked TEST should appear in your sheet (with the headings above it). Delete that line, then click <strong>Send past enquiries</strong> if you want the older leads too.</li>
         </ol>
-        <p class="text-sm text-slate"><strong>Already set up before the separate tabs?</strong> Replace the script in Code.gs with the one below (keep your secret key on the first line), then redeploy it as a new version (see the next line). Until you do, everything still goes to one tab.</p>
+        <p class="text-sm text-slate"><strong>Already set up?</strong> The script now puts each new inquiry at the top (row 2, right under the headings), so the newest is always first. Rows already in the sheet stay where they are. Replace the script in Code.gs with the one below (keep your secret key on the first line), then redeploy it as a new version (see the next line). Until you do, everything still goes to one tab.</p>
         <p class="text-sm text-slate"><strong>If you change the script later,</strong> use Deploy &gt; Manage deployments &gt; pencil icon &gt; Version: New version &gt; Deploy. The URL stays the same.</p>
 
         <div x-data="{ copied: false }">
@@ -106,10 +106,16 @@ function doPost(e) {
 
     // The same enquiry sent twice (a retry) updates its own row instead of adding a duplicate.
     const id = String(data.row[headers[0]]);
-    let target = sheet.getLastRow() + 1;
+    // A NEW enquiry goes in as row 2, right under the headings, so the newest is always first and older ones move down.
+    let target = 0;
     if (sheet.getLastRow() > 1) {
       const hit = sheet.getRange(2, 1, sheet.getLastRow() - 1, 1).createTextFinder(id).matchEntireCell(true).findNext();
       if (hit) target = hit.getRow();
+    }
+    if (!target) {
+      sheet.insertRowBefore(2); // works on a sheet that only has the headings too: it adds an empty row 2
+      target = 2;
+      sheet.getRange(2, 1, 1, headers.length).setFontWeight('normal'); // the new row copies the bold look of the headings: undo that
     }
 
     const values = headers.map(function (h) { return data.row[h] == null ? '' : String(data.row[h]); });
