@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <title>@yield('title', 'Admin') | {{ \App\Models\Setting::get('brand_name', config('app.name')) }}</title>
-    @vite(['resources/css/admin.css', 'resources/js/app.js', 'resources/js/admin.js'])
+    <title>@yield('title', 'Admin') | {{ config('gotour.admin_name') }}</title>
+    @php $adminFavicon = \App\Models\Setting::get('favicon'); @endphp
+    @if($adminFavicon)<link rel="icon" href="{{ asset($adminFavicon) }}">@else<link rel="icon" href="{{ asset('favicon.ico') }}?v=2" sizes="48x48 32x32"><link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32.png') }}?v=2"><link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon-192.png') }}?v=2"><link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}?v=2">@endif    @vite(['resources/css/admin.css', 'resources/js/app.js', 'resources/js/admin.js'])
     <style>
         trix-editor { min-height: 12rem; background: #fff; border-radius: .75rem; border: 2px solid rgb(88 97 126 / .3); }
         trix-toolbar .trix-button-group--file-tools { display: none; }
@@ -38,7 +39,7 @@
 @endphp
 <div class="flex min-h-screen">
     <aside class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full admin-sidebar text-cream transition-transform lg:static lg:translate-x-0" :class="nav && '!translate-x-0'">
-        <a href="{{ route('admin.dashboard') }}" class="mb-6 block font-display text-xl font-semibold">{{ \App\Models\Setting::get('brand_name', 'Admin') }}<span class="block text-xs font-normal text-cream/60">Admin</span></a>
+        <a href="{{ route('admin.dashboard') }}" class="mb-6 block font-display text-xl font-semibold" style="--admin-logo: url('{{ asset($adminFavicon ?: 'favicon-192.png') }}{{ $adminFavicon ? '' : '?v=2' }}')">{{ config('gotour.admin_name') }}<span class="block text-xs font-normal text-cream/60">Admin</span></a>
         <nav aria-label="Admin" class="space-y-1">
             @foreach($links as [$route, $label, $icon])
                 <a href="{{ route($route) }}" class="flex min-h-11 items-center gap-3 rounded-xl px-3 font-semibold hover:bg-white/10 {{ ($route === 'admin.dashboard' ? request()->routeIs('admin.dashboard') : request()->routeIs(Str::beforeLast($route, '.').'*')) ? 'is-active' : '' }}">

@@ -20,6 +20,9 @@ return [
         .'booking updates, itinerary updates, reminders, and customer support. Message and data rates may apply. '
         .'Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.',
 
+    // The name shown in the admin panel (sidebar, login, browser tab). The public site keeps the brand name saved in Admin > Settings.
+    'admin_name' => 'Go Belgium Trips',
+
     // Ad-tracking parameters captured on first touch and kept for 30 days.
     'tracking_keys' => [
         'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
