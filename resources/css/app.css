@@ -378,6 +378,43 @@
     .pkg-card:hover .pkg-card__img { transform: none; }
 }
 
+/* ------------------------------------------------------------------
+   Quote popup (partials/enquiry-modal): the shared inquiry form as a compact grid, so it takes far less scrolling.
+   Only the popup is affected; every other form keeps its own layout. Phones: 2 columns. From 640px: 4 columns.
+   ------------------------------------------------------------------ */
+.quote-popup form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 0.875rem 0.75rem; }
+.quote-popup form > * { margin: 0; grid-column: 1 / -1; min-width: 0; }
+.quote-popup .ef-names,
+.quote-popup .ef-extra { display: contents; }
+.quote-popup .ef-names > *,
+.quote-popup .ef-extra > *,
+.quote-popup form > .ef-date { grid-column: span 1; min-width: 0; }
+.quote-popup .ef-date input { padding-inline: 0.625rem; }
+.quote-popup .ef-extra select { padding-inline: 0.5rem; }
+.quote-popup .ef-phone select { width: 6.75rem; }
+/* a failed send is explained under the button, so the button never jumps to another column */
+.quote-popup form > .ef-captcha,
+.quote-popup form > .ef-submit { order: 1; }
+.quote-popup form > .ef-error,
+.quote-popup form > .ef-done { order: 2; }
+@media (min-width: 640px) {
+    .quote-popup form { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .quote-popup .ef-names > *,
+    .quote-popup form > .ef-email,
+    .quote-popup form > .ef-phone { grid-column: span 2; }
+    /* reCAPTCHA and the send button side by side */
+    .quote-popup form > .ef-captcha,
+    .quote-popup form > .ef-submit { grid-column: span 2; }
+    .quote-popup form > .ef-submit { align-self: center; }
+    .quote-popup form:not(:has(> .ef-captcha)) > .ef-submit { grid-column: 1 / -1; }
+}
+/* the reCAPTCHA box is 304px wide: scale it down on very narrow phones */
+@media (max-width: 359.98px) {
+    .quote-popup .ef-captcha > div { transform: scale(0.9); transform-origin: left top; }
+    .quote-popup form > .ef-date,
+    .quote-popup .ef-extra > :first-child { grid-column: 1 / -1; }
+}
+
 /* Without JavaScript the hero shows its first photo only (slides 2 and 3 are filled in by app.js after the page has loaded). */
 html:not(.js) .hero-slide { animation: none; }
 html:not(.js) .hero-slide-1 { opacity: 1; }

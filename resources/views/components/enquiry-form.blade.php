@@ -38,14 +38,15 @@
         <label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
     </div>
 
-    <div class="grid gap-4 sm:grid-cols-2">
+    {{-- The ef-* classes only matter in the quote popup, which lays the fields out as a compact grid (.quote-popup in app.css). --}}
+    <div class="ef-names grid gap-4 sm:grid-cols-2">
         <x-field :id="$id('first_name')" name="first_name" label="First name" required autocomplete="given-name" />
         <x-field :id="$id('last_name')" name="last_name" label="Last name" required autocomplete="family-name" />
     </div>
 
-    <x-field :id="$id('email')" name="email" type="email" label="Email" required autocomplete="email" inputmode="email" />
+    <x-field class="ef-email" :id="$id('email')" name="email" type="email" label="Email" required autocomplete="email" inputmode="email" />
 
-    <div>
+    <div class="ef-phone">
         <label for="{{ $id('phone') }}" class="mb-1.5 block text-sm font-semibold">Phone <span aria-hidden="true">*</span></label>
         <div class="flex gap-2">
             <select name="country" aria-label="Country code" autocomplete="country" x-model="country"
@@ -65,10 +66,10 @@
         @error('phone')<p class="mt-1 text-sm font-semibold text-red-800">{{ $message }}</p>@enderror
     </div>
 
-    <x-field :id="$id('travel_date')" name="travel_date" type="date" :min="now()->format('Y-m-d')" label="Approximate travel date" autocomplete="off" onclick="try { this.showPicker() } catch (e) {}" />
+    <x-field class="ef-date" :id="$id('travel_date')" name="travel_date" type="date" :min="now()->format('Y-m-d')" :label="$mode === 'modal' ? 'Travel date' : 'Approximate travel date'" autocomplete="off" onclick="try { this.showPicker() } catch (e) {}" />
 
     @if($extended)
-        <div class="grid gap-4 sm:grid-cols-3">
+        <div class="ef-extra grid gap-4 sm:grid-cols-3">
             <div>
                 <label for="{{ $id('season') }}" class="mb-1.5 block text-sm font-semibold">Time of year</label>
                 <select id="{{ $id('season') }}" name="season" class="min-h-11 w-full rounded-xl border-2 border-slate/30 bg-white px-3 py-2.5 text-base focus:border-ink focus:outline-none">
@@ -97,7 +98,7 @@
         <label for="{{ $id('message') }}" class="mb-1.5 block text-sm font-semibold">
             <span x-text="$store.modal && $store.modal.show && $store.modal.mode === 'question' ? 'Your question' : 'Special requests'">Special requests</span>
         </label>
-        <textarea id="{{ $id('message') }}" name="message" rows="3" maxlength="3000"
+        <textarea id="{{ $id('message') }}" name="message" rows="{{ $mode === 'modal' ? 2 : 3 }}" maxlength="3000"
                   class="block w-full rounded-xl border-2 border-slate/30 bg-white px-3.5 py-2.5 text-base focus:border-ink focus:outline-none">{{ old('message') }}</textarea>
     </div>
 
@@ -114,7 +115,7 @@
     </div>
 
     @if($siteKey)
-        <div>
+        <div class="ef-captcha">
             <div x-ref="captcha" class="min-h-[78px]"></div>
             <noscript>
                 <iframe src="https://www.google.com/recaptcha/api/fallback?k={{ $siteKey }}" title="reCAPTCHA" class="h-[422px] w-full max-w-[302px] border-0"></iframe>
@@ -127,10 +128,10 @@
         <p class="rounded-lg bg-amber/30 p-3 text-sm font-semibold">reCAPTCHA keys are not set, so this form cannot be submitted. Add them in Admin &gt; reCAPTCHA.</p>
     @endif
 
-    <p class="rounded-lg bg-red-50 p-3 text-sm font-semibold text-red-900" x-show="generalError" x-text="generalError" role="alert"></p>
+    <p class="ef-error rounded-lg bg-red-50 p-3 text-sm font-semibold text-red-900" x-show="generalError" x-text="generalError" role="alert"></p>
 
-    <div x-show="!done">
+    <div class="ef-submit" x-show="!done">
         <x-button type="submit" :variant="$submitVariant" size="lg" class="w-full" x-bind:disabled="submitting" x-text="submitting ? 'Sending…' : '{{ $submitLabel }}'">{{ $submitLabel }}</x-button>
     </div>
-    <p x-cloak x-show="done" role="status" class="rounded-xl bg-sky-soft p-4 text-center font-display text-lg font-medium">Thank you! Your inquiry is on its way…</p>
+    <p x-cloak x-show="done" role="status" class="ef-done rounded-xl bg-sky-soft p-4 text-center font-display text-lg font-medium">Thank you! Your inquiry is on its way…</p>
 </form>
