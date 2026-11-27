@@ -12,6 +12,7 @@ class SitemapController extends Controller
         $urls = [
             [route('home'), now()],
             [route('packages.index'), now()],
+            [route('tours.index'), now()],
             [route('destinations.index'), now()],
             [route('travel-styles.index'), now()],
             [route('journal.index'), now()],

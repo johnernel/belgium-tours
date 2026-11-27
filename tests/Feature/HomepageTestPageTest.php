@@ -162,6 +162,23 @@ class HomepageTestPageTest extends TestCase
         $this->assertStringContainsString('aria-controls="mega-tours-test"', $header, 'the Tour Types mega menu is still there');
     }
 
+    public function test_the_four_menu_items_are_links_to_their_own_pages_on_desktop_and_phone(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $header = substr($html, strpos($html, '<header'), strpos($html, '</header>') - strpos($html, '<header'));
+        $mobile = substr($header, strpos($header, 'id="mobile-nav-test"'));
+        foreach ([['mega-tours-test', 'tours.index'], ['mega-destinations-test', 'destinations.index'], ['mega-styles-test', 'travel-styles.index'], ['mega-about-test', 'about']] as [$menu, $route]) {
+            $this->assertMatchesRegularExpression('~<a href="'.preg_quote(route($route), '~').'"[^>]*aria-controls="'.$menu.'"~', $header, "$route is a link that also opens its menu");
+            $this->assertStringContainsString('<a href="'.route($route).'" class="flex min-h-12 flex-1', $mobile, "$route is a link in the phone menu");
+            $this->get(route($route))->assertOk();
+        }
+        $page = $this->get('/tours')->assertOk()->getContent();
+        foreach (['self-drive', 'chauffeur-driven', 'coach-tours'] as $slug) {
+            $this->assertStringContainsString('href="'.route('tours.show', $slug).'" class="after:absolute', $page);
+        }
+        $this->get('/sitemap.xml')->assertSee('<loc>'.route('tours.index').'</loc>', false);
+    }
+
     public function test_three_why_travel_with_us_cards_use_the_clients_svg_icons(): void
     {
         $html = $this->get('/')->assertOk()->getContent();

@@ -19,6 +19,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/homepage-test', [HomeController::class, 'test'])->name('home.test');
 Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
 Route::get('/packages/{slug}', [PackageController::class, 'show'])->name('packages.show');
+Route::get('/tours', [TourTypeController::class, 'index'])->name('tours.index');
 Route::get('/tours/{slug}', [TourTypeController::class, 'show'])->name('tours.show');
 Route::get('/destinations', [DestinationsController::class, 'index'])->name('destinations.index');
 Route::get('/destinations/{slug}', [DestinationsController::class, 'show'])->name('destinations.show');

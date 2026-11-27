@@ -38,7 +38,7 @@ class UsEnglishTest extends TestCase
     {
         $this->seed();
         $package = Package::firstOrFail();
-        $urls = ['/', '/packages', '/packages/'.$package->slug, '/about', '/contact', '/faqs', '/testimonials', '/meet-our-team', '/destinations', '/terms-and-conditions', '/privacy-policy', '/thank-you', '/tours/self-drive', '/tours/chauffeur-driven', '/tours/coach-tours'];
+        $urls = ['/', '/packages', '/packages/'.$package->slug, '/about', '/contact', '/faqs', '/testimonials', '/meet-our-team', '/destinations', '/terms-and-conditions', '/privacy-policy', '/thank-you', '/tours', '/tours/self-drive', '/tours/chauffeur-driven', '/tours/coach-tours'];
         $uk = '~\b(enquir\w*|enquire\w*|travell\w*|colour\w*|favour\w*|organis\w*|personalis\w*|customis\w*|centre\w*|licence\w*|catalogue\w*|holiday\w*|hire car\w*|autumn|whilst|amongst|cosy|grey)\b~i';
 
         foreach ($urls as $url) {

@@ -15,6 +15,17 @@ class TourTypeController extends Controller
         'coach-tours' => 'coach',
     ];
 
+    /** The Tour Types page: a tile for every active tour type, under the photo hero with the quiz. */
+    public function index()
+    {
+        return view('pages.tour-types', [
+            'types' => TourType::active()->withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get(),
+            'quizSteps' => QuizStep::forQuiz(),
+            'quizPreset' => [],
+            'quizTourType' => '',
+        ]);
+    }
+
     public function show(string $slug)
     {
         $type = TourType::active()->where('slug', $slug)->firstOrFail();

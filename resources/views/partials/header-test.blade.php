@@ -13,10 +13,15 @@
     $navDestinations = \App\Models\Experience::active()->withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get();
     $navStyles = \App\Models\TravelStyle::active()->withCount(['packages' => fn ($q) => $q->where('is_published', true)])->get();
     $link = 'nav-link relative inline-flex min-h-11 items-center gap-1 px-2.5 text-[0.95rem] font-medium min-[1100px]:px-3.5 min-[1100px]:text-base xl:px-4 2xl:px-5 text-ink hover:text-ink/70';
+    // Tour Types, Destinations, Travel Styles and About Us are LINKS to their own page that also open a mega menu on hover or keyboard focus.
+    // Where there is no hover (touch screens), the first tap only opens the menu and a second tap goes to the page (wasOpen = was it open before this tap).
     // Pages with a photo hero (@section('hero')) start transparent with white text; all other pages get the solid bar from the start.
     $overlay = $__env->hasSection('hero');
+    // Phone menu rows: the name (link) and the arrow button that opens the cards.
+    $mLink = 'flex min-h-12 flex-1 items-center text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink';
+    $mToggle = '-mr-3 grid size-12 shrink-0 place-items-center text-ink [&[aria-expanded=true]>svg]:rotate-180';
 @endphp
-<header class="{{ $overlay ? 'nav-overlay ' : '' }}sticky top-0 z-40 bg-bar transition-colors duration-200 [&.is-open]:bg-white" :class="open && 'is-open'" x-data="{ open: false, menu: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
+<header class="{{ $overlay ? 'nav-overlay ' : '' }}sticky top-0 z-40 bg-bar transition-colors duration-200 [&.is-open]:bg-white" :class="open && 'is-open'" x-data="{ open: false, menu: null, wasOpen: null }" @keydown.escape.window="open = false; menu = null" @mouseleave="menu = null" @focusout="if (! $el.contains($event.relatedTarget)) menu = null">
     {{-- Contact strip: solid charcoal band, phone and email on the left, outlined "Inquire Now" on the right (hidden once scrolled) --}}
     <div class="hidden border-b border-ink/10 bg-cream text-ink [.is-scrolled_&]:hidden lg:block">
         <div class="container-wide flex h-12 items-center justify-between gap-6">
@@ -39,10 +44,10 @@
             @endif
         </a>
         <nav class="ml-auto hidden items-center lg:flex" aria-label="Main">
-            <a href="{{ route('home') }}" class="{{ $link }}">Home</a>
+            <a href="{{ route('home') }}" @focus="menu = null" class="{{ $link }}">Home</a>
             {{-- Tour Types mega menu: full-width panel anchored to the sticky header; one tile per tour type with its featured trips --}}
             <div @mouseenter="menu = 'tours'" @click.outside="menu === 'tours' && (menu = null)">
-                <button type="button" class="{{ $link }}" :aria-expanded="menu === 'tours'" aria-controls="mega-tours-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = 'tours' : menu = (menu === 'tours' ? null : 'tours')">Tour Types @icon('chevron-down', 'size-4')</button>
+                <a href="{{ route('tours.index') }}" class="{{ $link }}" :aria-expanded="menu === 'tours'" aria-controls="mega-tours-test" aria-haspopup="true" @pointerdown="wasOpen = menu === 'tours'" @focus="menu = 'tours'" @click="if (wasOpen === false && ! matchMedia('(hover: hover)').matches) { $event.preventDefault(); menu = 'tours' } wasOpen = null">Tour Types @icon('chevron-down', 'size-4')</a>
                 <div id="mega-tours-test" x-cloak x-show="menu === 'tours'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50 [&_*]:!rounded-none">
                     <div class="border-t border-ink/10 bg-paper text-ink shadow-lift">
                         <div class="container-wide grid gap-x-10 gap-y-6 py-7 lg:grid-cols-3">
@@ -100,7 +105,7 @@
             @endphp
             @foreach($megas as [$key, $title, $navItems, $showRoute, $indexRoute, $eyebrow, $heading, $blurb, $viewAll, $stripText, $stripButton])
                 <div @mouseenter="menu = '{{ $key }}'" @click.outside="menu === '{{ $key }}' && (menu = null)">
-                    <button type="button" class="{{ $link }}" :aria-expanded="menu === '{{ $key }}'" aria-controls="mega-{{ $key }}-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = '{{ $key }}' : menu = (menu === '{{ $key }}' ? null : '{{ $key }}')">{{ $title }} @icon('chevron-down', 'size-4')</button>
+                    <a href="{{ route($indexRoute) }}" class="{{ $link }}" :aria-expanded="menu === '{{ $key }}'" aria-controls="mega-{{ $key }}-test" aria-haspopup="true" @pointerdown="wasOpen = menu === '{{ $key }}'" @focus="menu = '{{ $key }}'" @click="if (wasOpen === false && ! matchMedia('(hover: hover)').matches) { $event.preventDefault(); menu = '{{ $key }}' } wasOpen = null">{{ $title }} @icon('chevron-down', 'size-4')</a>
                     <div id="mega-{{ $key }}-test" x-cloak x-show="menu === '{{ $key }}'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50 [&_*]:!rounded-none">
                         <div class="relative isolate overflow-hidden border-t border-ink/10 bg-cream text-ink shadow-lift">
                             {{-- faint outlined sketch of Belgian buildings, bottom left only (nothing behind the button) --}}
@@ -143,7 +148,7 @@
             @endforeach
             {{-- About Us mega menu: photo panel on the left, four image cards on the right --}}
             <div @mouseenter="menu = 'about'" @click.outside="menu === 'about' && (menu = null)">
-                <button type="button" class="{{ $link }}" :aria-expanded="menu === 'about'" aria-controls="mega-about-test" aria-haspopup="true" @click="matchMedia('(hover: hover)').matches ? menu = 'about' : menu = (menu === 'about' ? null : 'about')">About Us @icon('chevron-down', 'size-4')</button>
+                <a href="{{ route('about') }}" class="{{ $link }}" :aria-expanded="menu === 'about'" aria-controls="mega-about-test" aria-haspopup="true" @pointerdown="wasOpen = menu === 'about'" @focus="menu = 'about'" @click="if (wasOpen === false && ! matchMedia('(hover: hover)').matches) { $event.preventDefault(); menu = 'about' } wasOpen = null">About Us @icon('chevron-down', 'size-4')</a>
                 <div id="mega-about-test" x-cloak x-show="menu === 'about'" x-transition.opacity.duration.150ms class="absolute inset-x-0 top-full z-50 [&_*]:!rounded-none">
                     <div class="border-t border-ink/10 bg-cream text-ink shadow-lift">
                         <div class="grid lg:grid-cols-[20rem_1fr] xl:grid-cols-[24rem_1fr]">
@@ -171,7 +176,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            <a href="{{ route('contact') }}" @mouseenter="menu = null" class="{{ $link }}">Contact Us</a>
+            </div>            <a href="{{ route('contact') }}" @mouseenter="menu = null" @focus="menu = null" class="{{ $link }}">Contact Us</a>
         </nav>
 
         <div class="flex items-center gap-2">
@@ -180,16 +185,18 @@
         </div>
     </div>
 
-    {{-- Phone menu (layout copied from the client's reference): big uppercase links with hairline dividers, Tour Types and About Us open into photo cards,
-         an "All packages" button and a full-width quote button. Only one section is open at a time. --}}
+    {{-- Phone menu (layout copied from the client's reference): big uppercase links with hairline dividers. For Tour Types, Destinations, Travel Styles and
+         About Us the name is a link to that page and the arrow button beside it opens the photo cards. "All packages" button and a full-width quote button.
+         Only one section is open at a time. --}}
     <nav id="mobile-nav-test" x-cloak x-show="open" x-transition.opacity x-data="{ sub: null }" class="max-h-[calc(100dvh-4.5rem)] overflow-y-auto bg-white lg:hidden" aria-label="Mobile">
         <ul class="container-wide pb-5 pt-1">
             <li class="border-b border-ink/10"><a href="{{ route('home') }}" class="flex min-h-12 items-center text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink">Home</a></li>
 
             <li class="border-b border-ink/10">
-                <button type="button" @click="sub = sub === 'tours' ? null : 'tours'" :aria-expanded="sub === 'tours'" aria-controls="m-sub-tours" class="flex min-h-12 w-full items-center justify-between text-left text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink [&[aria-expanded=true]>svg]:rotate-180">
-                    Tour Types @icon('chevron-down', 'size-5 shrink-0 transition-transform duration-200')
-                </button>
+                <div class="flex items-center">
+                    <a href="{{ route('tours.index') }}" class="{{ $mLink }}">Tour Types</a>
+                    <button type="button" @click="sub = sub === 'tours' ? null : 'tours'" :aria-expanded="sub === 'tours'" aria-controls="m-sub-tours" aria-label="Show tour types" class="{{ $mToggle }}">@icon('chevron-down', 'size-5 transition-transform duration-200')</button>
+                </div>
                 <div id="m-sub-tours" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === 'tours' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== 'tours'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
                     @foreach($navTypes as $t)
                         <a href="{{ route('tours.show', $t->slug) }}" class="flex items-center gap-4 border border-amber/40 bg-white p-2.5">
@@ -206,9 +213,10 @@
 
             @foreach([['destinations', 'Destinations', $navDestinations, 'destinations.show', 'destinations.index'], ['styles', 'Travel Styles', $navStyles, 'travel-styles.show', 'travel-styles.index']] as [$key, $title, $navItems, $showRoute, $indexRoute])
                 <li class="border-b border-ink/10">
-                    <button type="button" @click="sub = sub === '{{ $key }}' ? null : '{{ $key }}'" :aria-expanded="sub === '{{ $key }}'" aria-controls="m-sub-{{ $key }}" class="flex min-h-12 w-full items-center justify-between text-left text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink [&[aria-expanded=true]>svg]:rotate-180">
-                        {{ $title }} @icon('chevron-down', 'size-5 shrink-0 transition-transform duration-200')
-                    </button>
+                    <div class="flex items-center">
+                        <a href="{{ route($indexRoute) }}" class="{{ $mLink }}">{{ $title }}</a>
+                        <button type="button" @click="sub = sub === '{{ $key }}' ? null : '{{ $key }}'" :aria-expanded="sub === '{{ $key }}'" aria-controls="m-sub-{{ $key }}" aria-label="Show {{ strtolower($title) }}" class="{{ $mToggle }}">@icon('chevron-down', 'size-5 transition-transform duration-200')</button>
+                    </div>
                     <div id="m-sub-{{ $key }}" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === '{{ $key }}' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== '{{ $key }}'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
                         @foreach($navItems as $it)
                             <a href="{{ route($showRoute, $it->slug) }}" class="flex items-center gap-4 border border-amber/40 bg-white p-2.5">
@@ -224,9 +232,10 @@
                 </li>
             @endforeach
             <li class="border-b border-ink/10">
-                <button type="button" @click="sub = sub === 'about' ? null : 'about'" :aria-expanded="sub === 'about'" aria-controls="m-sub-about" class="flex min-h-12 w-full items-center justify-between text-left text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink [&[aria-expanded=true]>svg]:rotate-180">
-                    About Us @icon('chevron-down', 'size-5 shrink-0 transition-transform duration-200')
-                </button>
+                <div class="flex items-center">
+                    <a href="{{ route('about') }}" class="{{ $mLink }}">About Us</a>
+                    <button type="button" @click="sub = sub === 'about' ? null : 'about'" :aria-expanded="sub === 'about'" aria-controls="m-sub-about" aria-label="Show About Us pages" class="{{ $mToggle }}">@icon('chevron-down', 'size-5 transition-transform duration-200')</button>
+                </div>
                 <div id="m-sub-about" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === 'about' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== 'about'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
                     @foreach($aboutItems as [$label, $url, $img, $text])
                         <a href="{{ $url }}" class="flex items-center gap-4 border border-amber/40 bg-white p-2.5">
