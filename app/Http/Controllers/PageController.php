@@ -25,7 +25,12 @@ class PageController extends Controller
 
     public function contact()
     {
-        return view('pages.contact', ['page' => $this->page('contact')]);
+        return view('pages.contact', [
+            'page' => $this->page('contact'),
+            'quizSteps' => QuizStep::forQuiz(),
+            'quizPreset' => [],
+            'quizTourType' => '',
+        ]);
     }
 
     public function terms()
