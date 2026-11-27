@@ -9,12 +9,13 @@ namespace App\Support;
  */
 class InfoPages
 {
-    /** Banner photo and its description for the four pages in the About Us menu: the same photo each page has in that menu. */
+    /** Banner photo and its description: the four pages in the About Us menu use the same photo they have in that menu; Contact uses the menu's panel photo. */
     public const BANNERS = [
         'about' => ['images/photos/about-menu-village', 'A stone castle above a river beside a village and an arched bridge'],
         'team' => ['images/photos/about-menu-fens', 'A wooden boardwalk across misty moorland under a pale sky'],
         'testimonials' => ['images/photos/about-menu-namur', 'Aerial view of a hilltop citadel above two rivers and a town'],
         'faqs' => ['images/photos/about-menu-marsh', 'Two storks in a coastal marsh at sunset'],
+        'contact' => ['images/photos/about-menu-ypres', 'A medieval cloth hall with a tall clock tower on a cobbled square at dusk'],
     ];
 
     public static function pages(): array

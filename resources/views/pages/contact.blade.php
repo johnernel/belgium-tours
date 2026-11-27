@@ -11,8 +11,8 @@
 @include('partials.quiz-hero', [
     'heroTitle' => $page->title,
     'heroText' => $page->block('hero_sub', 'Ask a question or request a free quote. We reply as soon as we can.'),
-    'heroImage' => $page->block('hero_image', 'images/photos/brussels-grand-place'),
-    'heroAlt' => $page->block('hero_image_alt', 'Guildhouses of the Grand Place in Brussels lit at twilight'),
+    'heroImage' => $page->block('hero_image', \App\Support\InfoPages::BANNERS['contact'][0]),
+    'heroAlt' => $page->block('hero_image_alt', \App\Support\InfoPages::BANNERS['contact'][1]),
     'crumb' => $page->title,
     'heroOneLine' => true,
 ])
