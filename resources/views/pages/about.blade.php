@@ -12,6 +12,7 @@
     'heroImage' => $page->block('hero_image', 'images/photos/gravensteen'),
     'heroAlt' => $page->block('hero_image_alt', 'The medieval Gravensteen castle in Ghent at sunset'),
     'crumb' => 'About Us',
+    'heroOneLine' => true,
 ])
 
 @php $c = fn ($k) => $home->block($k); @endphp
