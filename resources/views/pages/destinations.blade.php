@@ -23,6 +23,7 @@
     'heroImage' => $page->block('hero_image', 'images/photos/bruges-market'),
     'heroAlt' => $page->block('hero_image_alt', 'The Belfry on the Market Square in Bruges at dusk'),
     'crumb' => 'Destinations',
+    'heroOneLine' => true,
 ])
 
 {{-- Layout copied from the client's reference: a gapless grid of full-bleed photo tiles (3 across on desktop), each with a dark wash and the text at the bottom left:

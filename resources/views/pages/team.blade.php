@@ -22,6 +22,7 @@
     'heroImage' => $page->block('hero_image', 'images/photos/countryside'),
     'heroAlt' => $page->block('hero_image_alt', ''),
     'crumb' => 'Meet Our Team',
+    'heroOneLine' => true,
 ])
 
 <section class="py-16 sm:py-24" aria-labelledby="team-title">

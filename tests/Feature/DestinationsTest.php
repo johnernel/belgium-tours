@@ -201,9 +201,10 @@ class DestinationsTest extends TestCase
         $this->actingAs($admin)->get("/admin/pages/{$page->id}/edit")->assertOk()->assertSee('Banner at the top of the page');
         $this->put("/admin/pages/{$page->id}", ['title' => 'Destinations', 'content' => ['hero_headline' => 'Go *somewhere* slow', 'hero_sub' => 'Banner words.']])->assertRedirect();
 
-        // The hero headline is styled like the home hero (plain white two-line headline, no accent markup), so the edited words show without the asterisks
+        // The hero headline is styled like the home hero (plain white headline, no accent markup), so the edited words show without the asterisks.
+        // On this page it stays on one line (no <br>).
         $html = $this->get('/destinations')->assertOk()->assertSee('Banner words.')->getContent();
-        $this->assertSame(1, preg_match('~<h1[^>]*>\s*Go Somewhere\s*<br><span[^>]*>\s*Slow~', $html), 'the edited headline is split over two lines');
+        $this->assertSame(1, preg_match('~<h1[^>]*>\s*<span[^>]*>\s*Go Somewhere Slow~', $html), 'the edited headline is on one line');
         $this->assertStringNotContainsString('*', strip_tags(substr($html, strpos($html, '<h1'), 600)));
     }
 }
