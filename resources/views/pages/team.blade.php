@@ -19,7 +19,7 @@
 @include('partials.quiz-hero', [
     'heroTitle' => $page->block('hero_headline', 'Meet Our *Team*'),
     'heroText' => $page->block('hero_sub', 'The people who plan your Belgium trip and look after you along the way.'),
-    'heroImage' => $page->block('hero_image', 'images/photos/countryside'),
+    'heroImage' => $page->block('hero_image', \App\Support\InfoPages::BANNERS['team'][0]),
     'heroAlt' => $page->block('hero_image_alt', ''),
     'crumb' => 'Meet Our Team',
     'heroOneLine' => true,

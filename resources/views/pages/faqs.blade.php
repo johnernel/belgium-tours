@@ -26,7 +26,7 @@
 @include('partials.quiz-hero', [
     'heroTitle' => $page->block('hero_headline', 'Frequently Asked *Questions*'),
     'heroText' => $page->block('hero_sub', 'Quick answers about quotes, tours and planning your trip.'),
-    'heroImage' => $page->block('hero_image', 'images/photos/city-leuven'),
+    'heroImage' => $page->block('hero_image', \App\Support\InfoPages::BANNERS['faqs'][0]),
     'heroAlt' => $page->block('hero_image_alt', ''),
     'crumb' => 'FAQs',
 ])

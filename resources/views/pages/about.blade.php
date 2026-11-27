@@ -9,8 +9,8 @@
 @include('partials.quiz-hero', [
     'heroTitle' => $page->block('hero_headline', 'About *Us*'),
     'heroText' => $page->block('hero_sub', 'How we plan self drive, chauffeur driven and coach tours of Belgium.'),
-    'heroImage' => $page->block('hero_image', 'images/photos/gravensteen'),
-    'heroAlt' => $page->block('hero_image_alt', 'The medieval Gravensteen castle in Ghent at sunset'),
+    'heroImage' => $page->block('hero_image', \App\Support\InfoPages::BANNERS['about'][0]),
+    'heroAlt' => $page->block('hero_image_alt', \App\Support\InfoPages::BANNERS['about'][1]),
     'crumb' => 'About Us',
     'heroOneLine' => true,
 ])

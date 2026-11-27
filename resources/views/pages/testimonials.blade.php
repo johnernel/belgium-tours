@@ -19,7 +19,7 @@
 @include('partials.quiz-hero', [
     'heroTitle' => $page->block('hero_headline', 'What Travelers *Say About Us*'),
     'heroText' => $page->block('hero_sub', 'Read what other travelers say about their Belgium trips.'),
-    'heroImage' => $page->block('hero_image', 'images/photos/ghent-graslei'),
+    'heroImage' => $page->block('hero_image', \App\Support\InfoPages::BANNERS['testimonials'][0]),
     'heroAlt' => $page->block('hero_image_alt', ''),
     'crumb' => 'Testimonials',
 ])
