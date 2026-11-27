@@ -62,3 +62,6 @@ The two photos in the home page Tailor-made section (public/images/photos/tailor
 ## Stress-free travel band background (2026-12-02)
 - `public/images/photos/stress-free-namur-800/1280/1600.webp`: a 1920x1080 aerial photo of a fortified hill town above a river (looks like the Citadel of Namur) supplied by the client. It looks AI-generated or edited. Author, source and licence NOT yet confirmed (check the tool's terms and that the place is accurate before launch). Used as the fixed background of the Stress-free travel band (home and Packages page).
 
+## About Us mega menu photos (2026-11-27)
+- `public/images/photos/about-menu-ypres/village/fens/namur/marsh-480/800/1280.webp`: five 1920x1080 photos supplied by the client (a cloth hall and belfry on a market square at dusk, left panel; a castle, river and stone bridge village, About Us; a boardwalk across misty moorland, Meet Our Team; an aerial view of a citadel above two rivers, Testimonials; a coastal marsh with two storks, FAQs). They look AI-generated or edited. Author, source and licence NOT yet confirmed (check the tool's terms and that the places are accurate before launch). Used only in the header's About Us menu (desktop and phone), decorative, with no place names.
+

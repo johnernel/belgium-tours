@@ -3,10 +3,11 @@
 @php
     $navTypes = \App\Models\TourType::active()->with(['packages' => fn ($q) => $q->published()->orderByDesc('is_featured')->orderBy('sort')])->get();
     $aboutItems = [
-        ['About Us', route('about'), 'images/photos/bruges-belfry', 'Who we are and how we plan your Belgium trip.'],
-        ['Meet Our Team', route('team'), 'images/photos/countryside', 'The people who plan and look after your journey.'],
-        ['Testimonials', route('testimonials'), 'images/photos/ghent-graslei', 'Read what other travelers say about their trips.'],
-        ['FAQs', route('faqs'), 'images/photos/city-leuven', 'Quick answers to the questions we hear most.'],
+        // label, link, photo, blurb, crop focus (CSS object-position: the photos are 16:9, the cards 4:3 or square)
+        ['About Us', route('about'), 'images/photos/about-menu-village', 'Who we are and how we plan your Belgium trip.', '30% 50%'],
+        ['Meet Our Team', route('team'), 'images/photos/about-menu-fens', 'The people who plan and look after your journey.', '25% 50%'],
+        ['Testimonials', route('testimonials'), 'images/photos/about-menu-namur', 'Read what other travelers say about their trips.', '45% 50%'],
+        ['FAQs', route('faqs'), 'images/photos/about-menu-marsh', 'Quick answers to the questions we hear most.', '65% 50%'],
     ];
     $aboutLinks = array_map(fn ($i) => [$i[0], $i[1]], $aboutItems);
     // The Destinations and Travel Styles menus: every active destination / travel style, each with its published trip count.
@@ -153,17 +154,17 @@
                     <div class="border-t border-ink/10 bg-cream text-ink shadow-lift">
                         <div class="grid lg:grid-cols-[20rem_1fr] xl:grid-cols-[24rem_1fr]">
                             <div class="on-dark relative isolate flex min-h-[20rem] flex-col justify-end overflow-hidden bg-ink p-8 text-white">
-                                <x-photo base="images/photos/gravensteen" alt="" sizes="24rem" fetchpriority="low" :ratio="[1600, 1044]" class="absolute inset-0 -z-20 size-full" />
+                                <x-photo base="images/photos/about-menu-ypres" alt="" :widths="[480, 800, 1280]" sizes="(min-width:1280px) 48rem, 80rem" fetchpriority="low" :ratio="[1920, 1080]" class="absolute inset-0 -z-20 size-full object-[53%_50%]" />
                                 <span class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/25" aria-hidden="true"></span>
                                 <p class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-white"><span class="h-px w-10 bg-amber" aria-hidden="true"></span>Get to know us</p>
                                 <p class="heading-face mt-4 font-serif text-3xl font-light leading-tight text-white">@heading('Plan *With Peace of Mind*')</p>
                                 <p class="mt-4 text-[0.95rem] leading-relaxed text-white/95">Learn about our team, read what travelers say and find the answers that make your Belgium trip smooth and stress-free.</p>
                             </div>
                             <ul class="grid gap-5 p-6 sm:grid-cols-2 xl:grid-cols-4 xl:p-8">
-                                @foreach($aboutItems as [$label, $url, $img, $text])
+                                @foreach($aboutItems as [$label, $url, $img, $text, $focus])
                                     <li>
                                         <a href="{{ $url }}" class="group flex h-full flex-col overflow-hidden bg-paper shadow-card transition hover:-translate-y-0.5 hover:shadow-lift" @click="menu = null">
-                                            <span class="relative block aspect-[4/3] overflow-hidden bg-sky-soft"><x-photo :base="$img" alt="" sizes="(min-width:1280px) 18vw, 40vw" fetchpriority="low" :ratio="[1600, 1200]" class="size-full transition-transform duration-500 group-hover:scale-105" /></span>
+                                            <span class="relative block aspect-[4/3] overflow-hidden bg-sky-soft"><x-photo :base="$img" alt="" :widths="[480, 800, 1280]" sizes="(min-width:1280px) 24vw, 52vw" fetchpriority="low" :ratio="[1600, 1200]" class="size-full transition-transform duration-500 group-hover:scale-105" style="object-position: {{ $focus }}" /></span>
                                             <span class="flex flex-1 flex-col p-5">
                                                 <span class="heading-face font-serif text-xl leading-tight">{{ $label }}</span>
                                                 <span class="mt-2 text-sm leading-relaxed text-slate">{{ $text }}</span>
@@ -237,9 +238,9 @@
                     <button type="button" @click="sub = sub === 'about' ? null : 'about'" :aria-expanded="sub === 'about'" aria-controls="m-sub-about" aria-label="Show About Us pages" class="{{ $mToggle }}">@icon('chevron-down', 'size-5 transition-transform duration-200')</button>
                 </div>
                 <div id="m-sub-about" class="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none" style="grid-template-rows: 0fr" :style="sub === 'about' ? 'grid-template-rows: 1fr' : 'grid-template-rows: 0fr'" :inert="sub !== 'about'" inert><div class="min-h-0 space-y-3 overflow-hidden"><div class="space-y-3 pb-4">
-                    @foreach($aboutItems as [$label, $url, $img, $text])
+                    @foreach($aboutItems as [$label, $url, $img, $text, $focus])
                         <a href="{{ $url }}" class="flex items-center gap-4 border border-amber/40 bg-white p-2.5">
-                            <span class="size-[4.5rem] shrink-0 overflow-hidden bg-sky-soft"><x-photo :base="$img" alt="" :widths="[480, 800]" sizes="72px" :ratio="[480, 480]" class="size-full" /></span>
+                            <span class="size-[4.5rem] shrink-0 overflow-hidden bg-sky-soft"><x-photo :base="$img" alt="" :widths="[480, 800]" sizes="128px" :ratio="[480, 480]" class="size-full" style="object-position: {{ $focus }}" /></span>
                             <span class="min-w-0">
                                 <span class="heading-face block font-display text-[1.15rem] leading-tight text-ink">{{ $label }}</span>
                                 <span class="mt-1 line-clamp-3 block text-[0.85rem] leading-snug text-slate">{{ $text }}</span>
