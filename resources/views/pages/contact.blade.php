@@ -61,7 +61,7 @@
 
         <div class="border border-ink/10 bg-paper p-6 shadow-card sm:p-10">
             <h2 class="text-[2rem] leading-[1.1] sm:text-[2.5rem]">@heading('Send us a *message*')</h2>
-            <div class="mt-6"><x-enquiry-form form-name="contact" :extended="true" id-prefix="c" submit-label="Send message" /></div>
+            <div class="mt-6"><x-enquiry-form form-name="contact" :extended="true" id-prefix="c" submit-label="Send message" submit-variant="cta" /></div>
         </div>
     </div>
 </section>

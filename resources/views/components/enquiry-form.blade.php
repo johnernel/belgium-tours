@@ -6,6 +6,7 @@
     'extended' => false,      // adds time of year, group size and nights
     'submitLabel' => 'Get my free quote',
     'idPrefix' => 'f',
+    'submitVariant' => 'primary', // button variant of the submit button (see components/button)
 ])
 @php
     $id = fn ($n) => $idPrefix.'-'.$n;
@@ -129,7 +130,7 @@
     <p class="rounded-lg bg-red-50 p-3 text-sm font-semibold text-red-900" x-show="generalError" x-text="generalError" role="alert"></p>
 
     <div x-show="!done">
-        <x-button type="submit" size="lg" class="w-full" x-bind:disabled="submitting" x-text="submitting ? 'Sending…' : '{{ $submitLabel }}'">{{ $submitLabel }}</x-button>
+        <x-button type="submit" :variant="$submitVariant" size="lg" class="w-full" x-bind:disabled="submitting" x-text="submitting ? 'Sending…' : '{{ $submitLabel }}'">{{ $submitLabel }}</x-button>
     </div>
     <p x-cloak x-show="done" role="status" class="rounded-xl bg-sky-soft p-4 text-center font-display text-lg font-medium">Thank you! Your inquiry is on its way…</p>
 </form>
